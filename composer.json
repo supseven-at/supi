@@ -7,8 +7,7 @@
         "bin-dir": "bin/",
         "platform": {
             "php": "7.2.6"
-        },
-        "gitlab-domains": ["gitlab.sup7.at"]
+        }
     },
     "autoload": {
         "psr-4": {
@@ -29,9 +28,5 @@
             "web-dir": "vendor/_www/"
         },
         "installer-name": "supi"
-    },
-    "require": {
-        "typo3/cms-fluid": "^10.1",
-        "typo3/cms-frontend": "^10.1"
     }
 }
