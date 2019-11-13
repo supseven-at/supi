@@ -1,0 +1,42 @@
+
+plugin.tx_supi {
+    view {
+        template = EXT:supi/Resources/Private/Templates/Banner.html
+        partialRootPaths.0 = EXT:supi/Resources/Private/Partials/
+        layoutRootPaths.0 = EXT:supi/Resources/Private/Layouts/
+    }
+
+    settings {
+        elements {
+            essential {
+                required = 1
+                names = fe_typo_user,be_typo_user,PHPSESSID
+                label = Elementum sem
+                text = Rhoncus penatibus dui per purus
+                link {
+                    label = foo
+                    href = #
+                    target = _blank
+                    text = Link
+                }
+            }
+        }
+
+        button {
+            ok {
+                label = Taciti sem magna
+                text = YO
+            }
+            dismiss {
+                label = Eget lectus est fringilla
+                text = NAH!
+            }
+        }
+
+        bundledScript = JavaScript/Supi.min.js
+        bundledStyles = Css/Supi.min.css
+    }
+}
+
+lib.elements.supi = USER
+lib.elements.supi.userFunc = Supseven\Supi\Rendering\BannerRenderer->userFunc

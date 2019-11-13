@@ -1,21 +1,36 @@
-<html data-namespace-typo3-fluid="true"
-      xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers">
+<html
+    data-namespace-typo3-fluid="true"
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:supi="http://typo3.org/ns/Supseven/Supi/ViewHelpers">
 
-    <f:variable name="supi" value="{ label: 'Elementum sem', text : 'Rhoncus penatibus dui per purus', link : { label : 'foo', href: '#', href: '_blank', text: 'Link' }, button: { ok : { label: 'Taciti sem magna', text: 'YO!' }, dismiss : { label: 'Eget lectus est fringilla', text: 'NAH!' } } }" />
+    <f:if condition="{settings.bundledScript}">
+        <supi:append section="head" as="supi_script">
+            <script type="text/javascript" src="{f:uri.resource(path: settings.bundledScript)}" data-supi-config="{config -> f:format.raw()}"></script>
+        </supi:append>
+    </f:if>
 
-    <div class="tx-supi position position-bottom-left theme theme-default" aria-describedby="supi:description" aria-labelledby="supi:label" aria-live="status" role="dialog">
-        <h3 id="supi:label">{supi.label}</h3>
-        <span id="supi:description">
-            {supi.text}
-            <a aria-label="{supi.link.label}" href="{supi.link.href}" role="button" tabindex="0" target="{supi.link.href}">{supi.link.text}</a>
-        </span>
+    <f:if condition="{settings.bundledStyles}">
+        <supi:append section="head" as="supi_styles">
+            <link rel="stylesheet" href="{f:uri.resource(path: settings.bundledStyles)}">
+        </supi:append>
+    </f:if>
 
-        <nav>
-            <ul>
-                <li><a aria-label="{supi.button.ok.label}" role="button" tabindex="0">{supi.button.ok.text}</a></li>
-                <li><a aria-label="{supi.button.dismiss.label}" role="button" tabindex="0">{supi.button.dismiss.text}</a></li>
-            </ul>
-        </nav>
-    </div>
+    <f:if condition="{settings.elements -> f:count()} < 2 && {settings.elements.essential}">
+        <f:variable name="supi">{settings.elements.essential}</f:variable>
+        <div class="tx-supi position position-bottom-left theme theme-default" aria-describedby="supi:description" aria-labelledby="supi:label" aria-live="status" role="dialog">
+            <h3 id="supi:label">{supi.label}</h3>
+            <span id="supi:description">
+                {supi.text}
+                <a aria-label="{supi.link.label}" href="{supi.link.href}" role="button" tabindex="0" target="{supi.link.href}">{supi.link.text}</a>
+            </span>
+
+            <nav>
+                <ul>
+                    <li><a aria-label="{supi.button.ok.label}" role="button" tabindex="0">{supi.button.ok.text}</a></li>
+                    <li><a aria-label="{supi.button.dismiss.label}" role="button" tabindex="0">{supi.button.dismiss.text}</a></li>
+                </ul>
+            </nav>
+        </div>
+    </f:if>
 
 </html>
