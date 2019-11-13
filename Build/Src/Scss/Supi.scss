@@ -1,0 +1,26 @@
+:root {
+  --position-bottom: 0;
+  --position-left: 0;
+  --color-background: #fff;
+}
+
+.tx-supi {
+  position: fixed;
+  z-index: 99;
+  background-color: var(--color-background);
+
+  &.position {
+    &-bottom {
+      &-left {
+        bottom: var(--position-bottom);
+        left: var(--position-left);
+      }
+    }
+  }
+
+  &.theme {
+    &-default {
+
+    }
+  }
+}

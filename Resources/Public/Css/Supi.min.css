@@ -1,0 +1,2 @@
+:root{--position-bottom:0;--position-left:0;--color-background:#fff}.tx-supi{position:fixed;z-index:99;background-color:var(--color-background)}.tx-supi.position-bottom-left{bottom:var(--position-bottom);left:var(--position-left)}
+/*# sourceMappingURL=Supi.min.css.map */
