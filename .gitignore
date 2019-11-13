@@ -10,3 +10,4 @@ Resources/Public/JavaScript/*.map
 /.idea
 /.php_cs.cache
 /composer.list
+/.phpunit.result.cache
