@@ -1,0 +1,6 @@
+/bin
+/vendor
+
+/.idea
+/.php_cs.cache
+/composer.list
