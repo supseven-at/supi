@@ -30,7 +30,8 @@ class BannerRenderer
      * @param array|null $configuration
      * @param StandaloneView $view
      */
-    public function __construct(?array $configuration =  null, ?StandaloneView $view = null) {
+    public function __construct(?array $configuration = null, ?StandaloneView $view = null)
+    {
         if (empty($configuration)) {
             $configuration = GeneralUtility::makeInstance(ObjectManager::class)
                 ->get(ConfigurationManagerInterface::class)

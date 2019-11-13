@@ -35,7 +35,7 @@ class BannerViewHelper extends AbstractViewHelper
         $renderer = GeneralUtility::makeInstance(BannerRenderer::class);
         $overrides = [
             'elements' => $renderChildrenClosure(),
-            'config' => $arguments['config'] ?? null,
+            'config'   => $arguments['config'] ?? null,
         ];
 
         foreach ($overrides as $key => $data) {

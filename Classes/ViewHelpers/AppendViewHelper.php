@@ -31,8 +31,8 @@ class AppendViewHelper extends AbstractViewHelper
         \Closure $renderChildrenClosure,
         RenderingContextInterface $renderingContext
     ) {
-        $content = (string) $renderChildrenClosure();
-        $as = (string) ($arguments['as'] ?? md5($content));
+        $content = (string)$renderChildrenClosure();
+        $as = (string)($arguments['as'] ?? md5($content));
 
         switch ($arguments['section']) {
             case 'head':
