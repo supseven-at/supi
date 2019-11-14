@@ -13,6 +13,8 @@ class Supi {
 
         if (parseInt(this.getCookie(this.cookieName)) === 1) {
             this.injectJavaScripts();
+        } else if (parseInt(this.getCookie(this.cookieName)) === 0) {
+            // do nothing at this point
         } else {
             this.toggleBanner();
         }
@@ -25,7 +27,7 @@ class Supi {
             e.preventDefault();
 
             if (that.injectJavaScripts() === true) {
-                that.banner.classList.add('hidden');
+                that.toggleBanner();
                 that.setCookie(that.cookieName, '1');
             }
         });
@@ -34,6 +36,7 @@ class Supi {
             e.preventDefault();
             if (that.removeScripts() === true) {
                 that.toggleBanner();
+                that.setCookie(that.cookieName, '0');
             }
         });
     }
