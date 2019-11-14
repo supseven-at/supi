@@ -1,20 +1,40 @@
+/**
+ * Supseven User Privacy Interface Class
+ * for GDPR Issues
+ */
 class Supi {
+    // the allow button
     allow: any;
+
+    // the dismiss button
     dismiss: any;
+
+    // the choose button provied by the plugin
     choose: any;
+
+    // the main cookie banner
     banner: any;
+
+    // the cookie name which will be set as a status cookie
     cookieName: any = 'supi-status';
+
+    // the typoscript config
     config: any;
 
+    /**
+     * the constructor
+     */
     constructor() {
-        this.allow = document.getElementById('supi:allow');
-        this.dismiss = document.getElementById('supi:dismiss');
-        this.choose = document.getElementById('supi:choose');
+        this.allow = <HTMLAnchorElement>document.getElementById('supi:allow');
+        this.dismiss = <HTMLAnchorElement>document.getElementById('supi:dismiss');
+        this.choose = <HTMLAnchorElement>document.getElementById('supi:choose');
         this.banner = <HTMLDivElement>document.getElementById('supi:banner');
         this.config = JSON.parse(document.getElementById('supi:script').getAttribute('data-supi-config'));
 
+        // add all click handlers to the buttons
         this.addClickHandler();
 
+        // check, if status cookie is set and check the status it self and react on that
         if (parseInt(this.getCookie(this.cookieName)) === 1) {
             this.injectJavaScripts();
         } else if (parseInt(this.getCookie(this.cookieName)) === 0) {
@@ -24,9 +44,14 @@ class Supi {
         }
     }
 
+    /**
+     * adds the clickhandler to the buttons
+     */
     addClickHandler(): void {
         let that = this;
 
+        // on click removes first all scripts and readds then
+        // the scripts, after that the banner will be toggled
         this.allow.addEventListener('click', function(e: any){
             e.preventDefault();
 
@@ -38,6 +63,8 @@ class Supi {
             }
         });
 
+        // on click removes all javascripts and toggles the
+        // banner
         this.dismiss.addEventListener('click', function(e: any){
             e.preventDefault();
             if (that.removeScripts() === true) {
@@ -46,12 +73,19 @@ class Supi {
             }
         });
 
+        // this click event simply opens the banner for
+        // further interaction
         this.choose.addEventListener('click', function(e: any){
             e.preventDefault();
             that.toggleBanner();
         });
     }
 
+    /**
+     * injects the javascripts
+     * always use <script type="application/supi"></script>
+     * to load the correct scripts
+     */
     injectJavaScripts(): boolean {
         let elements: any = document.getElementsByTagName('script'),
             scripts = [];
@@ -75,10 +109,18 @@ class Supi {
         return true;
     }
 
+    /**
+     * simply toggles the banner class
+     */
     toggleBanner(): void {
         this.banner.classList.toggle('hidden');
     }
 
+    /**
+     * removes all script tags added by supi
+     * and removes all cookies we have access to and which are not
+     * whitelisted by the config
+     */
     removeScripts(): boolean {
         let elements: any = document.getElementsByClassName('supi-scripts');
 
@@ -91,6 +133,12 @@ class Supi {
         return true;
     }
 
+    /**
+     * a set cookie method
+     *
+     * @param name
+     * @param val
+     */
     setCookie(name: string, val: string): void {
         const date = new Date();
         const value = val;
@@ -100,6 +148,11 @@ class Supi {
         document.cookie = name+"="+value+"; expires="+date.toUTCString()+"; path=/";
     }
 
+    /**
+     * a get cookie method
+     *
+     * @param name
+     */
     getCookie(name: string): any {
         const value = "; " + document.cookie;
         const parts = value.split("; " + name + "=");
@@ -109,12 +162,20 @@ class Supi {
         }
     }
 
+    /**
+     * a delete cookie method
+     *
+     * @param name
+     */
     deleteCookie(name: string) {
         const date = new Date();
         date.setTime(date.getTime() + (-1 * 24 * 60 * 60 * 1000));
         document.cookie = name+"=; expires="+date.toUTCString()+"; path=/";
     }
 
+    /**
+     * deletes all but the whitelisted cookies
+     */
     deleteAllCookies() {
         const cookies = document.cookie.split('; ');
         let that = this,
@@ -130,6 +191,7 @@ class Supi {
     }
 }
 
+// instanciate the class on load.
 window.onload = () => {
     let supi = new Supi();
 };
