@@ -3,34 +3,39 @@
     xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
     xmlns:supi="http://typo3.org/ns/Supseven/Supi/ViewHelpers">
 
-    <f:if condition="{settings.bundledScript}">
-        <supi:append section="head" as="supi_script">
-            <script type="text/javascript" src="{f:uri.resource(path: settings.bundledScript)}" data-supi-config="{config -> f:format.raw()}"></script>
-        </supi:append>
-    </f:if>
+    <f:layout name="Default" />
 
-    <f:if condition="{settings.bundledStyles}">
-        <supi:append section="head" as="supi_styles">
-            <link rel="stylesheet" href="{f:uri.resource(path: settings.bundledStyles)}">
-        </supi:append>
-    </f:if>
+    <f:section name="Head">
+        <f:if condition="{settings.bundledScript}">
+            <supi:append section="head" as="supi_script">
+                <script type="text/javascript" src="{f:uri.resource(path: settings.bundledScript)}" data-supi-config="{config -> f:format.raw()}"></script>
+            </supi:append>
+        </f:if>
 
-    <f:if condition="{settings.elements -> f:count()} < 2 && {settings.elements.essential}">
-        <f:variable name="supi">{settings.elements.essential}</f:variable>
-        <div class="tx-supi position position-bottom-left theme theme-default" aria-describedby="supi:description" aria-labelledby="supi:label" aria-live="status" role="dialog">
-            <h3 id="supi:label">{supi.label}</h3>
-            <span id="supi:description">
-                {supi.text}
-                <a aria-label="{supi.link.label}" href="{supi.link.href}" role="button" tabindex="0" target="{supi.link.href}">{supi.link.text}</a>
-            </span>
+        <f:if condition="{settings.bundledStyles}">
+            <supi:append section="head" as="supi_styles">
+                <link rel="stylesheet" href="{f:uri.resource(path: settings.bundledStyles)}">
+            </supi:append>
+        </f:if>
+    </f:section>
 
-            <nav>
-                <ul>
-                    <li><a aria-label="{supi.button.ok.label}" role="button" tabindex="0">{supi.button.ok.text}</a></li>
-                    <li><a aria-label="{supi.button.dismiss.label}" role="button" tabindex="0">{supi.button.dismiss.text}</a></li>
-                </ul>
-            </nav>
-        </div>
-    </f:if>
+    <f:section name="Main">
+        <f:if condition="{settings.elements -> f:count()} < 2 && {settings.elements.essential}">
+            <div class="tx-supi position position-bottom-left theme theme-default" aria-describedby="supi:description" aria-labelledby="supi:label" aria-live="status" role="dialog">
+                <h3 id="supi:label">{settings.elements.essential.label}</h3>
+                <span id="supi:description">
+                    {settings.elements.essential.text}
+                    <a aria-label="{settings.elements.essential.link.label}" href="{settings.elements.essential.link.href}" role="button" tabindex="0" target="{settings.elements.essential.link.href}">{settings.elements.essential.link.text}</a>
+                </span>
+
+                <nav>
+                    <ul>
+                        <li><a aria-label="{settings.elements.essential.button.ok.label}" role="button" tabindex="0">{settings.elements.essential.button.ok.text}</a></li>
+                        <li><a aria-label="{settings.elements.essential.button.dismiss.label}" role="button" tabindex="0">{settings.elements.essential.button.dismiss.text}</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </f:if>
+    </f:section>
 
 </html>
