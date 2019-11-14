@@ -56,3 +56,10 @@ tt_content.tx_supi_button = FLUIDTEMPLATE
 tt_content.tx_supi_button {
     templateName = Button
 }
+
+page.headerData.1573730643 = TEXT
+page.headerData.1573730643.value (
+    <script type="application/supi">
+        console.log("hau mich rein!");
+    </script>
+)

@@ -32,12 +32,18 @@
   font-size: var(--supi-font-base-size);
 
   &.position {
+    transition: all .2s ease-in-out;
+
     &-bottom {
       &-left {
         bottom: var(--supi-position-bottom);
         left: var(--supi-position-left);
         width: 40vw;
       }
+    }
+
+    &.hidden {
+      transform: translateY(calc(100% + 30px));
     }
   }
 

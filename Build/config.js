@@ -18,9 +18,10 @@ module.exports = function () {
                 watch: ext + '/Build/Src/Scss/**/*.scss'
             },
             javascript: {
-                src: ext + '/Build/Src/JavaScript/Supi.js',
+                src: ext + '/Build/Src/JavaScript/**/*.ts',
                 dest: ext + '/Resources/Public/JavaScript',
-                watch: ext + '/Build/Src/JavaScript/**/*.js'
+                outFile: 'Supi.js',
+                watch: ext + '/Build/Src/JavaScript/**/*.ts'
             },
         }
     };
