@@ -8,7 +8,7 @@
     <f:section name="Head">
         <f:if condition="{settings.bundledScript}">
             <supi:append section="head" as="supi_script">
-                <script type="text/javascript" src="{f:uri.resource(path: settings.bundledScript)}" data-supi-config="{config -> f:format.htmlspecialchars()}"></script>
+                <script id="supi:script" type="text/javascript" src="{f:uri.resource(path: settings.bundledScript)}" data-supi-config="{config -> f:format.htmlspecialchars()}"></script>
             </supi:append>
         </f:if>
 

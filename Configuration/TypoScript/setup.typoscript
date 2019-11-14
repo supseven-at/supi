@@ -11,7 +11,7 @@ plugin.tx_supi {
         elements {
             essential {
                 required = 1
-                names = fe_typo_user,be_typo_user,PHPSESSID
+                names = fe_typo_user,be_typo_user,PHPSESSID,supi-status,cookie1
                 label = Notwendige Cookies
                 text = Cookies, die zum Betrieb der Seite nötig sind.
                 link {

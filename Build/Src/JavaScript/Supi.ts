@@ -4,12 +4,14 @@ class Supi {
     choose: any;
     banner: any;
     cookieName: any = 'supi-status';
+    config: any;
 
     constructor() {
         this.allow = document.getElementById('supi:allow');
         this.dismiss = document.getElementById('supi:dismiss');
         this.choose = document.getElementById('supi:choose');
         this.banner = <HTMLDivElement>document.getElementById('supi:banner');
+        this.config = JSON.parse(document.getElementById('supi:script').getAttribute('data-supi-config'));
 
         this.addClickHandler();
 
@@ -115,11 +117,15 @@ class Supi {
 
     deleteAllCookies() {
         const cookies = document.cookie.split('; ');
-        let that = this;
+        let that = this,
+            doNotDelete = this.config['essential']['names'].split(',');
 
         cookies.forEach(function(cookie){
            let cookieName = cookie.split('=')[0];
-           that.deleteCookie(cookieName);
+
+           if (doNotDelete.indexOf(cookieName) === -1) {
+               that.deleteCookie(cookieName);
+           }
         });
     }
 }
