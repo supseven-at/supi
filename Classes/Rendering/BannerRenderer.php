@@ -52,7 +52,7 @@ class BannerRenderer
 
     public function render(): string
     {
-        $template = GeneralUtility::makeInstance($this->configuration['view']['template']);
+        $template = $this->configuration['view']['template'];
 
         $this->view->getRequest()->setControllerExtensionName('Supi');
         $this->view->setTemplatePathAndFilename($template);
