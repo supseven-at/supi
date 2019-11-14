@@ -26,6 +26,8 @@ class Supi {
         this.allow.addEventListener('click', function(e: any){
             e.preventDefault();
 
+            that.removeScripts();
+
             if (that.injectJavaScripts() === true) {
                 that.toggleBanner();
                 that.setCookie(that.cookieName, '1');
@@ -42,20 +44,24 @@ class Supi {
     }
 
     injectJavaScripts(): boolean {
-        this.removeScripts();
-
-        let elements: any = document.getElementsByTagName('script');
+        let elements: any = document.getElementsByTagName('script'),
+            scripts = [];
 
         for(let el of elements) {
             if (el.type === 'application/supi') {
-                let element = <HTMLScriptElement>document.createElement('script');
-                element.type = 'text/javascript';
-                element.className = 'supi-scripts';
-                element.innerHTML = el.innerHTML;
-
-                document.head.appendChild(element);
+                scripts.push(el);
             }
         }
+
+        let element = <HTMLScriptElement>document.createElement('script');
+        element.type = 'text/javascript';
+        element.className = 'supi-scripts';
+
+        scripts.forEach(function(script){
+            element.innerHTML += script.innerHTML;
+        });
+
+        document.head.appendChild(element);
 
         return true;
     }

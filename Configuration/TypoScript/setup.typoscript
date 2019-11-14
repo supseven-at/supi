@@ -37,6 +37,10 @@ plugin.tx_supi {
                 label = Eget lectus est fringilla
                 text = NAH!
             }
+            choose {
+                label = Porttitor sociosqu luctus non
+                text = Choose wisely, Young Padawan!
+            }
         }
 
         position = bottom-left
@@ -60,5 +64,9 @@ page.headerData.1573730643 = TEXT
 page.headerData.1573730643.value (
     <script type="application/supi">
         console.log("hau mich rein!");
+    </script>
+
+    <script type="application/supi">
+        console.log("ich auch! ich auch!");
     </script>
 )
