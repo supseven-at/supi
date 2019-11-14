@@ -1,12 +1,14 @@
 class Supi {
     allow: any;
     dismiss: any;
+    choose: any;
     banner: any;
     cookieName: any = 'supi-status';
 
     constructor() {
         this.allow = document.getElementById('supi:allow');
         this.dismiss = document.getElementById('supi:dismiss');
+        this.choose = document.getElementById('supi:choose');
         this.banner = <HTMLDivElement>document.getElementById('supi:banner');
 
         this.addClickHandler();
@@ -40,6 +42,11 @@ class Supi {
                 that.toggleBanner();
                 that.setCookie(that.cookieName, '0');
             }
+        });
+
+        this.choose.addEventListener('click', function(e: any){
+            e.preventDefault();
+            that.toggleBanner();
         });
     }
 
@@ -77,6 +84,8 @@ class Supi {
             document.head.removeChild(el);
         }
 
+        this.deleteAllCookies();
+
         return true;
     }
 
@@ -96,6 +105,22 @@ class Supi {
         if (parts.length == 2) {
             return parts.pop().split(";").shift();
         }
+    }
+
+    deleteCookie(name: string) {
+        const date = new Date();
+        date.setTime(date.getTime() + (-1 * 24 * 60 * 60 * 1000));
+        document.cookie = name+"=; expires="+date.toUTCString()+"; path=/";
+    }
+
+    deleteAllCookies() {
+        const cookies = document.cookie.split('; ');
+        let that = this;
+
+        cookies.forEach(function(cookie){
+           let cookieName = cookie.split('=')[0];
+           that.deleteCookie(cookieName);
+        });
     }
 }
 

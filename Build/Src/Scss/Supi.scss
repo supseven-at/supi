@@ -10,6 +10,7 @@
   --supi-color-allow: #{_get($colors, success)};
   --supi-color-dismiss: #{_get($colors, warning)};
   --supi-color-choose: #{_get($colors, notice)};
+  --supi-color-choose-invert: #{_get($colors, secondary)};
   --supi-color-button-bar: #{_get($colors, button-bar)};
   --supi-color-button-color: #{_get($colors, background)};
   --supi-padding: #{$banner-box-padding};
@@ -27,19 +28,22 @@
 }
 
 .tx-supi {
-  position: fixed;
-  z-index: 99;
-  background-color: #fff;
-  font-size: var(--supi-font-base-size);
+  display: flex;
 
   &.position {
+    flex-direction: column;
+    position: fixed;
+    z-index: 99;
+    background-color: #fff;
+    font-size: var(--supi-font-base-size);
     transition: all .2s ease-in-out;
 
     &-bottom {
       &-left {
         bottom: var(--supi-position-bottom);
         left: var(--supi-position-left);
-        width: 40vw;
+        flex: 1 1 40%;
+        max-width: 40vw;
       }
     }
 
@@ -98,32 +102,38 @@
             a {
               flex-grow: 1;
               text-decoration: none;
-
-              &:after, &:before {
-                display: none;
-              }
             }
           }
         }
       }
+    }
+  }
 
-      .button {
-        line-height: 3;
-        font-weight: bold;
-        color: var(--supi-color-button-color);
+  .button {
+    line-height: 3;
+    font-weight: bold;
+    color: var(--supi-color-button-color);
+    text-decoration: none;
 
-        &-allow {
-          background: var(--supi-color-allow);
-        }
+    &:after, &:before {
+      display: none;
+    }
 
-        &-dismiss {
-          background: var(--supi-color-dismiss);
-        }
+    &-allow {
+      background: var(--supi-color-allow);
+    }
 
-        &-choose {
-          background: var(--supi-color-choose);
-        }
-      }
+    &-dismiss {
+      background: var(--supi-color-dismiss);
+    }
+
+    &-choose {
+      background: var(--supi-color-choose);
+      color: var(--supi-color-choose-invert);
+      display: block;
+      padding-left: 15px;
+      padding-right: 15px;
+      margin: 40px auto;
     }
   }
 }
