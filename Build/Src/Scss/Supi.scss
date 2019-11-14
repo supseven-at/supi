@@ -9,6 +9,7 @@
   --supi-color-secondary: #{_get($colors, secondary)};
   --supi-color-allow: #{_get($colors, success)};
   --supi-color-dismiss: #{_get($colors, warning)};
+  --supi-color-choose: #{_get($colors, notice)};
   --supi-color-button-bar: #{_get($colors, button-bar)};
   --supi-color-button-color: #{_get($colors, background)};
   --supi-padding: #{$banner-box-padding};
@@ -117,6 +118,10 @@
 
         &-dismiss {
           background: var(--supi-color-dismiss);
+        }
+
+        &-choose {
+          background: var(--supi-color-choose);
         }
       }
     }
