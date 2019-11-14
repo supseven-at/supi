@@ -7,7 +7,7 @@ variables:
   COMPOSER_CACHE_DIR: $CI_PROJECT_DIR/.cache/composer
 
 cache:
-  key: "$CI_PROJECT_ID-$CI_COMMIT_REF_NAME"
+  key: "$CI_PROJECT_ID-$CI_COMMIT_REF_NAME-$CI_JOB_NAME"
   paths:
     - $CI_PROJECT_DIR/.cache
 
