@@ -1,0 +1,12 @@
+mod.wizards.newContentElement.wizardItems.plugins {
+    elements.tx_supi_button {
+        iconIdentifier = content-textmedia
+        title = LLL:EXT:supi/Resources/Private/Language/locallang_db.xlf:tt_content.button.title
+        description = LLL:EXT:supi/Resources/Private/Language/locallang_db.xlf:tt_content.button.description
+        tt_content_defValues {
+            CType = tx_supi_button
+        }
+    }
+
+    show := addToList(tx_supi_button)
+}

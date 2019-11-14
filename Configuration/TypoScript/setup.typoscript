@@ -2,6 +2,7 @@
 plugin.tx_supi {
     view {
         template = EXT:supi/Resources/Private/Templates/Banner.html
+        templateRootPaths.0 = EXT:supi/Resources/Private/Templates/
         partialRootPaths.0 = EXT:supi/Resources/Private/Partials/
         layoutRootPaths.0 = EXT:supi/Resources/Private/Layouts/
     }
@@ -49,3 +50,9 @@ plugin.tx_supi {
 
 lib.elements.supi = USER
 lib.elements.supi.userFunc = Supseven\Supi\Rendering\BannerRenderer->userFunc
+
+tt_content.tx_supi_button =< plugin.tx_supi.view
+tt_content.tx_supi_button = FLUIDTEMPLATE
+tt_content.tx_supi_button {
+    templateName = Button
+}
