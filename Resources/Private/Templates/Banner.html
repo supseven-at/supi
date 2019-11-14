@@ -21,17 +21,22 @@
 
     <f:section name="Main">
         <f:if condition="{settings.elements -> f:count()} < 2 && {settings.elements.essential}">
-            <div class="tx-supi position position-bottom-left theme theme-default" aria-describedby="supi:description" aria-labelledby="supi:label" aria-live="status" role="dialog">
-                <h3 id="supi:label">{settings.elements.essential.label}</h3>
-                <span id="supi:description">
+            <div class="tx-supi position position-{settings.position} theme theme-{settings.theme}" aria-describedby="supi:description" aria-labelledby="supi:label" aria-live="status" role="dialog">
+                <div id="supi:description">
+                    <h3 id="supi:label">{settings.content.headline}</h3>
+                    <p>{settings.content.text}</p>
+                </div>
+
+                <!-- iterieren wir hier über alle möglichen zukünfigen? -->
+                <div class="elements">
                     {settings.elements.essential.text}
                     <a aria-label="{settings.elements.essential.link.label}" href="{settings.elements.essential.link.href}" role="button" tabindex="0" target="{settings.elements.essential.link.href}">{settings.elements.essential.link.text}</a>
-                </span>
+                </div>
 
                 <nav>
                     <ul>
-                        <li><a aria-label="{settings.elements.essential.button.ok.label}" role="button" tabindex="0">{settings.elements.essential.button.ok.text}</a></li>
-                        <li><a aria-label="{settings.elements.essential.button.dismiss.label}" role="button" tabindex="0">{settings.elements.essential.button.dismiss.text}</a></li>
+                        <li><a href="#dismiss" aria-label="{settings.button.dismiss.label}" role="button" tabindex="0" class="button button-dismiss">{settings.button.dismiss.text}</a></li>
+                        <li><a href="#allow" aria-label="{settings.button.allow.label}" role="button" tabindex="0" class="button button-allow">{settings.button.allow.text}</a></li>
                     </ul>
                 </nav>
             </div>

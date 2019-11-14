@@ -11,8 +11,8 @@ plugin.tx_supi {
             essential {
                 required = 1
                 names = fe_typo_user,be_typo_user,PHPSESSID
-                label = Elementum sem
-                text = Rhoncus penatibus dui per purus
+                label = Notwendige Cookies
+                text = Cookies, die zum Betrieb der Seite nötig sind.
                 link {
                     label = foo
                     href = #
@@ -22,8 +22,13 @@ plugin.tx_supi {
             }
         }
 
+        content {
+            headline = Cookie Richtlinien
+            text = Fames massa id viverra quisque accumsan pulvinar faucibus scelerisque, tellus consectetur primis fermentum potenti neque aliquam dignissim, placerat aliquet eleifend quis porttitor senectus ut.
+        }
+
         button {
-            ok {
+            allow {
                 label = Taciti sem magna
                 text = YO
             }
@@ -32,6 +37,10 @@ plugin.tx_supi {
                 text = NAH!
             }
         }
+
+        position = bottom-left
+
+        theme = default
 
         bundledScript = JavaScript/Supi.min.js
         bundledStyles = Css/Supi.min.css

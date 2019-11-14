@@ -1,0 +1,23 @@
+$position: (
+  bottom: 15px,
+  left: 15px,
+) !default;
+
+$colors: (
+  background: #fff,
+  primary: #000,
+  secondary: #ccc,
+  button-bar: #efefef,
+  success: green,
+  warning: red,
+) !default;
+
+$border: true;
+$box-shadow: true;
+$font-base-size: 16px;
+$font-size: 1em;
+$font-size-head: 1.5em;
+
+$banner-box-padding: 15px;
+$banner-box-border: 1px solid _get($colors, primary);
+$banner-box-shadow: 0 0 10px rgba(_get($colors, primary), .8);
