@@ -2,7 +2,6 @@
 declare(strict_types=1);
 namespace Supseven\Supi\Rendering;
 
-use TYPO3\CMS\Core\TypoScript\TypoScriptService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
@@ -50,7 +49,7 @@ class BannerRenderer
         $this->configuration = $configuration;
         $this->view = $view ?? GeneralUtility::makeInstance(ObjectManager::class)->get(StandaloneView::class);
 
-        if (class_exists('TYPO3\CMS\Core\TypoScript\TypoScriptService')) {
+        if (class_exists('TYPO3\\CMS\\Core\\TypoScript\\TypoScriptService')) {
             $this->typoscriptService = GeneralUtility::makeInstance(\TYPO3\CMS\Core\TypoScript\TypoScriptService::class);
         } else {
             $this->typoscriptService = GeneralUtility::makeInstance(\TYPO3\CMS\Extbase\Service\TypoScriptService::class);

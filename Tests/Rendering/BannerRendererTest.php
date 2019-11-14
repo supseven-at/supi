@@ -5,7 +5,6 @@ namespace Supseven\Supi\Tests\Rendering;
 use PHPUnit\Framework\TestCase;
 use Supseven\Supi\Rendering\BannerRenderer;
 use TYPO3\CMS\Extbase\Mvc\Web\Request;
-use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
 use TYPO3\CMS\Fluid\View\StandaloneView;
 
 /**

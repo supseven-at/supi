@@ -23,7 +23,7 @@ class AppendViewHelperTest extends TestCase
      */
     public function testRenderMethod(string $content, string $as, string $section): void
     {
-        if (!class_exists('TYPO3Fluid\Fluid\Core\Rendering\RenderingContext')) {
+        if (!class_exists('TYPO3Fluid\\Fluid\\Core\\Rendering\\RenderingContext')) {
             $this->markTestSkipped('Skip for TYPO3 7');
         }
 

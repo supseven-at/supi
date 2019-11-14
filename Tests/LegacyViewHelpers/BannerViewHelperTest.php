@@ -3,8 +3,8 @@ declare(strict_types=1);
 namespace Supseven\Supi\Tests\LegacyViewHelpers;
 
 use PHPUnit\Framework\TestCase;
-use Supseven\Supi\Rendering\BannerRenderer;
 use Supseven\Supi\LegacyViewHelpers\BannerViewHelper;
+use Supseven\Supi\Rendering\BannerRenderer;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Fluid\Core\Rendering\RenderingContext;
 
@@ -20,7 +20,7 @@ class BannerViewHelperTest extends TestCase
      */
     public function testRender(): void
     {
-        if (class_exists('TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper')) {
+        if (class_exists('TYPO3Fluid\\Fluid\\Core\\ViewHelper\\AbstractViewHelper')) {
             $this->markTestSkipped('Skip legacy test for TYPO3 8+');
         }
 

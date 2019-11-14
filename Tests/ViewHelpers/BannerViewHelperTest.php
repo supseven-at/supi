@@ -20,7 +20,7 @@ class BannerViewHelperTest extends TestCase
      */
     public function testRender(): void
     {
-        if (!class_exists('TYPO3Fluid\Fluid\Core\Rendering\RenderingContext')) {
+        if (!class_exists('TYPO3Fluid\\Fluid\\Core\\Rendering\\RenderingContext')) {
             $this->markTestSkipped('Skip for TYPO3 7');
         }
 

@@ -23,7 +23,7 @@ class AppendViewHelperTest extends TestCase
      */
     public function testRenderMethod(string $content, string $as, string $section): void
     {
-        if (class_exists('TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper')) {
+        if (class_exists('TYPO3Fluid\\Fluid\\Core\\ViewHelper\\AbstractViewHelper')) {
             $this->markTestSkipped('Skip legacy test for TYPO3 8+');
         }
 
