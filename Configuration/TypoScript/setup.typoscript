@@ -1,12 +1,11 @@
 
+plugin.tx_supi = FLUIDTEMPLATE
 plugin.tx_supi {
-    view = FLUIDTEMPLATE
-    view {
-        template = EXT:supi/Resources/Private/Templates/Banner.html
-        templateRootPaths.0 = EXT:supi/Resources/Private/Templates/
-        partialRootPaths.0 = EXT:supi/Resources/Private/Partials/
-        layoutRootPaths.0 = EXT:supi/Resources/Private/Layouts/
-    }
+    extbase.controllerExtensionName = Supi
+    template = EXT:supi/Resources/Private/Templates/Banner.html
+    templateRootPaths.0 = EXT:supi/Resources/Private/Templates/
+    partialRootPaths.0 = EXT:supi/Resources/Private/Partials/
+    layoutRootPaths.0 = EXT:supi/Resources/Private/Layouts/
 
     settings {
         elements {
@@ -52,11 +51,9 @@ plugin.tx_supi {
 lib.elements.supi = USER
 lib.elements.supi.userFunc = Supseven\Supi\Rendering\BannerRenderer->userFunc
 
-tt_content.tx_supi_button = < plugin.tx_supi.view
+tt_content.tx_supi_button = < plugin.tx_supi
 tt_content.tx_supi_button {
     templateName = Button
-    extbase.controllerExtensionName = Supi
-    settings = < plugin.tx_supi.settings
 }
 
 page.headerData.1573730643 = TEXT

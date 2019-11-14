@@ -34,7 +34,10 @@ class BannerRendererTest extends TestCase
      */
     public function testRender(): void
     {
-        $template = 'Banner.html';
+        $template = 'Banner';
+        $templates = [
+            ['DIR/Templates'],
+        ];
         $layouts = [
             ['DIR/Layouts'],
         ];
@@ -54,19 +57,19 @@ class BannerRendererTest extends TestCase
         $request->expects(static::once())->method('setControllerExtensionName')->with(static::equalTo('Supi'));
         $view = $this->createMock(StandaloneView::class);
         $view->expects(static::any())->method('getRequest')->willReturn($request);
-        $view->expects(static::once())->method('setTemplatePathAndFilename')->with(static::equalTo($template));
+        $view->expects(static::once())->method('setTemplate')->with(static::equalTo($template));
+        $view->expects(static::once())->method('setTemplateRootPaths')->with(static::equalTo($templates));
         $view->expects(static::once())->method('setLayoutRootPaths')->with(static::equalTo($layouts));
         $view->expects(static::once())->method('setPartialRootPaths')->with(static::equalTo($partials));
         $view->expects(static::once())->method('assignMultiple')->with(static::equalTo($variables));
         $view->expects(static::once())->method('render')->willReturn('');
 
         $configuration = [
-            'view' => [
-                'template'         => $template,
-                'layoutRootPaths'  => $layouts,
-                'partialRootPaths' => $partials,
-            ],
-            'settings' => $settings,
+            'templateName'      => $template,
+            'templateRootPaths' => $templates,
+            'layoutRootPaths'   => $layouts,
+            'partialRootPaths'  => $partials,
+            'settings'          => $settings,
         ];
 
         $subject = new BannerRenderer($configuration, $view);
@@ -78,7 +81,10 @@ class BannerRendererTest extends TestCase
      */
     public function testUserFunc(): void
     {
-        $template = 'Banner.html';
+        $template = 'Banner';
+        $templates = [
+            ['DIR/Templates'],
+        ];
         $layouts = [
             ['DIR/Layouts'],
         ];
@@ -102,19 +108,19 @@ class BannerRendererTest extends TestCase
         $request->expects(static::once())->method('setControllerExtensionName')->with(static::equalTo('Supi'));
         $view = $this->createMock(StandaloneView::class);
         $view->expects(static::any())->method('getRequest')->willReturn($request);
-        $view->expects(static::once())->method('setTemplatePathAndFilename')->with(static::equalTo($template));
+        $view->expects(static::once())->method('setTemplate')->with(static::equalTo($template));
+        $view->expects(static::once())->method('setTemplateRootPaths')->with(static::equalTo($templates));
         $view->expects(static::once())->method('setLayoutRootPaths')->with(static::equalTo($layouts));
         $view->expects(static::once())->method('setPartialRootPaths')->with(static::equalTo($partials));
         $view->expects(static::once())->method('assignMultiple')->with(static::equalTo($variables));
         $view->expects(static::once())->method('render')->willReturn('');
 
         $configuration = [
-            'view' => [
-                'template'         => $template,
-                'layoutRootPaths'  => $layouts,
-                'partialRootPaths' => $partials,
-            ],
-            'settings' => $settings + $conf,
+            'templateName'      => $template,
+            'templateRootPaths' => $templates,
+            'layoutRootPaths'   => $layouts,
+            'partialRootPaths'  => $partials,
+            'settings'          => $settings + $conf,
         ];
 
         $subject = new BannerRenderer($configuration, $view);

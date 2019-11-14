@@ -63,12 +63,11 @@ class BannerRenderer
 
     public function render(): string
     {
-        $template = $this->configuration['view']['template'];
-
         $this->view->getRequest()->setControllerExtensionName('Supi');
-        $this->view->setTemplatePathAndFilename($template);
-        $this->view->setLayoutRootPaths($this->configuration['view']['layoutRootPaths']);
-        $this->view->setPartialRootPaths($this->configuration['view']['partialRootPaths']);
+        $this->view->setTemplate($this->configuration['templateName']);
+        $this->view->setTemplateRootPaths($this->configuration['templateRootPaths']);
+        $this->view->setLayoutRootPaths($this->configuration['layoutRootPaths']);
+        $this->view->setPartialRootPaths($this->configuration['partialRootPaths']);
         $this->view->assignMultiple([
             'settings' => $this->configuration['settings'],
             'config'   => json_encode($this->configuration['settings']['elements']),
