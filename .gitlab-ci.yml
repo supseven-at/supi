@@ -21,7 +21,7 @@ lint:
   stage: test
   script:
     - rm -rf composer.lock vendor bin
-    - composer require --ignore-platform-reqs --ansi -n --no-suggest --no-progress $TYPO3_VERSION
+    - composer require --ignore-platform-reqs --ansi -n --no-suggest --no-progress --no-plugins --no-scripts $TYPO3_VERSION
     - ./bin/phpunit -c phpunit.xml
 
 test-7:

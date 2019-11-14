@@ -26,6 +26,12 @@ class BannerRenderer
     private $configuration;
 
     /**
+     * @var \TYPO3\CMS\Core\TypoScript\TypoScriptService
+     */
+    private $typoscriptService;
+
+    /**
+     * @codeCoverageIgnore
      * BannerRenderer constructor.
      * @param array|null $configuration
      * @param StandaloneView $view
@@ -43,6 +49,12 @@ class BannerRenderer
         }
         $this->configuration = $configuration;
         $this->view = $view ?? GeneralUtility::makeInstance(ObjectManager::class)->get(StandaloneView::class);
+
+        if (class_exists('TYPO3\CMS\Core\TypoScript\TypoScriptService')) {
+            $this->typoscriptService = GeneralUtility::makeInstance(\TYPO3\CMS\Core\TypoScript\TypoScriptService::class);
+        } else {
+            $this->typoscriptService = GeneralUtility::makeInstance(\TYPO3\CMS\Extbase\Service\TypoScriptService::class);
+        }
     }
 
     public function overrideSettings(array $settings): void
@@ -58,8 +70,10 @@ class BannerRenderer
         $this->view->setTemplatePathAndFilename($template);
         $this->view->setLayoutRootPaths($this->configuration['view']['layoutRootPaths']);
         $this->view->setPartialRootPaths($this->configuration['view']['partialRootPaths']);
-        $this->view->assign('settings', $this->configuration['settings']);
-        $this->view->assign('config', json_encode($this->configuration['settings']['elements']));
+        $this->view->assignMultiple([
+            'settings' => $this->configuration['settings'],
+            'config'   => json_encode($this->configuration['settings']['elements']),
+        ]);
 
         return $this->view->render();
     }
@@ -67,7 +81,7 @@ class BannerRenderer
     public function userFunc($content, $conf): string
     {
         if (is_array($conf) && !empty($conf)) {
-            $overrides = (new TypoScriptService())->convertTypoScriptArrayToPlainArray($conf);
+            $overrides = $this->typoscriptService->convertTypoScriptArrayToPlainArray($conf);
             $this->overrideSettings($overrides);
         }
 

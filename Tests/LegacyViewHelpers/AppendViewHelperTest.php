@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
-namespace Supseven\Supi\Tests\ViewHelpers;
+namespace Supseven\Supi\Tests\LegacyViewHelpers;
 
 use PHPUnit\Framework\TestCase;
 use stdClass;
-use Supseven\Supi\ViewHelpers\AppendViewHelper;
-use TYPO3Fluid\Fluid\Core\Rendering\RenderingContext;
+use Supseven\Supi\LegacyViewHelpers\AppendViewHelper;
+use TYPO3\CMS\Fluid\Core\Rendering\RenderingContext;
 
 /**
  * Test the append function
@@ -23,8 +23,8 @@ class AppendViewHelperTest extends TestCase
      */
     public function testRenderMethod(string $content, string $as, string $section): void
     {
-        if (!class_exists('TYPO3Fluid\Fluid\Core\Rendering\RenderingContext')) {
-            $this->markTestSkipped('Skip for TYPO3 7');
+        if (class_exists('TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper')) {
+            $this->markTestSkipped('Skip legacy test for TYPO3 8+');
         }
 
         $context = $this->createMock(RenderingContext::class);
