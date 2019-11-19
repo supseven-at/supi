@@ -1,30 +1,16 @@
-# Super User Privacy Interaction
+# Supseven User Privacy Interface
 
 ## Installation
 
-Add the repository to the composer manifest:
+1. Add the package to the composer manifest: `composer req supseven/supi`.
+2. Include the TypoScript file `EXT:supi/Configuration/TypoScript/setup.typoscript`
+3. Include into the template with the view helper `<supi:banner />` or the Typoscript cObject `lib.elements.supi`
 
-When using the API (needs an access token):
+## Customization
 
-```json
-{
-    "repositories": [
-        {"type": "gitlab", "url": "https://gitlab.sup7.at/supseven/supi"}
-    ],
-    "config": {
-        "gitlab-domains": [ "gitlab.sup7.at" ]
-    }
-}
-```
+Change/override the properties in `plugin.tx_sup` to customize. The sources for the Javascript and the CSS 
+are Typescript and SCSS, which can be included in custom build piplines. 
 
-When using git-clone directly (needs rsa keys):
+## License
 
-```json
-{
-    "repositories": [
-        {"type": "git", "url": "ssh://git@gitlab.sup7.at:10022/supseven/supi.git"}
-    ]
-}
-```
-
-And run `composer req supseven/supi`. Use `composer req supseven/supi:dev-master` when making changes.
+[GPL 3.0 or later](LICENSE)
