@@ -8,7 +8,7 @@
 
 ## Customization
 
-Change/override the properties in `plugin.tx_sup` to customize. The sources for the Javascript and the CSS 
+Change/override the properties in `plugin.tx_supi` to customize. The sources for the Javascript and the CSS 
 are Typescript and SCSS, which can be included in custom build piplines. 
 
 ## License
