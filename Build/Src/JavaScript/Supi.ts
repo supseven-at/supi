@@ -89,24 +89,16 @@ class Supi {
      * to load the correct scripts
      */
     injectJavaScripts(): boolean {
-        let elements: any = document.getElementsByTagName('script'),
-            scripts = [];
+        let elements: Array<HTMLScriptElement> = [].slice.call(document.getElementsByTagName('script'), 0);
 
-        for(let el of elements) {
-            if (el.type === 'application/supi') {
-                scripts.push(el);
-            }
-        }
+        elements.forEach(script => {
+            let element = <HTMLScriptElement>document.createElement('script');
+            element.type = 'text/javascript';
+            element.className = 'supi-scripts';
+            element.innerHTML = script.innerHTML;
 
-        let element = <HTMLScriptElement>document.createElement('script');
-        element.type = 'text/javascript';
-        element.className = 'supi-scripts';
-
-        scripts.forEach(function(script){
-            element.innerHTML += script.innerHTML;
+            script.parentNode.replaceChild(element, script);
         });
-
-        document.head.appendChild(element);
 
         return true;
     }
@@ -124,11 +116,11 @@ class Supi {
      * whitelisted by the config
      */
     removeScripts(): boolean {
-        let elements: any = document.getElementsByClassName('supi-scripts');
+        let elements: Array<HTMLScriptElement> = [].slice.call(document.getElementsByClassName('supi-scripts'), 0);
 
-        for (let el of elements) {
-            document.head.removeChild(el);
-        }
+        elements.forEach(el => {
+            el.parentNode.removeChild(el);
+        });
 
         this.deleteAllCookies();
 
