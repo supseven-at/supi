@@ -91,7 +91,7 @@ class Supi {
     injectJavaScripts(): boolean {
         let elements: Array<HTMLScriptElement> = [].slice.call(document.getElementsByTagName('script'), 0);
 
-        elements.forEach(script => {
+        elements.filter(el => el.type == 'application/supi').forEach(script => {
             let element = <HTMLScriptElement>document.createElement('script');
             element.type = 'text/javascript';
             element.className = 'supi-scripts';
