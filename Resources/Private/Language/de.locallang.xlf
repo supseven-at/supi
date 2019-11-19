@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xliff version="1.0">
+    <file source-language="en" target-language="de" date="2019-11-19T11:32:39+01:00">
+        <body>
+            <trans-unit id="banner.content.text">
+                <source>This website uses cookies for functional purposes and analytics.</source>
+                <target>Diese Website verwendet Cookies für Funktionen und zu Analyse</target>
+            </trans-unit>
+            <trans-unit id="banner.button.allow.label">
+                <source>Allow all cookies</source>
+                <target>Alle Cookies erlauben</target>
+            </trans-unit>
+            <trans-unit id="banner.button.allow.text">
+                <source>All cookies</source>
+                <target>Alle Cookies</target>
+            </trans-unit>
+            <trans-unit id="banner.button.dismiss.label">
+                <source>Only functional cookie</source>
+                <target>Nur Cookies für Funktionen</target>
+            </trans-unit>
+            <trans-unit id="banner.button.dismiss.text">
+                <source>Functional only</source>
+                <target>Nur funktional</target>
+            </trans-unit>
+            <trans-unit id="plugin.button.label">
+                <source>Change cookie setting</source>
+                <target>Cookie Einstellung ändern</target>
+            </trans-unit>
+            <trans-unit id="plugin.button.text">
+                <source>Change the current cookie setting</source>
+                <target>Aktuelle Cookie Einstellung ändern</target>
+            </trans-unit>
+            <trans-unit id="banner.cookie.essential.label">
+                <source>Used cookies</source>
+                <target>Verwendete Cookies</target>
+            </trans-unit>
+            <trans-unit id="banner.cookie.essential.text">
+                <source>Detailed information</source>
+                <target>Detail Informationen</target>
+            </trans-unit>
+            <trans-unit id="banner.cookie.essential.link.text">
+                <source>Read more</source>
+                <target>Weiterlesen</target>
+            </trans-unit>
+            <trans-unit id="banner.cookie.essential.link.label">
+                <source>Read more</source>
+                <target>Weiterlesen</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

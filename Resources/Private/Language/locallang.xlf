@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xliff version="1.0">
+    <file source-language="en" date="2019-11-19T11:32:39+01:00">
+        <body>
+            <trans-unit id="banner.content.headline">
+                <source>Cookie Information</source>
+            </trans-unit>
+            <trans-unit id="banner.content.text">
+                <source>This website uses cookies for functional purposes and analytics.</source>
+            </trans-unit>
+            <trans-unit id="banner.button.allow.label">
+                <source>Allow all cookies</source>
+            </trans-unit>
+            <trans-unit id="banner.button.allow.text">
+                <source>All cookies</source>
+            </trans-unit>
+            <trans-unit id="banner.button.dismiss.label">
+                <source>Only functional cookie</source>
+            </trans-unit>
+            <trans-unit id="banner.button.dismiss.text">
+                <source>Functional only</source>
+            </trans-unit>
+            <trans-unit id="plugin.button.label">
+                <source>Change cookie setting</source>
+            </trans-unit>
+            <trans-unit id="plugin.button.text">
+                <source>Change the current cookie setting</source>
+            </trans-unit>
+            <trans-unit id="banner.cookie.essential.label">
+                <source>Used cookies</source>
+            </trans-unit>
+            <trans-unit id="banner.cookie.essential.text">
+                <source>Detailed information</source>
+            </trans-unit>
+            <trans-unit id="banner.cookie.essential.link.text">
+                <source>Read more</source>
+            </trans-unit>
+            <trans-unit id="banner.cookie.essential.link.label">
+                <source>Read more</source>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

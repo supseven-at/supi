@@ -12,34 +12,34 @@ plugin.tx_supi {
             essential {
                 required = 1
                 names = fe_typo_user,be_typo_user,PHPSESSID,supi-status,cookie1
-                label = Notwendige Cookies
-                text = Cookies, die zum Betrieb der Seite nötig sind.
+                label = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.essential.label
+                text = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.essential.text
                 link {
-                    label = foo
-                    href = #
+                    label = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.essential.link.label
+                    typolink = 1
                     target = _blank
-                    text = Link
+                    text = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.essential.link.text
                 }
             }
         }
 
         content {
-            headline = Cookie Richtlinien
-            text = Fames massa id viverra quisque accumsan pulvinar faucibus scelerisque, tellus consectetur primis fermentum potenti neque aliquam dignissim, placerat aliquet eleifend quis porttitor senectus ut.
+            headline = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.content.headline
+            text = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.content.text
         }
 
         button {
             allow {
-                label = Taciti sem magna
-                text = YO
+                label = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.button.allow.label
+                text = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.button.allow.text
             }
             dismiss {
-                label = Eget lectus est fringilla
-                text = NAH!
+                label = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.button.dismiss.label
+                text = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.button.dismiss.text
             }
             choose {
-                label = Porttitor sociosqu luctus non
-                text = Choose wisely, Young Padawan!
+                label = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:plugin.button.label
+                text = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:plugin.button.text
             }
         }
 
