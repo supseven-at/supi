@@ -59,24 +59,3 @@ tt_content.tx_supi_button = < plugin.tx_supi
 tt_content.tx_supi_button {
     templateName = Button
 }
-
-page.headerData.1573730643 = TEXT
-page.headerData.1573730643.value (
-    <script type="application/supi">
-        console.log("hau mich rein!");
-
-        var date = new Date();
-        var value = 'dei mudder sei cookie';
-        date.setTime(date.getTime() + (7 * 24 * 60 * 60 * 1000));
-        document.cookie = "cookie1="+value+"; expires="+date.toUTCString()+"; path=/";
-    </script>
-
-    <script type="application/supi">
-        console.log("ich auch! ich auch!");
-
-        var date = new Date();
-        var value = 'dei mudder sei neues cookie';
-        date.setTime(date.getTime() + (7 * 24 * 60 * 60 * 1000));
-        document.cookie = "cookie2="+value+"; expires="+date.toUTCString()+"; path=/";
-    </script>
-)
