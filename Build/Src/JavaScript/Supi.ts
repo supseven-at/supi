@@ -31,9 +31,6 @@ class Supi {
         this.banner = <HTMLDivElement>document.getElementById('supi:banner');
         this.config = JSON.parse(document.getElementById('supi:script').getAttribute('data-supi-config'));
 
-        // add all click handlers to the buttons
-        this.addClickHandler();
-
         // check, if status cookie is set and check the status it self and react on that
         if (parseInt(this.getCookie(this.cookieName)) === 1) {
             this.injectJavaScripts();
@@ -42,6 +39,9 @@ class Supi {
         } else {
             this.toggleBanner();
         }
+
+        // add all click handlers to the buttons
+        this.addClickHandler();
     }
 
     /**
@@ -75,10 +75,12 @@ class Supi {
 
         // this click event simply opens the banner for
         // further interaction
-        this.choose.addEventListener('click', function(e: any){
-            e.preventDefault();
-            that.toggleBanner();
-        });
+        if (this.choose) {
+            this.choose.addEventListener('click', (e: any) => {
+                e.preventDefault();
+                this.toggleBanner();
+            });
+        }
     }
 
     /**
