@@ -1,26 +1,9 @@
-@import "../../node_modules/sassdash/scss/sassdash";
 
-$position: (
-  bottom: 15px,
-  left: 15px,
-) !default;
+$supi-position-left: 15px !default;
+$supi-position-bottom: 15px !default;
 
-$colors: (
-  background: #fff,
-  primary: #000,
-  secondary: #ccc,
-  button-bar: #efefef,
-  success: green,
-  warning: red,
-  notice: #000,
-) !default;
+$supi-border: true !default;
+$supi-box-shadow: true !default;
 
-$border: true !default;
-$box-shadow: true !default;
-$font-base-size: 16px !default;
-$font-size: 1em !default;
-$font-size-head: 1.5em !default;
-
-$banner-box-padding: 15px !default;
-$banner-box-border: 1px solid _get($colors, primary) !default;
-$banner-box-shadow: 0 0 10px rgba(_get($colors, primary), .8) !default;
+$supi-box-background: #fff !default;
+$supi-box-padding: 15px !default;
