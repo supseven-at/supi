@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <xliff version="1.0">
-    <file source-language="en" target-language="de" date="2019-11-19T11:32:39+01:00">
+    <file source-language="en" target-language="de" date="2019-11-20T13:10:50+01:00">
         <body>
             <trans-unit id="banner.content.text">
                 <source>This website uses cookies for functional purposes and analytics.</source>
-                <target>Diese Website verwendet Cookies für Funktionen und zu Analyse</target>
+                <target>Diese Website verwendet Cookies für Funktionen und zur Analyse.</target>
             </trans-unit>
             <trans-unit id="banner.button.allow.label">
                 <source>Allow all cookies</source>
@@ -31,20 +31,20 @@
                 <target>Aktuelle Cookie Einstellung ändern</target>
             </trans-unit>
             <trans-unit id="banner.cookie.essential.label">
-                <source>Used cookies</source>
-                <target>Verwendete Cookies</target>
+                <source>For detailed information, please see the </source>
+                <target>Weitere Informationen finden Sie in der </target>
             </trans-unit>
             <trans-unit id="banner.cookie.essential.text">
-                <source>Detailed information</source>
-                <target>Detail Informationen</target>
+                <source>For detailed information, please see the </source>
+                <target>Weitere Informationen finden Sie in der </target>
             </trans-unit>
             <trans-unit id="banner.cookie.essential.link.text">
-                <source>Read more</source>
-                <target>Weiterlesen</target>
+                <source>Data Protection Declaration</source>
+                <target>Datenschutzerklärung</target>
             </trans-unit>
             <trans-unit id="banner.cookie.essential.link.label">
-                <source>Read more</source>
-                <target>Weiterlesen</target>
+                <source>Data Protection Declaration</source>
+                <target>Datenschutzerklärung</target>
             </trans-unit>
         </body>
     </file>

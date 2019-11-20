@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <xliff version="1.0">
-    <file source-language="en" date="2019-11-19T11:32:39+01:00">
+    <file source-language="en" date="2019-11-20T13:10:50+01:00">
         <body>
             <trans-unit id="banner.content.headline">
                 <source>Cookie Information</source>
@@ -27,16 +27,16 @@
                 <source>Change the current cookie setting</source>
             </trans-unit>
             <trans-unit id="banner.cookie.essential.label">
-                <source>Used cookies</source>
+                <source>For detailed information, please see the </source>
             </trans-unit>
             <trans-unit id="banner.cookie.essential.text">
-                <source>Detailed information</source>
+                <source>For detailed information, please see the </source>
             </trans-unit>
             <trans-unit id="banner.cookie.essential.link.text">
-                <source>Read more</source>
+                <source>Data Protection Declaration</source>
             </trans-unit>
             <trans-unit id="banner.cookie.essential.link.label">
-                <source>Read more</source>
+                <source>Data Protection Declaration</source>
             </trans-unit>
         </body>
     </file>
