@@ -1,6 +1,14 @@
 :root {
-  --supi-position-bottom: #{map-get($supi-position, bottom)};
-  --supi-position-left: #{map-get($supi-position, left)};
+  --supi-position-bottom: 0;
+  --supi-position-left: 0;
+  --supi-position-width: 100%;
+
+  @media (min-width: $supi-breakpoint) {
+    --supi-position-bottom: #{map-get($supi-position, bottom)};
+    --supi-position-left: #{map-get($supi-position, left)};
+    --supi-position-width: 40%;
+  }
+
   --supi-color-background: #{map-get($supi-colors, background)};
   --supi-color-primary: #{map-get($supi-colors, primary)};
   --supi-color-secondary: #{map-get($supi-colors, secondary)};
@@ -42,8 +50,14 @@
       &-left {
         bottom: var(--supi-position-bottom);
         left: var(--supi-position-left);
-        flex: 1 1 40%;
-        max-width: 40vw;
+        width: 100%;
+
+        @media (min-width: $supi-breakpoint) {
+          flex-grow: 1;
+          flex-shrink: 1;
+          flex-basis: var(--supi-position-width);
+          max-width: var(--supi-position-width);
+        }
       }
     }
 
@@ -57,7 +71,12 @@
     color: var(--supi-color-primary);
 
     &-default {
-      border: var(--supi-banner-border);
+      border-top: var(--supi-banner-border);
+
+      @media (min-width: $supi-breakpoint) {
+        border: var(--supi-banner-border);
+      }
+
       box-shadow: var(--supi-banner-box-shadow);
       font-size: var(--supi-font-size);
       line-height: 1.5;

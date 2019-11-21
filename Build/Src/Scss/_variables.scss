@@ -21,6 +21,7 @@ $supi-colors: map-merge(
     $supi-colors
 );
 
+$supi-breakpoint: 992px !default;
 $supi-border: true !default;
 $supi-box-shadow: true !default;
 $supi-font-base-size: 16px !default;
