@@ -1,9 +1,33 @@
+$supi-position: () !default;
+$supi-position: map-merge(
+    (
+      bottom: 15px,
+      left: 15px,
+    ),
+    $supi-position
+);
 
-$supi-position-left: 15px !default;
-$supi-position-bottom: 15px !default;
+$supi-colors: () !default;
+$supi-colors: map-merge(
+    (
+      background: #fff,
+      primary: #000,
+      secondary: #ccc,
+      button-bar: #efefef,
+      success: green,
+      warning: red,
+      notice: #000,
+    ),
+    $supi-colors
+);
 
 $supi-border: true !default;
 $supi-box-shadow: true !default;
+$supi-font-base-size: 16px !default;
+$supi-font-size: 1em !default;
+$supi-font-size-head: 1.5em !default;
 
-$supi-box-background: #fff !default;
-$supi-box-padding: 15px !default;
+$supi-banner-box-padding: 15px !default;
+$supi-banner-box-margin: 15px !default;
+$supi-banner-box-border: 1px solid map-get($supi-colors, primary) !default;
+$supi-banner-box-shadow: 0 0 10px rgba(map-get($supi-colors, primary), .8) !default;

@@ -1,0 +1,144 @@
+:root {
+  --supi-position-bottom: #{map-get($supi-position, bottom)};
+  --supi-position-left: #{map-get($supi-position, left)};
+  --supi-color-background: #{map-get($supi-colors, background)};
+  --supi-color-primary: #{map-get($supi-colors, primary)};
+  --supi-color-secondary: #{map-get($supi-colors, secondary)};
+  --supi-color-allow: #{map-get($supi-colors, background)};
+  --supi-color-allow-background: #{map-get($supi-colors, success)};
+  --supi-color-dismiss: #{map-get($supi-colors, primary)};
+  --supi-color-dismiss-background: #{map-get($supi-colors, warning)};
+  --supi-color-choose: #{map-get($supi-colors, notice)};
+  --supi-color-choose-invert: #{map-get($supi-colors, secondary)};
+  --supi-color-button-bar: #{map-get($supi-colors, button-bar)};
+  --supi-color-button-color: #{map-get($supi-colors, background)};
+  --supi-padding: #{$supi-banner-box-padding};
+  --supi-margin: #{$supi-banner-box-margin};
+  --supi-font-base-size: #{$supi-font-base-size};
+  --supi-font-size: #{$supi-font-size};
+  --supi-font-size-head: #{$supi-font-size-head};
+
+  @if $supi-border {
+    --supi-banner-border: #{$supi-banner-box-border};
+  }
+
+  @if $supi-box-shadow {
+    --supi-banner-box-shadow: #{$supi-banner-box-shadow};
+  }
+}
+
+.tx-supi {
+  display: flex;
+
+  &.position {
+    flex-direction: column;
+    position: fixed;
+    z-index: 99;
+    background-color: #fff;
+    font-size: var(--supi-font-base-size);
+    transition: all .2s ease-in-out;
+
+    &-bottom {
+      &-left {
+        bottom: var(--supi-position-bottom);
+        left: var(--supi-position-left);
+        flex: 1 1 40%;
+        max-width: 40vw;
+      }
+    }
+
+    &.hidden {
+      transform: translateY(calc(100% + 30px));
+    }
+  }
+
+  &.theme {
+    background-color: var(--supi-color-background);
+    color: var(--supi-color-primary);
+
+    &-default {
+      border: var(--supi-banner-border);
+      box-shadow: var(--supi-banner-box-shadow);
+      font-size: var(--font-size);
+      line-height: 1.5;
+
+      #supi\:description, .elements {
+        padding: var(--supi-padding);
+      }
+
+      h3, span {
+        color: inherit;
+      }
+
+      h3 {
+        font-size: var(--font-size-head);
+        line-height: inherit;
+        margin: 0 0 .5em 0;
+      }
+
+      p {
+        margin: 0;
+      }
+
+      a {
+        color: var(--supi-color-primary);
+        text-decoration: underline;
+      }
+
+      nav {
+        background: var(--supi-color-button-bar);
+
+        ul {
+          display: flex;
+          justify-content: space-between;
+          list-style: none;
+          padding: 0;
+          margin: 0;
+
+          li {
+            display: flex;
+            justify-content: center;
+            flex: 1 0 50%;
+
+            a {
+              flex-grow: 1;
+              text-decoration: none;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  [role="button"] {
+    line-height: 3;
+    color: var(--supi-color-button-color);
+    text-decoration: none;
+    text-align: center;
+    font-family: inherit;
+    font-weight: normal;
+
+    &:after, &:before {
+      display: none;
+    }
+
+    &#supi\:allow {
+      background: var(--supi-color-allow-background);
+      color: var(--supi-color-allow);
+    }
+
+    &#supi\:dismiss {
+      background: var(--supi-color-dismiss-background);
+      color: var(--supi-color-dismiss);
+    }
+
+    &#supi\:choose {
+      background: var(--supi-color-choose);
+      color: var(--supi-color-choose-invert);
+      display: block;
+      padding-left: var(--supi-padding);
+      padding-right: var(--supi-padding);
+      margin: var(--supi-margin);
+    }
+  }
+}
