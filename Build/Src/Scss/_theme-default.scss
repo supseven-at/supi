@@ -59,7 +59,7 @@
     &-default {
       border: var(--supi-banner-border);
       box-shadow: var(--supi-banner-box-shadow);
-      font-size: var(--font-size);
+      font-size: var(--supi-font-size);
       line-height: 1.5;
 
       #supi\:description, .elements {
@@ -71,7 +71,7 @@
       }
 
       h3 {
-        font-size: var(--font-size-head);
+        font-size: var(--supi-font-size-head);
         line-height: inherit;
         margin: 0 0 .5em 0;
       }
