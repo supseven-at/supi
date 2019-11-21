@@ -11,6 +11,9 @@
 Change/override the properties in `plugin.tx_supi` to customize. The sources for the Javascript and the CSS 
 are Typescript and SCSS, which can be included in custom build piplines. 
 
+You can adjust most of the settings via scss variables or css variables. this will fit most of 
+the usecases.
+
 ## License
 
 [GPL 3.0 or later](LICENSE)
