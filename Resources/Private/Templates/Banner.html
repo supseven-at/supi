@@ -6,39 +6,43 @@
     <f:layout name="Default" />
 
     <f:section name="Head">
-        <f:if condition="{settings.bundledScript}">
-            <supi:append section="head" as="supi_script">
-                <script id="supi:script" type="text/javascript" src="{f:uri.resource(path: settings.bundledScript)}" data-supi-config="{config -> f:format.htmlspecialchars()}" async></script>
-            </supi:append>
-        </f:if>
+        <f:if condition="{settings.enabled}">
+            <f:if condition="{settings.bundledScript}">
+                <supi:append section="head" as="supi_script">
+                    <script id="supi:script" type="text/javascript" src="{f:uri.resource(path: settings.bundledScript)}" data-supi-config="{config -> f:format.htmlspecialchars()}" async></script>
+                </supi:append>
+            </f:if>
 
-        <f:if condition="{settings.bundledStyles}">
-            <supi:append section="head" as="supi_styles">
-                <link rel="stylesheet" href="{f:uri.resource(path: settings.bundledStyles)}">
-            </supi:append>
+            <f:if condition="{settings.bundledStyles}">
+                <supi:append section="head" as="supi_styles">
+                    <link rel="stylesheet" href="{f:uri.resource(path: settings.bundledStyles)}">
+                </supi:append>
+            </f:if>
         </f:if>
     </f:section>
 
     <f:section name="Main">
-        <f:if condition="{settings.elements -> f:count()} < 2 && {settings.elements.essential}">
-            <div id="supi:banner" class="tx-supi position position-{settings.position} theme theme-{settings.theme} hidden" aria-describedby="supi:description" aria-labelledby="supi:label" aria-live="status" role="dialog">
-                <div id="supi:description">
-                    <h3 id="supi:label"><f:translate key="{settings.content.headline}">{settings.content.headline}</f:translate></h3>
-                    <p><f:translate key="{settings.content.text}">{settings.content.text}</f:translate></p>
-                </div>
+        <f:if condition="{settings.enabled}">
+            <f:if condition="{settings.elements -> f:count()} < 2 && {settings.elements.essential}">
+                <div id="supi:banner" class="tx-supi position position-{settings.position} theme theme-{settings.theme} hidden" aria-describedby="supi:description" aria-labelledby="supi:label" aria-live="status" role="dialog">
+                    <div id="supi:description">
+                        <h3 id="supi:label"><f:translate key="{settings.content.headline}">{settings.content.headline}</f:translate></h3>
+                        <p><f:translate key="{settings.content.text}">{settings.content.text}</f:translate></p>
+                    </div>
 
-                <div class="elements">
-                    <f:translate key="{settings.elements.essential.text}">{settings.elements.essential.text}</f:translate>
-                    <a aria-label="{settings.elements.essential.link.label -> f:translate(key: settings.elements.essential.link.label)}" href="{f:uri.typolink(parameter: settings.elements.essential.link.href) -> f:format.htmlspecialchars()}" role="button" tabindex="0" target="{settings.elements.essential.link.href -> f:format.htmlspecialchars()}">{settings.elements.essential.link.text -> f:translate(key: settings.elements.essential.link.text)}</a>
-                </div>
+                    <div class="elements">
+                        <f:translate key="{settings.elements.essential.text}">{settings.elements.essential.text}</f:translate>
+                        <a aria-label="{settings.elements.essential.link.label -> f:translate(key: settings.elements.essential.link.label)}" href="{f:uri.typolink(parameter: settings.elements.essential.link.href) -> f:format.htmlspecialchars()}" role="button" tabindex="0" target="{settings.elements.essential.link.href -> f:format.htmlspecialchars()}">{settings.elements.essential.link.text -> f:translate(key: settings.elements.essential.link.text)}</a>
+                    </div>
 
-                <nav>
-                    <ul>
-                        <li><a href="#dismiss" id="supi:dismiss" aria-label="{settings.button.dismiss.label -> f:translate(key: settings.button.dismiss.label)}" role="button" tabindex="0"><f:translate key="{settings.button.dismiss.text}">{settings.button.dismiss.text}</f:translate></a></li>
-                        <li><a href="#allow" id="supi:allow" aria-label="{settings.button.allow.label -> f:translate(key: settings.button.allow.label)}" role="button" tabindex="0"><f:translate key="{settings.button.allow.text}">{settings.button.allow.text}</f:translate></a></li>
-                    </ul>
-                </nav>
-            </div>
+                    <nav>
+                        <ul>
+                            <li><a href="#dismiss" id="supi:dismiss" aria-label="{settings.button.dismiss.label -> f:translate(key: settings.button.dismiss.label)}" role="button" tabindex="0"><f:translate key="{settings.button.dismiss.text}">{settings.button.dismiss.text}</f:translate></a></li>
+                            <li><a href="#allow" id="supi:allow" aria-label="{settings.button.allow.label -> f:translate(key: settings.button.allow.label)}" role="button" tabindex="0"><f:translate key="{settings.button.allow.text}">{settings.button.allow.text}</f:translate></a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </f:if>
         </f:if>
     </f:section>
 

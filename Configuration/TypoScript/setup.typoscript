@@ -8,6 +8,7 @@ plugin.tx_supi {
     layoutRootPaths.0 = EXT:supi/Resources/Private/Layouts/
 
     settings {
+        enabled = 1
         elements {
             essential {
                 required = 1
