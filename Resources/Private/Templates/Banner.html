@@ -1,7 +1,7 @@
 <html
-    data-namespace-typo3-fluid="true"
-    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
-    xmlns:supi="http://typo3.org/ns/Supseven/Supi/ViewHelpers">
+        data-namespace-typo3-fluid="true"
+        xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+        xmlns:supi="http://typo3.org/ns/Supseven/Supi/ViewHelpers">
 
     <f:layout name="Default" />
 
@@ -23,22 +23,30 @@
 
     <f:section name="Main">
         <f:if condition="{settings.enabled}">
-            <f:if condition="{settings.elements -> f:count()} < 2 && {settings.elements.essential}">
+            <f:if condition="{settings.elements.essential -> f:count() > 0}">
                 <div id="supi:banner" class="tx-supi position position-{settings.position} theme theme-{settings.theme} hidden" aria-describedby="supi:description" aria-labelledby="supi:label" aria-live="status" role="dialog">
                     <div id="supi:description">
-                        <h3 id="supi:label"><f:translate key="{settings.content.headline}">{settings.content.headline}</f:translate></h3>
-                        <p><f:translate key="{settings.content.text}">{settings.content.text}</f:translate></p>
+                        <h3 id="supi:label">{f:translate(key: '{settings.content.headline}')}</h3>
+                        {f:translate(key: '{settings.content.text}', arguments: '{
+                            0: \'{f:uri.typolink(parameter: \\\'{settings.gdpr.uid}\\\')}\',
+                            1: \'{f:translate(key: \\\'{settings.gdpr.name}\\\')}\'
+                        }') -> f:format.raw()}
                     </div>
 
-                    <div class="elements">
-                        <f:translate key="{settings.elements.essential.text}">{settings.elements.essential.text}</f:translate>
-                        <a aria-label="{settings.elements.essential.link.label -> f:translate(key: settings.elements.essential.link.label)}" href="{f:uri.typolink(parameter: settings.elements.essential.link.href) -> f:format.htmlspecialchars()}" role="button" tabindex="0" target="{settings.elements.essential.link.href -> f:format.htmlspecialchars()}">{settings.elements.essential.link.text -> f:translate(key: settings.elements.essential.link.text)}</a>
-                    </div>
+                    <ul id="supi:elements">
+                        <f:for each="{settings.elements}" as="element">
+                            <li class="supi-element">
+                                <span class="supi-element__label">{f:translate(key: '{element.label}')}</span>
+                                <span class="supi-element__text">{f:translate(key: '{element.text}')}</span>
+                                <span class="supi-element__names">{element.names}</span>
+                            </li>
+                        </f:for>
+                    </ul>
 
                     <nav>
                         <ul>
-                            <li><a href="#dismiss" id="supi:dismiss" aria-label="{settings.button.dismiss.label -> f:translate(key: settings.button.dismiss.label)}" role="button" tabindex="0"><f:translate key="{settings.button.dismiss.text}">{settings.button.dismiss.text}</f:translate></a></li>
-                            <li><a href="#allow" id="supi:allow" aria-label="{settings.button.allow.label -> f:translate(key: settings.button.allow.label)}" role="button" tabindex="0"><f:translate key="{settings.button.allow.text}">{settings.button.allow.text}</f:translate></a></li>
+                            <li><a href="#allow" id="supi:allow" aria-label="{f:translate(key: settings.button.allow.label)}" role="button" tabindex="0">{f:translate(key: settings.button.allow.text)}</a></li>
+                            <li><a href="#dismiss" id="supi:dismiss" aria-label="{f:translate(key: settings.button.dismiss.label)}" role="button" tabindex="1">{f:translate(key: settings.button.dismiss.text)}</a></li>
                         </ul>
                     </nav>
                 </div>

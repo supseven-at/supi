@@ -2,49 +2,45 @@
 <xliff version="1.0">
     <file source-language="en" target-language="de" date="2019-11-20T13:10:50+01:00">
         <body>
+            <trans-unit id="banner.content.headline">
+                <target>Diese Webseite verwendet Cookies</target>
+            </trans-unit>
             <trans-unit id="banner.content.text">
-                <source>This website uses cookies for functional purposes and analytics.</source>
-                <target>Diese Website verwendet Cookies für Funktionen und zur Analyse.</target>
+                <target>
+                    <![CDATA[
+                        <p>Wir verwenden Cookies, um die Website Ihren Bedürfnissen anzupassen bzw. um Ihnen spezielle
+                        Funktionen anbieten zu können. Durch die Nutzung unserer Website erklären Sie sich damit
+                        einverstanden.</p>
+                        <p>Weitere Informationen zu Cookies erhalten Sie in unserer <a href="%s" target="_blank">%s</a>.</p>
+                    ]]>
+                </target>
+            </trans-unit>
+            <trans-unit id="banner.gdpr.name">
+                <target>Datenschutzerklärung</target>
+            </trans-unit>
+            <trans-unit id="banner.cookie.essential.label">
+                <target>Essentielle Cookies</target>
+            </trans-unit>
+            <trans-unit id="banner.cookie.essential.text">
+                <target>Klicken Sie auf "Alle Cookies erlauben", um alle Arten von Cookies zu akzeptieren oder klicken Sie auf "Nur erforderliche Cookies erlauben", um nur jene Cookies zuzulassen, die für den Betrieb und Funktion der Webseite unbedingt erforderlich sind.</target>
             </trans-unit>
             <trans-unit id="banner.button.allow.label">
-                <source>Allow all cookies</source>
                 <target>Alle Cookies erlauben</target>
             </trans-unit>
             <trans-unit id="banner.button.allow.text">
-                <source>All cookies</source>
-                <target>Alle Cookies</target>
+                <target>Alle Cookies erlauben</target>
             </trans-unit>
             <trans-unit id="banner.button.dismiss.label">
-                <source>Only functional cookie</source>
-                <target>Nur Cookies für Funktionen</target>
+                <target>Nur erforderliche Cookies erlauben</target>
             </trans-unit>
             <trans-unit id="banner.button.dismiss.text">
-                <source>Functional only</source>
-                <target>Nur funktional</target>
+                <target>Nur erforderliche Cookies erlauben</target>
             </trans-unit>
             <trans-unit id="plugin.button.label">
-                <source>Change cookie setting</source>
-                <target>Cookie Einstellung ändern</target>
-            </trans-unit>
-            <trans-unit id="plugin.button.text">
-                <source>Change the current cookie setting</source>
                 <target>Aktuelle Cookie Einstellung ändern</target>
             </trans-unit>
-            <trans-unit id="banner.cookie.essential.label">
-                <source>For detailed information, please see the </source>
-                <target>Weitere Informationen finden Sie in der </target>
-            </trans-unit>
-            <trans-unit id="banner.cookie.essential.text">
-                <source>For detailed information, please see the </source>
-                <target>Weitere Informationen finden Sie in der </target>
-            </trans-unit>
-            <trans-unit id="banner.cookie.essential.link.text">
-                <source>Data Protection Declaration</source>
-                <target>Datenschutzerklärung</target>
-            </trans-unit>
-            <trans-unit id="banner.cookie.essential.link.label">
-                <source>Data Protection Declaration</source>
-                <target>Datenschutzerklärung</target>
+            <trans-unit id="plugin.button.text">
+                <target>Aktuelle Cookie Einstellung ändern</target>
             </trans-unit>
         </body>
     </file>

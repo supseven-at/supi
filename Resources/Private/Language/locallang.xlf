@@ -3,40 +3,44 @@
     <file source-language="en" date="2019-11-20T13:10:50+01:00">
         <body>
             <trans-unit id="banner.content.headline">
-                <source>Cookie Information</source>
+                <source>Diese Webseite verwendet Cookies</source>
             </trans-unit>
             <trans-unit id="banner.content.text">
-                <source>This website uses cookies for functional purposes and analytics.</source>
+                <source>
+                    <![CDATA[
+                        <p>Wir verwenden Cookies, um die Website Ihren Bedürfnissen anzupassen bzw. um Ihnen spezielle
+                        Funktionen anbieten zu können. Durch die Nutzung unserer Website erklären Sie sich damit
+                        einverstanden.</p>
+                        <p>Weitere Informationen zu Cookies erhalten Sie in unserer <a href="%s" target="_blank">%s</a>.</p>
+                    ]]>
+                </source>
             </trans-unit>
-            <trans-unit id="banner.button.allow.label">
-                <source>Allow all cookies</source>
-            </trans-unit>
-            <trans-unit id="banner.button.allow.text">
-                <source>All cookies</source>
-            </trans-unit>
-            <trans-unit id="banner.button.dismiss.label">
-                <source>Only functional cookie</source>
-            </trans-unit>
-            <trans-unit id="banner.button.dismiss.text">
-                <source>Functional only</source>
-            </trans-unit>
-            <trans-unit id="plugin.button.label">
-                <source>Change cookie setting</source>
-            </trans-unit>
-            <trans-unit id="plugin.button.text">
-                <source>Change the current cookie setting</source>
+            <trans-unit id="banner.gdpr.name">
+                <source>Datenschutzerklärung</source>
             </trans-unit>
             <trans-unit id="banner.cookie.essential.label">
-                <source>For detailed information, please see the </source>
+                <source>Essentielle Cookies</source>
             </trans-unit>
             <trans-unit id="banner.cookie.essential.text">
-                <source>For detailed information, please see the </source>
+                <source>Klicken Sie auf "Alle Cookies erlauben", um alle Arten von Cookies zu akzeptieren oder klicken Sie auf "Nur erforderliche Cookies erlauben", um nur jene Cookies zuzulassen, die für den Betrieb und Funktion der Webseite unbedingt erforderlich sind.</source>
             </trans-unit>
-            <trans-unit id="banner.cookie.essential.link.text">
-                <source>Data Protection Declaration</source>
+            <trans-unit id="banner.button.allow.label">
+                <source>Alle Cookies erlauben</source>
             </trans-unit>
-            <trans-unit id="banner.cookie.essential.link.label">
-                <source>Data Protection Declaration</source>
+            <trans-unit id="banner.button.allow.text">
+                <source>Alle Cookies erlauben</source>
+            </trans-unit>
+            <trans-unit id="banner.button.dismiss.label">
+                <source>Nur erforderliche Cookies erlauben</source>
+            </trans-unit>
+            <trans-unit id="banner.button.dismiss.text">
+                <source>Nur erforderliche Cookies erlauben</source>
+            </trans-unit>
+            <trans-unit id="plugin.button.label">
+                <source>Aktuelle Cookie Einstellung ändern</source>
+            </trans-unit>
+            <trans-unit id="plugin.button.text">
+                <source>Aktuelle Cookie Einstellung ändern</source>
             </trans-unit>
         </body>
     </file>
