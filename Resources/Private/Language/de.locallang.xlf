@@ -6,6 +6,12 @@
                 <target>Diese Webseite verwendet Cookies</target>
             </trans-unit>
             <trans-unit id="banner.content.text">
+                <source>
+                    <![CDATA[
+                        <p>We use cookies to help us improve, promote, and protect our services. By continuing to use
+                        the site, you agree to our <a href="%s" target="_blank">%s</a></p>.
+                    ]]>
+                </source>
                 <target>
                     <![CDATA[
                         <p>Wir verwenden Cookies, um die Website Ihren Bedürfnissen anzupassen bzw. um Ihnen spezielle
@@ -16,30 +22,39 @@
                 </target>
             </trans-unit>
             <trans-unit id="banner.gdpr.name">
+                <source>privacy policy</source>
                 <target>Datenschutzerklärung</target>
             </trans-unit>
             <trans-unit id="banner.cookie.essential.label">
+                <source>Essential Cookies</source>
                 <target>Essentielle Cookies</target>
             </trans-unit>
             <trans-unit id="banner.cookie.essential.text">
+                <source>Click on "Allow all Cookies", to accept all kind of cookies or click on "Allow only essential cookies" to allow only the essential cookies to give You the best experience on our site.</source>
                 <target>Klicken Sie auf "Alle Cookies erlauben", um alle Arten von Cookies zu akzeptieren oder klicken Sie auf "Nur erforderliche Cookies erlauben", um nur jene Cookies zuzulassen, die für den Betrieb und Funktion der Webseite unbedingt erforderlich sind.</target>
             </trans-unit>
             <trans-unit id="banner.button.allow.label">
+                <source>Allow all cookies</source>
                 <target>Alle Cookies erlauben</target>
             </trans-unit>
             <trans-unit id="banner.button.allow.text">
+                <source>Allow all cookies</source>
                 <target>Alle Cookies erlauben</target>
             </trans-unit>
             <trans-unit id="banner.button.dismiss.label">
+                <source>Allow only essential cookies</source>
                 <target>Nur erforderliche Cookies erlauben</target>
             </trans-unit>
             <trans-unit id="banner.button.dismiss.text">
+                <source>Allow only essential cookies</source>
                 <target>Nur erforderliche Cookies erlauben</target>
             </trans-unit>
             <trans-unit id="plugin.button.label">
+                <source>Change Your cookie Settings</source>
                 <target>Aktuelle Cookie Einstellung ändern</target>
             </trans-unit>
             <trans-unit id="plugin.button.text">
+                <source>Change Your cookie Settings</source>
                 <target>Aktuelle Cookie Einstellung ändern</target>
             </trans-unit>
         </body>

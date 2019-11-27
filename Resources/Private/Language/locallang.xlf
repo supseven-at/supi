@@ -8,39 +8,37 @@
             <trans-unit id="banner.content.text">
                 <source>
                     <![CDATA[
-                        <p>Wir verwenden Cookies, um die Website Ihren Bedürfnissen anzupassen bzw. um Ihnen spezielle
-                        Funktionen anbieten zu können. Durch die Nutzung unserer Website erklären Sie sich damit
-                        einverstanden.</p>
-                        <p>Weitere Informationen zu Cookies erhalten Sie in unserer <a href="%s" target="_blank">%s</a>.</p>
+                        <p>We use cookies to help us improve, promote, and protect our services. By continuing to use
+                        the site, you agree to our <a href="%s" target="_blank">%s</a>.</p>
                     ]]>
                 </source>
             </trans-unit>
             <trans-unit id="banner.gdpr.name">
-                <source>Datenschutzerklärung</source>
+                <source>privacy policy</source>
             </trans-unit>
             <trans-unit id="banner.cookie.essential.label">
-                <source>Essentielle Cookies</source>
+                <source>Essential Cookies</source>
             </trans-unit>
             <trans-unit id="banner.cookie.essential.text">
-                <source>Klicken Sie auf "Alle Cookies erlauben", um alle Arten von Cookies zu akzeptieren oder klicken Sie auf "Nur erforderliche Cookies erlauben", um nur jene Cookies zuzulassen, die für den Betrieb und Funktion der Webseite unbedingt erforderlich sind.</source>
+                <source>Click on "Allow all Cookies", to accept all kind of cookies or click on "Allow only essential cookies" to allow only the essential cookies to give You the best experience on our site.</source>
             </trans-unit>
             <trans-unit id="banner.button.allow.label">
-                <source>Alle Cookies erlauben</source>
+                <source>Allow all cookies</source>
             </trans-unit>
             <trans-unit id="banner.button.allow.text">
-                <source>Alle Cookies erlauben</source>
+                <source>Allow all cookies</source>
             </trans-unit>
             <trans-unit id="banner.button.dismiss.label">
-                <source>Nur erforderliche Cookies erlauben</source>
+                <source>Allow only essential cookies</source>
             </trans-unit>
             <trans-unit id="banner.button.dismiss.text">
-                <source>Nur erforderliche Cookies erlauben</source>
+                <source>Allow only essential cookies</source>
             </trans-unit>
             <trans-unit id="plugin.button.label">
-                <source>Aktuelle Cookie Einstellung ändern</source>
+                <source>Change Your cookie Settings</source>
             </trans-unit>
             <trans-unit id="plugin.button.text">
-                <source>Aktuelle Cookie Einstellung ändern</source>
+                <source>Change Your cookie Settings</source>
             </trans-unit>
         </body>
     </file>
