@@ -3,13 +3,15 @@
     <file source-language="en" target-language="de" date="2019-11-20T13:10:50+01:00">
         <body>
             <trans-unit id="banner.content.headline">
+                <source>This website uses cookies</source>
                 <target>Diese Webseite verwendet Cookies</target>
             </trans-unit>
             <trans-unit id="banner.content.text">
                 <source>
                     <![CDATA[
-                        <p>We use cookies to help us improve, promote, and protect our services. By continuing to use
-                        the site, you agree to our <a href="%s" target="_blank">%s</a></p>.
+                        <p>We use cookies to adapt the website to your needs and to offer special features to you.
+                        By using our website, you agree to it.</p>
+                        <p>Further information on cookies can be found in our <a href="%s" target="_blank">%s</a>.</p>
                     ]]>
                 </source>
                 <target>
@@ -26,11 +28,11 @@
                 <target>Datenschutzerklärung</target>
             </trans-unit>
             <trans-unit id="banner.cookie.essential.label">
-                <source>Essential Cookies</source>
-                <target>Essentielle Cookies</target>
+                <source>Required Cookies</source>
+                <target>Erforderliche Cookies</target>
             </trans-unit>
             <trans-unit id="banner.cookie.essential.text">
-                <source>Click on "Allow all Cookies", to accept all kind of cookies or click on "Allow only essential cookies" to allow only the essential cookies to give You the best experience on our site.</source>
+                <source>Click on "Allow all Cookies", to accept all types of cookies or click on "Allow only required cookies" to allow only those cookies that are essential to the operation and function of the website.</source>
                 <target>Klicken Sie auf "Alle Cookies erlauben", um alle Arten von Cookies zu akzeptieren oder klicken Sie auf "Nur erforderliche Cookies erlauben", um nur jene Cookies zuzulassen, die für den Betrieb und Funktion der Webseite unbedingt erforderlich sind.</target>
             </trans-unit>
             <trans-unit id="banner.button.allow.label">
@@ -42,19 +44,19 @@
                 <target>Alle Cookies erlauben</target>
             </trans-unit>
             <trans-unit id="banner.button.dismiss.label">
-                <source>Allow only essential cookies</source>
+                <source>Allow only required cookies</source>
                 <target>Nur erforderliche Cookies erlauben</target>
             </trans-unit>
             <trans-unit id="banner.button.dismiss.text">
-                <source>Allow only essential cookies</source>
+                <source>Allow only required cookies</source>
                 <target>Nur erforderliche Cookies erlauben</target>
             </trans-unit>
             <trans-unit id="plugin.button.label">
-                <source>Change Your cookie Settings</source>
+                <source>Change current cookie settings</source>
                 <target>Aktuelle Cookie Einstellung ändern</target>
             </trans-unit>
             <trans-unit id="plugin.button.text">
-                <source>Change Your cookie Settings</source>
+                <source>Change current cookie settings</source>
                 <target>Aktuelle Cookie Einstellung ändern</target>
             </trans-unit>
         </body>
