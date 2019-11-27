@@ -26,11 +26,11 @@
             <f:if condition="{settings.elements.essential -> f:count() > 0}">
                 <div id="supi:banner" class="tx-supi position position-{settings.position} theme theme-{settings.theme} hidden" aria-describedby="supi:description" aria-labelledby="supi:label" aria-live="status" role="dialog">
                     <div id="supi:description">
-                        <h3 id="supi:label">{f:translate(key: '{settings.content.headline}')}</h3>
+                        <h3 id="supi:label">{f:translate(key: '{settings.content.headline}', default: '{settings.content.headline}')}</h3>
                         {f:translate(key: '{settings.content.text}', arguments: '{
                             0: \'{f:uri.typolink(parameter: \\\'{settings.gdpr.uid}\\\')}\',
                             1: \'{f:translate(key: \\\'{settings.gdpr.name}\\\')}\'
-                        }') -> f:format.raw()}
+                        }', default: '{settings.content.text}') -> f:format.raw()}
                     </div>
 
                     <ul id="supi:elements">
@@ -45,8 +45,8 @@
 
                     <nav>
                         <ul>
-                            <li><a href="#allow" id="supi:allow" aria-label="{f:translate(key: settings.button.allow.label)}" role="button" tabindex="0">{f:translate(key: settings.button.allow.text)}</a></li>
-                            <li><a href="#dismiss" id="supi:dismiss" aria-label="{f:translate(key: settings.button.dismiss.label)}" role="button" tabindex="1">{f:translate(key: settings.button.dismiss.text)}</a></li>
+                            <li><a href="#allow" id="supi:allow" aria-label="{f:translate(key: '{settings.button.allow.label}', default: '{settings.button.allow.label}')}" role="button" tabindex="0">{f:translate(key: '{settings.button.allow.text}', default: '{settings.button.allow.text}')}</a></li>
+                            <li><a href="#dismiss" id="supi:dismiss" aria-label="{f:translate(key: '{settings.button.dismiss.label}', default: '{settings.button.dismiss.label}')}" role="button" tabindex="1">{f:translate(key: '{settings.button.dismiss.text}', default: '{settings.button.dismiss.text}')}</a></li>
                         </ul>
                     </nav>
                 </div>
