@@ -17,6 +17,8 @@ $supi-colors: map-merge(
       success: green,
       warning: red,
       notice: #000,
+
+      button-wrap-bgcolor: #efefef,
     ),
     $supi-colors
 );
@@ -32,3 +34,5 @@ $supi-banner-box-padding: 15px !default;
 $supi-banner-box-margin: 15px !default;
 $supi-banner-box-border: 1px solid map-get($supi-colors, primary) !default;
 $supi-banner-box-shadow: 0 0 10px rgba(map-get($supi-colors, primary), .8) !default;
+
+$supi-button-wrap-padding: 15px !default;

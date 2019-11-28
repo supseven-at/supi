@@ -33,10 +33,22 @@
   @if $supi-box-shadow {
     --supi-banner-box-shadow: #{$supi-banner-box-shadow};
   }
+
+  --supi-button-wrap-bgcolor: #{map-get($supi-colors, button-wrap-bgcolor)};
+  --supi-button-wrap-padding: #{$supi-button-wrap-padding};
 }
 
 .tx-supi {
   display: flex;
+
+  &__button {
+    flex-direction: column;
+
+    &-wrap {
+      background: var(--supi-button-wrap-bgcolor);
+      padding: var(--supi-button-wrap-padding);
+    }
+  }
 
   &.position {
     flex-direction: column;
@@ -61,7 +73,7 @@
       }
     }
 
-    &.hidden {
+    &.hide {
       transform: translateY(calc(100% + 30px));
     }
   }
@@ -154,10 +166,9 @@
     &#supi\:choose {
       background: var(--supi-color-choose);
       color: var(--supi-color-choose-invert);
-      display: block;
+      display: inline-block;
       padding-left: var(--supi-padding);
       padding-right: var(--supi-padding);
-      margin: var(--supi-margin);
     }
   }
 }

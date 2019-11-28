@@ -107,7 +107,7 @@ class Supi {
      * simply toggles the banner class
      */
     toggleBanner(): void {
-        this.banner.classList.toggle('hidden');
+        this.banner.classList.toggle('hide');
     }
 
     /**
