@@ -36,6 +36,8 @@
 
   --supi-button-wrap-bgcolor: #{map-get($supi-colors, button-wrap-bgcolor)};
   --supi-button-wrap-padding: #{$supi-button-wrap-padding};
+
+  --supi-transform-value: calc(100% + 30px);
 }
 
 .tx-supi {
@@ -45,8 +47,11 @@
     flex-direction: column;
 
     &-wrap {
+      background: #{map-get($supi-colors, button-wrap-bgcolor)};
       background: var(--supi-button-wrap-bgcolor);
+
       padding: var(--supi-button-wrap-padding);
+      padding: #{$supi-button-wrap-padding};
     }
   }
 
@@ -55,45 +60,81 @@
     position: fixed;
     z-index: 99;
     background-color: #fff;
-    font-size: var(--supi-font-base-size);
     transition: all .2s ease-in-out;
+
+    font-size: $supi-font-base-size;
+    font-size: var(--supi-font-base-size);
 
     &-bottom {
       &-left {
+        bottom: 0;
         bottom: var(--supi-position-bottom);
+
+        left: 0;
         left: var(--supi-position-left);
+
         width: 100%;
 
         @media (min-width: $supi-breakpoint) {
+          bottom: #{map-get($supi-position, bottom)};
+          bottom: var(--supi-position-bottom);
+
+          left: #{map-get($supi-position, left)};
+          left: var(--supi-position-left);
+
           flex-grow: 1;
           flex-shrink: 1;
+
+          flex-basis: 40%;
           flex-basis: var(--supi-position-width);
+
+          max-width: 40%;
           max-width: var(--supi-position-width);
         }
       }
     }
 
     &.hide {
-      transform: translateY(calc(100% + 30px));
+      transform: translateY(100%);
+      transform: translateY(var(--supi-transform-value));
     }
   }
 
   &.theme {
+    background-color: #{map-get($supi-colors, background)};
     background-color: var(--supi-color-background);
+
+    color: #{map-get($supi-colors, primary)};
     color: var(--supi-color-primary);
 
     &-default {
+      @if $supi-border {
+        border-top: #{$supi-banner-box-border};
+      }
+
       border-top: var(--supi-banner-border);
 
       @media (min-width: $supi-breakpoint) {
+        @if $supi-border {
+          border: #{$supi-banner-box-border};
+        }
+
         border: var(--supi-banner-border);
       }
 
+      @if $supi-box-shadow {
+        box-shadow: #{$supi-banner-box-shadow};
+      }
+
       box-shadow: var(--supi-banner-box-shadow);
+
+      font-size: #{$supi-font-size};
       font-size: var(--supi-font-size);
+
       line-height: 1.5;
 
       #supi\:description, .elements {
+        padding: #{$supi-banner-box-padding};
         padding: var(--supi-padding);
       }
 
@@ -102,7 +143,9 @@
       }
 
       h3 {
+        font-size: #{$supi-font-size-head};
         font-size: var(--supi-font-size-head);
+
         line-height: inherit;
         margin: 0 0 .5em 0;
       }
@@ -112,11 +155,13 @@
       }
 
       a {
+        color: #{map-get($supi-colors, primary)};
         color: var(--supi-color-primary);
         text-decoration: underline;
       }
 
       nav {
+        background: #{map-get($supi-colors, button-bar)};
         background: var(--supi-color-button-bar);
 
         ul {
@@ -154,20 +199,33 @@
     }
 
     &#supi\:allow {
+      background: #{map-get($supi-colors, success)};
       background: var(--supi-color-allow-background);
+
+      color: #{map-get($supi-colors, background)};
       color: var(--supi-color-allow);
     }
 
     &#supi\:dismiss {
+      background: #{map-get($supi-colors, warning)};
       background: var(--supi-color-dismiss-background);
+
+      color: #{map-get($supi-colors, primary)};
       color: var(--supi-color-dismiss);
     }
 
     &#supi\:choose {
+      background: #{map-get($supi-colors, notice)};
       background: var(--supi-color-choose);
+
+      color: #{map-get($supi-colors, secondary)};
       color: var(--supi-color-choose-invert);
+
       display: inline-block;
+      padding-left: #{$supi-banner-box-padding};
       padding-left: var(--supi-padding);
+
+      padding-right: #{$supi-banner-box-padding};
       padding-right: var(--supi-padding);
     }
   }
