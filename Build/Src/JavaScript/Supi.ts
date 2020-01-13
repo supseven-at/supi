@@ -28,7 +28,7 @@ class Supi {
         this.allow = <HTMLAnchorElement>document.getElementById('supi:allow');
         this.dismiss = <HTMLAnchorElement>document.getElementById('supi:dismiss');
         this.choose = <HTMLAnchorElement>document.getElementById('supi:choose');
-        this.banner = <HTMLDivElement>document.getElementById('supi:banner');
+        this.banner = <HTMLDivElement>document.getElementById('supi:overlay') ? <HTMLDivElement>document.getElementById('supi:overlay') : <HTMLDivElement>document.getElementById('supi:banner');
         this.config = JSON.parse(document.getElementById('supi:script').getAttribute('data-supi-config'));
 
         // check, if status cookie is set and check the status it self and react on that
