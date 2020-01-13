@@ -18,6 +18,12 @@ class Supi {
     // the cookie name which will be set as a status cookie
     cookieName: any = 'supi-status';
 
+    // cookie banner is placed in an overlay
+    overlay: boolean = false;
+
+    // the body element
+    body: any;
+
     // the typoscript config
     config: any;
 
@@ -29,6 +35,8 @@ class Supi {
         this.dismiss = <HTMLAnchorElement>document.getElementById('supi:dismiss');
         this.choose = <HTMLAnchorElement>document.getElementById('supi:choose');
         this.banner = <HTMLDivElement>document.getElementById('supi:overlay') ? <HTMLDivElement>document.getElementById('supi:overlay') : <HTMLDivElement>document.getElementById('supi:banner');
+        this.overlay = <HTMLDivElement>document.getElementById('supi:overlay') ? true : false;
+        this.body = <HTMLBodyElement>document.getElementsByTagName('body')[0];
         this.config = JSON.parse(document.getElementById('supi:script').getAttribute('data-supi-config'));
 
         // check, if status cookie is set and check the status it self and react on that
@@ -107,6 +115,10 @@ class Supi {
      * simply toggles the banner class
      */
     toggleBanner(): void {
+        if (this.overlay === true) {
+            this.body.classList.toggle('overlay');
+        }
+
         this.banner.classList.toggle('hide');
     }
 
@@ -176,11 +188,11 @@ class Supi {
             doNotDelete = this.config['essential']['names'].split(',');
 
         cookies.forEach(function(cookie){
-           let cookieName = cookie.split('=')[0];
+            let cookieName = cookie.split('=')[0];
 
-           if (doNotDelete.indexOf(cookieName) === -1) {
-               that.deleteCookie(cookieName);
-           }
+            if (doNotDelete.indexOf(cookieName) === -1) {
+                that.deleteCookie(cookieName);
+            }
         });
     }
 }
