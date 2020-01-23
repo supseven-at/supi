@@ -66,6 +66,12 @@
     font-size: var(--supi-font-base-size);
 
     &-bottom {
+      &-fullwidth {
+        bottom: 0;
+        max-width: none;
+        width: 100%;
+      }
+
       &-left {
         bottom: 0;
         bottom: var(--supi-position-bottom);
