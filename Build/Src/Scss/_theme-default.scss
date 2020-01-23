@@ -50,8 +50,8 @@
       background: #{map-get($supi-colors, button-wrap-bgcolor)};
       background: var(--supi-button-wrap-bgcolor);
 
-      padding: var(--supi-button-wrap-padding);
       padding: #{$supi-button-wrap-padding};
+      padding: var(--supi-button-wrap-padding);
     }
   }
 
