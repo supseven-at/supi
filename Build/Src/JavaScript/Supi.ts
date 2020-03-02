@@ -27,6 +27,9 @@ class Supi {
     // the typoscript config
     config: any;
 
+    // the cookie lifetime settings
+    lifetime: any;
+
     /**
      * the constructor
      */
@@ -38,6 +41,7 @@ class Supi {
         this.overlay = <HTMLDivElement>document.getElementById('supi:overlay') ? true : false;
         this.body = <HTMLBodyElement>document.getElementsByTagName('body')[0];
         this.config = JSON.parse(document.getElementById('supi:script').getAttribute('data-supi-config'));
+        this.lifetime = JSON.parse(document.getElementById('supi:script').getAttribute('data-supi-lifetime'));
 
         // check, if status cookie is set and check the status it self and react on that
         if (parseInt(this.getCookie(this.cookieName)) === 1) {
@@ -149,7 +153,13 @@ class Supi {
         const date = new Date();
         const value = val;
 
-        date.setTime(date.getTime() + (7 * 24 * 60 * 60 * 1000));
+        if (val === '0') {
+            date.setTime(date.getTime() + (this.lifetime.dismiss * 24 * 60 * 60 * 1000));
+        } else if (val === '1') {
+            date.setTime(date.getTime() + (this.lifetime.allow * 24 * 60 * 60 * 1000));
+        } else {
+            date.setTime(date.getTime() + (7 * 24 * 60 * 60 * 1000));
+        }
 
         document.cookie = name+"="+value+"; expires="+date.toUTCString()+"; path=/";
     }

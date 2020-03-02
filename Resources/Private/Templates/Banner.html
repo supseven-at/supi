@@ -9,7 +9,7 @@
         <f:if condition="{settings.enabled}">
             <f:if condition="{settings.bundledScript}">
                 <supi:append section="head" as="supi_script">
-                    <script id="supi:script" type="text/javascript" src="{f:uri.resource(path: settings.bundledScript)}" data-supi-config="{config -> f:format.htmlspecialchars()}" async></script>
+                    <script id="supi:script" type="text/javascript" src="{f:uri.resource(path: settings.bundledScript)}" data-supi-lifetime="{lifetime -> f:format.htmlspecialchars()}" data-supi-config="{config -> f:format.htmlspecialchars()}" async></script>
                 </supi:append>
             </f:if>
 

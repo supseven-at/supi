@@ -14,6 +14,15 @@ are Typescript and SCSS, which can be included in custom build piplines.
 You can adjust most of the settings via scss variables or css variables. this will fit most of 
 the usecases.
 
+## Cookie Livetime
+
+Set different Cookie Lifetimes for Accessed or Denied Cookies. Defaults are:
+
+* 7 Days for dismissed Cookies
+* 30 Days for allowed Cookies
+
+Change this Settings in Your TypoScript Config for Your needs.
+
 ## License
 
 [GPL 3.0 or later](LICENSE)

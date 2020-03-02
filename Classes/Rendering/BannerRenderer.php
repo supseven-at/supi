@@ -70,6 +70,7 @@ class BannerRenderer
         $this->view->setPartialRootPaths($this->configuration['partialRootPaths']);
         $this->view->assignMultiple([
             'settings' => $this->configuration['settings'],
+            'lifetime' => json_encode($this->configuration['settings']['lifetime']),
             'config'   => json_encode($this->configuration['settings']['elements']),
         ]);
 

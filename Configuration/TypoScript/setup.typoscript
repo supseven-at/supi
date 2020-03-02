@@ -44,6 +44,11 @@ plugin.tx_supi {
             }
         }
 
+        lifetime {
+            allow = 30
+            dismiss = 7
+        }
+
         position = bottom-left
 
         theme = default
