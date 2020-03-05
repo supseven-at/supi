@@ -20,9 +20,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 
     $ll = 'LLL:EXT:supi/Resources/Private/Language/locallang_db.xlf:';
 
-    /*
-     * Add CE
-     */
+    // Add CE
     ExtensionManagementUtility::addTcaSelectItem(
         $table,
         'CType',

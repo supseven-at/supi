@@ -34,8 +34,9 @@ class BannerRenderer
      * BannerRenderer constructor.
      * @param array|null $configuration
      * @param StandaloneView $view
+     * @param \TYPO3\CMS\Core\TypoScript\TypoScriptService|\TYPO3\CMS\Extbase\Service\TypoScriptService $typoscriptService
      */
-    public function __construct(array $configuration = null, StandaloneView $view = null)
+    public function __construct(array $configuration = null, StandaloneView $view = null, $typoscriptService = null)
     {
         if (empty($configuration)) {
             $configuration = GeneralUtility::makeInstance(ObjectManager::class)
@@ -50,10 +51,14 @@ class BannerRenderer
         $this->configuration = $configuration;
         $this->view = $view ?: GeneralUtility::makeInstance(ObjectManager::class)->get(StandaloneView::class);
 
-        if (class_exists(\TYPO3\CMS\Core\TypoScript\TypoScriptService::class)) {
-            $this->typoscriptService = GeneralUtility::makeInstance(\TYPO3\CMS\Core\TypoScript\TypoScriptService::class);
+        if ($typoscriptService) {
+            $this->typoscriptService = $typoscriptService;
         } else {
-            $this->typoscriptService = GeneralUtility::makeInstance(\TYPO3\CMS\Extbase\Service\TypoScriptService::class);
+            if (class_exists(\TYPO3\CMS\Core\TypoScript\TypoScriptService::class)) {
+                $this->typoscriptService = GeneralUtility::makeInstance(\TYPO3\CMS\Core\TypoScript\TypoScriptService::class);
+            } else {
+                $this->typoscriptService = GeneralUtility::makeInstance(\TYPO3\CMS\Extbase\Service\TypoScriptService::class);
+            }
         }
     }
 

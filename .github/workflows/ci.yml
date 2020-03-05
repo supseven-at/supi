@@ -28,18 +28,18 @@ jobs:
     strategy:
       matrix:
         typo3:
-          - 'typo3/cms:^7'
-          - 'typo3/cms-core:^8 typo3/cms-extbase:^8 typo3/cms-fluid:^8'
-          - 'typo3/cms-core:^9 typo3/cms-extbase:^9 typo3/cms-fluid:^9'
-          - 'typo3/cms-core:^10 typo3/cms-extbase:^10 typo3/cms-fluid:^10'
+          - '7.6'
+          - '8.7'
+          - '9.5'
+          - '10'
         php:
           - 7.2
           - 7.3
           - 7.4
         exclude:
-          - typo3: 'typo3/cms:^7'
+          - typo3: 'typo3/cms:^7.6'
             php: 7.3
-          - typo3: 'typo3/cms:^7'
+          - typo3: 'typo3/cms:^7.6'
             php: 7.4
 
     steps:
@@ -51,8 +51,16 @@ jobs:
         with:
           php-version: ${{ matrix.php }}
 
-      - name: Test TYPO3
+      - name: Test TYPO3 7.6
+        if: matrix.typo3 == '7.6'
         run: |
-          rm -rf composer.lock vendor bin
-          composer require ${{ matrix.typo3 }} --ignore-platform-reqs --no-plugins --no-scripts --no-suggest -n --ansi
+          rm -rf composer.lock vendor bin typo3_src typo3 index.php
+          composer require --ansi -n --no-suggest --no-progress --no-plugins --no-scripts typo3/cms:^${{ matrix.typo3 }}
+          php bin/phpunit -c phpunit.xml
+
+      - name: Test TYPO3
+        if: matrix.typo3 != '7.6'
+        run: |
+          rm -rf composer.lock vendor bin typo3_src typo3 index.php
+          composer require --ansi -n --no-suggest --no-progress --no-plugins --no-scripts typo3/cms-core:^${{ matrix.typo3 }} typo3/cms-extbase:^${{ matrix.typo3 }} typo3/cms-fluid:^${{ matrix.typo3 }}
           php bin/phpunit -c phpunit.xml
