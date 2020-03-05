@@ -6,6 +6,7 @@ use PHPUnit\Framework\TestCase;
 use Supseven\Supi\Rendering\BannerRenderer;
 use TYPO3\CMS\Extbase\Mvc\Web\Request;
 use TYPO3\CMS\Fluid\View\StandaloneView;
+use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
 /**
  * Test renderer methods
@@ -59,6 +60,7 @@ class BannerRendererTest extends TestCase
 
         $variables = [
             'settings' => $settings,
+            'data'     => null,
             'config'   => json_encode($settings['elements']),
         ];
 
@@ -109,8 +111,11 @@ class BannerRendererTest extends TestCase
             'c' => 'd',
         ];
 
+        $data = ['a' => 'b'];
+
         $variables = [
             'settings' => $settings + $conf,
+            'data'     => $data,
             'config'   => json_encode($settings['elements']),
         ];
 
@@ -136,6 +141,9 @@ class BannerRendererTest extends TestCase
         ];
 
         $subject = new BannerRenderer($configuration, $view);
+        $subject->cObj = (new \ReflectionClass(ContentObjectRenderer::class))->newInstanceWithoutConstructor();
+        $subject->cObj->data = $data;
+
         $actual = $subject->userFunc('', $conf);
 
         static::assertSame($expected, $actual);

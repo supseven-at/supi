@@ -8,9 +8,9 @@ PHPs='7.2
 7.3
 7.4';
 
-TYPO3s='typo3/cms-core:^8.7 typo3/cms-extbase:^8.7 typo3/cms-fluid:^8.7
-typo3/cms-core:^9.5 typo3/cms-extbase:^9.5 typo3/cms-fluid:^9.5
-typo3/cms-core:^10 typo3/cms-extbase:^10 typo3/cms-fluid:^10'
+TYPO3s='typo3/cms-core:^8.7 typo3/cms-extbase:^8.7 typo3/cms-fluid:^8.7 typo3/cms-frontend:^8.7
+typo3/cms-core:^9.5 typo3/cms-extbase:^9.5 typo3/cms-fluid:^9.5 typo3/cms-frontend:^9.5
+typo3/cms-core:^10 typo3/cms-extbase:^10 typo3/cms-fluid:^10 typo3/cms-frontend:^10'
 
 C_HOME="$(composer global config home -q)"
 C_CACHE="$(composer global config cache-dir -q)"
@@ -29,6 +29,7 @@ single_docker_cmd() {
 run_test() {
     echo "Testing ${1} with PHP ${2}"
     git checkout -- composer.json
+    cat composer.json | jq 'del(.require)' > composer.json
     rm -rf composer.lock vendor bin typo3_src typo3 index.php
 
     single_docker_cmd "${2}" "composer require --ansi -n --no-suggest --no-progress -vv --no-plugins --no-scripts ${1}"
@@ -44,8 +45,6 @@ for t3 in ${TYPO3s}; do
         run_test "${t3}" "${php}"
     done
 done
-
-
 
 git checkout -- composer.json composer.lock
 rm -rf composer.lock vendor bin typo3_src typo3 index.php
