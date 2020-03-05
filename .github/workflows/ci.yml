@@ -37,9 +37,9 @@ jobs:
           - 7.3
           - 7.4
         exclude:
-          - typo3: 'typo3/cms:^7.6'
+          - typo3: '7.6'
             php: 7.3
-          - typo3: 'typo3/cms:^7.6'
+          - typo3: '7.6'
             php: 7.4
 
     steps:
