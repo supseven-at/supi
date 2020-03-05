@@ -13,9 +13,7 @@ var _gulp = require('gulp'),
  *
  * @return {*}
  */
-module.exports = function(done) {
-    done();
-
+module.exports = function() {
     return _gulp.src(_config().frontend.css.src)
             .pipe(_sourcemaps.init())
             .pipe(_glob())

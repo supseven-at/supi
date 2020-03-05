@@ -35,7 +35,7 @@ class BannerRenderer
      * @param array|null $configuration
      * @param StandaloneView $view
      */
-    public function __construct(?array $configuration = null, ?StandaloneView $view = null)
+    public function __construct(array $configuration = null, StandaloneView $view = null)
     {
         if (empty($configuration)) {
             $configuration = GeneralUtility::makeInstance(ObjectManager::class)
@@ -46,31 +46,32 @@ class BannerRenderer
                     'Pi1'
                 );
         }
-        $this->configuration = $configuration;
-        $this->view = $view ?? GeneralUtility::makeInstance(ObjectManager::class)->get(StandaloneView::class);
 
-        if (class_exists('TYPO3\\CMS\\Core\\TypoScript\\TypoScriptService')) {
+        $this->configuration = $configuration;
+        $this->view = $view ?: GeneralUtility::makeInstance(ObjectManager::class)->get(StandaloneView::class);
+
+        if (class_exists(\TYPO3\CMS\Core\TypoScript\TypoScriptService::class)) {
             $this->typoscriptService = GeneralUtility::makeInstance(\TYPO3\CMS\Core\TypoScript\TypoScriptService::class);
         } else {
             $this->typoscriptService = GeneralUtility::makeInstance(\TYPO3\CMS\Extbase\Service\TypoScriptService::class);
         }
     }
 
-    public function overrideSettings(array $settings): void
+    public function overrideSettings(array $settings)
     {
         $this->configuration['settings'] = array_replace_recursive($this->configuration['settings'], $settings);
     }
 
     public function render(): string
     {
-        $this->view->getRequest()->setControllerExtensionName('Supi');
-        $this->view->setTemplate($this->configuration['templateName']);
+        $this->view->getRequest()->setControllerExtensionName($this->configuration['extbase']['controllerExtensionName']);
         $this->view->setTemplateRootPaths($this->configuration['templateRootPaths']);
         $this->view->setLayoutRootPaths($this->configuration['layoutRootPaths']);
         $this->view->setPartialRootPaths($this->configuration['partialRootPaths']);
+        $this->view->setTemplate($this->configuration['templateName']);
         $this->view->assignMultiple([
             'settings' => $this->configuration['settings'],
-            'config'   => json_encode($this->configuration['settings']['elements']),
+            'config'   => json_encode($this->compileClientConfig($this->configuration['settings']['elements'])),
         ]);
 
         return $this->view->render();
@@ -84,5 +85,24 @@ class BannerRenderer
         }
 
         return $this->render();
+    }
+
+    private function compileClientConfig(array $elements): array
+    {
+        $new = [];
+
+        foreach ($elements as $key => $value) {
+            if ($key !== 'label' && $key !== 'text') {
+                if (is_array($value)) {
+                    $value = $this->compileClientConfig($value);
+                }
+
+                if (!empty($value)) {
+                    $new[$key] = $value;
+                }
+            }
+        }
+
+        return $new;
     }
 }

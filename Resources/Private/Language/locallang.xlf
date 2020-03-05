@@ -1,45 +1,79 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <xliff version="1.0">
-    <file source-language="en" date="2019-11-20T13:10:50+01:00">
-        <body>
-            <trans-unit id="banner.content.headline">
-                <source>This website uses cookies</source>
-            </trans-unit>
-            <trans-unit id="banner.content.text">
-                <source>
-                    <![CDATA[
-                        <p>We use cookies to adapt the website to your needs and to offer special features to you. By using our website, you agree to it.</p>
-                        <p>Further information on cookies can be found in our <a href="%s" target="_blank">%s</a>.</p>
-                    ]]>
-                </source>
-            </trans-unit>
-            <trans-unit id="banner.gdpr.name">
-                <source>privacy policy</source>
-            </trans-unit>
-            <trans-unit id="banner.cookie.essential.label">
-                <source>Required Cookies</source>
-            </trans-unit>
-            <trans-unit id="banner.cookie.essential.text">
-                <source>Click on "Allow all Cookies", to accept all types of cookies or click on "Allow only required cookies" to allow only those cookies that are essential to the operation and function of the website.</source>
-            </trans-unit>
-            <trans-unit id="banner.button.allow.label">
-                <source>Allow all cookies</source>
-            </trans-unit>
-            <trans-unit id="banner.button.allow.text">
-                <source>Allow all cookies</source>
-            </trans-unit>
-            <trans-unit id="banner.button.dismiss.label">
-                <source>Allow only required cookies</source>
-            </trans-unit>
-            <trans-unit id="banner.button.dismiss.text">
-                <source>Allow only required cookies</source>
-            </trans-unit>
-            <trans-unit id="plugin.button.label">
-                <source>Change current cookie settings</source>
-            </trans-unit>
-            <trans-unit id="plugin.button.text">
-                <source>Change current cookie settings</source>
-            </trans-unit>
-        </body>
-    </file>
+   <file source-language="en" date="2020-03-05T08:21:16+01:00">
+      <body>
+         <trans-unit id="banner.content.headline">
+            <source>This website uses cookies</source>
+         </trans-unit>
+         <trans-unit id="banner.content.text">
+            <source>&lt;p&gt;We use cookies to adapt the website to your needs and to offer special features to you. By using our website, you agree to it.&lt;/p&gt;&#xA;&lt;p&gt;Further information on cookies can be found in our &lt;a href=&#34;%s&#34; target=&#34;_blank&#34;&gt;%s&lt;/a&gt;.&lt;/p&gt;</source>
+         </trans-unit>
+         <trans-unit id="banner.gdpr.name">
+            <source>privacy policy</source>
+         </trans-unit>
+         <trans-unit id="banner.cookie.essential.label">
+            <source>Required Cookies</source>
+         </trans-unit>
+         <trans-unit id="banner.cookie.essential.session.label">
+            <source>User session</source>
+         </trans-unit>
+         <trans-unit id="banner.cookie.essential.status.label">
+            <source>Current Cookie settings</source>
+         </trans-unit>
+         <trans-unit id="banner.cookie.marketing.label">
+            <source>Marketing &amp; Analytics</source>
+         </trans-unit>
+         <trans-unit id="banner.cookie.marketing.text">
+            <source>User analytics and embeded social media functions.</source>
+         </trans-unit>
+         <trans-unit id="banner.cookie.marketing.ga.label">
+            <source>Google Analytics</source>
+         </trans-unit>
+         <trans-unit id="banner.cookie.marketing.fb.label">
+            <source>Facebook</source>
+         </trans-unit>
+         <trans-unit id="banner.cookie.essential.text">
+            <source>Click on &#34;Allow all Cookies&#34;, to accept all types of cookies or click on &#34;Allow only required&#xA;                    cookies&#34; to allow only those cookies that are essential to the operation and function of the&#xA;                    website.&#xA;                </source>
+         </trans-unit>
+         <trans-unit id="banner.switch.text">
+            <source>&lt;p&gt;Click on „&lt;a href=&#34;#switch&#34; data-inputs=&#34;disable&#34; data-toggle=&#34;switch&#34; data-switch-from=&#34;#supi__overview&#34; data-switch-to=&#34;#supi__detailview&#34;&gt;Cookie-Preferences&lt;/a&gt;“ to change the cookie settings manually.&lt;/p&gt;</source>
+         </trans-unit>
+         <trans-unit id="banner.detail.headline">
+            <source>Cookie-Preferences</source>
+         </trans-unit>
+         <trans-unit id="banner.detail.text">
+            <source>Enable and disable individual cookies. Required cookies cannot be disabled.</source>
+         </trans-unit>
+         <trans-unit id="banner.button.switch.label">
+            <source>Cookie-Preferences</source>
+         </trans-unit>
+         <trans-unit id="banner.button.switch.text">
+            <source>Cookie-Preferences</source>
+         </trans-unit>
+         <trans-unit id="banner.button.allow.label">
+            <source>Allow all cookies</source>
+         </trans-unit>
+         <trans-unit id="banner.button.save.text">
+            <source>Save preferences</source>
+         </trans-unit>
+         <trans-unit id="banner.button.save.label">
+            <source>Save preferences</source>
+         </trans-unit>
+         <trans-unit id="banner.button.allow.text">
+            <source>Allow all cookies</source>
+         </trans-unit>
+         <trans-unit id="banner.button.dismiss.label">
+            <source>Allow only required cookies</source>
+         </trans-unit>
+         <trans-unit id="banner.button.dismiss.text">
+            <source>Allow only required cookies</source>
+         </trans-unit>
+         <trans-unit id="plugin.button.label">
+            <source>Change current cookie settings</source>
+         </trans-unit>
+         <trans-unit id="plugin.button.text">
+            <source>Change current cookie settings</source>
+         </trans-unit>
+      </body>
+   </file>
 </xliff>

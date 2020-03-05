@@ -1,64 +1,91 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <xliff version="1.0">
-    <file source-language="en" target-language="de" date="2019-11-20T13:10:50+01:00">
-        <body>
-            <trans-unit id="banner.content.headline">
-                <source>This website uses cookies</source>
-                <target>Diese Webseite verwendet Cookies</target>
-            </trans-unit>
-            <trans-unit id="banner.content.text">
-                <source>
-                    <![CDATA[
-                        <p>We use cookies to adapt the website to your needs and to offer special features to you.
-                        By using our website, you agree to it.</p>
-                        <p>Further information on cookies can be found in our <a href="%s" target="_blank">%s</a>.</p>
-                    ]]>
-                </source>
-                <target>
-                    <![CDATA[
-                        <p>Wir verwenden Cookies, um die Website Ihren Bedürfnissen anzupassen bzw. um Ihnen spezielle
-                        Funktionen anbieten zu können. Durch die Nutzung unserer Website erklären Sie sich damit
-                        einverstanden.</p>
-                        <p>Weitere Informationen zu Cookies erhalten Sie in unserer <a href="%s" target="_blank">%s</a>.</p>
-                    ]]>
-                </target>
-            </trans-unit>
-            <trans-unit id="banner.gdpr.name">
-                <source>privacy policy</source>
-                <target>Datenschutzerklärung</target>
-            </trans-unit>
-            <trans-unit id="banner.cookie.essential.label">
-                <source>Required Cookies</source>
-                <target>Erforderliche Cookies</target>
-            </trans-unit>
-            <trans-unit id="banner.cookie.essential.text">
-                <source>Click on "Allow all Cookies", to accept all types of cookies or click on "Allow only required cookies" to allow only those cookies that are essential to the operation and function of the website.</source>
-                <target>Klicken Sie auf "Alle Cookies erlauben", um alle Arten von Cookies zu akzeptieren oder klicken Sie auf "Nur erforderliche Cookies erlauben", um nur jene Cookies zuzulassen, die für den Betrieb und Funktion der Webseite unbedingt erforderlich sind.</target>
-            </trans-unit>
-            <trans-unit id="banner.button.allow.label">
-                <source>Allow all cookies</source>
-                <target>Alle Cookies erlauben</target>
-            </trans-unit>
-            <trans-unit id="banner.button.allow.text">
-                <source>Allow all cookies</source>
-                <target>Alle Cookies erlauben</target>
-            </trans-unit>
-            <trans-unit id="banner.button.dismiss.label">
-                <source>Allow only required cookies</source>
-                <target>Nur erforderliche Cookies erlauben</target>
-            </trans-unit>
-            <trans-unit id="banner.button.dismiss.text">
-                <source>Allow only required cookies</source>
-                <target>Nur erforderliche Cookies erlauben</target>
-            </trans-unit>
-            <trans-unit id="plugin.button.label">
-                <source>Change current cookie settings</source>
-                <target>Aktuelle Cookie Einstellung ändern</target>
-            </trans-unit>
-            <trans-unit id="plugin.button.text">
-                <source>Change current cookie settings</source>
-                <target>Aktuelle Cookie Einstellung ändern</target>
-            </trans-unit>
-        </body>
-    </file>
+   <file source-language="en" target-language="de" date="2020-03-05T08:21:16+01:00">
+      <body>
+         <trans-unit id="banner.content.headline">
+            <source>This website uses cookies</source>
+            <target>Diese Webseite verwendet Cookies</target>
+         </trans-unit>
+         <trans-unit id="banner.content.text">
+            <source>&lt;p&gt;We use cookies to adapt the website to your needs and to offer special features to you. By using our website, you agree to it.&lt;/p&gt;&#xA;&lt;p&gt;Further information on cookies can be found in our &lt;a href=&#34;%s&#34; target=&#34;_blank&#34;&gt;%s&lt;/a&gt;.&lt;/p&gt;</source>
+            <target>&lt;p&gt;Wir verwenden Cookies, um die Website Ihren Bedürfnissen anzupassen bzw. um Ihnen spezielle Funktionen anbieten zu können. Durch die Nutzung unserer Website erklären Sie sich damit einverstanden.&lt;/p&gt;&#xA;&lt;p&gt;Weitere Informationen zu Cookies erhalten Sie in unserer &lt;a href=&#34;%s&#34; target=&#34;_blank&#34;&gt;%s&lt;/a&gt;.&lt;/p&gt;</target>
+         </trans-unit>
+         <trans-unit id="banner.gdpr.name">
+            <source>privacy policy</source>
+            <target>Datenschutzerklärung</target>
+         </trans-unit>
+         <trans-unit id="banner.cookie.essential.label">
+            <source>Required Cookies</source>
+            <target>Erforderliche Cookies</target>
+         </trans-unit>
+         <trans-unit id="banner.cookie.essential.session.label">
+            <source>User session</source>
+            <target>Benutzersitzung</target>
+         </trans-unit>
+         <trans-unit id="banner.cookie.essential.status.label">
+            <source>Current Cookie settings</source>
+            <target>Aktuelle Cookie Einstellungen</target>
+         </trans-unit>
+         <trans-unit id="banner.cookie.marketing.text">
+            <source>User analytics and embeded social media functions.</source>
+            <target>Benutzeranalyse und Einbettung von Social Media Funktionen</target>
+         </trans-unit>
+         <trans-unit id="banner.cookie.essential.text">
+            <source>Click on &#34;Allow all Cookies&#34;, to accept all types of cookies or click on &#34;Allow only required&#xA;                    cookies&#34; to allow only those cookies that are essential to the operation and function of the&#xA;                    website.&#xA;                </source>
+            <target>Klicken Sie auf &#34;Alle Cookies erlauben&#34;, um alle Arten von Cookies zu akzeptieren oder klicken Sie auf &#34;Nur erforderliche Cookies erlauben&#34;, um nur jene Cookies zuzulassen, die für den Betrieb und Funktion der Webseite unbedingt erforderlich sind.</target>
+         </trans-unit>
+         <trans-unit id="banner.switch.text">
+            <source>&lt;p&gt;Click on „&lt;a href=&#34;#switch&#34; data-inputs=&#34;disable&#34; data-toggle=&#34;switch&#34; data-switch-from=&#34;#supi__overview&#34; data-switch-to=&#34;#supi__detailview&#34;&gt;Cookie-Preferences&lt;/a&gt;“ to change the cookie settings manually.&lt;/p&gt;</source>
+            <target>&lt;p&gt;Klicken Sie auf „&lt;a href=&#34;#switch&#34; data-inputs=&#34;disable&#34; data-toggle=&#34;switch&#34; data-switch-from=&#34;#supi__overview&#34; data-switch-to=&#34;#supi__detailview&#34;&gt;Cookie-Einstellungen&lt;/a&gt;“ um die Cookie-Einstellungen einzeln zu berarbeiten.&lt;/p&gt;</target>
+         </trans-unit>
+         <trans-unit id="banner.detail.headline">
+            <source>Cookie-Preferences</source>
+            <target>Cookie-Einstellungen</target>
+         </trans-unit>
+         <trans-unit id="banner.detail.text">
+            <source>Enable and disable individual cookies. Required cookies cannot be disabled.</source>
+            <target>Aktivieren und deaktivieren von einzelnen Cookies. Funktionelle Cookies können nicht deaktiviert werden</target>
+         </trans-unit>
+         <trans-unit id="banner.button.switch.label">
+            <source>Cookie-Preferences</source>
+            <target>Cookie-Einstellungen</target>
+         </trans-unit>
+         <trans-unit id="banner.button.switch.text">
+            <source>Cookie-Preferences</source>
+            <target>Cookie-Einstellungen</target>
+         </trans-unit>
+         <trans-unit id="banner.button.allow.label">
+            <source>Allow all cookies</source>
+            <target>Alle Cookies erlauben</target>
+         </trans-unit>
+         <trans-unit id="banner.button.save.text">
+            <source>Save preferences</source>
+            <target>Einstellungen Speichern</target>
+         </trans-unit>
+         <trans-unit id="banner.button.save.label">
+            <source>Save preferences</source>
+            <target>Einstellungen Speichern</target>
+         </trans-unit>
+         <trans-unit id="banner.button.allow.text">
+            <source>Allow all cookies</source>
+            <target>Alle Cookies erlauben</target>
+         </trans-unit>
+         <trans-unit id="banner.button.dismiss.label">
+            <source>Allow only required cookies</source>
+            <target>Nur erforderliche Cookies erlauben</target>
+         </trans-unit>
+         <trans-unit id="banner.button.dismiss.text">
+            <source>Allow only required cookies</source>
+            <target>Nur erforderliche Cookies erlauben</target>
+         </trans-unit>
+         <trans-unit id="plugin.button.label">
+            <source>Change current cookie settings</source>
+            <target>Aktuelle Cookie Einstellung ändern</target>
+         </trans-unit>
+         <trans-unit id="plugin.button.text">
+            <source>Change current cookie settings</source>
+            <target>Aktuelle Cookie Einstellung ändern</target>
+         </trans-unit>
+      </body>
+   </file>
 </xliff>

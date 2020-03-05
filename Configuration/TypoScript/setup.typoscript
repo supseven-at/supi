@@ -1,5 +1,6 @@
-plugin.tx_supi = FLUIDTEMPLATE
+plugin.tx_supi = USER
 plugin.tx_supi {
+    userFunc = Supseven\Supi\Rendering\BannerRenderer->userFunc
     extbase.controllerExtensionName = Supi
     templateName = Banner
     templateRootPaths.0 = EXT:supi/Resources/Private/Templates/
@@ -7,11 +8,45 @@ plugin.tx_supi {
     layoutRootPaths.0 = EXT:supi/Resources/Private/Layouts/
 
     settings {
+        # Quick enable - disable
         enabled = 1
+
+        # Hide the "Functional Cookies only" button
+        hideAutoEssential = 0
+
+        # Enabled detailed view
+        detailed = 0
+
+        # Show per item/cookie details, not just blocks
+        perItemDetail = 0
+
+        # Enable select per item
+        perItemSelect = 0
+
+        # Enable big switch-to-detail in overview if detail is active
+        showBigSwitch = 1
+
+        # Time to live of own cookies in days
+        cookieTTL = 7
 
         content {
             headline = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.content.headline
             text = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.content.text
+        }
+
+        overview {
+            headline = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.overview.headline
+            text = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.overview.text
+        }
+
+        switch {
+            headline = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.switch.headline
+            text = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.switch.text
+        }
+
+        detail {
+            headline = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.detail.headline
+            text = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.detail.text
         }
 
         gdpr {
@@ -25,7 +60,35 @@ plugin.tx_supi {
                 required = 1
                 label = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.essential.label
                 text = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.essential.text
-                names = fe_typo_user,be_typo_user,PHPSESSID,supi-status,cookie1
+                names = fe_typo_user,be_typo_user,be_lastLoginProvider,PHPSESSID,supi-status,supi-allowed
+
+                items {
+                    session {
+                        label = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.essential.session.label
+                        names = fe_typo_user,be_typo_user,be_lastLoginProvider,PHPSESSID
+                    }
+                    status {
+                        label = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.essential.status.label
+                        names = supi-status,supi-allowed
+                    }
+                }
+            }
+            marketing {
+                required = 0
+                label = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.marketing.label
+                text = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.marketing.text
+                names = _dc_gtm_XXX,_ga,_gid,_fbp
+
+                items {
+                    ga {
+                        label = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.marketing.ga.label
+                        names = _dc_gtm_XXX,_ga,_gid
+                    }
+                    fb {
+                        label = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.marketing.fb.label
+                        names = _fbp
+                    }
+                }
             }
         }
 
@@ -37,26 +100,47 @@ plugin.tx_supi {
             dismiss {
                 label = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.button.dismiss.label
                 text = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.button.dismiss.text
+                disable = 0
             }
             choose {
                 label = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:plugin.button.label
                 text = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:plugin.button.text
             }
+            switch {
+                label = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.button.switch.label
+                text = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.button.switch.text
+            }
+            save {
+                label = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.button.save.label
+                text = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.button.save.text
+            }
         }
 
         position = bottom-left
-
         theme = default
-
-        bundledScript = JavaScript/Supi.min.js
-        bundledStyles = Css/Supi.min.css
     }
 }
 
-lib.elements.supi = USER
-lib.elements.supi.userFunc = Supseven\Supi\Rendering\BannerRenderer->userFunc
+page {
+    includeJS.supi = EXT:supi/Resources/Public/JavaScript/Supi.min.js
+    includeJS.supi {
+        async = 1
+        defer = 1
+        disableCompression = 1
+        excludeFromConcatenation = 1
+    }
 
-tt_content.tx_supi_button = < plugin.tx_supi
+    includeCSS.supi = EXT:supi/Resources/Public/Css/Supi.min.css
+    includeCSS.supi {
+        disableCompression = 1
+        excludeFromConcatenation = 1
+        media = screen
+    }
+}
+
+lib.elements.supi =< plugin.tx_supi
+
+tt_content.tx_supi_button =< plugin.tx_supi
 tt_content.tx_supi_button {
     templateName = Button
 }
@@ -66,7 +150,21 @@ page.headerData.31337 {
     10 = TEXT
     10.value (
         <script type="application/supi">
-            console.log("GREAT! SUPI WORKS! ADD YOUR SCRIPT HERE!")
+            console.log("GREAT! SUPI WORKS!")
+        </script>
+    )
+
+    20 = TEXT
+    20.value (
+        <script type="application/supi" data-supi-cookies="_ga,_gid">
+            console.log("SUPI GA Snippet active")
+        </script>
+    )
+
+    30 = TEXT
+    30.value (
+        <script type="application/supi" data-supi-cookies="_fbp">
+            console.log("SUPI FB Snippet active")
         </script>
     )
 }

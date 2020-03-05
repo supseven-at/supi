@@ -12,9 +12,8 @@ var _config = require('../../config.js'),
  *
  * @return {*}
  */
-module.exports = function(done) {
-    _del(_folderAndFiles, { force: true });
-    setTimeout(function(){ done(); }, 100);
+module.exports = function() {
+    return _del(_folderAndFiles, { force: true });
 };
 
 module.exports.alias = 'Misc:CLEAN';

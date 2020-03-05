@@ -19,6 +19,14 @@
             "Supseven\\Supi\\Tests\\": "Tests/"
         }
     },
+    "replace": {
+        "supi":"*"
+    },
+    "require": {
+        "php":">=7.2,<8",
+        "typo3/cms-fluid": "^9",
+        "typo3/cms-frontend": "^9"
+    },
     "require-dev": {
         "phpunit/phpunit": "*",
         "friendsofphp/php-cs-fixer": "*"
