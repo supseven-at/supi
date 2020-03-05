@@ -20,13 +20,13 @@ class BannerRendererTest extends TestCase
     public function testOverrideSettings()
     {
         $subject = new BannerRenderer(['settings' => ['a' => 'b']], $this->createMock(StandaloneView::class));
-        $subject->overrideSettings(['b' => 'c', 'a' => 'd']);
+        $subject->overrideSettings(['settings' => ['b' => 'c', 'a' => 'd'], 'e' => 'f']);
 
         $prop = (new \ReflectionObject($subject))->getProperty('configuration');
         $prop->setAccessible(true);
         $actual = $prop->getValue($subject);
 
-        static::assertSame(['settings' => ['a' => 'd', 'b' => 'c']], $actual);
+        static::assertSame(['settings' => ['a' => 'd', 'b' => 'c'], 'e' => 'f'], $actual);
     }
 
     /**
