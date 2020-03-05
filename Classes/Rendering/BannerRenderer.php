@@ -64,7 +64,7 @@ class BannerRenderer
 
     public function overrideSettings(array $settings)
     {
-        $this->configuration['settings'] = array_replace_recursive($this->configuration['settings'], $settings);
+        $this->configuration = array_replace_recursive($this->configuration, $settings);
     }
 
     public function render(): string
