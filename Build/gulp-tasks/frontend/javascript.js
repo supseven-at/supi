@@ -11,14 +11,11 @@ var _gulp = require('gulp'),
  *
  * @return {*}
  */
-module.exports = function(done) {
-    done();
-
+module.exports = function() {
     return _gulp.src([
-        _config().frontend.javascript.src
-    ])
+            _config().frontend.javascript.src
+        ])
         .pipe(_ts({
-            noImplicitAny: true,
             outFile: _config().frontend.javascript.outFile
         }))
         .pipe(_sourcemaps.init())

@@ -55,6 +55,10 @@
     }
   }
 
+  &__pane-hidden {
+    display: none;
+  }
+
   &.position {
     flex-direction: column;
     position: fixed;
@@ -104,6 +108,12 @@
       transform: translateY(100%);
       transform: translateY(var(--supi-transform-value));
     }
+
+      &.hide .hide,
+      & .hide {
+          transform: none;
+          display: none;
+      }
   }
 
   &.theme {
@@ -139,7 +149,7 @@
 
       line-height: 1.5;
 
-      #supi\:description, .elements {
+      #supi__description, .elements {
         padding: #{$supi-banner-box-padding};
         padding: var(--supi-padding);
       }
@@ -204,7 +214,7 @@
       display: none;
     }
 
-    &#supi\:allow {
+    &.tx-supi__allow {
       background: #{map-get($supi-colors, success)};
       background: var(--supi-color-allow-background);
 
@@ -212,7 +222,7 @@
       color: var(--supi-color-allow);
     }
 
-    &#supi\:dismiss {
+    &#supi__dismiss {
       background: #{map-get($supi-colors, warning)};
       background: var(--supi-color-dismiss-background);
 
@@ -220,7 +230,8 @@
       color: var(--supi-color-dismiss);
     }
 
-    &#supi\:choose {
+    &#supi__choose,
+    &#supi__save {
       background: #{map-get($supi-colors, notice)};
       background: var(--supi-color-choose);
 

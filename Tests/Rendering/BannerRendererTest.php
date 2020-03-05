@@ -17,7 +17,7 @@ class BannerRendererTest extends TestCase
     /**
      * @covers \Supseven\Supi\Rendering\BannerRenderer
      */
-    public function testOverrideSettings(): void
+    public function testOverrideSettings()
     {
         $subject = new BannerRenderer(['settings' => ['a' => 'b']], $this->createMock(StandaloneView::class));
         $subject->overrideSettings(['b' => 'c', 'a' => 'd']);
@@ -32,7 +32,7 @@ class BannerRendererTest extends TestCase
     /**
      * @covers \Supseven\Supi\Rendering\BannerRenderer
      */
-    public function testRender(): void
+    public function testRender()
     {
         $template = 'Banner';
         $templates = [
@@ -79,7 +79,7 @@ class BannerRendererTest extends TestCase
     /**
      * @covers \Supseven\Supi\Rendering\BannerRenderer
      */
-    public function testUserFunc(): void
+    public function testUserFunc()
     {
         $template = 'Banner';
         $templates = [
@@ -104,6 +104,7 @@ class BannerRendererTest extends TestCase
             'config'   => json_encode($settings['elements']),
         ];
 
+        $expected = 'RESULT';
         $request = $this->createMock(Request::class);
         $request->expects(static::once())->method('setControllerExtensionName')->with(static::equalTo('Supi'));
         $view = $this->createMock(StandaloneView::class);
@@ -113,7 +114,7 @@ class BannerRendererTest extends TestCase
         $view->expects(static::once())->method('setLayoutRootPaths')->with(static::equalTo($layouts));
         $view->expects(static::once())->method('setPartialRootPaths')->with(static::equalTo($partials));
         $view->expects(static::once())->method('assignMultiple')->with(static::equalTo($variables));
-        $view->expects(static::once())->method('render')->willReturn('');
+        $view->expects(static::once())->method('render')->willReturn($expected);
 
         $configuration = [
             'templateName'      => $template,
@@ -124,6 +125,8 @@ class BannerRendererTest extends TestCase
         ];
 
         $subject = new BannerRenderer($configuration, $view);
-        $subject->userFunc('', $conf);
+        $actual = $subject->userFunc('', $conf);
+
+        static::assertSame($expected, $actual);
     }
 }

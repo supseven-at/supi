@@ -9,10 +9,9 @@ var _gulp = require('gulp'),
  * @return {*}
  */
 module.exports = function(done) {
-    done();
-
     _gulp.watch(_config().frontend.css.watch, _gulp.series('Frontend:SCSS'));
     _gulp.watch(_config().frontend.javascript.watch, _gulp.series('Frontend:JS'));
+    done();
 };
 
 module.exports.alias = 'Misc:WATCH';
