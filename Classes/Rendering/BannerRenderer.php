@@ -6,13 +6,14 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Fluid\View\StandaloneView;
+use TYPO3\CMS\Frontend\Plugin\AbstractPlugin;
 
 /**
  * Banner renderer
  *
  * @author Georg Großberger <g.grossberger@supseven.at>
  */
-class BannerRenderer
+class BannerRenderer extends AbstractPlugin
 {
     /**
      * @var StandaloneView
@@ -76,6 +77,7 @@ class BannerRenderer
         $this->view->setTemplate($this->configuration['templateName']);
         $this->view->assignMultiple([
             'settings' => $this->configuration['settings'],
+            'data'     => $this->configuration['data'] ?? null,
             'config'   => json_encode($this->compileClientConfig($this->configuration['settings']['elements'])),
         ]);
 
@@ -87,6 +89,10 @@ class BannerRenderer
         if (is_array($conf) && !empty($conf)) {
             $overrides = $this->typoscriptService->convertTypoScriptArrayToPlainArray($conf);
             $this->overrideSettings($overrides);
+        }
+
+        if ($this->cObj && $this->cObj->data) {
+            $this->configuration['data'] = $this->cObj->data;
         }
 
         return $this->render();
