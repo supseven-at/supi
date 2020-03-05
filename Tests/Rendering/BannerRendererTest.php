@@ -4,6 +4,7 @@ namespace Supseven\Supi\Tests\Rendering;
 
 use PHPUnit\Framework\TestCase;
 use Supseven\Supi\Rendering\BannerRenderer;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Web\Request;
 use TYPO3\CMS\Fluid\View\StandaloneView;
 
@@ -34,6 +35,14 @@ class BannerRendererTest extends TestCase
      */
     public function testRender()
     {
+        if (class_exists(\TYPO3\CMS\Core\TypoScript\TypoScriptService::class)) {
+            $typoscriptService = \TYPO3\CMS\Core\TypoScript\TypoScriptService::class;
+        } else {
+            $typoscriptService = \TYPO3\CMS\Extbase\Service\TypoScriptService::class;
+        }
+
+        $service = $this->createMock($typoscriptService);
+
         $template = 'Banner';
         $templates = [
             ['DIR/Templates'],
@@ -45,6 +54,7 @@ class BannerRendererTest extends TestCase
             ['DIR/Partials'],
         ];
         $settings = [
+            'extbase' => ['controllerExtensionName' => 'Supi'],
             'elements' => ['a' => 'b'],
         ];
 
@@ -70,9 +80,10 @@ class BannerRendererTest extends TestCase
             'layoutRootPaths'   => $layouts,
             'partialRootPaths'  => $partials,
             'settings'          => $settings,
+            'extbase'           => ['controllerExtensionName' => 'Supi'],
         ];
 
-        $subject = new BannerRenderer($configuration, $view);
+        $subject = new BannerRenderer($configuration, $view, $service);
         $subject->render();
     }
 
@@ -122,6 +133,7 @@ class BannerRendererTest extends TestCase
             'layoutRootPaths'   => $layouts,
             'partialRootPaths'  => $partials,
             'settings'          => $settings + $conf,
+            'extbase' => ['controllerExtensionName' => 'Supi'],
         ];
 
         $subject = new BannerRenderer($configuration, $view);
