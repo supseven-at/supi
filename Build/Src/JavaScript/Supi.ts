@@ -61,7 +61,7 @@ class Supi {
     constructor() {
         this.root = document.getElementById('supi');
         this.dismiss = this.get('#supi__dismiss');
-        this.choose = this.get('#supi__choose');
+        this.choose = this.get('#supi__choose', true);
         this.banner = this.get('#supi__overlay') ? this.get('#supi__overlay') : this.get('#supi__banner');
         this.overlay = !!(this.get('#supi__overlay'));
         this.body = <HTMLBodyElement>document.getElementsByTagName('body')[0];
@@ -261,9 +261,9 @@ class Supi {
         return [].slice.call(this.root.querySelectorAll(selector), 0);
     }
 
-    private get(selector: string): SupiElement
+    private get(selector: string, fromBody: boolean = false): SupiElement
     {
-        return this.root.querySelector(selector);
+        return (fromBody ? document : this.root).querySelector(selector);
     }
 
     /**
