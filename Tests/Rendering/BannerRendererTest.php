@@ -4,7 +4,6 @@ namespace Supseven\Supi\Tests\Rendering;
 
 use PHPUnit\Framework\TestCase;
 use Supseven\Supi\Rendering\BannerRenderer;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Web\Request;
 use TYPO3\CMS\Fluid\View\StandaloneView;
 
@@ -54,7 +53,7 @@ class BannerRendererTest extends TestCase
             ['DIR/Partials'],
         ];
         $settings = [
-            'extbase' => ['controllerExtensionName' => 'Supi'],
+            'extbase'  => ['controllerExtensionName' => 'Supi'],
             'elements' => ['a' => 'b'],
         ];
 
@@ -133,7 +132,7 @@ class BannerRendererTest extends TestCase
             'layoutRootPaths'   => $layouts,
             'partialRootPaths'  => $partials,
             'settings'          => $settings + $conf,
-            'extbase' => ['controllerExtensionName' => 'Supi'],
+            'extbase'           => ['controllerExtensionName' => 'Supi'],
         ];
 
         $subject = new BannerRenderer($configuration, $view);
