@@ -27,7 +27,12 @@ plugin.tx_supi {
         showBigSwitch = 1
 
         # Time to live of own cookies in days
-        cookieTTL = 7
+        cookieTTL {
+            # Allow all
+            all = 30
+            # Allow selected / essential
+            reduced = 7
+        }
 
         content {
             headline = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.content.headline
@@ -114,11 +119,6 @@ plugin.tx_supi {
                 label = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.button.save.label
                 text = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.button.save.text
             }
-        }
-
-        lifetime {
-            allow = 30
-            dismiss = 7
         }
 
         position = bottom-left

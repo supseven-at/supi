@@ -8,8 +8,8 @@ enum Mode {
 }
 
 enum Status {
-    Selected = 'sel',
-    All = 'all'
+    Selected = 's',
+    All = 'a'
 }
 
 /**
@@ -50,13 +50,13 @@ class Supi {
 
     private save: HTMLElement;
 
-    // Cookie TTL in days
-    private ttl: number = 7;
+    // Cookie lifetime in days for allow all
+    private ttlAll: number = 30;
+
+    // Cookie lifetime in days for selected and dismiss
+    private ttlReduced: number = 7;
 
     private allowAll: boolean = false;
-
-    // the cookie lifetime settings
-    lifetime: any;
 
     /**
      * the constructor
@@ -73,11 +73,8 @@ class Supi {
         this.save = this.get('#supi__save');
 
         if (this.config['cookieTTL']) {
-            const ttl: number = parseInt(this.config['cookieTTL']) || 0;
-
-            if (ttl > 0) {
-                this.ttl = ttl;
-            }
+            this.ttlReduced = parseInt(this.config['cookieTTL']['reduced']) || this.ttlReduced;
+            this.ttlAll = parseInt(this.config['cookieTTL']['allow']) || this.ttlAll;
         }
 
         try {
@@ -103,14 +100,21 @@ class Supi {
         if (this.getCookie(this.cookieName) === Status.All) {
             this.allowAll = true;
             this.injectJavaScripts();
+            this.updateCookieTTL();
         } else if (this.getCookie(this.cookieName) === Status.Selected) {
             this.injectJavaScripts();
+            this.updateCookieTTL();
         } else {
             this.toggleBanner();
         }
 
         // add all click handlers to the buttons
         this.addClickHandler();
+    }
+
+    updateCookieTTL(): void {
+        this.setCookie(this.cookieName, this.getCookie(this.cookieName));
+        this.setCookie(this.cookieAllowed, this.getCookie(this.cookieAllowed));
     }
 
     /**
@@ -214,9 +218,12 @@ class Supi {
                     const children = this.find('[data-supi-block=' + el.dataset.supiBlock + ']').filter(function (el: HTMLInputElement) {
                         return !!el.dataset.supiItem;
                     });
-                    parent.checked = children.reduce(function (prev: boolean, el: HTMLInputElement) {
-                        return prev && el.checked;
-                    }, true)
+
+                    if (parent && children.length) {
+                        parent.checked = children.reduce(function (prev: boolean, el: HTMLInputElement) {
+                            return prev && el.checked;
+                        }, true)
+                    }
                 }
 
                 e.stopPropagation();
@@ -312,7 +319,9 @@ class Supi {
         const date = new Date();
         const value = encodeURIComponent(val);
 
-        date.setTime(date.getTime() + (this.ttl * 24 * 60 * 60 * 1000));
+        const days: number = this.allowAll ? this.ttlAll : this.ttlReduced;
+
+        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
 
         document.cookie = name+"="+value+"; expires="+date.toUTCString()+"; path=/";
     }
