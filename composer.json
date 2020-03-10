@@ -19,9 +19,6 @@
             "Supseven\\Supi\\Tests\\": "Tests/"
         }
     },
-    "replace": {
-        "supi":"*"
-    },
     "require": {
         "php":">=7.2,<8"
     },
@@ -31,7 +28,8 @@
     },
     "extra": {
         "typo3/cms": {
-            "web-dir": "vendor/_www/"
+            "web-dir": "vendor/_www/",
+            "extension-key": "supi"
         },
         "installer-name": "supi"
     }
