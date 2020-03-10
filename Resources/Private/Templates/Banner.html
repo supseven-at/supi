@@ -116,8 +116,8 @@
         <nav>
             <ul>
                 <f:if condition="{settings.showBigSwitch}"><f:if condition="{settings.detailed}"><li><a href="#switch" data-inputs="disable" data-toggle="switch" data-switch-from="#supi__overview" data-switch-to="#supi__detailview" id="supi__switchTo" aria-label="{f:translate(key: '{settings.button.switch.label}', default: '{settings.button.switch.label}')}" role="button" tabindex="0">{f:translate(key: '{settings.button.switch.text}', default: '{settings.button.switch.text}')}</a></li></f:if></f:if>
-                <li><a href="#allow" data-toggle="allow" class="tx-supi__allow" id="supi__allow" aria-label="{f:translate(key: '{settings.button.allow.label}', default: '{settings.button.allow.label}')}" role="button" tabindex="0">{f:translate(key: '{settings.button.allow.text}', default: '{settings.button.allow.text}')}</a></li>
                 <f:if condition="{settings.hideAutoEssential}"><f:else><li><a href="#dismiss" id="supi__dismiss" aria-label="{f:translate(key: '{settings.button.dismiss.label}', default: '{settings.button.dismiss.label}')}" role="button" tabindex="1">{f:translate(key: '{settings.button.dismiss.text}', default: '{settings.button.dismiss.text}')}</a></li></f:else></f:if>
+                <li><a href="#allow" data-toggle="allow" class="tx-supi__allow" id="supi__allow" aria-label="{f:translate(key: '{settings.button.allow.label}', default: '{settings.button.allow.label}')}" role="button" tabindex="0">{f:translate(key: '{settings.button.allow.text}', default: '{settings.button.allow.text}')}</a></li>
             </ul>
         </nav>
 
