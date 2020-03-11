@@ -1,0 +1,17 @@
+<html data-namespace-typo3-fluid="true"
+      xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers">
+
+    <f:render partial="Layout/Description" arguments="{_all}" />
+
+    <f:if condition="{settings.detailed}">
+        <f:then>
+            <f:render partial="Layout/DetailedInformation" arguments="{_all}" />
+        </f:then>
+        <f:else>
+            <f:render partial="Layout/Elements" arguments="{_all}" />
+        </f:else>
+    </f:if>
+
+    <f:render partial="Layout/Buttons" arguments="{_all}" />
+
+</html>

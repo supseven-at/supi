@@ -23,6 +23,7 @@ $supi-colors: map-merge(
     $supi-colors
 );
 
+$supi-grid-gutter-width: 30px !default;
 $supi-breakpoint: 992px !default;
 $supi-border: true !default;
 $supi-box-shadow: true !default;
@@ -30,9 +31,23 @@ $supi-font-base-size: 16px !default;
 $supi-font-size: 1em !default;
 $supi-font-size-head: 1.5em !default;
 
-$supi-banner-box-padding: 15px !default;
-$supi-banner-box-margin: 15px !default;
+$supi-banner-box-padding: $supi-grid-gutter-width / 2 !default;
+$supi-banner-box-margin: $supi-grid-gutter-width / 2 !default;
 $supi-banner-box-border: 1px solid map-get($supi-colors, primary) !default;
 $supi-banner-box-shadow: 0 0 10px rgba(map-get($supi-colors, primary), .8) !default;
 
-$supi-button-wrap-padding: 15px !default;
+$supi-button-wrap-padding: $supi-grid-gutter-width / 2 !default;
+
+$supi-breakpoints: (
+  xs: 0,
+  md: $supi-breakpoint,
+) !default;
+
+$supi-spacers: () !default;
+$supi-spacers: map-merge(
+      (
+        hg: $supi-grid-gutter-width / 2,
+        fg: $supi-grid-gutter-width,
+      ),
+    $supi-spacers
+);

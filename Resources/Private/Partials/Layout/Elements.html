@@ -1,0 +1,15 @@
+<html data-namespace-typo3-fluid="true"
+      xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers">
+
+    <div id="supi__elements" class="supi-p-hg">
+        <ul>
+            <f:for each="{settings.elements}" as="element">
+                <li class="supi-element">
+                    <span class="supi-element__label">{f:translate(key: '{element.label}', default: '{element.label}')}</span>
+                    <span class="supi-element__text">{f:translate(key: '{element.text}', default: '{element.text}')}</span>
+                </li>
+            </f:for>
+        </ul>
+    </div>
+
+</html>

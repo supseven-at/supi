@@ -1,0 +1,15 @@
+<html data-namespace-typo3-fluid="true"
+      xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers">
+
+    <f:variable name="gdprPageUri" value="{f:uri.typolink(parameter: '{settings.gdpr.uid}')}" />
+    <f:variable name="gdprPageName" value="{f:translate(key: '{settings.gdpr.name}')}" />
+
+    <div id="supi__description">
+        <f:render partial="Layout/Heading" arguments="{ key : settings.content.headline }" />
+
+        <f:alias map="{ arguments : { 0 : gdprPageUri, 1 : gdprPageName } }">
+            {f:translate(key: '{settings.content.text}', arguments: '{arguments}', default: '{settings.content.text}') -> f:format.raw()}
+        </f:alias>
+    </div>
+
+</html>

@@ -1,7 +1,5 @@
-<html
-        data-namespace-typo3-fluid="true"
-        xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
-        xmlns:supi="http://typo3.org/ns/Supseven/Supi/ViewHelpers">
+<html data-namespace-typo3-fluid="true"
+      xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers">
 
     <f:layout name="Default" />
 
@@ -12,121 +10,18 @@
                     <f:if condition="{settings.position} == 'center-center'">
                         <f:then>
                             <f:alias map="{hideOverlay: 'hide', hideBanner: ''}">
-                                <f:render section="Overlay" arguments="{_all}" />
+                                <f:render partial="Overlay" arguments="{_all}" />
                             </f:alias>
                         </f:then>
                         <f:else>
                             <f:alias map="{hideOverlay: '', hideBanner: 'hide'}">
-                                <f:render section="Banner" arguments="{_all}" />
+                                <f:render partial="Banner" arguments="{_all}" />
                             </f:alias>
                         </f:else>
                     </f:if>
                 </div>
             </f:if>
         </f:if>
-    </f:section>
-
-    <f:section name="Banner">
-        <div id="supi__banner" class="tx-supi position position-{settings.position} theme theme-{settings.theme} {hideBanner}" aria-describedby="supi__description" aria-labelledby="supi__label" aria-live="status" role="dialog">
-            <f:if condition="{settings.detailed}">
-                <f:then><f:render section="Detailview" arguments="{_all}" /></f:then>
-                <f:else><f:render section="Overview" arguments="{_all}" /></f:else>
-            </f:if>
-        </div>
-    </f:section>
-
-    <f:section name="Detailview">
-        <div id="supi__detail">
-            <div id="supi__overview" class="tx-supi__pane-visible">
-                <f:render section="Overview" arguments="{_all}" />
-            </div>
-            <div id="supi__detailview" class="tx-supi__pane-hidden">
-                <h2 class="tx-supi__label-header"><f:translate key="{settings.detail.headline}">{settings.detail.headline}</f:translate></h2>
-                <f:format.raw><f:translate key="{settings.detail.text}">{settings.detail.text}</f:translate></f:format.raw>
-                <f:for each="{settings.elements}" as="element" key="blockName">
-                    <div class="tx-supi__block">
-                        <div class="tx-supi__block-header" data-toggle="visibility" data-target="#supi_body_{blockName}">
-                            <label>
-                                <input type="checkbox" data-supi-required="{element.required}" data-supi-parent="{blockName}" data-supi-block="{blockName}" name="supi[{blockName}]" value="{element.names}" checked{f:if(condition: element.required, then: ' disabled')}>
-                                <f:translate key="{element.label}">{element.label}</f:translate>
-                            </label>
-                        </div>
-
-                        <f:if condition="{settings.perItemDetail}">
-                            <f:else>
-                                <f:format.raw><f:translate key="{element.text}">{element.text}</f:translate></f:format.raw>
-                            </f:else>
-                            <f:then>
-                                <div class="tx-supi__block-body" id="supi_body_{blockName}">
-                                    <f:format.raw><f:translate key="{element.text}">{element.text}</f:translate></f:format.raw>
-
-                                    <f:for each="{element.items}" as="item" key="itemName">
-                                        <div class="tx-supi__block-item">
-                                            <label>
-                                                <f:if condition="{settings.perItemSelect}">
-                                                    <input type="checkbox" data-supi-required="{element.required}" data-supi-block="{blockName}" data-supi-item="{itemName}" name="supi[{blockName}_{itemName}]" value="{item.names}" checked{f:if(condition: element.required, then: ' disabled')}>
-                                                </f:if>
-                                                <f:translate key="{item.label}">{item.label}</f:translate>
-                                            </label>
-                                        </div>
-                                    </f:for>
-                                </div>
-                            </f:then>
-                        </f:if>
-                    </div>
-                </f:for>
-
-                <nav>
-                    <ul>
-                        <li><a href="#save" data-toggle="save" id="supi__save" aria-label="{f:translate(key: '{settings.button.save.label}', default: '{settings.button.save.label}')}" role="button" tabindex="0">{f:translate(key: '{settings.button.save.text}', default: '{settings.button.save.text}')}</a></li>
-                        <li><a href="#allow" data-toggle="allow" id="supi__allow2" class="tx-supi__allow" aria-label="{f:translate(key: '{settings.button.allow.label}', default: '{settings.button.allow.label}')}" role="button" tabindex="0">{f:translate(key: '{settings.button.allow.text}', default: '{settings.button.allow.text}')}</a></li>
-                    </ul>
-                </nav>
-
-            </div>
-        </div>
-    </f:section>
-
-    <f:section name="Overview">
-
-        <div id="supi__description">
-            <h3 id="supi__label">{f:translate(key: '{settings.content.headline}', default: '{settings.content.headline}')}</h3>
-            {f:translate(key: '{settings.content.text}', arguments: '{
-            0: \'{f:uri.typolink(parameter: \\\'{settings.gdpr.uid}\\\')}\',
-            1: \'{f:translate(key: \\\'{settings.gdpr.name}\\\')}\'
-            }', default: '{settings.content.text}') -> f:format.raw()}
-        </div>
-
-        <f:if condition="{settings.detailed}">
-            <f:then>
-                <f:format.raw><f:translate key="{settings.switch.text}">{settings.switch.text}</f:translate></f:format.raw>
-            </f:then>
-            <f:else>
-                <ul id="supi__elements">
-                    <f:for each="{settings.elements}" as="element">
-                        <li class="supi-element">
-                            <span class="supi-element__label">{f:translate(key: '{element.label}')}</span>
-                            <span class="supi-element__text">{f:translate(key: '{element.text}')}</span>
-                        </li>
-                    </f:for>
-                </ul>
-            </f:else>
-        </f:if>
-
-        <nav>
-            <ul>
-                <f:if condition="{settings.showBigSwitch}"><f:if condition="{settings.detailed}"><li><a href="#switch" data-inputs="disable" data-toggle="switch" data-switch-from="#supi__overview" data-switch-to="#supi__detailview" id="supi__switchTo" aria-label="{f:translate(key: '{settings.button.switch.label}', default: '{settings.button.switch.label}')}" role="button" tabindex="0">{f:translate(key: '{settings.button.switch.text}', default: '{settings.button.switch.text}')}</a></li></f:if></f:if>
-                <f:if condition="{settings.hideAutoEssential}"><f:else><li><a href="#dismiss" id="supi__dismiss" aria-label="{f:translate(key: '{settings.button.dismiss.label}', default: '{settings.button.dismiss.label}')}" role="button" tabindex="1">{f:translate(key: '{settings.button.dismiss.text}', default: '{settings.button.dismiss.text}')}</a></li></f:else></f:if>
-                <li><a href="#allow" data-toggle="allow" class="tx-supi__allow" id="supi__allow" aria-label="{f:translate(key: '{settings.button.allow.label}', default: '{settings.button.allow.label}')}" role="button" tabindex="0">{f:translate(key: '{settings.button.allow.text}', default: '{settings.button.allow.text}')}</a></li>
-            </ul>
-        </nav>
-
-    </f:section>
-
-    <f:section name="Overlay">
-        <div id="supi__overlay" class="tx-supi-overlay {hideOverlay}">
-            <f:render section="Banner" arguments="{_all}" />
-        </div>
     </f:section>
 
 </html>

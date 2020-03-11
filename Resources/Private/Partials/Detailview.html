@@ -1,0 +1,58 @@
+<html data-namespace-typo3-fluid="true"
+      xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers">
+
+    <div id="supi__detail">
+        <div id="supi__overview" class="tx-supi__pane-visible">
+            <f:render partial="Overview" arguments="{_all}" />
+        </div>
+            <div id="supi__detailview" class="tx-supi__pane-hidden">
+                <div class="supi-p-hg">
+                    <f:render partial="Layout/Heading" arguments="{ key : settings.detail.headline }" />
+                    {f:translate(key:'{settings.detail.text}', default: '{settings.detail.text}') -> f:format.raw()}
+                </div>
+
+                <f:for each="{settings.elements}" as="element" key="blockName">
+                    <div class="tx-supi__block supi-px-hg supi-mb-hg">
+                        <div class="tx-supi__block-header">
+                            <span data-toggle="visibility" data-target="#supi_body_{blockName}">
+                                {f:translate(key:'{element.label}', default: '{element.label}') -> f:format.raw()}
+                            </span>
+                            <f:render partial="Form/Checkbox" arguments="{_all}" />
+                        </div>
+
+                        <f:if condition="{settings.perItemDetail}">
+                            <f:else>
+                                <f:format.raw><f:translate key="{element.text}">{element.text}</f:translate></f:format.raw>
+                            </f:else>
+                            <f:then>
+                                <div class="tx-supi__block-body {f:if(condition:'{element.showOnLoad} == 1', else:'tx-supi__pane-hidden')}" id="supi_body_{blockName}">
+                                    <ul>
+                                        <f:for each="{element.items}" as="item" key="itemName">
+                                            <li class="tx-supi__block-item">
+                                                <div>
+                                                    <f:if condition="{settings.perItemSelect}">
+                                                        <f:alias map="{perItemSelect: settings.perItemSelect}">
+                                                            <f:render partial="Form/Checkbox" arguments="{_all}" />
+                                                        </f:alias>
+                                                    </f:if>
+                                                    <div class="tx-supi__block-item__text">
+                                                        <span>{f:translate(key:'{item.label}', default: '{item.label}') -> f:format.raw()}</span>
+                                                        <small>{f:translate(key:'{item.names}', default: '{item.names}') -> f:format.raw()}</small>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </f:for>
+                                    </ul>
+                                </div>
+                            </f:then>
+                        </f:if>
+                    </div>
+                </f:for>
+
+                <f:alias map="{ save : 1, hideAutoEssential : 1 }">
+                    <f:render partial="Layout/Buttons" arguments="{_all}" />
+                </f:alias>
+            </div>
+        </div>
+
+</html>

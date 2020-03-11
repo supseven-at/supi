@@ -1,0 +1,34 @@
+<html data-namespace-typo3-fluid="true"
+      xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers">
+
+    <div class="supi-checkbox">
+        <f:if condition="{perItemSelect}">
+            <f:then>
+                <input id="supi[{blockName}_{itemName}]"
+                       type="checkbox"
+                       data-supi-required="{element.required}"
+                       data-supi-block="{blockName}"
+                       data-supi-item="{itemName}"
+                       name="supi[{blockName}_{itemName}]"
+                       value="{item.names}"
+                       checked{f:if(condition: element.required, then: ' disabled')}
+                >
+                <label for="supi[{blockName}_{itemName}]" class="supi-checkbox"></label>
+            </f:then>
+            <f:else>
+                <input id="supi[{blockName}]"
+                       type="checkbox"
+                       data-supi-required="{element.required}"
+                       data-supi-parent="{blockName}"
+                       data-supi-block="{blockName}"
+                       name="supi[{blockName}]"
+                       value="{element.names}"
+                       checked
+                       {f:if(condition: element.required, then: ' disabled')}
+                >
+                <label for="supi[{blockName}]" class="supi-checkbox"></label>
+            </f:else>
+        </f:if>
+    </div>
+
+</html>

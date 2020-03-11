@@ -15,16 +15,17 @@ plugin.tx_supi {
         hideAutoEssential = 0
 
         # Enabled detailed view
-        detailed = 0
+        detailed = 1
 
         # Show per item/cookie details, not just blocks
-        perItemDetail = 0
+        perItemDetail = 1
 
         # Enable select per item
-        perItemSelect = 0
+        perItemSelect = 1
 
         # Enable big switch-to-detail in overview if detail is active
-        showBigSwitch = 1
+        # works only with "hideAutoEssential"
+        showBigSwitch = 0
 
         # Time to live of own cookies in days
         cookieTTL {
@@ -63,31 +64,33 @@ plugin.tx_supi {
         elements {
             essential {
                 required = 1
+                showOnLoad = 1
                 label = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.essential.label
                 text = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.essential.text
-                names = fe_typo_user,be_typo_user,be_lastLoginProvider,PHPSESSID,supi-status,supi-allowed
+                names = fe_typo_user, be_typo_user, be_lastLoginProvider, PHPSESSID, supi-status, supi-allowed
 
                 items {
                     session {
                         label = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.essential.session.label
-                        names = fe_typo_user,be_typo_user,be_lastLoginProvider,PHPSESSID
+                        names = fe_typo_user, be_typo_user, be_lastLoginProvider, PHPSESSID
                     }
                     status {
                         label = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.essential.status.label
-                        names = supi-status,supi-allowed
+                        names = supi-status, supi-allowed
                     }
                 }
             }
             marketing {
                 required = 0
+                showOnLoad = 0
                 label = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.marketing.label
                 text = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.marketing.text
-                names = _dc_gtm_XXX,_ga,_gid,_fbp
+                names = _dc_gtm_XXX, _ga, _gid, _fbp
 
                 items {
                     ga {
                         label = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.marketing.ga.label
-                        names = _dc_gtm_XXX,_ga,_gid
+                        names = _dc_gtm_XXX, _ga,_gid
                     }
                     fb {
                         label = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.marketing.fb.label
@@ -121,7 +124,8 @@ plugin.tx_supi {
             }
         }
 
-        position = bottom-left
+#        position = bottom-left
+        position = center-center
         theme = default
     }
 }
