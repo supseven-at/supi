@@ -257,7 +257,6 @@ class Supi {
                 script.type = 'text/javascript';
                 script.className = 'supi-scripts';
                 script.dataset.supiCookies = template.dataset.supiCookies;
-                script.dataset.src = template.innerHTML;
                 script.innerHTML = template.innerHTML;
 
                 template.parentNode.replaceChild(script, template);
@@ -299,7 +298,7 @@ class Supi {
             let template = <HTMLScriptElement>document.createElement('script');
             template.type = 'application/supi';
             template.dataset.supiCookies = script.dataset.supiCookies;
-            template.dataset.innerHTML = script.dataset.src || script.innerHTML;
+            template.innerHTML = script.innerHTML;
 
             script.parentNode.replaceChild(template, script);
         });
@@ -376,7 +375,7 @@ class Supi {
             case Mode.All:
                 Object.keys(this.config)
                     .forEach((k: string) => {
-                        this.config[k].names.split().forEach((name: string) => {
+                        this.config[k]?.names.split().forEach((name: string) => {
                             this.allowed.push(name);
                         })
                     });
