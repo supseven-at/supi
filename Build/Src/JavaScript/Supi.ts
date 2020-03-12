@@ -281,7 +281,7 @@ class Supi {
      */
     toggleBanner(): void {
         if (this.overlay === true) {
-            this.body.classList.toggle('overlay');
+            this.body.classList.toggle('tx-supi__overlay');
         }
 
         this.banner.classList.toggle('hide');

@@ -45,6 +45,10 @@
   max-height: 100%;
   overflow-y: auto;
 
+  &__overlay {
+    overflow: hidden;
+  }
+
   &__button {
     flex-direction: column;
 
@@ -280,6 +284,10 @@
 
     @include media-breakpoint-up(md) {
       align-items: center;
+    }
+
+    &.hide {
+      display: none;
     }
   }
 
