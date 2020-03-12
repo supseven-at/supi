@@ -322,7 +322,7 @@ class Supi {
 
         date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
 
-        document.cookie = name+"="+value+"; expires="+date.toUTCString()+"; path=/";
+        document.cookie = encodeURIComponent(name)+"="+value+"; expires="+date.toUTCString()+"; path=/";
     }
 
     /**
@@ -332,7 +332,7 @@ class Supi {
      */
     getCookie(name: string): string {
         const value = "; " + document.cookie;
-        const parts = value.split("; " + name + "=");
+        const parts = value.split("; " + encodeURIComponent(name) + "=");
 
         if (parts.length == 2) {
             const result = parts.pop().split(";").shift();
@@ -359,9 +359,9 @@ class Supi {
     deleteAllCookies() {
         const cookies = document.cookie.split('; ');
         cookies.forEach((cookie: string) => {
-            let cookieName = cookie.split('=')[0];
+            const cookieName: string = cookie.split('=').shift();
 
-            if (this.allowed.indexOf(cookieName) === -1) {
+            if (!this.allowAll || this.allowed.indexOf(cookieName) === -1) {
                 this.deleteCookie(cookieName);
             }
         });
@@ -392,11 +392,11 @@ class Supi {
                 break;
 
             case Mode.Selected:
-                this.find('[data-supi-item]')
+                this.find('input[type=checkbox]')
                     .filter((el: HTMLInputElement) => el.checked || (parseInt(el.dataset.supiRequired) || 0) > 0)
                     .map((el: HTMLInputElement) => el.value)
                     .forEach((list: string) => {
-                        list.split(',').forEach((el: string) => {
+                        list.split(',').map((e: string) => e.trim()).forEach((el: string) => {
                             if (this.allowed.indexOf(el) === -1) {
                                 this.allowed.push(el);
                             }
