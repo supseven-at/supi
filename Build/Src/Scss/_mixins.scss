@@ -1,14 +1,14 @@
-@function breakpoint-infix($name, $breakpoints: $supi-breakpoints) {
-  @return if(breakpoint-min($name, $breakpoints) == null, "", "-#{$name}");
+@function supi-breakpoint-infix($name, $breakpoints: $supi-breakpoints) {
+  @return if(supi-breakpoint-min($name, $breakpoints) == null, "", "-#{$name}");
 }
 
-@function breakpoint-min($name, $breakpoints: $supi-breakpoints) {
+@function supi-breakpoint-min($name, $breakpoints: $supi-breakpoints) {
   $min: map-get($breakpoints, $name);
   @return if($min != 0, $min, null);
 }
 
-@mixin media-breakpoint-up($name, $breakpoints: $supi-breakpoints) {
-  $min: breakpoint-min($name, $breakpoints);
+@mixin supi-media-breakpoint-up($name, $breakpoints: $supi-breakpoints) {
+  $min: supi-breakpoint-min($name, $breakpoints);
   @if $min {
     @media (min-width: $min) {
       @content;

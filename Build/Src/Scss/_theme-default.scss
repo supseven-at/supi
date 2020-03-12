@@ -3,7 +3,7 @@
   --supi-position-left: 0;
   --supi-position-width: 100%;
 
-  @include media-breakpoint-up(md) {
+  @include supi-media-breakpoint-up(md) {
     --supi-position-bottom: #{map-get($supi-position, bottom)};
     --supi-position-left: #{map-get($supi-position, left)};
     --supi-position-width: 40%;
@@ -92,7 +92,7 @@
         width: 100%;
 
 
-        @include media-breakpoint-up(md) {
+        @include supi-media-breakpoint-up(md) {
           bottom: #{map-get($supi-position, bottom)};
           bottom: var(--supi-position-bottom);
 
@@ -137,7 +137,7 @@
       }
       width: 100%;
 
-      @include media-breakpoint-up(md) {
+      @include supi-media-breakpoint-up(md) {
         max-width: 50%;
         width: 800px;
 
@@ -282,7 +282,7 @@
     z-index: 9999;
     align-items: flex-end;
 
-    @include media-breakpoint-up(md) {
+    @include supi-media-breakpoint-up(md) {
       align-items: center;
     }
 
