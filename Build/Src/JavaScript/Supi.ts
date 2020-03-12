@@ -317,7 +317,6 @@ class Supi {
     setCookie(name: string, val: string): void {
         const date = new Date();
         const value = encodeURIComponent(val);
-
         const days: number = this.allowAll ? this.ttlAll : this.ttlReduced;
 
         date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
@@ -385,7 +384,7 @@ class Supi {
                 Object.keys(this.config)
                     .filter((k: string) => !!this.config[k]['required'])
                     .forEach((k: string) => {
-                        this.config[k].names.split().forEach((name: string) => {
+                        this.config[k]?.names.split().forEach((name: string) => {
                             this.allowed.push(name);
                         })
                     });
@@ -405,7 +404,9 @@ class Supi {
                 break;
         }
 
-        this.setCookie(this.cookieAllowed, JSON.stringify(this.allowed));
+        setTimeout(() => {
+            this.setCookie(this.cookieAllowed, JSON.stringify(this.allowed));
+        }, 300);
 
         return this.allowed.sort().join() === old;
     }
