@@ -110,6 +110,7 @@ class Supi {
 
         // add all click handlers to the buttons
         this.addClickHandler();
+        this.setDetailDefaults();
     }
 
     updateCookieTTL(): void {
@@ -183,7 +184,7 @@ class Supi {
                 this.get(el.dataset.switchFrom).classList.add('tx-supi__pane-hidden');
                 this.get(el.dataset.switchTo).classList.remove('tx-supi__pane-hidden');
 
-                if (el.dataset.inputs === 'disable') {
+                if (el.dataset.inputs === 'disable' && this.allowed.length < 1) {
                     this.find('input[type=checkbox]').forEach((el: HTMLInputElement) => {
                         el.checked = (el.disabled || !!el.dataset.required);
                     });
@@ -409,6 +410,44 @@ class Supi {
         }, 300);
 
         return this.allowed.sort().join() === old;
+    }
+
+    private setDetailDefaults(): void {
+        this.find('input[data-supi-parent]').forEach((parent: HTMLInputElement) => {
+            const singleItems = this.find('input[data-supi-block=' + parent.dataset.supiParent + '][data-supi-item]');
+
+            if (singleItems.length) {
+                console.log('For parent %o check items %o', parent, singleItems);
+                parent.checked = true;
+                singleItems.forEach((el: HTMLInputElement) => {
+                    el.checked = el.disabled || this.allowAll || el.value.split(',').reduce((prev: boolean, val: string): boolean => {
+                        return prev && this.allowed.indexOf(val) > -1;
+                    }, true);
+
+                    console.log('El %o is %o, value: %s in %o?', el, el.checked, el.value, this.allowed);
+                });
+
+                parent.checked = singleItems.reduce((prev: boolean, item: HTMLInputElement): boolean => prev && item.checked, true);
+                console.log('Set parent %o to %o', parent, parent.checked);
+            } else {
+                console.log('Check if all of parent values %s', parent.value, this.allowed);
+                parent.checked = parent.disabled || this.allowAll || parent.value.split(',').reduce((prev: boolean, val: string) => {
+                    console.log('Checking value %s with prev of %o', val, prev);
+
+                    if (prev) {
+                        val = val.replace(/\s+/g, '');
+                        console.log('Prev still true, checking if value %s is in %o', val, this.allowed);
+
+                        if (val !== '' && this.allowed.indexOf(val) === -1) {
+                            console.log('Value %s is not in %o, setting to false', val, this.allowed);
+                            prev = false;
+                        }
+                    }
+
+                    return prev;
+                }, true);
+            }
+        });
     }
 }
 
