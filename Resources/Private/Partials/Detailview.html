@@ -14,7 +14,7 @@
                 <f:for each="{settings.elements}" as="element" key="blockName">
                     <div class="tx-supi__block supi-px-hg supi-mb-hg">
                         <div class="tx-supi__block-header">
-                            <span data-toggle="visibility" data-target="#supi_body_{blockName}">
+                            <span data-toggle="visibility" data-target="#supi_body_{blockName}" class="{f:if(condition:'{element.showOnLoad} == 1', then:'tx-supi__pane-active')}">
                                 {f:translate(key:'{element.label}', default: '{element.label}') -> f:format.raw()}
                             </span>
                             <f:render partial="Form/Checkbox" arguments="{_all}" />

@@ -299,6 +299,26 @@
 
       & > span {
         font-weight: bold;
+        position: relative;
+        padding-left: 15px;
+
+        &:before {
+          content: "";
+          width: 7px;
+          height: 7px;
+          border-left: 2px solid map-get($supi-colors, primary);
+          border-top: 2px solid map-get($supi-colors, primary);
+          position: absolute;
+          top: 10px;
+          left: 0;
+          transform: rotate(135deg);
+          transition: transform .2s ease-in-out;
+        }
+
+        &.tx-supi__pane-active:before {
+          top: 9px;
+          transform: rotate(225deg);
+        }
       }
     }
 
