@@ -36,6 +36,12 @@ Set different Cookie Lifetimes for Accessed or Denied Cookies. Defaults are:
 
 Change this Settings in Your TypoScript Config for Your needs.
 
+## Hide Overlay on Cookie Button Plugin
+
+Set the Option `settings.hideOverlayOnButtonCe = 1` to prevent showing the Overlay on a Page where the Plugin is inserted. 
+
+This may help Users to first read the data protection Page and decide then whether to accept or decline the Cookies. 
+
 ## License
 
 [GPL 3.0 or later](LICENSE)

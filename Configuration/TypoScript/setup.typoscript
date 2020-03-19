@@ -11,6 +11,9 @@ plugin.tx_supi {
         # Quick enable - disable
         enabled = 1
 
+        # hides the overlay if the cookie button CE is visible (mostly used on the dataprotection page
+        hideOverlayOnButtonCe = 1
+
         # Hide the "Functional Cookies only" button
         hideAutoEssential = 0
 

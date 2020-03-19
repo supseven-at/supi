@@ -105,7 +105,11 @@ class Supi {
             this.injectJavaScripts();
             this.updateCookieTTL();
         } else {
-            this.toggleBanner();
+            if (this.get('[data-hide-overlay="1"]', true)) {
+                this.log('Hides the Banner-Overlay due to the given Setting "hideOverlayOnButtonCe"', '', '');
+            } else {
+                this.toggleBanner();
+            }
         }
 
         // add all click handlers to the buttons
