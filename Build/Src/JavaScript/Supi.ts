@@ -139,6 +139,8 @@ class Supi {
                     this.toggleBanner();
                     this.setCookie(this.cookieName, Status.All);
                 }
+
+                this.setDetailDefaults();
             });
         });
 
@@ -155,6 +157,8 @@ class Supi {
                     this.toggleBanner();
                     this.setCookie(this.cookieName, Status.Selected);
                 }
+
+                this.setDetailDefaults();
             });
         }
 
@@ -451,9 +455,9 @@ class Supi {
         });
     }
 
-    private log(value: any, a: any, b: any): void {
+    private log(...values: any[]): void {
         if (this.body.classList.contains('develop')) {
-            console.log(value, a, b);
+            console.log(...values);
         }
     }
 }
