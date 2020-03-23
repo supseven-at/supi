@@ -38,6 +38,9 @@ plugin.tx_supi {
             reduced = 7
         }
 
+        # Domain to bind cookies to; leave empty to use location.host
+        domain =
+
         content {
             headline = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.content.headline
             text = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.content.text

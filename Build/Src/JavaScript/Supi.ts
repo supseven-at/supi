@@ -58,6 +58,8 @@ class Supi {
 
     private allowAll: boolean = false;
 
+    private domain: string;
+
     /**
      * the constructor
      */
@@ -71,6 +73,7 @@ class Supi {
         this.config = JSON.parse(this.root.getAttribute('data-supi-config'));
         this.switch = this.get('#supi__switchTo');
         this.save = this.get('#supi__save');
+        this.domain = this.config['domain'] || location.host;
 
         if (this.config['cookieTTL']) {
             this.ttlReduced = parseInt(this.config['cookieTTL']['reduced']) || this.ttlReduced;
@@ -330,7 +333,7 @@ class Supi {
 
         date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
 
-        document.cookie = encodeURIComponent(name)+"="+value+"; expires="+date.toUTCString()+"; path=/";
+        document.cookie = encodeURIComponent(name)+"="+value+"; expires="+date.toUTCString()+"; path=/; domain=" + this.domain;
     }
 
     /**
