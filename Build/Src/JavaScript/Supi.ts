@@ -368,14 +368,16 @@ class Supi {
      * deletes all but the whitelisted cookies
      */
     deleteAllCookies() {
-        const cookies = document.cookie.split('; ');
-        cookies.forEach((cookie: string) => {
-            const cookieName: string = cookie.split('=').shift();
+        if (!this.allowAll) {
+            const cookies = document.cookie.split('; ');
+            cookies.forEach((cookie: string) => {
+                const cookieName: string = cookie.split('=').shift();
 
-            if (!this.allowAll || this.allowed.indexOf(cookieName) === -1) {
-                this.deleteCookie(cookieName);
-            }
-        });
+                if (this.allowed.indexOf(cookieName) === -1) {
+                    this.deleteCookie(cookieName);
+                }
+            });
+        }
     }
 
     private collectAllowed(mode: Mode = Mode.Essential): boolean {
