@@ -58,8 +58,6 @@ class Supi {
 
     private allowAll: boolean = false;
 
-    private domain: string;
-
     /**
      * the constructor
      */
@@ -73,7 +71,6 @@ class Supi {
         this.config = JSON.parse(this.root.getAttribute('data-supi-config'));
         this.switch = this.get('#supi__switchTo');
         this.save = this.get('#supi__save');
-        this.domain = this.config['domain'] || location.host;
 
         if (this.config['cookieTTL']) {
             this.ttlReduced = parseInt(this.config['cookieTTL']['reduced']) || this.ttlReduced;
@@ -107,7 +104,7 @@ class Supi {
         } else if (this.getCookie(this.cookieName) === Status.Selected) {
             this.injectJavaScripts();
             this.updateCookieTTL();
-        } else {
+        } else if (this.getCookie(this.cookieName) === '') {
             this.deleteCookie(this.cookieName);
 
             if (this.get('[data-hide-overlay="1"]', true)) {
@@ -336,10 +333,6 @@ class Supi {
         date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
 
         document.cookie = encodeURIComponent(name)+"="+value+"; expires="+date.toUTCString()+"; path=/";
-
-        if (this.domain) {
-            document.cookie = encodeURIComponent(name) + "=" + value + "; expires=" + date.toUTCString() + "; path=/; domain=" + this.domain;
-        }
     }
 
     /**
@@ -368,10 +361,6 @@ class Supi {
         const date = new Date();
         date.setTime(date.getTime() + (-1 * 24 * 60 * 60 * 1000));
         document.cookie = name+"=; expires="+date.toUTCString()+"; path=/";
-
-        if (this.domain) {
-            document.cookie = name+"=; expires="+date.toUTCString()+"; path=/; domain=" + this.domain;
-        }
     }
 
     /**
