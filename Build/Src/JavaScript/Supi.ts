@@ -108,6 +108,8 @@ class Supi {
             this.injectJavaScripts();
             this.updateCookieTTL();
         } else {
+            this.deleteCookie(this.cookieName);
+
             if (this.get('[data-hide-overlay="1"]', true)) {
                 this.log('Hides the Banner-Overlay due to the given Setting "hideOverlayOnButtonCe"', '', '');
             } else {
