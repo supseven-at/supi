@@ -97,11 +97,11 @@ class Supi {
         });
 
         // check, if status cookie is set and check the status it self and react on that
-        if (this.getCookie(this.cookieName) === Status.All) {
+        if (this.getCookie(this.cookieName) === Status.All || this.getCookie(this.cookieName) === '0') {
             this.allowAll = true;
             this.injectJavaScripts();
             this.updateCookieTTL();
-        } else if (this.getCookie(this.cookieName) === Status.Selected) {
+        } else if (this.getCookie(this.cookieName) === Status.Selected || this.getCookie(this.cookieName) === '1') {
             this.injectJavaScripts();
             this.updateCookieTTL();
         } else if (this.getCookie(this.cookieName) === '') {
