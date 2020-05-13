@@ -335,7 +335,11 @@ class Supi {
 
         date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
 
-        document.cookie = encodeURIComponent(name)+"="+value+"; expires="+date.toUTCString()+"; path=/; domain=" + this.domain;
+        document.cookie = encodeURIComponent(name)+"="+value+"; expires="+date.toUTCString()+"; path=/";
+
+        if (this.domain) {
+            document.cookie = encodeURIComponent(name) + "=" + value + "; expires=" + date.toUTCString() + "; path=/; domain=" + this.domain;
+        }
     }
 
     /**
@@ -364,6 +368,10 @@ class Supi {
         const date = new Date();
         date.setTime(date.getTime() + (-1 * 24 * 60 * 60 * 1000));
         document.cookie = name+"=; expires="+date.toUTCString()+"; path=/";
+
+        if (this.domain) {
+            document.cookie = name+"=; expires="+date.toUTCString()+"; path=/; domain=" + this.domain;
+        }
     }
 
     /**
