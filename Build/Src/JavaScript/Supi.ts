@@ -333,6 +333,7 @@ class Supi {
         date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
 
         document.cookie = encodeURIComponent(name)+"="+value+"; expires="+date.toUTCString()+"; path=/";
+        sessionStorage.setItem(name, val);
     }
 
     /**
@@ -341,6 +342,10 @@ class Supi {
      * @param name
      */
     getCookie(name: string): string {
+        if (sessionStorage.hasOwnProperty(name)) {
+            return sessionStorage.getItem(name);
+        }
+
         const value = "; " + document.cookie;
         const parts = value.split("; " + encodeURIComponent(name) + "=");
 
@@ -361,6 +366,7 @@ class Supi {
         const date = new Date();
         date.setTime(date.getTime() + (-1 * 24 * 60 * 60 * 1000));
         document.cookie = name+"=; expires="+date.toUTCString()+"; path=/";
+        sessionStorage.removeItem(name);
     }
 
     /**
@@ -374,6 +380,7 @@ class Supi {
 
                 if (this.allowed.indexOf(cookieName) === -1) {
                     this.deleteCookie(cookieName);
+                    sessionStorage.removeItem(cookieName);
                 }
             });
         }
