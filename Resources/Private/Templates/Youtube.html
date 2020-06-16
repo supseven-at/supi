@@ -1,0 +1,16 @@
+<html data-namespace-typo3-fluid="true"
+      xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:s="http://typo3.org/ns/Supseven/Supi/ViewHelpers">
+
+
+<f:if condition="{videos.0}">
+    <s:youtubePreview video="{videos.0}">
+        <div class="tx-supi__youtube" data-youtube-id="{videos.0.contents}">
+            <f:image image="{preview}" maxWidth="730" class="tx-supi__youtube-preview-image" />
+            <div class="tx-supi__youtube-text">
+                <p><button type="button" data-toggle="youtube" class="btn btn-primary"><f:translate key="youtube.button" /></button></p>
+                <p><f:translate key="youtube.text" /></p>
+            </div>
+        </div>
+    </s:youtubePreview>
+</f:if>

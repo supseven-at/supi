@@ -7,6 +7,14 @@ mod.wizards.newContentElement.wizardItems.plugins {
             CType = tx_supi_button
         }
     }
+    elements.tx_supi_youtube {
+        iconIdentifier = supi
+        title = LLL:EXT:supi/Resources/Private/Language/locallang_db.xlf:tt_content.youtube.title
+        description = LLL:EXT:supi/Resources/Private/Language/locallang_db.xlf:tt_content.youtube.description
+        tt_content_defValues {
+            CType = tx_supi_youtube
+        }
+    }
 
-    show := addToList(tx_supi_button)
+    show := addToList(tx_supi_button, tx_supi_youtube)
 }

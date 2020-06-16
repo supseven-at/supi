@@ -1,13 +1,19 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <xliff version="1.0">
-    <file source-language="en" date="2019-11-14T14:16:54+01:00">
-        <body>
-            <trans-unit id="tt_content.button.title">
-                <source>Cookie Button</source>
-            </trans-unit>
-            <trans-unit id="tt_content.button.description">
-                <source>Button to (re)display the cookie banner</source>
-            </trans-unit>
-        </body>
-    </file>
+   <file source-language="en" date="2020-06-16T14:14:39+02:00">
+      <body>
+         <trans-unit id="tt_content.button.title" resname="tt_content.button.title">
+            <source>Cookie Button</source>
+         </trans-unit>
+         <trans-unit id="tt_content.button.description" resname="tt_content.button.description">
+            <source>Button to (re)display the cookie banner</source>
+         </trans-unit>
+         <trans-unit id="tt_content.youtube.title" resname="tt_content.youtube.title">
+            <source>Youtube</source>
+         </trans-unit>
+         <trans-unit id="tt_content.youtube.description" resname="tt_content.youtube.description">
+            <source>Embedded Youtube video</source>
+         </trans-unit>
+      </body>
+   </file>
 </xliff>

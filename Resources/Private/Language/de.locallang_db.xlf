@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <xliff version="1.0">
-    <file source-language="en" target-language="de" date="2019-11-14T14:16:54+01:00">
-        <body>
-            <trans-unit id="tt_content.button.description">
-                <source>Button to (re)display the cookie banner</source>
-                <target>Button um das Cookie-Fenster erneut anzuzeigen</target>
-            </trans-unit>
-        </body>
-    </file>
+   <file source-language="en" target-language="de" date="2020-06-16T14:14:39+02:00">
+      <body>
+         <trans-unit id="tt_content.button.description" resname="tt_content.button.description">
+            <source>Button to (re)display the cookie banner</source>
+            <target>Button um das Cookie-Fenster erneut anzuzeigen</target>
+         </trans-unit>
+         <trans-unit id="tt_content.youtube.description" resname="tt_content.youtube.description">
+            <source>Embedded Youtube video</source>
+            <target>Eingebettetes Youtube Video</target>
+         </trans-unit>
+      </body>
+   </file>
 </xliff>

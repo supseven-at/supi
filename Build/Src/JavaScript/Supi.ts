@@ -58,6 +58,8 @@ class Supi {
 
     private allowAll: boolean = false;
 
+    private allowYoutube: boolean = false;
+
     /**
      * the constructor
      */
@@ -113,6 +115,11 @@ class Supi {
                 this.toggleBanner();
             }
         }
+
+        this.log('Checking for yt cookie');
+        this.allowYoutube = this.getCookie('supi-yt') === 'y';
+        this.log('Cookie is "%o" resulting in %o', this.getCookie('supi-yt'), this.allowYoutube);
+        this.enableYoutubeVideos();
 
         // add all click handlers to the buttons
         this.addClickHandler();
@@ -240,6 +247,15 @@ class Supi {
                 e.stopPropagation();
             });
         });
+
+        // Enabling youtube videos
+        this.findAll('.tx-supi__youtube').forEach((el: HTMLElement) => {
+            this.log("Add listener to child of %o", el);
+            el.querySelector('[data-toggle=youtube]').addEventListener('click', () => {
+                this.log('Enabling all');
+                this.toggleYoutubeVideos(el);
+            });
+        });
     }
 
     /**
@@ -279,6 +295,11 @@ class Supi {
     private find(selector: string): Array<HTMLElement & Node>
     {
         return [].slice.call(this.root.querySelectorAll(selector), 0);
+    }
+
+    private findAll(selector: string): Array<HTMLElement & Node>
+    {
+        return [].slice.call(document.querySelectorAll(selector), 0);
     }
 
     private get(selector: string, fromBody: boolean = false): SupiElement
@@ -470,6 +491,40 @@ class Supi {
         if (this.body.classList.contains('develop')) {
             console.log(...values);
         }
+    }
+
+    private enableYoutubeVideos() {
+        if (this.allowAll || this.allowYoutube) {
+            this.log('Enabling all videos, non autostart')
+            this.findAll('.tx-supi__youtube').forEach((el: HTMLElement) => {
+                this.log('Enabling %o', el);
+                this.addVideo(el, '');
+            });
+        }
+    }
+
+    private toggleYoutubeVideos(autoplayEl) {
+        this.log('Enabling youtube');
+        this.allowYoutube = true;
+        this.setCookie('supi-yt', 'y');
+        this.log('Start video for %o', autoplayEl);
+        this.addVideo(autoplayEl, '&autoplay=1');
+        this.log('Enabling other videos');
+        this.enableYoutubeVideos();
+    }
+
+    private addVideo(el: HTMLElement, additionalParams: string)
+    {
+        const size = el.querySelector('.tx-supi__youtube-preview-image').getBoundingClientRect();
+        const youtubeId = el.dataset.youtubeId;
+        const youtubeUrl = 'https://www.youtube-nocookie.com/embed/' + youtubeId + '?rel=0&modestbranding=1' + additionalParams;
+        const iframe: HTMLIFrameElement = document.createElement('iframe');
+        iframe.src = youtubeUrl;
+        iframe.frameBorder = "0";
+        iframe.style.border = '0';
+        iframe.width = size.width + "";
+        iframe.height = size.height + "";
+        el.parentNode.replaceChild(iframe, el);
     }
 }
 

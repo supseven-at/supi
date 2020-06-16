@@ -398,3 +398,20 @@
     cursor: pointer;
   }
 }
+
+
+// Youtube element
+
+.tx-supi__youtube {
+    position:relative;
+
+    &-text {
+        position: absolute;
+        top: 30%;
+        text-align: center;
+        margin: 0 40px;
+        padding: 40px 12px;
+        width: 100%;
+        background: rgba(255, 255, 255, .7);
+    }
+}

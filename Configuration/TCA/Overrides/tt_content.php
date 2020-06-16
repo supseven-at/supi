@@ -72,4 +72,49 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
      * Assign Icon
      */
     $GLOBALS['TCA'][$table]['ctrl']['typeicon_classes'][$type] = 'supi';
+
+    // Youtube CE
+    ExtensionManagementUtility::addTcaSelectItem(
+        $table,
+        'CType',
+        [
+            $ll . $table .'.youtube.title',
+            'tx_supi_youtube',
+            'supi'
+        ]
+    );
+
+    $showitem = [
+        '--div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:general',
+        '--palette--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:palette.general;general',
+        '--palette--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:palette.headers;headers',
+        'assets;Youtube',
+        '--div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.appearance',
+        '--palette--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:palette.frames;frames',
+        '--palette--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:palette.appearanceLinks;appearanceLinks',
+        '--div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:language',
+        '--palette--;;language',
+        '--div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:access',
+        '--palette--;;hidden',
+        '--palette--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:palette.access;access',
+        '--div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:categories',
+        'categories',
+        '--div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:notes',
+        'rowDescription',
+        '--div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:extended',
+    ];
+
+    $GLOBALS['TCA'][$table]['types']['tx_supi_youtube'] = [
+        'showitem'         => implode(',', $showitem),
+        'columnsOverrides' => [
+            'assets' => [
+                'config' =>ExtensionManagementUtility::getFileFieldTCAConfig('assets', [
+                        'minitems' => 1,
+                        'maxitems' => 1,
+                    ], 'youtube'),
+            ],
+        ],
+    ];
+    $GLOBALS['TCA'][$table]['ctrl']['typeicon_classes']['tx_supi_youtube'] = 'supi';
+
 })('supi', 'tt_content', 'tx_supi_button');
