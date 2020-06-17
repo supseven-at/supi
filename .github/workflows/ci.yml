@@ -28,19 +28,13 @@ jobs:
     strategy:
       matrix:
         typo3:
-          - '7.6'
           - '8.7'
           - '9.5'
-          - '10'
+          - '10.4'
         php:
           - '7.2'
           - '7.3'
           - '7.4'
-        exclude:
-          - typo3: '7.6'
-            php: '7.3'
-          - typo3: '7.6'
-            php: '7.4'
 
     steps:
       - name: Checkout repository
@@ -51,17 +45,7 @@ jobs:
         with:
           php-version: ${{ matrix.php }}
 
-      - name: Test TYPO3 7.6
-        if: matrix.typo3 == '7.6'
-        run: |
-          rm -rf composer.lock vendor bin typo3_src typo3 index.php
-          cat composer.json | jq 'del(.require)' > comp.json
-          mv comp.json composer.json
-          composer require --ansi -n --no-suggest --no-progress --no-plugins --no-scripts typo3/cms:^${{ matrix.typo3 }}
-          php bin/phpunit -c phpunit.xml
-
       - name: Test TYPO3 ${{ matrix.typo3 }}
-        if: matrix.typo3 != '7.6'
         run: |
           rm -rf composer.lock vendor bin typo3_src typo3 index.php
           cat composer.json | jq 'del(.require)' > comp.json
