@@ -1,14 +1,9 @@
 <?php
-
-
+declare(strict_types=1);
 namespace Supseven\Supi\ViewHelpers;
 
-
 use TYPO3\CMS\Core\Core\Environment;
-use TYPO3\CMS\Core\Resource\File;
 use TYPO3\CMS\Core\Resource\FileInterface;
-use TYPO3\CMS\Core\Resource\FileRepository;
-use TYPO3\CMS\Core\Resource\Rendering\YouTubeRenderer;
 use TYPO3\CMS\Core\Resource\ResourceFactory;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
@@ -54,7 +49,7 @@ class YoutubePreviewViewHelper extends AbstractViewHelper
         if (file_exists($temporaryFileName)) {
             $file = ResourceFactory::getInstance()->getDefaultStorage()->getFile($fileId);
             $renderingContext->getVariableProvider()->add($arguments['as'], $file);
-            $content = (string) $renderChildrenClosure();
+            $content = (string)$renderChildrenClosure();
             $renderingContext->getVariableProvider()->remove($arguments['as']);
         }
 

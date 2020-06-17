@@ -108,7 +108,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
         'showitem'         => implode(',', $showitem),
         'columnsOverrides' => [
             'assets' => [
-                'config' =>ExtensionManagementUtility::getFileFieldTCAConfig('assets', [
+                'config' => ExtensionManagementUtility::getFileFieldTCAConfig('assets', [
                         'minitems' => 1,
                         'maxitems' => 1,
                     ], 'youtube'),
@@ -116,5 +116,4 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
         ],
     ];
     $GLOBALS['TCA'][$table]['ctrl']['typeicon_classes']['tx_supi_youtube'] = 'supi';
-
 })('supi', 'tt_content', 'tx_supi_button');
