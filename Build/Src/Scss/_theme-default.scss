@@ -415,3 +415,17 @@
         background: rgba(255, 255, 255, .7);
     }
 }
+
+.tx_supi__map {
+    &-content {
+        display: none;
+    }
+
+    .active &-content {
+        display: block;
+    }
+
+    .active &-text {
+        display: none;
+    }
+}

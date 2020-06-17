@@ -60,6 +60,8 @@ class Supi {
 
     private allowYoutube: boolean = false;
 
+    private allowMaps: boolean = false;
+
     /**
      * the constructor
      */
@@ -120,6 +122,9 @@ class Supi {
         this.allowYoutube = this.getCookie('supi-yt') === 'y';
         this.log('Cookie is "%o" resulting in %o', this.getCookie('supi-yt'), this.allowYoutube);
         this.enableYoutubeVideos();
+
+        this.allowMaps = this.getCookie('supi-maps') === 'y';
+        this.enableMaps();
 
         // add all click handlers to the buttons
         this.addClickHandler();
@@ -248,12 +253,23 @@ class Supi {
             });
         });
 
-        // Enabling youtube videos
+        // Enabling youtube videos on click
         this.findAll('.tx-supi__youtube').forEach((el: HTMLElement) => {
             this.log("Add listener to child of %o", el);
             el.querySelector('[data-toggle=youtube]').addEventListener('click', () => {
                 this.log('Enabling all');
                 this.toggleYoutubeVideos(el);
+            });
+        });
+
+        // Enabling maps on click
+        this.findAll('.tx_supi__map').forEach((wrapper: HTMLElement) => {
+            const toggle = wrapper.querySelector('[data-toggle=map]');
+            this.log('Add listener to toggle %o for map %o', toggle, wrapper);
+            toggle.addEventListener('click', () => {
+                this.allowMaps = true;
+                this.setCookie('supi-maps', 'y');
+                this.enableMaps();
             });
         });
     }
@@ -494,7 +510,7 @@ class Supi {
     }
 
     private enableYoutubeVideos() {
-        if (this.allowAll || this.allowYoutube) {
+        if (this.allowYoutube) {
             this.log('Enabling all videos, non autostart')
             this.findAll('.tx-supi__youtube').forEach((el: HTMLElement) => {
                 this.log('Enabling %o', el);
@@ -525,6 +541,17 @@ class Supi {
         iframe.width = size.width + "";
         iframe.height = size.height + "";
         el.parentNode.replaceChild(iframe, el);
+    }
+
+    private enableMaps() {
+        if (this.allowMaps) {
+            this.findAll('.tx_supi__map').forEach((wrapper: HTMLElement) => {
+                const toggle: HTMLElement = wrapper.querySelector('[data-toggle=map]');
+                const cbName = toggle.dataset.callback;
+                wrapper.classList.add('active');
+                window[cbName]();
+            });
+        }
     }
 }
 
