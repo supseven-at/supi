@@ -7,7 +7,7 @@
         </div>
             <div id="supi__detailview" class="tx-supi__pane-hidden">
                 <div class="supi-p-hg">
-                    <f:render partial="Layout/Heading" arguments="{ key : settings.detail.headline }" />
+                    <f:render partial="Layout/Heading" arguments="{ key : settings.detail.headline, suffix: '_detail' }" />
                     {f:translate(key:'{settings.detail.text}', default: '{settings.detail.text}') -> f:format.raw()}
                 </div>
 
