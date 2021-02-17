@@ -2,7 +2,10 @@
 declare(strict_types=1);
 namespace Supseven\Supi\Rendering;
 
+use TYPO3\CMS\Core\Localization\LanguageService;
+use TYPO3\CMS\Core\TypoScript\TypoScriptService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Utility\StringUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Fluid\View\StandaloneView;
@@ -26,18 +29,24 @@ class BannerRenderer extends AbstractPlugin
     private $configuration;
 
     /**
-     * @var \TYPO3\CMS\Core\TypoScript\TypoScriptService
+     * @var TypoScriptService
      */
     private $typoscriptService;
+
+    /**
+     * @var LanguageService
+     */
+    private $languageService;
 
     /**
      * @codeCoverageIgnore
      * BannerRenderer constructor.
      * @param array|null $configuration
-     * @param StandaloneView $view
-     * @param \TYPO3\CMS\Core\TypoScript\TypoScriptService|\TYPO3\CMS\Extbase\Service\TypoScriptService $typoscriptService
+     * @param StandaloneView|null $view
+     * @param null $typoscriptService
+     * @param LanguageService|null $languageService
      */
-    public function __construct(array $configuration = null, StandaloneView $view = null, $typoscriptService = null)
+    public function __construct(array $configuration = null, StandaloneView $view = null, TypoScriptService $typoscriptService = null, LanguageService $languageService = null)
     {
         if (empty($configuration)) {
             $configuration = GeneralUtility::makeInstance(ObjectManager::class)
@@ -52,15 +61,13 @@ class BannerRenderer extends AbstractPlugin
         $this->configuration = $configuration;
         $this->view = $view ?: GeneralUtility::makeInstance(ObjectManager::class)->get(StandaloneView::class);
 
-        if ($typoscriptService) {
-            $this->typoscriptService = $typoscriptService;
-        } else {
-            if (class_exists(\TYPO3\CMS\Core\TypoScript\TypoScriptService::class)) {
-                $this->typoscriptService = GeneralUtility::makeInstance(\TYPO3\CMS\Core\TypoScript\TypoScriptService::class);
-            } else {
-                $this->typoscriptService = GeneralUtility::makeInstance(\TYPO3\CMS\Extbase\Service\TypoScriptService::class);
-            }
+        if (!$languageService) {
+            $languageService = GeneralUtility::makeInstance(LanguageService::class);
+            $languageService->init($GLOBALS['TSFE']->sys_language_isocode);
         }
+
+        $this->languageService = $languageService;
+        $this->typoscriptService = $typoscriptService ?? GeneralUtility::makeInstance(TypoScriptService::class);
     }
 
     public function overrideSettings(array $settings)
@@ -103,14 +110,21 @@ class BannerRenderer extends AbstractPlugin
         $new = [];
 
         foreach ($elements as $key => $value) {
-            if ($key !== 'label' && $key !== 'text') {
-                if (is_array($value)) {
-                    $value = $this->compileClientConfig($value);
-                }
+            if (is_string($value) && StringUtility::beginsWith($value, 'LLL:')) {
+                $translated = $this->languageService->sL($value);
+                $value = null;
 
-                if (!empty($value)) {
-                    $new[$key] = $value;
+                if ($translated && $translated !== $value) {
+                    $value = $translated;
                 }
+            }
+
+            if (is_array($value)) {
+                $value = $this->compileClientConfig($value);
+            }
+
+            if (!empty($value)) {
+                $new[$key] = $value;
             }
         }
 

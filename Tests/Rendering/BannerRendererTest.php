@@ -4,6 +4,8 @@ namespace Supseven\Supi\Tests\Rendering;
 
 use PHPUnit\Framework\TestCase;
 use Supseven\Supi\Rendering\BannerRenderer;
+use TYPO3\CMS\Core\Localization\LanguageService;
+use TYPO3\CMS\Core\TypoScript\TypoScriptService;
 use TYPO3\CMS\Extbase\Mvc\Web\Request;
 use TYPO3\CMS\Fluid\View\StandaloneView;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
@@ -20,7 +22,12 @@ class BannerRendererTest extends TestCase
      */
     public function testOverrideSettings()
     {
-        $subject = new BannerRenderer(['settings' => ['a' => 'b']], $this->createMock(StandaloneView::class));
+        $subject = new BannerRenderer(
+            ['settings' => ['a' => 'b']],
+            $this->createMock(StandaloneView::class),
+            $this->createMock(TypoScriptService::class),
+            $this->createMock(LanguageService::class)
+        );
         $subject->overrideSettings(['settings' => ['b' => 'c', 'a' => 'd'], 'e' => 'f']);
 
         $prop = (new \ReflectionObject($subject))->getProperty('configuration');
@@ -35,13 +42,7 @@ class BannerRendererTest extends TestCase
      */
     public function testRender()
     {
-        if (class_exists(\TYPO3\CMS\Core\TypoScript\TypoScriptService::class)) {
-            $typoscriptService = \TYPO3\CMS\Core\TypoScript\TypoScriptService::class;
-        } else {
-            $typoscriptService = \TYPO3\CMS\Extbase\Service\TypoScriptService::class;
-        }
-
-        $service = $this->createMock($typoscriptService);
+        $service = $this->createMock(TypoScriptService::class);
 
         $template = 'Banner';
         $templates = [
@@ -61,7 +62,7 @@ class BannerRendererTest extends TestCase
         $variables = [
             'settings' => $settings,
             'data'     => null,
-            'config'   => json_encode($settings['elements']),
+            'config'   => json_encode($settings),
         ];
 
         $request = $this->createMock(Request::class);
@@ -84,7 +85,9 @@ class BannerRendererTest extends TestCase
             'extbase'           => ['controllerExtensionName' => 'Supi'],
         ];
 
-        $subject = new BannerRenderer($configuration, $view, $service);
+        $langService = $this->createMock(LanguageService::class);
+
+        $subject = new BannerRenderer($configuration, $view, $service, $langService);
         $subject->render();
     }
 
@@ -116,7 +119,7 @@ class BannerRendererTest extends TestCase
         $variables = [
             'settings' => $settings + $conf,
             'data'     => $data,
-            'config'   => json_encode($settings['elements']),
+            'config'   => json_encode($settings + $conf),
         ];
 
         $expected = 'RESULT';
@@ -139,8 +142,9 @@ class BannerRendererTest extends TestCase
             'settings'          => $settings + $conf,
             'extbase'           => ['controllerExtensionName' => 'Supi'],
         ];
+        $langService = $this->createMock(LanguageService::class);
 
-        $subject = new BannerRenderer($configuration, $view);
+        $subject = new BannerRenderer($configuration, $view, new TypoScriptService(), $langService);
         $subject->cObj = (new \ReflectionClass(ContentObjectRenderer::class))->newInstanceWithoutConstructor();
         $subject->cObj->data = $data;
 

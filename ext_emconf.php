@@ -9,7 +9,9 @@ $EM_CONF[$_EXTKEY] = [
     'category'         => 'misc',
     'clearCacheOnLoad' => 0,
     'constraints'      => [
-        'depends'   => [],
+        'depends' => [
+            'typo3' => '',
+        ],
         'conflicts' => [],
         'suggests'  => [],
     ],

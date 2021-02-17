@@ -38,9 +38,9 @@ class YoutubePreviewViewHelper extends AbstractViewHelper
             foreach ($tryNames as $tryName) {
                 $previewImage = GeneralUtility::getUrl(sprintf('https://img.youtube.com/vi/%s/%s', $videoId, $tryName));
 
-                if ($previewImage !== false) {
-                    file_put_contents($temporaryFileName, $previewImage);
-                    GeneralUtility::fixPermissions($temporaryFileName);
+                if ($previewImage) {
+                    GeneralUtility::mkdir_deep(dirname($temporaryFileName));
+                    GeneralUtility::writeFile($temporaryFileName, $previewImage, true);
                     break;
                 }
             }
