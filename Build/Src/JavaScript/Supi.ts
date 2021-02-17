@@ -1,16 +1,9 @@
 
-type SupiElement = HTMLElement & Node | null;
+import { Mode, Status, SupiElement } from "./Types";
+import { findAll, findOne } from "./Dom";
+import { SupiOptions } from "./Options";
+import { cookie } from "./Cookie";
 
-enum Mode {
-    All,
-    Essential,
-    Selected
-}
-
-enum Status {
-    Selected = 's',
-    All = 'a'
-}
 
 /**
  * Supseven User Privacy Interface Class
@@ -30,9 +23,12 @@ class Supi {
     private banner: SupiElement;
 
     // the cookie name which will be set as a status cookie
-    private cookieName: string = 'supi-status';
+    private readonly cookieNameStatus: string = 'status';
 
-    private cookieAllowed: string = 'supi-allowed';
+    private readonly cookieNameAllowed: string = 'allowed';
+
+    private readonly cookieNameYoutube: string = 'yt';
+    private readonly cookieNameGoogleMaps: string = 'gmaps';
 
     // cookie banner is placed in an overlay
     private overlay: boolean = false;
@@ -43,7 +39,7 @@ class Supi {
     private body: SupiElement;
 
     // the typoscript config
-    private config: object;
+    private config: SupiOptions;
 
     // the typoscript config
     private allowed: Array<string> = [];
@@ -62,56 +58,50 @@ class Supi {
 
     private allowMaps: boolean = false;
 
+    private readonly writeLog: boolean = false;
+
     /**
      * the constructor
      */
     constructor() {
         this.root = document.getElementById('supi');
-        this.dismiss = this.get('#supi__dismiss');
-        this.choose = this.get('#supi__choose', true);
-        this.banner = this.get('#supi__overlay') ? this.get('#supi__overlay') : this.get('#supi__banner');
-        this.overlay = !!(this.get('#supi__overlay'));
-        this.body = <HTMLBodyElement>document.getElementsByTagName('body')[0];
+        this.dismiss = findOne('#supi__dismiss');
+        this.choose = findOne('#supi__choose');
+        this.banner = findOne('#supi__overlay') ?? findOne('#supi__banner');
+        this.overlay = !!(findOne('#supi__overlay'));
+        this.body = <HTMLBodyElement>document.body;
         this.config = JSON.parse(this.root.getAttribute('data-supi-config'));
-        this.switch = this.get('#supi__switchTo');
-        this.save = this.get('#supi__save');
+        this.switch = findOne('#supi__switchTo');
+        this.save = findOne('#supi__save');
+        this.writeLog = this.body.classList.contains('develop');
 
-        if (this.config['cookieTTL']) {
-            this.ttlReduced = parseInt(this.config['cookieTTL']['reduced']) || this.ttlReduced;
-            this.ttlAll = parseInt(this.config['cookieTTL']['allow']) || this.ttlAll;
+        this.ttlReduced = this.config?.cookieTTL?.reduced ?? this.ttlReduced;
+        this.ttlAll = this.config?.cookieTTL?.all ?? this.ttlAll;
+
+        const data = cookie.get(this.cookieNameAllowed);
+
+        if (Array.isArray(data) && data.length) {
+            this.allowed = data;
         }
 
-        try {
-            const data = this.getCookie(this.cookieAllowed);
-
-            if (data && data.length) {
-                const arr = JSON.parse(data);
-
-                if (Array.isArray(arr)) {
-                    this.allowed = arr;
-                }
-            }
-        } catch (e) {
-        }
-
-        (<string>this.config['essential']['names']).split(',').forEach((name: string) => {
+        this.config.elements?.essential?.names.split(',').forEach((name: string) => {
             if (this.allowed.indexOf(name) === -1) {
                 this.allowed.push(name);
             }
         });
 
         // check, if status cookie is set and check the status it self and react on that
-        if (this.getCookie(this.cookieName) === Status.All || this.getCookie(this.cookieName) === '0') {
+        if (cookie.get(this.cookieNameStatus) as Status === Status.All) {
             this.allowAll = true;
             this.injectJavaScripts();
             this.updateCookieTTL();
-        } else if (this.getCookie(this.cookieName) === Status.Selected || this.getCookie(this.cookieName) === '1') {
+        } else if (cookie.get(this.cookieNameStatus) as Status === Status.Selected) {
             this.injectJavaScripts();
             this.updateCookieTTL();
-        } else if (this.getCookie(this.cookieName) === '') {
-            this.deleteCookie(this.cookieName);
+        } else if (!cookie.get(this.cookieNameStatus)) {
+            cookie.remove(this.cookieNameStatus);
 
-            if (this.get('[data-hide-overlay="1"]', true)) {
+            if (findOne('[data-hide-overlay="1"]')) {
                 this.log('Hides the Banner-Overlay due to the given Setting "hideOverlayOnButtonCe"', '', '');
             } else {
                 this.toggleBanner();
@@ -119,11 +109,11 @@ class Supi {
         }
 
         this.log('Checking for yt cookie');
-        this.allowYoutube = this.getCookie('supi-yt') === 'y';
-        this.log('Cookie is "%o" resulting in %o', this.getCookie('supi-yt'), this.allowYoutube);
+        this.allowYoutube = cookie.get(this.cookieNameYoutube) as string === 'y';
+        this.log('Cookie is "%o" resulting in %o', cookie.get(this.cookieNameYoutube), this.allowYoutube);
         this.enableYoutubeVideos();
 
-        this.allowMaps = this.getCookie('supi-maps') === 'y';
+        this.allowMaps = cookie.get(this.cookieNameGoogleMaps) === 'y';
         this.enableMaps();
 
         // add all click handlers to the buttons
@@ -132,8 +122,7 @@ class Supi {
     }
 
     updateCookieTTL(): void {
-        this.setCookie(this.cookieName, this.getCookie(this.cookieName));
-        this.setCookie(this.cookieAllowed, this.getCookie(this.cookieAllowed));
+        cookie.setLifetime(this.allowAll ? this.ttlAll : this.ttlReduced);
     }
 
     /**
@@ -142,16 +131,16 @@ class Supi {
     addClickHandler(): void {
         // on click removes first all scripts and readds then
         // the scripts, after that the banner will be toggled
-        this.find('[data-toggle=allow]').forEach((el: HTMLElement) => {
+        findAll('[data-toggle=allow]').forEach((el: HTMLElement) => {
             el.addEventListener('click', (e: Event) => {
                 e.preventDefault();
-                this.allowAll= true;
+                this.allowAll = true;
                 this.collectAllowed(Mode.All);
                 this.removeScripts();
 
                 if (this.injectJavaScripts() === true) {
                     this.toggleBanner();
-                    this.setCookie(this.cookieName, Status.All);
+                    cookie.set(this.cookieNameStatus, Status.All);
                 }
 
                 this.setDetailDefaults();
@@ -169,7 +158,7 @@ class Supi {
 
                 if (this.removeScripts() === true) {
                     this.toggleBanner();
-                    this.setCookie(this.cookieName, Status.Selected);
+                    cookie.set(this.cookieNameStatus, Status.Selected);
                 }
 
                 this.setDetailDefaults();
@@ -184,7 +173,7 @@ class Supi {
 
                 if (this.injectJavaScripts()) {
                     this.toggleBanner();
-                    this.setCookie(this.cookieName, Status.Selected);
+                    cookie.set(this.cookieNameStatus, Status.Selected);
                 }
             });
         }
@@ -199,15 +188,15 @@ class Supi {
         }
 
         // Add click handler for switching between overview and detailview
-        this.find('[data-toggle=switch]').filter((el: HTMLElement) => {
-            return this.get(el.dataset.switchFrom) && this.get(el.dataset.switchTo);
+        findAll('[data-toggle=switch]').filter((el: HTMLElement) => {
+            return findOne(el.dataset.switchFrom) && findOne(el.dataset.switchTo);
         }).forEach((el: HTMLElement) => {
             el.addEventListener('click', (e: Event) => {
-                this.get(el.dataset.switchFrom).classList.add('tx-supi__pane-hidden');
-                this.get(el.dataset.switchTo).classList.remove('tx-supi__pane-hidden');
+                findOne(el.dataset.switchFrom).classList.add('tx-supi__pane-hidden');
+                findOne(el.dataset.switchTo).classList.remove('tx-supi__pane-hidden');
 
                 if (el.dataset.inputs === 'disable' && this.allowed.length < 1) {
-                    this.find('input[type=checkbox]').forEach((el: HTMLInputElement) => {
+                    findAll('input[type=checkbox]').forEach((el: HTMLInputElement) => {
                         el.checked = (el.disabled || !!el.dataset.required);
                     });
                 }
@@ -217,35 +206,35 @@ class Supi {
         });
 
         // Simple hide/show toggle, like tabs
-        this.find('[data-toggle=visibility]').filter((el: HTMLElement) => {
-            return !!(this.get(el.dataset.target));
+        findAll('[data-toggle=visibility]').filter((el: HTMLElement) => {
+            return !!(findOne(el.dataset.target));
         }).forEach((el: HTMLElement) => {
             el.addEventListener('click', (e: Event) => {
                 el.classList.toggle('tx-supi__pane-active')
-                this.get(el.dataset.target).classList.toggle('tx-supi__pane-hidden');
+                findOne(el.dataset.target).classList.toggle('tx-supi__pane-hidden');
                 e.preventDefault();
             })
         });
 
         // Checkbox groups toggling
-        this.find('input[data-supi-block]').filter((el: HTMLInputElement) => !el.disabled).forEach((el: HTMLInputElement) => {
+        findAll('input[data-supi-block]').filter((el: HTMLInputElement) => !el.disabled).forEach((el: HTMLInputElement) => {
             el.addEventListener('click', (e:Event) => {
                 if (el.dataset.supiParent) {
-                    this.find('[data-supi-block=' + el.dataset.supiBlock + ']').forEach(function (child: HTMLInputElement) {
+                    findAll('[data-supi-block=' + el.dataset.supiBlock + ']').forEach(function (child: HTMLInputElement) {
                         if (!child.dataset.supiParent) {
                             child.checked = el.checked;
                         }
                     });
                 } else {
-                    const parent: HTMLInputElement = <HTMLInputElement>this.get('[data-supi-parent=' + el.dataset.supiBlock + ']');
-                    const children = this.find('[data-supi-block=' + el.dataset.supiBlock + ']').filter(function (el: HTMLInputElement) {
+                    const parent: HTMLInputElement = <HTMLInputElement>findOne('[data-supi-parent=' + el.dataset.supiBlock + ']');
+                    const children = findAll('[data-supi-block=' + el.dataset.supiBlock + ']').filter(function (el: HTMLInputElement) {
                         return !!el.dataset.supiItem;
                     });
 
                     if (parent && children.length) {
                         parent.checked = children.reduce(function (prev: boolean, el: HTMLInputElement) {
                             return prev && el.checked;
-                        }, true)
+                        }, true);
                     }
                 }
 
@@ -254,21 +243,26 @@ class Supi {
         });
 
         // Enabling youtube videos on click
-        this.findAll('.tx-supi__youtube').forEach((el: HTMLElement) => {
+        findAll('.tx-supi__youtube').forEach((el: HTMLElement) => {
             this.log("Add listener to child of %o", el);
             el.querySelector('[data-toggle=youtube]').addEventListener('click', () => {
-                this.log('Enabling all');
+                this.log('Enabling all youtube elements');
                 this.toggleYoutubeVideos(el);
+            });
+
+            el.querySelector('[data-toggle=youtube-once]')?.addEventListener('click', () => {
+                this.log('Enabling one youtube element');
+                this.toggleYoutubeVideos(el, true);
             });
         });
 
         // Enabling maps on click
-        this.findAll('.tx_supi__map').forEach((wrapper: HTMLElement) => {
+        findAll('.tx_supi__map').forEach((wrapper: HTMLElement) => {
             const toggle = wrapper.querySelector('[data-toggle=map]');
             this.log('Add listener to toggle %o for map %o', toggle, wrapper);
             toggle.addEventListener('click', () => {
                 this.allowMaps = true;
-                this.setCookie('supi-maps', 'y');
+                cookie.set(this.cookieNameGoogleMaps, 'y');
                 this.enableMaps();
             });
         });
@@ -280,7 +274,7 @@ class Supi {
      * to load the correct scripts
      */
     injectJavaScripts(): boolean {
-        let elements: Array<HTMLScriptElement> = [].slice.call(document.getElementsByTagName('script'), 0);
+        let elements = findAll("script") as Array<HTMLScriptElement>;
 
         elements
             .filter(el => el.type == 'application/supi')
@@ -308,21 +302,6 @@ class Supi {
         return true;
     }
 
-    private find(selector: string): Array<HTMLElement & Node>
-    {
-        return [].slice.call(this.root.querySelectorAll(selector), 0);
-    }
-
-    private findAll(selector: string): Array<HTMLElement & Node>
-    {
-        return [].slice.call(document.querySelectorAll(selector), 0);
-    }
-
-    private get(selector: string, fromBody: boolean = false): SupiElement
-    {
-        return (fromBody ? document : this.root).querySelector(selector);
-    }
-
     /**
      * simply toggles the banner class
      */
@@ -340,7 +319,7 @@ class Supi {
      * whitelisted by the config
      */
     removeScripts(): boolean {
-        let elements: Array<HTMLScriptElement> = [].slice.call(document.getElementsByClassName('supi-scripts'), 0);
+        let elements: Array<HTMLScriptElement> = findAll('.supi-scripts') as Array<HTMLScriptElement>;
 
         elements.forEach(script => {
             let template = <HTMLScriptElement>document.createElement('script');
@@ -351,76 +330,7 @@ class Supi {
             script.parentNode.replaceChild(template, script);
         });
 
-        this.deleteAllCookies();
-
         return true;
-    }
-
-    /**
-     * a set cookie method
-     *
-     * @param name
-     * @param val
-     */
-    setCookie(name: string, val: string): void {
-        const date = new Date();
-        const value = encodeURIComponent(val);
-        const days: number = this.allowAll ? this.ttlAll : this.ttlReduced;
-
-        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-
-        document.cookie = encodeURIComponent(name)+"="+value+"; expires="+date.toUTCString()+"; path=/";
-        sessionStorage.setItem(name, val);
-    }
-
-    /**
-     * a get cookie method
-     *
-     * @param name
-     */
-    getCookie(name: string): string {
-        if (sessionStorage.hasOwnProperty(name)) {
-            return sessionStorage.getItem(name);
-        }
-
-        const value = "; " + document.cookie;
-        const parts = value.split("; " + encodeURIComponent(name) + "=");
-
-        if (parts.length == 2) {
-            const result = parts.pop().split(";").shift();
-            return decodeURIComponent(result);
-        }
-
-        return '';
-    }
-
-    /**
-     * a delete cookie method
-     *
-     * @param name
-     */
-    deleteCookie(name: string) {
-        const date = new Date();
-        date.setTime(date.getTime() + (-1 * 24 * 60 * 60 * 1000));
-        document.cookie = name+"=; expires="+date.toUTCString()+"; path=/";
-        sessionStorage.removeItem(name);
-    }
-
-    /**
-     * deletes all but the whitelisted cookies
-     */
-    deleteAllCookies() {
-        if (!this.allowAll) {
-            const cookies = document.cookie.split('; ');
-            cookies.forEach((cookie: string) => {
-                const cookieName: string = cookie.split('=').shift();
-
-                if (this.allowed.indexOf(cookieName) === -1) {
-                    this.deleteCookie(cookieName);
-                    sessionStorage.removeItem(cookieName);
-                }
-            });
-        }
     }
 
     private collectAllowed(mode: Mode = Mode.Essential): boolean {
@@ -438,8 +348,8 @@ class Supi {
                 break;
 
             case Mode.Essential:
-                Object.keys(this.config)
-                    .filter((k: string) => !!this.config[k]['required'])
+                Object.keys(this.config.elements || {})
+                    .filter((k: string) => !!this.config[k]?.required)
                     .forEach((k: string) => {
                         this.config[k]?.names.split().forEach((name: string) => {
                             this.allowed.push(name);
@@ -448,7 +358,7 @@ class Supi {
                 break;
 
             case Mode.Selected:
-                this.find('input[type=checkbox]')
+                findAll('input[type=checkbox]')
                     .filter((el: HTMLInputElement) => el.checked || (parseInt(el.dataset.supiRequired) || 0) > 0)
                     .map((el: HTMLInputElement) => el.value)
                     .forEach((list: string) => {
@@ -462,15 +372,15 @@ class Supi {
         }
 
         setTimeout(() => {
-            this.setCookie(this.cookieAllowed, JSON.stringify(this.allowed));
-        }, 300);
+            cookie.set(this.cookieNameAllowed, JSON.stringify(this.allowed));
+        }, 30);
 
         return this.allowed.sort().join() === old;
     }
 
     private setDetailDefaults(): void {
-        this.find('input[data-supi-parent]').forEach((parent: HTMLInputElement) => {
-            const singleItems = this.find('input[data-supi-block=' + parent.dataset.supiParent + '][data-supi-item]');
+        findAll('input[data-supi-parent]').forEach((parent: HTMLInputElement) => {
+            const singleItems = findAll('input[data-supi-block=' + parent.dataset.supiParent + '][data-supi-item]');
 
             if (singleItems.length) {
                 parent.checked = true;
@@ -504,33 +414,44 @@ class Supi {
     }
 
     private log(...values: any[]): void {
-        if (this.body.classList.contains('develop')) {
+        if (this.writeLog) {
             console.log(...values);
         }
     }
 
-    private enableYoutubeVideos() {
+    private enableYoutubeVideos(): void {
         if (this.allowYoutube) {
             this.log('Enabling all videos, non autostart')
-            this.findAll('.tx-supi__youtube').forEach((el: HTMLElement) => {
+            findAll('.tx-supi__youtube').forEach((el: HTMLElement) => {
                 this.log('Enabling %o', el);
                 this.addVideo(el, '');
             });
         }
     }
 
-    private toggleYoutubeVideos(autoplayEl) {
+    private toggleYoutubeVideos(autoplayEl: SupiElement, once: boolean = false): void {
         this.log('Enabling youtube');
         this.allowYoutube = true;
-        this.setCookie('supi-yt', 'y');
+        cookie.set('supi-yt', 'y');
         this.log('Start video for %o', autoplayEl);
         this.addVideo(autoplayEl, '&autoplay=1');
-        this.log('Enabling other videos');
-        this.enableYoutubeVideos();
+
+        if (!once) {
+            cookie.set(this.cookieNameYoutube, 'y');
+            this.log('Enabling other videos');
+            this.enableYoutubeVideos();
+        } else {
+            this.allowYoutube = false;
+        }
     }
 
-    private addVideo(el: HTMLElement, additionalParams: string)
+    private addVideo(el: HTMLElement, additionalParams: string): void
     {
+        if (!this.allowYoutube) {
+            this.log('Youtube not enabled');
+            return;
+        }
+
         const size = el.querySelector('.tx-supi__youtube-preview-image').getBoundingClientRect();
         const youtubeId = el.dataset.youtubeId;
         const youtubeUrl = 'https://www.youtube-nocookie.com/embed/' + youtubeId + '?rel=0&modestbranding=1' + additionalParams;
@@ -545,7 +466,7 @@ class Supi {
 
     private enableMaps() {
         if (this.allowMaps) {
-            this.findAll('.tx_supi__map').forEach((wrapper: HTMLElement) => {
+            findAll('.tx_supi__map').forEach((wrapper: HTMLElement) => {
                 const toggle: HTMLElement = wrapper.querySelector('[data-toggle=map]');
                 const cbName = toggle.dataset.callback;
                 wrapper.classList.add('active');
@@ -555,9 +476,11 @@ class Supi {
     }
 }
 
-// instanciate the class on load.
-window.onload = () => {
-    if (document.getElementById('supi')){
-        new Supi();
-    }
+let w = window as any;
+
+const initFunc = () => {
+    w.supi = new Supi();
+    w.removeEventListener("load", initFunc);
 };
+
+w.addEventListener("load", initFunc);

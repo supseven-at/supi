@@ -1,7 +1,7 @@
 var _gulp = require('gulp'),
-    _rename = require('gulp-rename'),
-    _uglify = require('gulp-uglify'),
-    _ts = require('gulp-typescript'),
+    _webpack = require('webpack'),
+    _gulpWebpack = require('webpack-stream'),
+    _named = require('vinyl-named'),
     _config = require('../../config.js');
 
 /**
@@ -14,11 +14,28 @@ module.exports = function() {
     return _gulp.src([
             _config().frontend.javascript.src
         ])
-        .pipe(_ts({
-            outFile: _config().frontend.javascript.outFile
-        }))
-        .pipe(_rename({ suffix: '.min' }))
-        .pipe(_uglify())
+        .pipe(_named())
+        .pipe(_gulpWebpack({
+            // Default is development, switch it
+            mode: process.env.NODE_ENV == 'development' ? 'development' : 'production',
+            devtool: 'source-map',
+            cache: {
+                type: 'filesystem',
+                cacheDirectory: '/tmp/supi-webpack',
+            },
+            module: {
+                rules: [
+                    {
+                        test: /\.tsx?$/,
+                        use: 'ts-loader',
+                        exclude: /node_modules/,
+                    }
+                ]
+            },
+            resolve: {
+                extensions: ['.ts', '.tsx', '.js']
+            }
+        }, _webpack))
         .pipe(_gulp.dest(_config().frontend.javascript.dest));
 };
 
