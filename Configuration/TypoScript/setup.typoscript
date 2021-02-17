@@ -162,7 +162,7 @@ tt_content.tx_supi_button {
 }
 
 tt_content.tx_supi_youtube = FLUIDTEMPLATE
-tt_content.tx_supi_youtube  {
+tt_content.tx_supi_youtube {
     extbase.controllerExtensionName = Supi
     templateName = Youtube
     templateRootPaths.0 = EXT:supi/Resources/Private/Templates/
@@ -176,6 +176,8 @@ tt_content.tx_supi_youtube  {
           as = videos
         }
     }
+
+    settings = < plugin.tx_supi.settings
 }
 
 page.headerData.31337 = COA
