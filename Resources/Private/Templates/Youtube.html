@@ -8,7 +8,10 @@
         <div class="tx-supi__youtube" data-youtube-id="{videos.0.contents}">
             <f:image image="{preview}" maxWidth="730" class="tx-supi__youtube-preview-image" />
             <div class="tx-supi__youtube-text">
-                <p><button type="button" data-toggle="youtube" class="btn btn-primary"><f:translate key="youtube.button" /></button></p>
+                <p><button type="button" data-toggle="youtube" class="btn btn-primary tx-supi__youtube-enable"><f:translate key="youtube.button" /></button></p>
+                <f:if condition="{settings.enableYoutubeOnce}">
+                    <p><button type="button" data-toggle="youtube-once" class="btn btn-primary tx-supi__youtube-enable-once"><f:translate key="youtube.button.once" /></button></p>
+                </f:if>
                 <p><f:translate key="youtube.text" /></p>
             </div>
         </div>

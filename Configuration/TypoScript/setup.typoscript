@@ -30,6 +30,10 @@ plugin.tx_supi {
         # works only with "hideAutoEssential"
         showBigSwitch = 0
 
+
+        # Set to 1 to enable the load-once button for youtube elements
+        enableYoutubeOnce = 0
+
         # Time to live of own cookies in days
         cookieTTL {
             # Allow all
