@@ -138,7 +138,7 @@ plugin.tx_supi {
 }
 
 page {
-    includeJS.supi = EXT:supi/Resources/Public/JavaScript/Supi.min.js
+    includeJS.supi = EXT:supi/Resources/Public/JavaScript/Supi.js
     includeJS.supi {
         async = 1
         defer = 1
@@ -146,7 +146,7 @@ page {
         excludeFromConcatenation = 1
     }
 
-    includeCSS.supi = EXT:supi/Resources/Public/Css/Supi.min.css
+    includeCSS.supi = EXT:supi/Resources/Public/Css/Supi.css
     includeCSS.supi {
         disableCompression = 1
         excludeFromConcatenation = 1
