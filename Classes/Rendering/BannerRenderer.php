@@ -78,7 +78,7 @@ class BannerRenderer extends AbstractPlugin
         $this->view->assignMultiple([
             'settings' => $this->configuration['settings'],
             'data'     => $this->configuration['data'] ?? null,
-            'config'   => json_encode($this->compileClientConfig($this->configuration['settings']['elements'])),
+            'config'   => json_encode($this->compileClientConfig($this->configuration['settings'])),
         ]);
 
         return $this->view->render();
