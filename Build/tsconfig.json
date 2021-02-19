@@ -1,14 +1,13 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
-    "jsx": "react",
     "target": "ES3",
-    "jsxFactory": "JsxElement",
     "esModuleInterop": true,
     "sourceMap": true,
     "allowJs": true,
+    "downlevelIteration": true,
     "lib": [
-      "es6",
+      "ES5",
+      "ES6",
       "dom"
     ],
     "rootDir": "./Src/JavaScript",

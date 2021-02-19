@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<xliff version="1.0">
- <file source-language="en" target-language="de" date="2020-06-17T10:53:02+02:00">
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+ <file source-language="en" target-language="de" date="2021-02-21T14:41:49+01:00">
   <body>
    <trans-unit id="banner.content.headline" resname="banner.content.headline">
     <source>This website uses cookies</source>
@@ -89,6 +89,10 @@
    <trans-unit id="youtube.button" resname="youtube.button">
     <source>Play Video</source>
     <target>Video abspielen</target>
+   </trans-unit>
+   <trans-unit id="youtube.button.once" resname="youtube.button.once">
+    <source>Play only this video</source>
+    <target>Nur dieses Video abspielen</target>
    </trans-unit>
    <trans-unit id="youtube.text" resname="youtube.text">
     <source>When loading the video, data will be transmitted to Youtube.</source>

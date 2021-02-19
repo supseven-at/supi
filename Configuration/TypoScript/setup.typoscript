@@ -11,7 +11,7 @@ plugin.tx_supi {
         # Quick enable - disable
         enabled = 1
 
-        # hides the overlay if the cookie button CE is visible (mostly used on the dataprotection page
+        # hides the overlay if the cookie button CE is visible (mostly used on the dataprotection page)
         hideOverlayOnButtonCe = 1
 
         # Hide the "Functional Cookies only" button
@@ -30,9 +30,20 @@ plugin.tx_supi {
         # works only with "hideAutoEssential"
         showBigSwitch = 0
 
+        # Key of theme CSS selector
+        theme = default
+
+        # 0 = Bottom-Left, 1 = Center-Center
+        position = 1
 
         # Set to 1 to enable the load-once button for youtube elements
         enableYoutubeOnce = 0
+
+        # Youtube is enabled by essential
+        essentialIncludesYoutube = 0
+
+        # Google maps is enabled by essential
+        essentialIncludesMaps = 0
 
         # Time to live of own cookies in days
         cookieTTL {
@@ -74,7 +85,7 @@ plugin.tx_supi {
                 showOnLoad = 1
                 label = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.essential.label
                 text = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.essential.text
-                names = fe_typo_user, be_typo_user, be_lastLoginProvider, PHPSESSID, supi-status, supi-allowed
+                names = fe_typo_user, be_typo_user, be_lastLoginProvider, PHPSESSID, supi
 
                 items {
                     session {
@@ -83,7 +94,7 @@ plugin.tx_supi {
                     }
                     status {
                         label = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.essential.status.label
-                        names = supi-status, supi-allowed
+                        names = supi
                     }
                 }
             }
@@ -130,10 +141,6 @@ plugin.tx_supi {
                 text = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.button.save.text
             }
         }
-
-#        position = bottom-left
-        position = center-center
-        theme = default
     }
 }
 
@@ -177,7 +184,7 @@ tt_content.tx_supi_youtube {
         }
     }
 
-    settings = < plugin.tx_supi.settings
+    settings < plugin.tx_supi.settings
 }
 
 page.headerData.31337 = COA

@@ -7,7 +7,7 @@
         <f:if condition="{settings.enabled}">
             <f:if condition="{settings.elements.essential -> f:count() > 0}">
                 <div id="supi" data-supi-config="{config -> f:format.htmlspecialchars()}">
-                    <f:if condition="{settings.position} == 'center-center'">
+                    <f:if condition="{settings.position} == 1">
                         <f:then>
                             <f:alias map="{hideOverlay: 'hide', hideBanner: ''}">
                                 <f:render partial="Overlay" arguments="{_all}" />

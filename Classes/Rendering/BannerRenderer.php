@@ -43,7 +43,7 @@ class BannerRenderer extends AbstractPlugin
      * BannerRenderer constructor.
      * @param array|null $configuration
      * @param StandaloneView|null $view
-     * @param null $typoscriptService
+     * @param TypoScriptService|null $typoscriptService
      * @param LanguageService|null $languageService
      */
     public function __construct(array $configuration = null, StandaloneView $view = null, TypoScriptService $typoscriptService = null, LanguageService $languageService = null)
@@ -108,25 +108,51 @@ class BannerRenderer extends AbstractPlugin
     private function compileClientConfig(array $elements): array
     {
         $new = [];
+        $booleans = [
+            'detailed',
+            'essentialIncludesYoutube',
+            'essentialIncludesMaps',
+            'required',
+            'showOnLoad',
+            'hideAutoEssential',
+            'hideOverlayOnButtonCe',
+            'perItemDetail',
+            'perItemSelect',
+            'showBigSwitch',
+        ];
 
         foreach ($elements as $key => $value) {
-            if (is_string($value) && StringUtility::beginsWith($value, 'LLL:')) {
-                $translated = $this->languageService->sL($value);
-                $value = null;
+            if ($key !== 'label' && $key !== 'text') {
+                if (in_array($key, $booleans, true)) {
+                    $value = ((int)$value !== 0);
+                }
 
-                if ($translated && $translated !== $value) {
-                    $value = $translated;
+                if (is_string($value) && strpos($value, 'LLL:') === 0) {
+                    $translated = $this->languageService->sL($value);
+                    $value = null;
+
+                    if ($translated && $translated !== $value) {
+                        $value = $translated;
+                    }
+                }
+
+                if (is_array($value)) {
+                    $value = $this->compileClientConfig($value);
+                }
+
+                if (($value !== null && $value !== '') || (is_array($value) && count($value) > 0)) {
+                    $new[$key] = $value;
                 }
             }
-
-            if (is_array($value)) {
-                $value = $this->compileClientConfig($value);
-            }
-
-            if (!empty($value)) {
-                $new[$key] = $value;
-            }
         }
+
+        unset(
+            $new['button'],
+            $new['content'],
+            $new['detail'],
+            $new['gdpr'],
+            $new['overview']
+        );
 
         return $new;
     }

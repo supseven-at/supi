@@ -16,13 +16,9 @@ module.exports = function() {
         ])
         .pipe(_named())
         .pipe(_gulpWebpack({
-            // Default is development, switch it
-            mode: process.env.NODE_ENV == 'development' ? 'development' : 'production',
+            mode: process.env.NODE_ENV === 'development' ? 'development' : 'production',
+            target: ['web', 'es5'],
             devtool: 'source-map',
-            cache: {
-                type: 'filesystem',
-                cacheDirectory: '/tmp/supi-webpack',
-            },
             module: {
                 rules: [
                     {

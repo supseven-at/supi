@@ -1,7 +1,7 @@
 
 export enum Position {
-    Center,
-    Bottom
+    CenterCenter,
+    BottomLeft
 }
 
 export enum Status {

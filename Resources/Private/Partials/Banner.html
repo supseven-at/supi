@@ -1,7 +1,7 @@
 <html data-namespace-typo3-fluid="true"
       xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers">
 
-    <div id="supi__banner" class="tx-supi position position-{settings.position} theme theme-{settings.theme} {hideBanner}" aria-describedby="supi__description" aria-labelledby="supi__label" aria-live="status" role="dialog">
+    <div id="supi__banner" class="tx-supi position position-{f:if(condition: settings.position, then: 'center-center', else: 'bottom-left')} theme theme-{settings.theme} {hideBanner}" aria-describedby="supi__description" aria-labelledby="supi__label" aria-live="status" role="dialog">
         <f:if condition="{settings.detailed}">
             <f:then>
                 <f:render partial="Detailview" arguments="{_all}" />

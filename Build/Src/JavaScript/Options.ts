@@ -7,28 +7,28 @@ interface CookieLifetime {
 }
 
 interface Item {
-    name: string
-}
-
-type ItemsMap = {
-    [name: string]: Item
+    names: string
+    label: string | null
 }
 
 interface Element {
     required: boolean
     showOnLoad: boolean
     names: string
-    items: ItemsMap
-}
-
-type ElementsMap = {
-    [name: string]: Element
+    label: string | null
+    items: {
+        [name: string]: Item
+    }
 }
 
 export interface SupiOptions {
-    position: Position,
-    theme: string,
+    position: Position
+    theme: string
     detailed: boolean
     cookieTTL: CookieLifetime
-    elements: ElementsMap
+    elements: {
+        [name: string]: Element
+    }
+    essentialIncludesYoutube: boolean
+    essentialIncludesMaps: boolean
 }

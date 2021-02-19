@@ -64,16 +64,18 @@ class Supi {
      * the constructor
      */
     constructor() {
-        this.root = document.getElementById('supi');
-        this.dismiss = findOne('#supi__dismiss');
-        this.choose = findOne('#supi__choose');
+        this.root = findOne('#supi');
+        this.dismiss = findOne('#supi__dismiss', this.root);
+        this.choose = findOne('#supi__choose', this.root);
         this.banner = findOne('#supi__overlay') ?? findOne('#supi__banner');
         this.overlay = !!(findOne('#supi__overlay'));
         this.body = <HTMLBodyElement>document.body;
-        this.config = JSON.parse(this.root.getAttribute('data-supi-config'));
         this.switch = findOne('#supi__switchTo');
         this.save = findOne('#supi__save');
         this.writeLog = this.body.classList.contains('develop');
+
+        this.config = JSON.parse(this.root.getAttribute('data-supi-config'));
+        this.log("Loaded config %o", this.config);
 
         this.ttlReduced = this.config?.cookieTTL?.reduced ?? this.ttlReduced;
         this.ttlAll = this.config?.cookieTTL?.all ?? this.ttlAll;
@@ -84,18 +86,20 @@ class Supi {
             this.allowed = data;
         }
 
-        this.config.elements?.essential?.names.split(',').forEach((name: string) => {
+        this.config?.elements?.essential?.names.split(',').forEach((name: string) => {
             if (this.allowed.indexOf(name) === -1) {
                 this.allowed.push(name);
             }
         });
 
+        const status = cookie.get(this.cookieNameStatus) as Status;
+
         // check, if status cookie is set and check the status it self and react on that
-        if (cookie.get(this.cookieNameStatus) as Status === Status.All) {
+        if (status == Status.All) {
             this.allowAll = true;
             this.injectJavaScripts();
             this.updateCookieTTL();
-        } else if (cookie.get(this.cookieNameStatus) as Status === Status.Selected) {
+        } else if (status == Status.Selected) {
             this.injectJavaScripts();
             this.updateCookieTTL();
         } else if (!cookie.get(this.cookieNameStatus)) {
@@ -109,11 +113,12 @@ class Supi {
         }
 
         this.log('Checking for yt cookie');
-        this.allowYoutube = cookie.get(this.cookieNameYoutube) as string === 'y';
-        this.log('Cookie is "%o" resulting in %o', cookie.get(this.cookieNameYoutube), this.allowYoutube);
+        this.allowYoutube = cookie.get(this.cookieNameYoutube) as string === 'y' || this.allowAll || (status == Status.Selected && this.config?.essentialIncludesYoutube);
+        this.log('Youtube cookie is "%o" resulting in %o', cookie.get(this.cookieNameYoutube), this.allowYoutube);
         this.enableYoutubeVideos();
 
-        this.allowMaps = cookie.get(this.cookieNameGoogleMaps) === 'y';
+        this.allowMaps = cookie.get(this.cookieNameGoogleMaps) === 'y' || this.allowAll || (status == Status.Selected && this.config?.essentialIncludesMaps);
+        this.log('Maps cookie is "%o" resulting in %o', cookie.get(this.cookieNameGoogleMaps), this.allowMaps);
         this.enableMaps();
 
         // add all click handlers to the buttons
@@ -131,19 +136,28 @@ class Supi {
     addClickHandler(): void {
         // on click removes first all scripts and readds then
         // the scripts, after that the banner will be toggled
-        findAll('[data-toggle=allow]').forEach((el: HTMLElement) => {
+        findAll('#supi__allow', this.root).forEach((el: HTMLElement) => {
+            this.log("Allow all on click on %o", el);
             el.addEventListener('click', (e: Event) => {
-                e.preventDefault();
+                this.log("Allow all was clicked, processing");
                 this.allowAll = true;
+                this.allowMaps = true;
+                this.allowYoutube = true;
+
                 this.collectAllowed(Mode.All);
                 this.removeScripts();
 
                 if (this.injectJavaScripts() === true) {
                     this.toggleBanner();
                     cookie.set(this.cookieNameStatus, Status.All);
+                    cookie.set(this.cookieNameYoutube, 'y');
+                    cookie.set(this.cookieNameGoogleMaps, 'y');
                 }
 
                 this.setDetailDefaults();
+                this.enableMaps();
+                this.enableYoutubeVideos();
+                e.preventDefault();
             });
         });
 
@@ -154,6 +168,18 @@ class Supi {
                 e.preventDefault();
                 if (this.collectAllowed(Mode.Essential)) {
                     this.removeScripts();
+                }
+
+                if (this.config?.essentialIncludesYoutube) {
+                    this.allowYoutube = true;
+                    cookie.set(this.cookieNameYoutube, 'y');
+                    this.enableYoutubeVideos();
+                }
+
+                if (this.config?.essentialIncludesMaps) {
+                    this.allowMaps = true;
+                    cookie.set(this.cookieNameGoogleMaps, 'y');
+                    this.enableMaps();
                 }
 
                 if (this.removeScripts() === true) {
@@ -247,11 +273,12 @@ class Supi {
             this.log("Add listener to child of %o", el);
             el.querySelector('[data-toggle=youtube]').addEventListener('click', () => {
                 this.log('Enabling all youtube elements');
+                cookie.set(this.cookieNameYoutube, 'y');
                 this.toggleYoutubeVideos(el);
             });
 
             el.querySelector('[data-toggle=youtube-once]')?.addEventListener('click', () => {
-                this.log('Enabling one youtube element');
+                this.log('Enabling one youtube element: %o', el);
                 this.toggleYoutubeVideos(el, true);
             });
         });
@@ -339,9 +366,9 @@ class Supi {
 
         switch (mode) {
             case Mode.All:
-                Object.keys(this.config)
+                Object.keys(this.config.elements)
                     .forEach((k: string) => {
-                        this.config[k]?.names.split().forEach((name: string) => {
+                        this.config.elements[k]?.names?.split(",").forEach((name: string) => {
                             this.allowed.push(name);
                         })
                     });
@@ -351,7 +378,7 @@ class Supi {
                 Object.keys(this.config.elements || {})
                     .filter((k: string) => !!this.config[k]?.required)
                     .forEach((k: string) => {
-                        this.config[k]?.names.split().forEach((name: string) => {
+                        this.config[k]?.names?.split(",").forEach((name: string) => {
                             this.allowed.push(name);
                         })
                     });
@@ -372,7 +399,7 @@ class Supi {
         }
 
         setTimeout(() => {
-            cookie.set(this.cookieNameAllowed, JSON.stringify(this.allowed));
+            cookie.set(this.cookieNameAllowed, this.allowed);
         }, 30);
 
         return this.allowed.sort().join() === old;
@@ -432,7 +459,6 @@ class Supi {
     private toggleYoutubeVideos(autoplayEl: SupiElement, once: boolean = false): void {
         this.log('Enabling youtube');
         this.allowYoutube = true;
-        cookie.set('supi-yt', 'y');
         this.log('Start video for %o', autoplayEl);
         this.addVideo(autoplayEl, '&autoplay=1');
 
@@ -476,11 +502,9 @@ class Supi {
     }
 }
 
-let w = window as any;
-
 const initFunc = () => {
-    w.supi = new Supi();
-    w.removeEventListener("load", initFunc);
+    (window as any).supi = new Supi();
+    window.removeEventListener("load", initFunc);
 };
 
-w.addEventListener("load", initFunc);
+window.addEventListener("load", initFunc);
