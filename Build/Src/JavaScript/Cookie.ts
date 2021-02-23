@@ -5,6 +5,8 @@ export const cookie = new class {
 
     private lifetime: number = 7
 
+    private persistTimeout: any
+
     constructor() {
         document.cookie.split('; ').forEach((cookie: string) => {
             let [name, value] = cookie.split("=");
@@ -49,16 +51,24 @@ export const cookie = new class {
     }
 
     private persist(): void {
-        let expires = new Date();
-        let secureFlag = (location.protocol == "https:" ? "; Secure" : "");
-        let values = {};
-
-        for (let [key, value] of this.values) {
-            values[key] = value;
+        if (this.persistTimeout) {
+            clearTimeout(this.persistTimeout);
         }
 
-        expires.setTime(expires.getTime() + (this.lifetime * 24 * 60 * 60 * 1000));
+        // Use short timeout to avoid many writes at once
+        this.persistTimeout = setTimeout(() => {
+            this.persistTimeout = null;
+            let expires = new Date();
+            let secureFlag = (location.protocol == "https:" ? "; Secure" : "");
+            let values = {};
 
-        document.cookie = `supi=${encodeURIComponent(JSON.stringify(values))}; expires=${expires.toUTCString()}; path=/; SameSite=Strict${secureFlag}`;
+            for (let [key, value] of this.values) {
+                values[key] = value;
+            }
+
+            expires.setTime(expires.getTime() + (this.lifetime * 24 * 60 * 60 * 1000));
+
+            document.cookie = `supi=${encodeURIComponent(JSON.stringify(values))}; expires=${expires.toUTCString()}; path=/; SameSite=Strict${secureFlag}`;
+        }, 100);
     }
 };
