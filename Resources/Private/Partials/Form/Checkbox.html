@@ -10,6 +10,7 @@
                        data-supi-block="{blockName}"
                        data-supi-item="{itemName}"
                        name="supi[{blockName}_{itemName}]"
+                       {f:if(condition: item.service, then: 'data-supi-service="{item.service}"')}
                        value="{item.names}"
                        checked{f:if(condition: element.required, then: ' disabled')}
                 >
@@ -21,6 +22,7 @@
                        data-supi-required="{element.required}"
                        data-supi-parent="{blockName}"
                        data-supi-block="{blockName}"
+                       {f:if(condition: item.service, then: 'data-supi-service="{item.service}"')}
                        name="supi[{blockName}]"
                        value="{element.names}"
                        checked

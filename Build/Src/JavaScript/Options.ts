@@ -9,12 +9,13 @@ interface CookieLifetime {
 interface Item {
     names: string
     label: string | null
+    service: string | null
 }
 
 interface Element {
     required: boolean
     showOnLoad: boolean
-    names: string
+    names: string | null
     label: string | null
     items: {
         [name: string]: Item

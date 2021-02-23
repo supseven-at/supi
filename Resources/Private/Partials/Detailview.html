@@ -37,7 +37,7 @@
                                                     </f:if>
                                                     <div class="tx-supi__block-item__text">
                                                         <span>{f:translate(key:'{item.label}', default: '{item.label}') -> f:format.raw()}</span>
-                                                        <small>{f:translate(key:'{item.names}', default: '{item.names}') -> f:format.raw()}</small>
+                                                        <f:if condition="{item.names}"><small>{f:translate(key:'{item.names}', default: '{item.names}') -> f:format.raw()}</small></f:if>
                                                     </div>
                                                 </div>
                                             </li>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
- <file source-language="en" date="2021-02-21T14:41:49+01:00">
+ <file source-language="en" date="2021-02-23T15:50:08+01:00">
   <body>
    <trans-unit id="banner.content.headline" resname="banner.content.headline">
     <source>This website uses cookies</source>
@@ -19,6 +19,18 @@
    </trans-unit>
    <trans-unit id="banner.cookie.essential.status.label" resname="banner.cookie.essential.status.label">
     <source>Current Cookie settings</source>
+   </trans-unit>
+   <trans-unit id="banner.cookie.media.label" resname="banner.cookie.media.label">
+    <source>Media Providers</source>
+   </trans-unit>
+   <trans-unit id="banner.cookie.media.text" resname="banner.cookie.media.text">
+    <source>External services for the display of media content and interactive elements.</source>
+   </trans-unit>
+   <trans-unit id="banner.cookie.media.googleMaps.label" resname="banner.cookie.media.googleMaps.label">
+    <source>Google Maps</source>
+   </trans-unit>
+   <trans-unit id="banner.cookie.media.youtube.label" resname="banner.cookie.media.youtube.label">
+    <source>Youtube</source>
    </trans-unit>
    <trans-unit id="banner.cookie.marketing.label" resname="banner.cookie.marketing.label">
     <source>Marketing &amp; Analytics</source>

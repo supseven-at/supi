@@ -98,6 +98,23 @@ plugin.tx_supi {
                     }
                 }
             }
+            media {
+                required = 0
+                showOnLoad = 1
+                label = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.media.label
+                text = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.media.text
+
+                items {
+                    googleMaps {
+                        label = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.media.googleMaps.label
+                        service = googleMaps
+                    }
+                    youtube {
+                        label = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.media.youtube.label
+                        service = youtube
+                    }
+                }
+            }
             marketing {
                 required = 0
                 showOnLoad = 0

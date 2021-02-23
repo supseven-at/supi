@@ -65,8 +65,8 @@ class Supi {
      */
     constructor() {
         this.root = findOne('#supi');
-        this.dismiss = findOne('#supi__dismiss', this.root);
-        this.choose = findOne('#supi__choose', this.root);
+        this.dismiss = findOne('#supi__dismiss');
+        this.choose = findOne('#supi__choose');
         this.banner = findOne('#supi__overlay') ?? findOne('#supi__banner');
         this.overlay = !!(findOne('#supi__overlay'));
         this.body = <HTMLBodyElement>document.body;
@@ -376,24 +376,38 @@ class Supi {
 
             case Mode.Essential:
                 Object.keys(this.config.elements || {})
-                    .filter((k: string) => !!this.config[k]?.required)
+                    .filter((k: string) => !!this.config?.elements[k]?.required)
                     .forEach((k: string) => {
-                        this.config[k]?.names?.split(",").forEach((name: string) => {
+                        this.config.elements[k]?.names?.split(",").forEach((name: string) => {
                             this.allowed.push(name);
                         })
                     });
                 break;
 
             case Mode.Selected:
-                findAll('input[type=checkbox]')
+                findAll('input[type=checkbox]', this.root)
                     .filter((el: HTMLInputElement) => el.checked || (parseInt(el.dataset.supiRequired) || 0) > 0)
-                    .map((el: HTMLInputElement) => el.value)
-                    .forEach((list: string) => {
-                        list.split(',').map((e: string) => e.trim()).forEach((el: string) => {
-                            if (this.allowed.indexOf(el) === -1) {
-                                this.allowed.push(el);
+                    .forEach((el: HTMLInputElement) => {
+                        if (el.dataset.supiService) {
+                            switch (el.dataset.supiService) {
+                                case 'googleMaps':
+                                    cookie.set(this.cookieNameGoogleMaps, 'y');
+                                    this.allowMaps = true;
+                                    this.enableMaps();
+                                    break;
+                                case 'youtube':
+                                    cookie.set(this.cookieNameYoutube, 'y');
+                                    this.allowYoutube = true;
+                                    this.enableYoutubeVideos();
+                                    break;
                             }
-                        })
+                        } else {
+                            el.value.split(',').map((e: string) => e.trim()).forEach((el: string) => {
+                                if (this.allowed.indexOf(el) === -1) {
+                                    this.allowed.push(el);
+                                }
+                            });
+                        }
                     });
                 break;
         }
