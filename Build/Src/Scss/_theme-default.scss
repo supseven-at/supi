@@ -68,7 +68,7 @@
   &.position {
     flex-direction: column;
     position: fixed;
-    z-index: 99;
+    z-index: 999999;
     background-color: #fff;
     transition: all .2s ease-in-out;
 
@@ -279,7 +279,7 @@
     background: rgba(#fff, .9);
     display: flex;
     justify-content: center;
-    z-index: 9999;
+    z-index: 999999;
     align-items: flex-end;
 
     @include supi-media-breakpoint-up(md) {
