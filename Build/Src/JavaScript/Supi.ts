@@ -65,13 +65,13 @@ class Supi {
      */
     constructor() {
         this.root = findOne('#supi');
-        this.dismiss = findOne('#supi__dismiss');
+        this.dismiss = findOne('[data-toggle=dismiss]', this.root);
         this.choose = findOne('#supi__choose');
         this.banner = findOne('#supi__overlay') ?? findOne('#supi__banner');
         this.overlay = !!(findOne('#supi__overlay'));
         this.body = <HTMLBodyElement>document.body;
         this.switch = findOne('#supi__switchTo');
-        this.save = findOne('#supi__save');
+        this.save = findOne('[data-toggle=save]', this.root);
         this.writeLog = this.body.classList.contains('develop');
 
         this.config = JSON.parse(this.root.getAttribute('data-supi-config'));
@@ -136,7 +136,7 @@ class Supi {
     addClickHandler(): void {
         // on click removes first all scripts and readds then
         // the scripts, after that the banner will be toggled
-        findAll('#supi__allow', this.root).forEach((el: HTMLElement) => {
+        findAll('[data-toggle=allow]', this.root).forEach((el: HTMLElement) => {
             this.log("Allow all on click on %o", el);
             el.addEventListener('click', (e: Event) => {
                 this.log("Allow all was clicked, processing");
