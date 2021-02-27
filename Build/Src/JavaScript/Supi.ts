@@ -467,6 +467,11 @@ class Supi {
                 this.log('Enabling %o', el);
                 this.addVideo(el, '');
             });
+
+            // add custom event to react to (e.g. to handle classnames)
+            let onYouTubeAllowedEvent = new CustomEvent("onYouTubeAllowed", {detail: 1});
+            window.dispatchEvent(onYouTubeAllowedEvent);
+
         }
     }
 
