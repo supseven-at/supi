@@ -338,6 +338,24 @@ class Supi {
         }
 
         this.banner.classList.toggle('hide');
+
+        let mapsToggle = findOne("[data-supi-service=googleMaps]", this.root);
+
+        if (mapsToggle) {
+            (mapsToggle as HTMLInputElement).checked = this.allowMaps;
+        }
+
+        let youtubeToggle = findOne("[data-supi-service=youtube]", this.root);
+
+        if (youtubeToggle) {
+            (youtubeToggle as HTMLInputElement).checked = this.allowYoutube;
+        }
+
+        let mediaToggle = findOne("[data-supi-parent=media]", this.root);
+
+        if (mediaToggle) {
+            (mediaToggle as HTMLInputElement).checked = this.allowYoutube && this.allowMaps;
+        }
     }
 
     /**
