@@ -403,6 +403,11 @@ class Supi {
                 break;
 
             case Mode.Selected:
+                cookie.set(this.cookieNameGoogleMaps, 'n');
+                this.allowMaps = false;
+                cookie.set(this.cookieNameYoutube, 'n');
+                this.allowYoutube = false;
+
                 findAll('input[type=checkbox]', this.root)
                     .filter((el: HTMLInputElement) => el.checked || (parseInt(el.dataset.supiRequired) || 0) > 0)
                     .forEach((el: HTMLInputElement) => {
