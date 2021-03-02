@@ -59,7 +59,6 @@ export const cookie = new class {
         this.persistTimeout = setTimeout(() => {
             this.persistTimeout = null;
             let expires = new Date();
-            let secureFlag = (location.protocol == "https:" ? "; Secure" : "");
             let values = {};
 
             for (let [key, value] of this.values) {
@@ -68,7 +67,18 @@ export const cookie = new class {
 
             expires.setTime(expires.getTime() + (this.lifetime * 24 * 60 * 60 * 1000));
 
-            document.cookie = `supi=${encodeURIComponent(JSON.stringify(values))}; expires=${expires.toUTCString()}; path=/; SameSite=Strict${secureFlag}`;
+            let c = `supi=${encodeURIComponent(JSON.stringify(values))}; expires=${expires.toUTCString()}; path=/;`;
+
+            // @ts-ignore
+            if (!window.MSInputMethodContext && !document.documentMode) {
+                c += "; SameSite=Strict";
+
+                if (location.protocol == "https:") {
+                    c += "; Secure";
+                }
+            }
+
+            document.cookie = c;
         }, 100);
     }
 };
