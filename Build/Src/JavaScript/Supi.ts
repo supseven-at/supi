@@ -207,11 +207,22 @@ class Supi {
         // this click event simply opens the banner for
         // further interaction
         if (this.choose) {
+            this.log("Add main choose toggle to %o", this.choose);
             this.choose.addEventListener('click', (e: Event) => {
                 e.preventDefault();
                 this.toggleBanner();
             });
         }
+        Array.from(document.getElementsByTagName("a"))
+            .filter((el: HTMLAnchorElement) => el.getAttribute("href") == "#supi-choose")
+            .forEach((el: SupiElement) => {
+                this.log("Add choose toggle to %o", el);
+
+                el.addEventListener("click", (e: Event) => {
+                    e.preventDefault();
+                    this.toggleBanner();
+                });
+            });
 
         // Add click handler for switching between overview and detailview
         findAll('[data-toggle=switch]').filter((el: HTMLElement) => {
@@ -435,9 +446,7 @@ class Supi {
                 break;
         }
 
-        setTimeout(() => {
-            cookie.set(this.cookieNameAllowed, this.allowed);
-        }, 30);
+        cookie.set(this.cookieNameAllowed, this.allowed);
 
         return this.allowed.sort().join() === old;
     }
