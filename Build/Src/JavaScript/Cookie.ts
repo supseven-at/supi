@@ -81,4 +81,17 @@ export const cookie = new class {
             document.cookie = c;
         }, 100);
     }
+
+    public getCookieNames(): Array<string> {
+        return document.cookie.split("; ")
+            .map((c: string): string => c.split("=").shift())
+            .filter((c: string): boolean => c !== "supi");
+    }
+
+    public purgeCookie(name: string): void {
+        let expires = new Date();
+        expires.setTime(expires.getTime() - 360000);
+
+        document.cookie = `${name}=; expires=${expires.toUTCString()}; path=/`;
+    }
 };
