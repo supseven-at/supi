@@ -79,7 +79,7 @@ export const cookie = new class {
             }
 
             document.cookie = c;
-        }, 100);
+        }, 20);
     }
 
     public getCookieNames(): Array<string> {
@@ -90,7 +90,7 @@ export const cookie = new class {
 
     public purgeCookie(name: string): void {
         let expires = new Date();
-        expires.setTime(expires.getTime() - 360000);
+        expires.setTime(expires.getTime() - (3600 * 60 * 1000));
 
         document.cookie = `${name}=x; expires=${expires.toUTCString()}; path=/`;
     }

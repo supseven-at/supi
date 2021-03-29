@@ -157,6 +157,7 @@ class Supi {
                 this.setDetailDefaults();
                 this.enableMaps();
                 this.enableYoutubeVideos();
+                this.removeNotAllowedCookies();
                 e.preventDefault();
             });
         });
@@ -166,6 +167,8 @@ class Supi {
         if (this.dismiss) {
             this.dismiss.addEventListener('click', (e: Event) => {
                 e.preventDefault();
+                this.allowAll = false;
+
                 if (this.collectAllowed(Mode.Essential)) {
                     this.removeScripts();
                 }
@@ -188,12 +191,14 @@ class Supi {
                 }
 
                 this.setDetailDefaults();
+                this.removeNotAllowedCookies();
             });
         }
 
         if (this.save) {
             this.save.addEventListener('click', (e: Event) => {
                 e.preventDefault();
+                this.allowAll = false;
                 this.collectAllowed(Mode.Selected);
                 this.removeScripts();
 
@@ -201,6 +206,8 @@ class Supi {
                     this.toggleBanner();
                     cookie.set(this.cookieNameStatus, Status.Selected);
                 }
+
+                this.removeNotAllowedCookies();
             });
         }
 
@@ -446,16 +453,21 @@ class Supi {
                 break;
         }
 
+        return this.allowed.sort().join() === old;
+    }
+
+    private removeNotAllowedCookies(): void {
         // Remove previously set cookies
+        this.log("Comparing currently set cookies %o with allowed %o, allow all is %o", cookie.getCookieNames(), this.allowed, this.allowAll);
+
         cookie.getCookieNames().forEach((cookieName: string) => {
             if (!this.allowAll && this.allowed.indexOf(cookieName) === -1) {
+                this.log("Removing cookie " + cookieName);
                 cookie.purgeCookie(cookieName);
             }
         });
 
         cookie.set(this.cookieNameAllowed, this.allowed);
-
-        return this.allowed.sort().join() === old;
     }
 
     private setDetailDefaults(): void {
