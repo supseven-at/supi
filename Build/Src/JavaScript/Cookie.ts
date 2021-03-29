@@ -61,9 +61,9 @@ export const cookie = new class {
             let expires = new Date();
             let values = {};
 
-            for (let [key, value] of this.values) {
+            this.values.forEach((value, key) => {
                 values[key] = value;
-            }
+            });
 
             expires.setTime(expires.getTime() + (this.lifetime * 24 * 60 * 60 * 1000));
 
