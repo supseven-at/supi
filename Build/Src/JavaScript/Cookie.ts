@@ -92,6 +92,6 @@ export const cookie = new class {
         let expires = new Date();
         expires.setTime(expires.getTime() - 360000);
 
-        document.cookie = `${name}=; expires=${expires.toUTCString()}; path=/`;
+        document.cookie = `${name}=x; expires=${expires.toUTCString()}; path=/`;
     }
 };

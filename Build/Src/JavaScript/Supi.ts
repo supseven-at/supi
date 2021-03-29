@@ -386,13 +386,6 @@ class Supi {
             script.parentNode.replaceChild(template, script);
         });
 
-        // Remove previously set cookies
-        cookie.getCookieNames().forEach((cookieName: string) => {
-            if (!this.allowAll && this.allowed.indexOf(cookieName) === -1) {
-                cookie.purgeCookie(cookieName);
-            }
-        });
-
         return true;
     }
 
@@ -452,6 +445,13 @@ class Supi {
                     });
                 break;
         }
+
+        // Remove previously set cookies
+        cookie.getCookieNames().forEach((cookieName: string) => {
+            if (!this.allowAll && this.allowed.indexOf(cookieName) === -1) {
+                cookie.purgeCookie(cookieName);
+            }
+        });
 
         cookie.set(this.cookieNameAllowed, this.allowed);
 
