@@ -213,6 +213,7 @@ class Supi {
                 this.toggleBanner();
             });
         }
+        // @TODO: Alter this code to work with button Elements. a-Elements are links without any link functionality.
         Array.from(document.getElementsByTagName("a"))
             .filter((el: HTMLAnchorElement) => el.getAttribute("href") == "#supi-choose")
             .forEach((el: SupiElement) => {

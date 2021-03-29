@@ -8,14 +8,11 @@
                     <f:else>
                         <li>
                             <f:render section="Button" arguments="{
-                                href: '#switch',
                                 inputs: 'disable',
                                 toggle: 'switch',
                                 switchFrom: '#supi__overview',
                                 switchTo: '#supi__detailview',
                                 id: 'supi__switchTo',
-                                label: '{f:translate(key: \'{settings.button.switch.label}\', default: \'{settings.button.switch.label}\')}',
-                                tabIndex: '0',
                                 text: '{f:translate(key: \'{settings.button.switch.text}\', default: \'{settings.button.switch.text}\')}'
                             }" />
                         </li>
@@ -27,11 +24,8 @@
                 <f:else>
                     <li>
                         <f:render section="Button" arguments="{
-                            href: '#switch',
                             toggle: 'dismiss',
                             id: 'supi__dismiss',
-                            label: '{f:translate(key: \'{settings.button.dismiss.label}\', default: \'{settings.button.dismiss.label}\')}',
-                            tabIndex: '0',
                             text: '{f:translate(key: \'{settings.button.dismiss.text}\', default: \'{settings.button.dismiss.text}\')}'
                         }" />
                     </li>
@@ -41,11 +35,8 @@
             <f:if condition="{save}">
                 <li>
                     <f:render section="Button" arguments="{
-                        href: '#save',
                         toggle: 'save',
                         id: 'supi__save',
-                        label: '{f:translate(key: \'{settings.button.save.label}\', default: \'{settings.button.save.label}\')}',
-                        tabIndex: '0',
                         text: '{f:translate(key: \'{settings.button.save.text}\', default: \'{settings.button.save.text}\')}'
                     }" />
                 </li>
@@ -53,12 +44,9 @@
 
             <li>
                 <f:render section="Button" arguments="{
-                            href: '#allow',
                             toggle: 'allow',
                             class: 'tx-supi__allow',
                             id: 'supi__allow',
-                            label: '{f:translate(key: \'{settings.button.allow.label}\', default: \'{settings.button.allow.label}\')}',
-                            tabIndex: '1',
                             text: '{f:translate(key: \'{settings.button.allow.text}\', default: \'{settings.button.allow.text}\')}'
                         }" />
             </li>
@@ -66,18 +54,15 @@
     </nav>
 
     <f:section name="Button">
-        <a href="{href}"
+        <button
            {f:if(condition: '{inputs}', then:' data-inputs="{inputs}"')}
            {f:if(condition: '{toggle}', then:' data-toggle="{toggle}"')}
            {f:if(condition: '{switchFrom}', then:' data-switch-from="{switchFrom}"')}
            {f:if(condition: '{switchTo}', then:' data-switch-to="{switchTo}"')}
            {f:if(condition: '{class}', then:' class="{class}"')}
-           id="{id}"
-           aria-label="{label}"
-           role="button"
-           tabindex="{tabIndex}">
+           id="{id}">
                 {text}
-        </a>
+        </button>
     </f:section>
 
 </html>

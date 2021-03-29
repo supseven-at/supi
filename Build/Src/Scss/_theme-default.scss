@@ -224,7 +224,8 @@
     }
   }
 
-  [role="button"] {
+  button {
+    border: none;
     line-height: 1.3;
     color: var(--supi-color-button-color);
     text-decoration: none;
