@@ -1,7 +1,7 @@
 <html data-namespace-typo3-fluid="true"
       xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers">
 
-    <nav>
+    <div class="tx-supi__buttongroup">
         <ul>
             <f:if condition="{settings.showBigSwitch} AND {settings.detailed} AND {settings.hideAutoEssential}">
                 <f:if condition="{hideAutoEssential}">
@@ -56,28 +56,25 @@
                             href: '#allow',
                             toggle: 'allow',
                             class: 'tx-supi__allow',
-                            id: 'supi__allow',
+                            id: 'supi__allow{f:if(condition: \'{hideAutoEssential}\', then: \'-detailedView\')}',
                             label: '{f:translate(key: \'{settings.button.allow.label}\', default: \'{settings.button.allow.label}\')}',
                             tabIndex: '1',
                             text: '{f:translate(key: \'{settings.button.allow.text}\', default: \'{settings.button.allow.text}\')}'
                         }" />
             </li>
         </ul>
-    </nav>
+    </div>
 
     <f:section name="Button">
-        <a href="{href}"
+        <button
            {f:if(condition: '{inputs}', then:' data-inputs="{inputs}"')}
            {f:if(condition: '{toggle}', then:' data-toggle="{toggle}"')}
            {f:if(condition: '{switchFrom}', then:' data-switch-from="{switchFrom}"')}
            {f:if(condition: '{switchTo}', then:' data-switch-to="{switchTo}"')}
            {f:if(condition: '{class}', then:' class="{class}"')}
-           id="{id}"
-           aria-label="{label}"
-           role="button"
-           tabindex="{tabIndex}">
+           id="{id}">
                 {text}
-        </a>
+        </button>
     </f:section>
 
 </html>
