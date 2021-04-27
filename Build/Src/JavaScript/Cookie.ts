@@ -92,6 +92,12 @@ export const cookie = new class {
         let expires = new Date();
         expires.setTime(expires.getTime() - (3600 * 60 * 1000));
 
-        document.cookie = `${name}=x; expires=${expires.toUTCString()}; path=/`;
+        const domainParts = document.domain.split('.');
+        let cookieString = `${name}=x; expires=${expires.toUTCString()}; path=/;`;
+        if(domainParts.length > 1) {
+            const cookieDomain = '.' + domainParts.slice(-2).join('.');
+            cookieString += ` domain=${cookieDomain};`;
+        }
+        document.cookie = cookieString;
     }
 };
