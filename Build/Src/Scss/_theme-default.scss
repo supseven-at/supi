@@ -448,14 +448,14 @@ input[id^="supi"] {
 .tx-supi {
   a,
   button,
-  &__link-button,
-  input[id^="supi"] + label {
+  &__link-button {
     &:focus-visible {
       box-shadow: none;
       outline-offset: 0;
       overflow: hidden;
       outline: #{map-get($supi-colors, primary)} solid 3px;
       outline: var(--supi-color-primary) solid 3px;
+      transition: none;
     }
     // Duplicated because some legacy browser suppressing the rule completely
     &.focus-visible {
@@ -464,6 +464,27 @@ input[id^="supi"] {
       overflow: hidden;
       outline: #{map-get($supi-colors, primary)} solid 3px;
       outline: var(--supi-color-primary) solid 3px;
+      transition: none;
+    }
+  }
+
+  input[id^=supi] {
+    &:focus-visible + label {
+      outline-offset: 3px;
+      overflow: hidden;
+      outline: #{map-get($supi-colors, primary)} solid 3px;
+      outline: var(--supi-color-primary) solid 3px;
+      transition: none;
+    }
+  }
+
+  input[id^=supi] {
+    &.focus-visible + label {
+      outline-offset: 3px;
+      overflow: hidden;
+      outline: #{map-get($supi-colors, primary)} solid 3px;
+      outline: var(--supi-color-primary) solid 3px;
+      transition: none;
     }
   }
 
