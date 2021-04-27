@@ -43,7 +43,6 @@
 .tx-supi {
   display: flex;
   max-height: 100%;
-  overflow-y: auto;
 
   &__overlay {
     overflow: hidden;
@@ -116,11 +115,11 @@
       transform: translateY(var(--supi-transform-value));
     }
 
-      &.hide .hide,
-      & .hide {
-          transform: none;
-          display: none;
-      }
+    &.hide .hide,
+    & .hide {
+      transform: none;
+      display: none;
+    }
   }
 
   &.theme {
@@ -163,7 +162,7 @@
         padding: var(--supi-padding);
       }
 
-      h3, span {
+      h3, .tx-supi__link-button {
         color: inherit;
       }
 
@@ -179,10 +178,15 @@
         margin: 0;
       }
 
-      a {
+      a,
+      .tx-supi__link-button {
+        background: transparent;
+        padding: 0;
+        display: inline-block;
         color: #{map-get($supi-colors, primary)};
         color: var(--supi-color-primary);
         text-decoration: underline;
+        vertical-align: bottom;
 
         &:after {
           display: none;
@@ -198,7 +202,7 @@
         }
       }
 
-      nav {
+      .tx-supi__buttongroup {
         background: #{map-get($supi-colors, button-bar)};
         background: var(--supi-color-button-bar);
 
@@ -214,7 +218,7 @@
             justify-content: center;
             flex: 1 0 50%;
 
-            a {
+            button {
               flex-grow: 1;
               text-decoration: none;
             }
@@ -224,7 +228,8 @@
     }
   }
 
-  [role="button"] {
+  button {
+    border: none;
     line-height: 1.3;
     color: var(--supi-color-button-color);
     text-decoration: none;
@@ -292,15 +297,16 @@
   }
 
   &__block {
-    &-header {
+    & &-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
 
-      & > span {
+      & > .tx-supi__link-button {
         font-weight: bold;
         position: relative;
         padding-left: 15px;
+        text-decoration: none;
 
         &:before {
           content: "";
@@ -313,6 +319,7 @@
           left: 0;
           transform: rotate(135deg);
           transition: transform .2s ease-in-out;
+          display: block;
         }
 
         &.tx-supi__pane-active:before {
@@ -352,11 +359,11 @@
         &:checked {
           & + label {
             background: #{map-get($supi-colors, success)};
-            box-shadow: inset 0 0 0 0 rgba(0,0,0,.2), 0 0 0 2px #{map-get($supi-colors, success)};
+            box-shadow: inset 0 0 0 0 rgba(0, 0, 0, .2), 0 0 0 2px #{map-get($supi-colors, success)};
 
             &:before {
               transform: translateX(20px);
-              box-shadow: 1px 1px rgba(0,0,0,.2), 0 0 0 2px #{map-get($supi-colors, success)};
+              box-shadow: 1px 1px rgba(0, 0, 0, .2), 0 0 0 2px #{map-get($supi-colors, success)};
             }
           }
         }
@@ -376,7 +383,7 @@
         height: 20px;
         border-radius: 20px;
         background: #f8f8f8;
-        box-shadow: inset 0 0 0 0 rgba(0,0,0,.2), 0 0 0 2px #ddd;
+        box-shadow: inset 0 0 0 0 rgba(0, 0, 0, .2), 0 0 0 2px #ddd;
         transition: .1s ease-in-out;
         margin: 0;
 
@@ -387,7 +394,7 @@
           height: 20px;
           border-radius: 100%;
           background: #fff;
-          box-shadow: 1px 1px rgba(0,0,0,.2), 0 0 0 2px #ddd;
+          box-shadow: 1px 1px rgba(0, 0, 0, .2), 0 0 0 2px #ddd;
           transition: .1s ease-in-out;
         }
       }
@@ -403,29 +410,88 @@
 // Youtube element
 
 .tx-supi__youtube {
-    position:relative;
+  position: relative;
 
-    &-text {
-        position: absolute;
-        top: 30%;
-        text-align: center;
-        margin: 0 40px;
-        padding: 40px 12px;
-        width: 100%;
-        background: rgba(255, 255, 255, .7);
-    }
+  &-text {
+    position: absolute;
+    top: 30%;
+    text-align: center;
+    margin: 0 40px;
+    padding: 40px 12px;
+    width: 100%;
+    background: rgba(255, 255, 255, .7);
+  }
 }
 
 .tx_supi__map {
-    &-content {
-        display: none;
-    }
+  &-content {
+    display: none;
+  }
 
-    .active &-content {
-        display: block;
-    }
+  .active &-content {
+    display: block;
+  }
 
-    .active &-text {
-        display: none;
-    }
+  .active &-text {
+    display: none;
+  }
 }
+
+input[id^="supi"] {
+  outline: none;
+}
+
+.js-focus-visible input[id^="supi"] {
+  outline: none;
+}
+
+.tx-supi {
+  a,
+  button,
+  &__link-button,
+  input[id^="supi"] + label {
+    &:focus-visible {
+      box-shadow: none;
+      outline-offset: 0;
+      overflow: hidden;
+      outline: #{map-get($supi-colors, primary)} solid 3px;
+      outline: var(--supi-color-primary) solid 3px;
+    }
+    // Duplicated because some legacy browser suppressing the rule completely
+    &.focus-visible {
+      box-shadow: none;
+      outline-offset: 0;
+      overflow: hidden;
+      outline: #{map-get($supi-colors, primary)} solid 3px;
+      outline: var(--supi-color-primary) solid 3px;
+    }
+  }
+
+  button {
+    &:focus-visible {
+      outline-offset: -3px;
+    }
+    &.focus-visible {
+      outline-offset: -3px;
+    }
+  }
+
+  button.tx-supi__link-button {
+    &:focus-visible {
+      outline-offset: 0;
+    }
+    &.focus-visible {
+      outline-offset: 0;
+    }
+  }
+
+  #supi__choose {
+    &:focus-visible {
+      outline-offset: 3px;
+    }
+    &.focus-visible {
+      outline-offset: 3px;
+    }
+  }
+}
+
