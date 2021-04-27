@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
- <file source-language="en" target-language="de" date="2021-02-23T15:50:08+01:00">
+<xliff version="1.2" xmlns:t3="http://typo3.org/schemas/xliff" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+ <file source-language="en" target-language="de" date="2021-04-12T20:06:52+02:00">
   <body>
    <trans-unit id="banner.content.headline" resname="banner.content.headline">
     <source>This website uses cookies</source>
@@ -43,8 +43,8 @@
     <target>Klicken Sie auf &#34;Alle Cookies erlauben&#34;, um alle Arten von Cookies zu akzeptieren oder klicken Sie auf &#34;Nur erforderliche Cookies erlauben&#34;, um nur jene Cookies zuzulassen, die für den Betrieb und Funktion der Webseite unbedingt erforderlich sind.</target>
    </trans-unit>
    <trans-unit id="banner.switch.text" resname="banner.switch.text">
-    <source>&lt;p&gt;Click on „&lt;a href=&#34;#switch&#34; data-inputs=&#34;disable&#34; data-toggle=&#34;switch&#34; data-switch-from=&#34;#supi__overview&#34; data-switch-to=&#34;#supi__detailview&#34;&gt;Cookie-Preferences&lt;/a&gt;“ to change the cookie settings manually.&lt;/p&gt;</source>
-    <target>&lt;p&gt;Klicken Sie auf „&lt;a href=&#34;#switch&#34; data-inputs=&#34;disable&#34; data-toggle=&#34;switch&#34; data-switch-from=&#34;#supi__overview&#34; data-switch-to=&#34;#supi__detailview&#34;&gt;Cookie-Einstellungen&lt;/a&gt;“ um die Cookie-Einstellungen einzeln zu bearbeiten.&lt;/p&gt;</target>
+    <source>&lt;p&gt;Click on „&lt;button class=&#34;tx-supi__link-button&#34; data-inputs=&#34;disable&#34; data-toggle=&#34;switch&#34; data-switch-from=&#34;#supi__overview&#34; data-switch-to=&#34;#supi__detailview&#34;&gt;Cookie-Preferences&lt;/button&gt;“ to change the cookie settings manually.&lt;/p&gt;</source>
+    <target>&lt;p&gt;Klicken Sie auf „&lt;button class=&#34;tx-supi__link-button&#34; data-inputs=&#34;disable&#34; data-toggle=&#34;switch&#34; data-switch-from=&#34;#supi__overview&#34; data-switch-to=&#34;#supi__detailview&#34;&gt;Cookie-Einstellungen&lt;/button&gt;“ um die Cookie-Einstellungen einzeln zu bearbeiten.&lt;/p&gt;</target>
    </trans-unit>
    <trans-unit id="banner.detail.headline" resname="banner.detail.headline">
     <source>Cookie-Preferences</source>

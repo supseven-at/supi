@@ -22,6 +22,15 @@ class Supi {
     // the main cookie banner
     private banner: SupiElement;
 
+    // the dialog modal
+    private modal: SupiElement;
+
+    private readonly focusTrapEventHandler: (event: KeyboardEvent) => void;
+
+    private focusTrapElements?: HTMLElement[];
+
+    private preFocusTrapActiveElement?: HTMLElement;
+
     // the cookie name which will be set as a status cookie
     private readonly cookieNameStatus: string = 'status';
 
@@ -68,6 +77,8 @@ class Supi {
         this.dismiss = findOne('[data-toggle=dismiss]', this.root);
         this.choose = findOne('#supi__choose');
         this.banner = findOne('#supi__overlay') ?? findOne('#supi__banner');
+        this.modal = findOne('#supi__banner');
+        this.focusTrapEventHandler = this.focusTrapNavigator.bind(this);
         this.overlay = !!(findOne('#supi__overlay'));
         this.body = <HTMLBodyElement>document.body;
         this.switch = findOne('#supi__switchTo');
@@ -220,8 +231,8 @@ class Supi {
                 this.toggleBanner();
             });
         }
-        Array.from(document.getElementsByTagName("a"))
-            .filter((el: HTMLAnchorElement) => el.getAttribute("href") == "#supi-choose")
+        Array.from(document.getElementsByTagName("button"))
+            .filter((el: HTMLButtonElement) => el.getAttribute("href") == "#supi-choose")
             .forEach((el: SupiElement) => {
                 this.log("Add choose toggle to %o", el);
 
@@ -237,13 +248,17 @@ class Supi {
         }).forEach((el: HTMLElement) => {
             el.addEventListener('click', (e: Event) => {
                 findOne(el.dataset.switchFrom).classList.add('tx-supi__pane-hidden');
+                findOne(el.dataset.switchFrom).setAttribute('hidden','');
                 findOne(el.dataset.switchTo).classList.remove('tx-supi__pane-hidden');
+                findOne(el.dataset.switchTo).removeAttribute('hidden');
 
                 if (el.dataset.inputs === 'disable' && this.allowed.length < 1) {
                     findAll('input[type=checkbox]').forEach((el: HTMLInputElement) => {
                         el.checked = (el.disabled || !!el.dataset.required);
                     });
                 }
+
+                this.focusTrapElements = this.getFocusTrapElements();
 
                 e.preventDefault();
             });
@@ -254,8 +269,21 @@ class Supi {
             return !!(findOne(el.dataset.target));
         }).forEach((el: HTMLElement) => {
             el.addEventListener('click', (e: Event) => {
-                el.classList.toggle('tx-supi__pane-active')
-                findOne(el.dataset.target).classList.toggle('tx-supi__pane-hidden');
+
+                el.classList.toggle('tx-supi__pane-active');
+                let expanded = el.getAttribute('aria-expanded')
+                if (expanded === 'false') {
+                    el.setAttribute('aria-expanded','true')
+                    this.focusTrapElements = this.getFocusTrapElements();
+                } else {
+                    el.setAttribute('aria-expanded', 'false')
+                }
+                let target = findOne(el.dataset.target)
+                target.classList.toggle('tx-supi__pane-hidden')
+                if (!target.classList.contains('tx-supi__pane-hidden')) {
+                    this.focusTrapElements = this.getFocusTrapElements();
+                }
+                target.toggleAttribute('hidden')
                 e.preventDefault();
             })
         });
@@ -351,11 +379,21 @@ class Supi {
      * simply toggles the banner class
      */
     toggleBanner(): void {
-        if (this.overlay === true) {
+
+        if (this.overlay == true) {
             this.body.classList.toggle('tx-supi__overlay');
         }
 
         this.banner.classList.toggle('hide');
+
+        if(this.banner.classList.contains('hide')) {
+            this.disableFocusTrap();
+        } else {
+            requestAnimationFrame(() => {
+                this.modal.focus();
+            });
+            this.enableFocusTrap();
+        }
 
         let mapsToggle = findOne("[data-supi-service=googleMaps]", this.root);
 
@@ -454,6 +492,44 @@ class Supi {
         }
 
         return this.allowed.sort().join() === old;
+    }
+
+    private enableFocusTrap(): void {
+        this.preFocusTrapActiveElement = undefined;
+        if(document.activeElement instanceof HTMLElement) {
+            this.preFocusTrapActiveElement = document.activeElement;
+            document.activeElement.blur();
+        }
+        document.addEventListener('keydown', this.focusTrapEventHandler);
+    }
+
+    private disableFocusTrap(): void {
+        document.removeEventListener('keydown', this.focusTrapEventHandler);
+        if(this.preFocusTrapActiveElement instanceof HTMLElement) {
+            this.preFocusTrapActiveElement.focus();
+        }
+    }
+
+    private focusTrapNavigator(event: KeyboardEvent) {
+        if(event.key !== 'Tab') {
+            return;
+        }
+        event.preventDefault();
+        this.focusTrapElements = this.getFocusTrapElements();
+        const currentlyFocusedElementIndex = this.focusTrapElements.indexOf(document.activeElement as HTMLElement);
+        let nextFocusElementIndex = currentlyFocusedElementIndex + (event.shiftKey ? -1 : 1);
+        if(nextFocusElementIndex < 0) {
+            nextFocusElementIndex = this.focusTrapElements.length - 1;
+        } else if(nextFocusElementIndex >= this.focusTrapElements.length) {
+            nextFocusElementIndex = 0;
+        }
+        this.focusTrapElements[nextFocusElementIndex].focus();
+    }
+
+    private getFocusTrapElements() {
+        return findAll('a, button, *[tabindex], input[type=checkbox]:not([disabled])', this.banner).filter(element => {
+            return element.offsetWidth > 0 || element.offsetHeight > 0 || element.getClientRects().length > 0
+        });
     }
 
     private removeNotAllowedCookies(): void {

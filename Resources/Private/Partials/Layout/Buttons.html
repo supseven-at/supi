@@ -1,14 +1,12 @@
-<html data-namespace-typo3-fluid="true"
-      xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers">
+<html data-namespace-typo3-fluid="true" xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers">
 
-    <nav>
-        <ul>
-            <f:if condition="{settings.showBigSwitch} AND {settings.detailed} AND {settings.hideAutoEssential}">
-                <f:if condition="{hideAutoEssential}">
-                    <f:else>
-                        <li>
-                            <f:render section="Button" arguments="{
-                                href: '#switch',
+<div class="tx-supi__buttongroup">
+    <ul>
+        <f:if condition="{settings.showBigSwitch} AND {settings.detailed} AND {settings.hideAutoEssential}">
+            <f:if condition="{hideAutoEssential}">
+                <f:else>
+                    <li>
+                        <f:render section="Button" arguments="{
                                 inputs: 'disable',
                                 toggle: 'switch',
                                 switchFrom: '#supi__overview',
@@ -17,67 +15,61 @@
                                 label: '{f:translate(key: \'{settings.button.switch.label}\', default: \'{settings.button.switch.label}\')}',
                                 tabIndex: '0',
                                 text: '{f:translate(key: \'{settings.button.switch.text}\', default: \'{settings.button.switch.text}\')}'
-                            }" />
-                        </li>
-                    </f:else>
-                </f:if>
-            </f:if>
-
-            <f:if condition="{settings.hideAutoEssential} OR {hideAutoEssential}">
-                <f:else>
-                    <li>
-                        <f:render section="Button" arguments="{
-                            href: '#switch',
-                            toggle: 'dismiss',
-                            id: 'supi__dismiss',
-                            label: '{f:translate(key: \'{settings.button.dismiss.label}\', default: \'{settings.button.dismiss.label}\')}',
-                            tabIndex: '0',
-                            text: '{f:translate(key: \'{settings.button.dismiss.text}\', default: \'{settings.button.dismiss.text}\')}'
-                        }" />
+                            }"/>
                     </li>
                 </f:else>
             </f:if>
+        </f:if>
 
-            <f:if condition="{save}">
+        <f:if condition="{settings.hideAutoEssential} OR {hideAutoEssential}">
+            <f:else>
                 <li>
                     <f:render section="Button" arguments="{
-                        href: '#save',
-                        toggle: 'save',
-                        id: 'supi__save',
-                        label: '{f:translate(key: \'{settings.button.save.label}\', default: \'{settings.button.save.label}\')}',
+                        toggle: 'dismiss',
+                        id: 'supi__dismiss',
+                        label: '{f:translate(key: \'{settings.button.dismiss.label}\', default: \'{settings.button.dismiss.label}\')}',
                         tabIndex: '0',
-                        text: '{f:translate(key: \'{settings.button.save.text}\', default: \'{settings.button.save.text}\')}'
-                    }" />
+                        text: '{f:translate(key: \'{settings.button.dismiss.text}\', default: \'{settings.button.dismiss.text}\')}'
+                    }"/>
                 </li>
-            </f:if>
+            </f:else>
+        </f:if>
 
+        <f:if condition="{save}">
             <li>
                 <f:render section="Button" arguments="{
-                            href: '#allow',
-                            toggle: 'allow',
-                            class: 'tx-supi__allow',
-                            id: 'supi__allow',
-                            label: '{f:translate(key: \'{settings.button.allow.label}\', default: \'{settings.button.allow.label}\')}',
-                            tabIndex: '1',
-                            text: '{f:translate(key: \'{settings.button.allow.text}\', default: \'{settings.button.allow.text}\')}'
-                        }" />
+                    toggle: 'save',
+                    id: 'supi__save',
+                    label: '{f:translate(key: \'{settings.button.save.label}\', default: \'{settings.button.save.label}\')}',
+                    tabIndex: '0',
+                    text: '{f:translate(key: \'{settings.button.save.text}\', default: \'{settings.button.save.text}\')}'
+                }"/>
             </li>
-        </ul>
-    </nav>
+        </f:if>
 
-    <f:section name="Button">
-        <a href="{href}"
-           {f:if(condition: '{inputs}', then:' data-inputs="{inputs}"')}
-           {f:if(condition: '{toggle}', then:' data-toggle="{toggle}"')}
-           {f:if(condition: '{switchFrom}', then:' data-switch-from="{switchFrom}"')}
-           {f:if(condition: '{switchTo}', then:' data-switch-to="{switchTo}"')}
-           {f:if(condition: '{class}', then:' class="{class}"')}
-           id="{id}"
-           aria-label="{label}"
-           role="button"
-           tabindex="{tabIndex}">
-                {text}
-        </a>
-    </f:section>
+        <li>
+            <f:render section="Button" arguments="{
+                toggle: 'allow',
+                class: 'tx-supi__allow',
+                id: 'supi__allow{f:if(condition: \'{hideAutoEssential}\', then: \'-detailedView\')}',
+                label: '{f:translate(key: \'{settings.button.allow.label}\', default: \'{settings.button.allow.label}\')}',
+                tabIndex: '1',
+                text: '{f:translate(key: \'{settings.button.allow.text}\', default: \'{settings.button.allow.text}\')}'
+            }"/>
+        </li>
+    </ul>
+</div>
+
+<f:section name="Button">
+    <button
+        {f:if(condition: '{inputs}', then:' data-inputs="{inputs}"')}
+        {f:if(condition: '{toggle}', then:' data-toggle="{toggle}"')}
+        {f:if(condition: '{switchFrom}', then:' data-switch-from="{switchFrom}"')}
+        {f:if(condition: '{switchTo}', then:' data-switch-to="{switchTo}"')}
+        {f:if(condition: '{class}', then:' class="{class}"')}
+        id="{id}">
+        {text}
+    </button>
+</f:section>
 
 </html>

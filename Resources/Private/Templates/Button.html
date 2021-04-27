@@ -2,28 +2,29 @@
     data-namespace-typo3-fluid="true"
     xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers">
 
-    <div data-hide-overlay="{settings.hideOverlayOnButtonCe}" id="c{data.uid}" class="tx-supi tx-supi__button frame frame-{data.frame_class} frame-type-{data.CType} frame-layout-{data.layout} {f:if(condition: data.space_before_class, then: ' frame-space-before-{data.space_before_class}')} {f:if(condition: data.space_after_class, then: ' frame-space-after-{data.space_after_class}')}">
-        <f:if condition="{data._LOCALIZED_UID}">
-            <a id="c{data._LOCALIZED_UID}"></a>
-        </f:if>
+<div data-hide-overlay="{settings.hideOverlayOnButtonCe}" id="c{data.uid}"
+     class="tx-supi tx-supi__button frame frame-{data.frame_class} frame-type-{data.CType} frame-layout-{data.layout} {f:if(condition: data.space_before_class, then: ' frame-space-before-{data.space_before_class}')} {f:if(condition: data.space_after_class, then: ' frame-space-after-{data.space_after_class}')}">
+    <f:if condition="{data._LOCALIZED_UID}">
+        <a id="c{data._LOCALIZED_UID}"></a>
+    </f:if>
 
-        <f:if condition="{data.header_layout} != 100">
-            <header class="tx-supi__button-header">
-                <h{data.header_layout}>{data.header}</h{data.header_layout}>
-            </header>
-        </f:if>
-
-        <div class="tx-supi__button-wrap">
-            <f:if condition="{data.bodytext} != ''">
-                <div class="tx-supi__button-content">
-                    {data.bodytext -> f:format.html()}
-                </div>
-            </f:if>
-
-            <a href="#choose" id="supi__choose" aria-label="{f:translate(key: '{settings.button.choose.label}', default: '{settings.button.choose.label}')}" role="button" tabindex="0">
-                {f:translate(key: '{settings.button.choose.text}', default: '{settings.button.choose.text}')}
-            </a>
+    <f:if condition="{data.header_layout} != 100">
+        <div class="tx-supi__button-header">
+            <h{data.header_layout}>{data.header}</h{data.header_layout}>
         </div>
+    </f:if>
+
+    <div class="tx-supi__button-wrap p-0">
+        <f:if condition="{data.bodytext} != ''">
+            <div class="tx-supi__button-content">
+                {data.bodytext -> f:format.html()}
+            </div>
+        </f:if>
+
+        <button id="supi__choose">
+            {f:translate(key: '{settings.button.choose.text}', default: '{settings.button.choose.text}')}
+        </button>
     </div>
+</div>
 
 </html>

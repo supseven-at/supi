@@ -1,36 +1,36 @@
 <html data-namespace-typo3-fluid="true"
       xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers">
 
-    <div class="supi-checkbox">
-        <f:if condition="{perItemSelect}">
-            <f:then>
-                <input id="supi[{blockName}_{itemName}]"
-                       type="checkbox"
-                       data-supi-required="{element.required}"
-                       data-supi-block="{blockName}"
-                       data-supi-item="{itemName}"
-                       name="supi[{blockName}_{itemName}]"
-                       {f:if(condition: item.service, then: 'data-supi-service="{item.service}"')}
-                       value="{item.names}"
-                       checked{f:if(condition: element.required, then: ' disabled')}
-                >
-                <label for="supi[{blockName}_{itemName}]" class="supi-checkbox"></label>
-            </f:then>
-            <f:else>
-                <input id="supi[{blockName}]"
-                       type="checkbox"
-                       data-supi-required="{element.required}"
-                       data-supi-parent="{blockName}"
-                       data-supi-block="{blockName}"
-                       {f:if(condition: item.service, then: 'data-supi-service="{item.service}"')}
-                       name="supi[{blockName}]"
-                       value="{element.names}"
-                       checked
-                       {f:if(condition: element.required, then: ' disabled')}
-                >
-                <label for="supi[{blockName}]" class="supi-checkbox"></label>
-            </f:else>
-        </f:if>
-    </div>
+<div class="supi-checkbox">
+    <f:if condition="{perItemSelect}">
+        <f:then>
+            <input id="supi[{blockName}_{itemName}]"
+                   type="checkbox"
+                   data-supi-required="{element.required}"
+                   data-supi-block="{blockName}"
+                   data-supi-item="{itemName}"
+                   name="supi[{blockName}_{itemName}]"
+                   {f:if(condition: item.service, then: 'data-supi-service="{item.service}"')}
+            value="{item.names}"
+            checked{f:if(condition: element.required, then: ' disabled')}
+            >
+            <label for="supi[{blockName}_{itemName}]" class="supi-checkbox"><span class="sr-only">{f:translate(key:'{item.label}', default: '{item.label}') -> f:format.raw()}</span></label>
+        </f:then>
+        <f:else>
+            <input id="supi[{blockName}]"
+                   type="checkbox"
+                   data-supi-required="{element.required}"
+                   data-supi-parent="{blockName}"
+                   data-supi-block="{blockName}"
+                   {f:if(condition: item.service, then: 'data-supi-service="{item.service}"')}
+            name="supi[{blockName}]"
+            value="{element.names}"
+            checked
+            {f:if(condition: element.required, then: ' disabled')}
+            >
+            <label for="supi[{blockName}]" class="supi-checkbox"><span class="sr-only">{f:translate(key:'{element.label}', default: '{element.label}') -> f:format.raw()}</span></label>
+        </f:else>
+    </f:if>
+</div>
 
 </html>
