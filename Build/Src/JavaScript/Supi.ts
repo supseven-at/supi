@@ -47,6 +47,9 @@ class Supi {
     // the body element
     private body: SupiElement;
 
+    // the html element
+    private html: SupiElement;
+
     // the typoscript config
     private config: SupiOptions;
 
@@ -80,6 +83,7 @@ class Supi {
         this.modal = findOne('#supi__banner');
         this.focusTrapEventHandler = this.focusTrapNavigator.bind(this);
         this.overlay = !!(findOne('#supi__overlay'));
+        this.html = findOne('html');
         this.body = <HTMLBodyElement>document.body;
         this.switch = findOne('#supi__switchTo');
         this.save = findOne('[data-toggle=save]', this.root);
@@ -382,6 +386,7 @@ class Supi {
 
         if (this.overlay == true) {
             this.body.classList.toggle('tx-supi__overlay');
+            this.html.classList.toggle('tx-supi__overlay');
         }
 
         this.banner.classList.toggle('hide');
