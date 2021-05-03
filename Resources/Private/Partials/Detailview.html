@@ -25,7 +25,7 @@
                             <f:format.raw><f:translate key="{element.text}">{element.text}</f:translate></f:format.raw>
                         </f:else>
                         <f:then>
-                            <div class="tx-supi__block-body {f:if(condition:'{element.showOnLoad} == 1', else:'tx-supi__pane-hidden')}" id="supi_body_{blockName}" {f:if(condition:'{element.showOnLoad} == 1', then:'', else:'hidden')}>
+                            <div class="tx-supi__block-body {f:if(condition:'{element.showOnLoad} == 1', else:'tx-supi__pane-hidden')}" id="supi_body_{blockName}" {f:if(condition:'{element.showOnLoad} == 1', else:'hidden')}>
                                 <ul>
                                     <f:for each="{element.items}" as="item" key="itemName">
                                         <li class="tx-supi__block-item">
