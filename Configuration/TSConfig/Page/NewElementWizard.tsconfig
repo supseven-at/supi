@@ -15,6 +15,14 @@ mod.wizards.newContentElement.wizardItems.plugins {
             CType = tx_supi_youtube
         }
     }
+    elements.tx_supi_maps {
+        iconIdentifier = supi
+        title = LLL:EXT:supi/Resources/Private/Language/locallang_db.xlf:tt_content.maps.title
+        description = LLL:EXT:supi/Resources/Private/Language/locallang_db.xlf:tt_content.maps.description
+        tt_content_defValues {
+            CType = tx_supi_maps
+        }
+    }
 
-    show := addToList(tx_supi_button, tx_supi_youtube)
+    show := addToList(tx_supi_button, tx_supi_youtube, tx_supi_maps)
 }
