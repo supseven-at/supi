@@ -1,15 +1,35 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<xliff version="1.0">
-   <file source-language="en" target-language="de" date="2020-06-16T14:14:39+02:00">
-      <body>
-         <trans-unit id="tt_content.button.description" resname="tt_content.button.description">
-            <source>Button to (re)display the cookie banner</source>
-            <target>Button um das Cookie-Fenster erneut anzuzeigen</target>
-         </trans-unit>
-         <trans-unit id="tt_content.youtube.description" resname="tt_content.youtube.description">
-            <source>Embedded Youtube video</source>
-            <target>Eingebettetes Youtube Video</target>
-         </trans-unit>
-      </body>
-   </file>
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.2" xmlns:t3="http://typo3.org/schemas/xliff" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+ <file source-language="en" target-language="de" date="2021-05-05T15:43:01+02:00">
+  <body>
+   <trans-unit id="tt_content.button.description" resname="tt_content.button.description">
+    <source>Button to (re)display the cookie banner</source>
+    <target>Button um das Cookie-Fenster erneut anzuzeigen</target>
+   </trans-unit>
+   <trans-unit id="tt_content.field.bodytext.tx_supi_maps.description" resname="tt_content.field.bodytext.tx_supi_maps.description">
+    <source>Enter a fully qualified Address</source>
+    <target>Bitte eine vollständige Adresse eingeben</target>
+   </trans-unit>
+   <trans-unit id="tt_content.field.bodytext.tx_supi_maps.title" resname="tt_content.field.bodytext.tx_supi_maps.title">
+    <source>Address</source>
+    <target>Adresse</target>
+   </trans-unit>
+   <trans-unit id="tt_content.field.image.tx_supi_maps.description" resname="tt_content.field.image.tx_supi_maps.description">
+    <source>Shows a preview image instead the Google Map</source>
+    <target>Zeigt ein Vorschau Bild anstelle der Google Map</target>
+   </trans-unit>
+   <trans-unit id="tt_content.field.image.tx_supi_maps.title" resname="tt_content.field.image.tx_supi_maps.title">
+    <source>Preview Image</source>
+    <target>Vorschau Bild</target>
+   </trans-unit>
+   <trans-unit id="tt_content.maps.description" resname="tt_content.maps.description">
+    <source>Embedded Google Maps Element</source>
+    <target>Eingebettetes Google Maps Element</target>
+   </trans-unit>
+   <trans-unit id="tt_content.youtube.description" resname="tt_content.youtube.description">
+    <source>Embedded Youtube video</source>
+    <target>Eingebettetes Youtube Video</target>
+   </trans-unit>
+  </body>
+ </file>
 </xliff>

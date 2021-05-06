@@ -39,6 +39,9 @@ plugin.tx_supi {
         # Set to 1 to enable the load-once button for youtube elements
         enableYoutubeOnce = 0
 
+        # Set to 1 to enable the load-once button for google maps elements
+        enableSimpleMapsOnce = 0
+
         # Youtube is enabled by essential
         essentialIncludesYoutube = 0
 
@@ -198,6 +201,25 @@ tt_content.tx_supi_youtube {
         10 {
           references.fieldName = assets
           as = videos
+        }
+    }
+
+    settings < plugin.tx_supi.settings
+}
+
+tt_content.tx_supi_maps = FLUIDTEMPLATE
+tt_content.tx_supi_maps {
+    extbase.controllerExtensionName = Supi
+    templateName = Maps
+    templateRootPaths.0 = EXT:supi/Resources/Private/Templates/
+    partialRootPaths.0 = EXT:supi/Resources/Private/Partials/
+    layoutRootPaths.0 = EXT:supi/Resources/Private/Layouts/
+
+    dataProcessing {
+        10 = TYPO3\CMS\Frontend\DataProcessing\FilesProcessor
+        10 {
+            references.fieldName = image
+            as = preview
         }
     }
 

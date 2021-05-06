@@ -321,7 +321,8 @@ class Supi {
         // Enabling youtube videos on click
         findAll('.tx-supi__youtube').forEach((el: HTMLElement) => {
             this.log("Add listener to child of %o", el);
-            el.querySelector('[data-toggle=youtube]').addEventListener('click', () => {
+
+            el.querySelector('[data-toggle=youtube]')?.addEventListener('click', () => {
                 this.log('Enabling all youtube elements');
                 cookie.set(this.cookieNameYoutube, 'y');
                 this.toggleYoutubeVideos(el);
@@ -341,6 +342,22 @@ class Supi {
                 this.allowMaps = true;
                 cookie.set(this.cookieNameGoogleMaps, 'y');
                 this.enableMaps();
+            });
+        });
+
+        // Enabling simpleMaps on click
+        findAll('.tx-supi__simpleMaps').forEach((el: HTMLElement) => {
+            this.log('Add listener to for simpleMap %o', el);
+
+            el.querySelector('[data-toggle=simpleMaps]')?.addEventListener('click', () => {
+                this.log('Enabling all simple google maps elements');
+                cookie.set(this.cookieNameGoogleMaps, 'y');
+                this.toggleSimpleMaps(el);
+            });
+
+            el.querySelector('[data-toggle=simpleMaps-once]')?.addEventListener('click', () => {
+                this.log('Enabling onr simple google maps elements');
+                this.toggleSimpleMaps(el, true);
             });
         });
     }
@@ -599,11 +616,6 @@ class Supi {
                 this.log('Enabling %o', el);
                 this.addVideo(el, '');
             });
-
-            // add custom event to react to (e.g. to handle classnames)
-            let onYouTubeAllowedEvent = new CustomEvent("onYouTubeAllowed", {detail: 1});
-            window.dispatchEvent(onYouTubeAllowedEvent);
-
         }
     }
 
@@ -611,7 +623,7 @@ class Supi {
         this.log('Enabling youtube');
         this.allowYoutube = true;
         this.log('Start video for %o', autoplayEl);
-        this.addVideo(autoplayEl, '&autoplay=1');
+        this.addVideo(autoplayEl, '&autoplay=1&mute=1');
 
         if (!once) {
             cookie.set(this.cookieNameYoutube, 'y');
@@ -622,8 +634,7 @@ class Supi {
         }
     }
 
-    private addVideo(el: HTMLElement, additionalParams: string): void
-    {
+    private addVideo(el: HTMLElement, additionalParams: string): void {
         if (!this.allowYoutube) {
             this.log('Youtube not enabled');
             return;
@@ -638,7 +649,12 @@ class Supi {
         iframe.style.border = '0';
         iframe.width = size.width + "";
         iframe.height = size.height + "";
+        iframe.setAttribute('autoplay', 'true');
         el.parentNode.replaceChild(iframe, el);
+
+        // add custom event to react to (e.g. to handle classnames)
+        let onYouTubeAllowedEvent = new CustomEvent("onYouTubeAllowed", {detail: iframe});
+        window.dispatchEvent(onYouTubeAllowedEvent);
     }
 
     private enableMaps() {
@@ -649,7 +665,54 @@ class Supi {
                 wrapper.classList.add('active');
                 window[cbName]();
             });
+
+            this.enableSimpleMaps();
         }
+    }
+
+    // simple iframe maps implementation
+    private enableSimpleMaps() {
+        this.log('Enabling all simple maps implementations');
+        findAll('.tx-supi__simpleMaps').forEach((el: HTMLElement) => {
+            this.log('Enabling %o', el);
+            this.addSimpleMap(el);
+        });
+    }
+
+    private toggleSimpleMaps(el: SupiElement, once: boolean = false): void {
+        this.log('Enabling Simple Maps');
+        this.allowMaps = true;
+        this.addSimpleMap(el);
+
+        if (!once) {
+            cookie.set(this.cookieNameGoogleMaps, 'y');
+            this.log('Enabling all maps');
+            this.enableSimpleMaps();
+        } else {
+            this.allowMaps = false;
+        }
+    }
+
+    private addSimpleMap(el: HTMLElement): void {
+        if (!this.allowMaps) {
+            this.log('Google Maps not enabled');
+            return;
+        }
+
+        const address = el.dataset.mapAddress;
+        const zoom = el.dataset?.mapZoom ? el.dataset?.mapZoom : 15;
+        const simpleMapsUrl = 'https://maps.google.com/maps?q='+ address +'&t=&z='+ zoom +'&ie=UTF8&iwloc=&output=embed';
+        const iframe: HTMLIFrameElement = document.createElement('iframe');
+        iframe.src = simpleMapsUrl;
+        iframe.frameBorder = "0";
+        iframe.style.border = '0';
+        iframe.width = "800";
+        iframe.height = "600";
+        el.parentNode.replaceChild(iframe, el);
+
+        // add custom event to react to (e.g. to handle classnames)
+        let onSimpleMapsAllowedEvent = new CustomEvent("onSimpleMapsAllowedEvent", {detail: iframe});
+        window.dispatchEvent(onSimpleMapsAllowedEvent);
     }
 }
 

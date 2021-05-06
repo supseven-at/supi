@@ -1,0 +1,37 @@
+<html data-namespace-typo3-fluid="true"
+      xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:s="http://typo3.org/ns/Supseven/Supi/ViewHelpers">
+
+    <f:layout name="Default" />
+
+    <f:section name="Main">
+        <f:if condition="{data.header_layout} !== '100'">
+            <header>
+                <h{data.header_layout}>{data.header}</h{data.header_layout}>
+            </header>
+        </f:if>
+
+        <div class="tx-supi__simpleMaps-wrapper">
+            <div class="tx-supi__simpleMaps" data-map-address="{data.bodytext -> s:address()}" data-map-zoom="13">
+                <div class="tx-supi__simpleMaps-preview">
+                    <div class="tx-supi__simpleMaps-text">
+                        <p><button type="button" data-toggle="simpleMaps" class="btn btn-primary tx-supi__simpleMaps-enable"><f:translate key="simpleMaps.button" default="simpleMaps.button" /></button></p>
+                        <f:if condition="{settings.enableSimpleMapsOnce}">
+                            <p><button type="button" data-toggle="simpleMaps-once" class="btn btn-primary tx-supi__simpleMaps-enable-once"><f:translate key="simpleMaps.button.once" default="simpleMaps.button.once" /></button></p>
+                        </f:if>
+                        <p><f:translate key="simpleMaps.text" default="simpleMaps.text" /></p>
+                    </div>
+                    <figure>
+                        <picture>
+                            <f:image image="{preview.0}" maxWidth="800" />
+                        </picture>
+                        <figcaption class="sr-only">
+                            <address>{data.bodytext -> s:address()}</address>
+                        </figcaption>
+                    </figure>
+                </div>
+            </div>
+        </div>
+    </f:section>
+
+</html>

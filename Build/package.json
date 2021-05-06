@@ -1,6 +1,6 @@
 {
   "name": "supseven-supi-fe-pipeline",
-  "version": "3.2.3",
+  "version": "3.2.4",
   "description": "The Supseven Frontend Pipeline for EXT:SUPI",
   "main": "index.js",
   "dependencies": {},
