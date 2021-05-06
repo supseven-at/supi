@@ -154,15 +154,15 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
         'columnsOverrides' => [
             'bodytext' => [
                 'description' => $ll . $table .'.field.bodytext.tx_supi_maps.description',
-                'config' => [
-                    'rows' => 5,
+                'config'      => [
+                    'rows'        => 5,
                     'placeholder' => "Max Muster\nMusterstraße 1\n1234 Musterstadt\nÖsterreich",
-                    'eval' => 'required,trim',
+                    'eval'        => 'required,trim',
                 ],
             ],
             'image' => [
                 'description' => $ll . $table .'.field.image.tx_supi_maps.description',
-                'config' => ExtensionManagementUtility::getFileFieldTCAConfig('image', [
+                'config'      => ExtensionManagementUtility::getFileFieldTCAConfig('image', [
                     'minitems' => 1,
                     'maxitems' => 1,
                 ], 'jpeg,jpg,png'),
@@ -170,5 +170,4 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
         ],
     ];
     $GLOBALS['TCA'][$table]['ctrl']['typeicon_classes']['tx_supi_maps'] = 'supi';
-
 })('supi', 'tt_content', 'tx_supi_button');
