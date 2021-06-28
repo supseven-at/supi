@@ -177,12 +177,18 @@ class Supi {
                     this.allowYoutube = true;
                     cookie.set(this.cookieNameYoutube, 'y');
                     this.enableYoutubeVideos();
+                } else {
+                    this.allowYoutube = false;
+                    cookie.set(this.cookieNameYoutube, 'n');
                 }
 
                 if (this.config?.essentialIncludesMaps) {
                     this.allowMaps = true;
                     cookie.set(this.cookieNameGoogleMaps, 'y');
                     this.enableMaps();
+                } else {
+                    this.allowMaps = false;
+                    cookie.set(this.cookieNameGoogleMaps, 'n');
                 }
 
                 if (this.removeScripts() === true) {
