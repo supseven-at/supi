@@ -1,5 +1,7 @@
 # Supseven User Privacy Interface
 
+## SPECIAL v2-a11y version - depends on v2.0.20
+
 ## Installation
 
 1. Add the package to the composer manifest: `composer req supseven/supi`.
