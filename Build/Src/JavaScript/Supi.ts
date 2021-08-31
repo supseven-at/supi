@@ -29,6 +29,15 @@ class Supi {
     // the main cookie banner
     private banner: SupiElement;
 
+    // the dialog modal
+    private modal: SupiElement;
+
+    private readonly focusTrapEventHandler: (event: KeyboardEvent) => void;
+
+    private focusTrapElements?: HTMLElement[];
+
+    private preFocusTrapActiveElement?: HTMLElement;
+
     // the cookie name which will be set as a status cookie
     private cookieName: string = 'supi-status';
 
@@ -38,6 +47,9 @@ class Supi {
     private overlay: boolean = false;
 
     private switch: SupiElement;
+
+    // the html element
+    private html: SupiElement;
 
     // the body element
     private body: SupiElement;
@@ -65,8 +77,11 @@ class Supi {
         this.root = document.getElementById('supi');
         this.dismiss = this.get('#supi__dismiss');
         this.choose = this.get('#supi__choose', true);
-        this.banner = this.get('#supi__overlay') ? this.get('#supi__overlay') : this.get('#supi__banner');
+        this.banner = this.get('#supi__overlay') ?? this.get('#supi__banner');
+        this.modal = this.get('#supi__banner');
+        this.focusTrapEventHandler = this.focusTrapNavigator.bind(this);
         this.overlay = !!(this.get('#supi__overlay'));
+        this.html = document.querySelector('html');
         this.body = <HTMLBodyElement>document.getElementsByTagName('body')[0];
         this.config = JSON.parse(this.root.getAttribute('data-supi-config'));
         this.switch = this.get('#supi__switchTo');
@@ -192,13 +207,18 @@ class Supi {
         }).forEach((el: HTMLElement) => {
             el.addEventListener('click', (e: Event) => {
                 this.get(el.dataset.switchFrom).classList.add('tx-supi__pane-hidden');
+                this.get(el.dataset.switchFrom).setAttribute('hidden','');
                 this.get(el.dataset.switchTo).classList.remove('tx-supi__pane-hidden');
+                this.get(el.dataset.switchTo).removeAttribute('hidden');
+                this.modal.focus();
 
                 if (el.dataset.inputs === 'disable' && this.allowed.length < 1) {
                     this.find('input[type=checkbox]').forEach((el: HTMLInputElement) => {
                         el.checked = (el.disabled || !!el.dataset.required);
                     });
                 }
+
+                this.focusTrapElements = this.getFocusTrapElements();
 
                 e.preventDefault();
             });
@@ -209,8 +229,20 @@ class Supi {
             return !!(this.get(el.dataset.target));
         }).forEach((el: HTMLElement) => {
             el.addEventListener('click', (e: Event) => {
-                el.classList.toggle('tx-supi__pane-active')
-                this.get(el.dataset.target).classList.toggle('tx-supi__pane-hidden');
+                el.classList.toggle('tx-supi__pane-active');
+                let expanded = el.getAttribute('aria-expanded')
+                if (expanded === 'false') {
+                    el.setAttribute('aria-expanded','true')
+                    this.focusTrapElements = this.getFocusTrapElements();
+                } else {
+                    el.setAttribute('aria-expanded', 'false')
+                }
+                let target = document.querySelector(el.dataset.target)
+                target.classList.toggle('tx-supi__pane-hidden')
+                if (!target.classList.contains('tx-supi__pane-hidden')) {
+                    this.focusTrapElements = this.getFocusTrapElements();
+                }
+                target.toggleAttribute('hidden')
                 e.preventDefault();
             })
         });
@@ -292,9 +324,58 @@ class Supi {
     toggleBanner(): void {
         if (this.overlay === true) {
             this.body.classList.toggle('tx-supi__overlay');
+            this.html.classList.toggle('tx-supi__overlay');
         }
 
         this.banner.classList.toggle('hide');
+
+        if(this.banner.classList.contains('hide')) {
+            this.disableFocusTrap();
+        } else {
+            requestAnimationFrame(() => {
+                this.modal.focus();
+            });
+            this.enableFocusTrap();
+        }
+    }
+
+    private enableFocusTrap(): void {
+        this.preFocusTrapActiveElement = undefined;
+        if(document.activeElement instanceof HTMLElement) {
+            this.preFocusTrapActiveElement = document.activeElement;
+            document.activeElement.blur();
+        }
+
+        document.addEventListener('keydown', this.focusTrapEventHandler);
+    }
+
+    private disableFocusTrap(): void {
+        document.removeEventListener('keydown', this.focusTrapEventHandler);
+        if(this.preFocusTrapActiveElement instanceof HTMLElement) {
+            this.preFocusTrapActiveElement.focus();
+        }
+    }
+
+    private focusTrapNavigator(event: KeyboardEvent) {
+        if(event.key !== 'Tab') {
+            return;
+        }
+        event.preventDefault();
+        this.focusTrapElements = this.getFocusTrapElements();
+        const currentlyFocusedElementIndex = this.focusTrapElements.indexOf(document.activeElement as HTMLElement);
+        let nextFocusElementIndex = currentlyFocusedElementIndex + (event.shiftKey ? -1 : 1);
+        if(nextFocusElementIndex < 0) {
+            nextFocusElementIndex = this.focusTrapElements.length - 1;
+        } else if(nextFocusElementIndex >= this.focusTrapElements.length) {
+            nextFocusElementIndex = 0;
+        }
+        this.focusTrapElements[nextFocusElementIndex].focus();
+    }
+
+    private getFocusTrapElements() {
+        return this.find('a, button, *[tabindex], input[type=checkbox]:not([disabled])').filter(element => {
+            return element.offsetWidth > 0 || element.offsetHeight > 0 || element.getClientRects().length > 0
+        });
     }
 
     /**

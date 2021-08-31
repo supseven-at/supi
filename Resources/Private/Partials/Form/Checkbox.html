@@ -13,7 +13,7 @@
                        value="{item.names}"
                        checked{f:if(condition: element.required, then: ' disabled')}
                 >
-                <label for="supi[{blockName}_{itemName}]" class="supi-checkbox"></label>
+                <label for="supi[{blockName}_{itemName}]" class="supi-checkbox"><span class="sr-only">{f:translate(key:'{item.label}', default: '{item.label}') -> f:format.raw()}</span></label>
             </f:then>
             <f:else>
                 <input id="supi[{blockName}]"
@@ -26,7 +26,7 @@
                        checked
                        {f:if(condition: element.required, then: ' disabled')}
                 >
-                <label for="supi[{blockName}]" class="supi-checkbox"></label>
+                <label for="supi[{blockName}]" class="supi-checkbox"><span class="sr-only">{f:translate(key:'{element.label}', default: '{element.label}') -> f:format.raw()}</span></label>
             </f:else>
         </f:if>
     </div>
