@@ -1,0 +1,15 @@
+<html data-namespace-typo3-fluid="true"
+      xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:s="http://typo3.org/ns/Supseven/Supi/ViewHelpers">
+
+<f:layout name="Default" />
+
+<f:section name="Main">
+    <f:for each="{settings.services}" as="service" key="id">
+        <f:if condition="{id} == {data.bodytext}">
+            <div class="supi-service" data-supi-service-container="{service.service}" data-supi-service-type="{service.type}" data-supi-service-attr="{service.attr -> f:format.json() -> f:format.htmlspecialchars()}">
+                <button type="button" data-toggle="supiServiceContainer">{f:if(condition: service.toggle, then: service.toggle, else: service.label)}</button>
+            </div>
+        </f:if>
+    </f:for>
+</f:section>

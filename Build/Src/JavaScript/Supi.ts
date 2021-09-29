@@ -72,11 +72,19 @@ class Supi {
 
     private readonly writeLog: boolean = false;
 
+    private services: Array<string> = []
+
     /**
      * the constructor
      */
     constructor() {
         this.root = findOne('#supi');
+
+        if (!this.root) {
+            this.log("Found no supi root element");
+            return;
+        }
+
         this.dismiss = findOne('[data-toggle=dismiss]', this.root);
         this.choose = findOne('#supi__choose');
         this.banner = findOne('#supi__overlay') ?? findOne('#supi__banner');
@@ -106,6 +114,16 @@ class Supi {
                 this.allowed.push(name);
             }
         });
+
+        Object.keys(this.config.elements).forEach((element: string) => {
+            Object.keys(this.config.elements[element].items).forEach((item: string) => {
+                if (this.config.elements[element].items[item].service) {
+                    this.services.push(this.config.elements[element].items[item].service);
+                }
+            });
+        });
+
+        this.log("Collected services %o", this.services);
 
         const status = cookie.get(this.cookieNameStatus) as Status;
 
@@ -139,6 +157,12 @@ class Supi {
         // add all click handlers to the buttons
         this.addClickHandler();
         this.setDetailDefaults();
+
+        this.toggleAllServices();
+    }
+
+    private toggleAllServices(): void {
+        this.services.forEach((service: string) => this.toggleService(service));
     }
 
     updateCookieTTL(): void {
@@ -173,6 +197,7 @@ class Supi {
                 this.enableMaps();
                 this.enableYoutubeVideos();
                 this.removeNotAllowedCookies();
+                this.toggleAllServices();
                 e.preventDefault();
             });
         });
@@ -205,6 +230,7 @@ class Supi {
                     cookie.set(this.cookieNameStatus, Status.Selected);
                 }
 
+                this.toggleAllServices();
                 this.setDetailDefaults();
                 this.removeNotAllowedCookies();
             });
@@ -222,6 +248,7 @@ class Supi {
                     cookie.set(this.cookieNameStatus, Status.Selected);
                 }
 
+                this.toggleAllServices();
                 this.removeNotAllowedCookies();
             });
         }
@@ -360,6 +387,19 @@ class Supi {
                 this.toggleSimpleMaps(el, true);
             });
         });
+
+        // Enable services
+        findAll('[data-supi-service-container]').forEach((el: HTMLElement) => {
+            let serviceName = el.dataset.supiServiceContainer || "";
+
+            if (serviceName) {
+                el.querySelector('[data-toggle=supiServiceContainer]')?.addEventListener('click', () => {
+                    this.log('Enabling service ' + serviceName);
+                    cookie.set(serviceName, 'y');
+                    this.toggleService(serviceName);
+                });
+            }
+        });
     }
 
     /**
@@ -430,9 +470,21 @@ class Supi {
         }
 
         let mediaToggle = findOne("[data-supi-parent=media]", this.root);
+        let allowAllServices = true;
+
+        findAll("[data-supi-service]", this.root).forEach((el: HTMLElement) => {
+            if (el.dataset.supiService != "youtube" && el.dataset.supiService != "googleMaps") {
+                let allowed = this.allowAll || cookie.get(el.dataset.supiService) == "y";
+                (el as HTMLInputElement).checked = allowed;
+
+                if (!allowed && allowAllServices) {
+                    allowAllServices = false;
+                }
+            }
+        })
 
         if (mediaToggle) {
-            (mediaToggle as HTMLInputElement).checked = this.allowYoutube && this.allowMaps;
+            (mediaToggle as HTMLInputElement).checked = this.allowYoutube && this.allowMaps && allowAllServices;
         }
     }
 
@@ -486,6 +538,8 @@ class Supi {
                 cookie.set(this.cookieNameYoutube, 'n');
                 this.allowYoutube = false;
 
+                this.services.forEach((serviceName: string) => cookie.set(serviceName, 'n'));
+
                 findAll('input[type=checkbox]', this.root)
                     .filter((el: HTMLInputElement) => el.checked || (parseInt(el.dataset.supiRequired) || 0) > 0)
                     .forEach((el: HTMLInputElement) => {
@@ -501,6 +555,9 @@ class Supi {
                                     this.allowYoutube = true;
                                     this.enableYoutubeVideos();
                                     break;
+                                default:
+                                    cookie.set(el.dataset.supiService, 'y');
+                                    this.toggleAllServices();
                             }
                         } else {
                             el.value.split(',').map((e: string) => e.trim()).forEach((el: string) => {
@@ -713,6 +770,50 @@ class Supi {
         // add custom event to react to (e.g. to handle classnames)
         let onSimpleMapsAllowedEvent = new CustomEvent("onSimpleMapsAllowedEvent", {detail: iframe});
         window.dispatchEvent(onSimpleMapsAllowedEvent);
+    }
+
+    private toggleService(serviceName: string): void {
+        if (cookie.get(serviceName) == 'y' || this.allowAll) {
+            this.log("Enabling service %o", serviceName);
+
+            findAll("[data-supi-service-container=" + serviceName + "]").forEach((el: HTMLElement) => {
+                let newEl: HTMLElement;
+
+                this.log("Enable element %o of service %o", el, serviceName);
+
+                if (el.dataset.supiServiceType === "script") {
+                    newEl = document.createElement("script");
+                    (newEl as HTMLScriptElement).type = "text/javascript";
+                    (newEl as HTMLScriptElement).async = true;
+                    (newEl as HTMLScriptElement).defer = true;
+                } else {
+                    newEl = document.createElement('iframe');
+                    (newEl as HTMLIFrameElement).frameBorder = "0";
+                    newEl.style.border = '0';
+                }
+
+                const attr = el.dataset.supiServiceAttr;
+
+                if (attr) {
+                    try {
+                        for (const [name, value] of Object.entries(JSON.parse(attr))) {
+                            newEl.setAttribute(name, value + "");
+                            this.log("Setting property %s to %s", name, value);
+                        }
+                    } catch (e) {
+                        this.log(e);
+                    }
+                }
+
+                this.log("Replacing %o with %o", el, newEl);
+
+                const parent = el.parentNode;
+                parent.replaceChild(newEl, el);
+
+                let onServiceAllowedEvent = new CustomEvent("serviceEmbeded", {detail: newEl});
+                parent.dispatchEvent(onServiceAllowedEvent);
+            });
+        }
     }
 }
 
