@@ -457,34 +457,33 @@ class Supi {
             this.enableFocusTrap();
         }
 
+        let allowAllServices = true;
         let mapsToggle = findOne("[data-supi-service=googleMaps]", this.root);
 
         if (mapsToggle) {
+            allowAllServices = this.allowMaps && allowAllServices;
             (mapsToggle as HTMLInputElement).checked = this.allowMaps;
         }
 
         let youtubeToggle = findOne("[data-supi-service=youtube]", this.root);
 
         if (youtubeToggle) {
+            allowAllServices = this.allowYoutube && allowAllServices;
             (youtubeToggle as HTMLInputElement).checked = this.allowYoutube;
         }
 
-        let mediaToggle = findOne("[data-supi-parent=media]", this.root);
-        let allowAllServices = true;
-
-        findAll("[data-supi-service]", this.root).forEach((el: HTMLElement) => {
-            if (el.dataset.supiService != "youtube" && el.dataset.supiService != "googleMaps") {
+        findAll("[data-supi-service]", this.root).forEach((el: HTMLInputElement) => {
+            if (!el.dataset.supiParent && el.dataset.supiService != "youtube" && el.dataset.supiService != "googleMaps") {
                 let allowed = this.allowAll || cookie.get(el.dataset.supiService) == "y";
-                (el as HTMLInputElement).checked = allowed;
-
-                if (!allowed && allowAllServices) {
-                    allowAllServices = false;
-                }
+                el.checked = allowed;
+                allowAllServices = allowed && allowAllServices;
             }
         })
 
+        let mediaToggle = findOne("[data-supi-parent=media]", this.root);
+
         if (mediaToggle) {
-            (mediaToggle as HTMLInputElement).checked = this.allowYoutube && this.allowMaps && allowAllServices;
+            (mediaToggle as HTMLInputElement).checked = allowAllServices;
         }
     }
 
@@ -523,6 +522,12 @@ class Supi {
                 break;
 
             case Mode.Essential:
+                cookie.set(this.cookieNameGoogleMaps, 'n');
+                this.allowMaps = false;
+                cookie.set(this.cookieNameYoutube, 'n');
+                this.allowYoutube = false;
+                this.services.forEach((serviceName: string) => cookie.set(serviceName, 'n'));
+
                 Object.keys(this.config.elements || {})
                     .filter((k: string) => !!this.config?.elements[k]?.required)
                     .forEach((k: string) => {
