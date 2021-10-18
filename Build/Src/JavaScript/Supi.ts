@@ -365,7 +365,7 @@ class Supi {
         findAll('.tx_supi__map').forEach((wrapper: HTMLElement) => {
             const toggle = wrapper.querySelector('[data-toggle=map]');
             this.log('Add listener to toggle %o for map %o', toggle, wrapper);
-            toggle.addEventListener('click', () => {
+            toggle?.addEventListener('click', () => {
                 this.allowMaps = true;
                 cookie.set(this.cookieNameGoogleMaps, 'y');
                 this.enableMaps();
@@ -723,9 +723,12 @@ class Supi {
         if (this.allowMaps) {
             findAll('.tx_supi__map').forEach((wrapper: HTMLElement) => {
                 const toggle: HTMLElement = wrapper.querySelector('[data-toggle=map]');
-                const cbName = toggle.dataset.callback;
-                wrapper.classList.add('active');
-                window[cbName]();
+
+                if (toggle) {
+                    const cbName = toggle.dataset.callback;
+                    wrapper.classList.add('active');
+                    window[cbName]();
+                }
             });
 
             this.enableSimpleMaps();
