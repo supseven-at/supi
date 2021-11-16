@@ -35,13 +35,15 @@ class SelectOptions
         $services = $templates->setup['plugin.']['tx_supi.']['settings.']['services.'] ?? [];
 
         foreach ($services as $id => $service) {
-            $label = $service['label'];
+            if ((int)($service['internal'] ?? 0) !== 1) {
+                $label = $service['label'];
 
-            if (StringUtility::beginsWith($label, 'LLL:')) {
-                $label = $GLOBALS['LANG']->sL($label);
+                if (StringUtility::beginsWith($label, 'LLL:')) {
+                    $label = $GLOBALS['LANG']->sL($label);
+                }
+
+                $configuration['items'][] = [$label, trim($id, '.')];
             }
-
-            $configuration['items'][] = [$label, trim($id, '.')];
         }
     }
 }
