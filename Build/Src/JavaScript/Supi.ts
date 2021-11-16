@@ -785,22 +785,48 @@ class Supi {
             this.log("Enabling service %o", serviceName);
 
             findAll("[data-supi-service-container=" + serviceName + "]").forEach((el: HTMLElement) => {
+                const parent = el.parentNode;
                 let newEl: HTMLElement;
+                const attr = el.dataset.supiServiceAttr;
+
+                if (el.dataset.supiServiceType === "callback") {
+                    this.log("Executing service %s callback %s", serviceName, el.dataset.supiServiceCallback);
+                    setTimeout(() => {
+                        try {
+                            const func = el.dataset.supiServiceCallback;
+                            window[func](el);
+
+                            let onServiceAllowedEvent = new CustomEvent("serviceCallback", {detail: {parent: parent, service: serviceName}});
+                            parent.dispatchEvent(onServiceAllowedEvent);
+                        } catch (e) {
+                            this.log("Cannot call service callback %s: %s", el.dataset.supiServiceCallback, e);
+                        }
+                    }, 10);
+
+                    return;
+                }
 
                 this.log("Enable element %o of service %o", el, serviceName);
 
-                if (el.dataset.supiServiceType === "script") {
-                    newEl = document.createElement("script");
-                    (newEl as HTMLScriptElement).type = "text/javascript";
-                    (newEl as HTMLScriptElement).async = true;
-                    (newEl as HTMLScriptElement).defer = true;
-                } else {
-                    newEl = document.createElement('iframe');
-                    (newEl as HTMLIFrameElement).frameBorder = "0";
-                    newEl.style.border = '0';
-                }
+                switch (el.dataset.supiServiceType) {
+                    case "script":
+                        newEl = document.createElement("script");
+                        (newEl as HTMLScriptElement).type = "text/javascript";
+                        (newEl as HTMLScriptElement).async = true;
+                        (newEl as HTMLScriptElement).defer = true;
+                        break;
 
-                const attr = el.dataset.supiServiceAttr;
+                    case "img":
+                        newEl = document.createElement("img");
+                        (newEl as HTMLImageElement).alt = "";
+                        (newEl as HTMLImageElement).border = "0";
+                        break;
+
+                    default:
+                        newEl = document.createElement('iframe');
+                        (newEl as HTMLIFrameElement).frameBorder = "0";
+                        newEl.style.border = '0';
+                }
 
                 if (attr) {
                     try {
@@ -815,7 +841,6 @@ class Supi {
 
                 this.log("Replacing %o with %o", el, newEl);
 
-                const parent = el.parentNode;
                 parent.replaceChild(newEl, el);
 
                 let onServiceAllowedEvent = new CustomEvent("serviceEmbeded", {detail: newEl});
