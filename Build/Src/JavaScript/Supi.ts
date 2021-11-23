@@ -262,7 +262,8 @@ class Supi {
                 this.toggleBanner();
             });
         }
-        Array.from(document.getElementsByTagName("button"))
+
+        findAll('a, button')
             .filter((el: HTMLButtonElement) => el.getAttribute("href") == "#supi-choose")
             .forEach((el: SupiElement) => {
                 this.log("Add choose toggle to %o", el);
