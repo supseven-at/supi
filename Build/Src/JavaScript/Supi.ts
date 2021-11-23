@@ -825,6 +825,7 @@ class Supi {
                     default:
                         newEl = document.createElement('iframe');
                         (newEl as HTMLIFrameElement).frameBorder = "0";
+                        (newEl as HTMLIFrameElement).referrerPolicy = "no-referrer";
                         newEl.style.border = '0';
                 }
 
