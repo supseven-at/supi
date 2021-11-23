@@ -121,7 +121,7 @@ class BannerRenderer extends AbstractPlugin
         ];
 
         foreach ($elements as $key => $value) {
-            if ($key !== 'label' && $key !== 'text') {
+            if ($key !== 'label' && $key !== 'text' && $key !== 'table') {
                 if (in_array($key, $booleans, true)) {
                     $value = ((int)$value !== 0);
                 }

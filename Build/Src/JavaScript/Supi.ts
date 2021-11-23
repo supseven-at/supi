@@ -401,6 +401,23 @@ class Supi {
                 });
             }
         });
+
+        // Details accordion in banner overlay
+        findAll("[data-toggle=supiDetails]").forEach((el: HTMLElement) => {
+            el.addEventListener("click", (ev: Event) => {
+                const target = findOne(el.dataset.target);
+
+                if (target) {
+                    const remove = target.classList.contains("open") ? "open" : "closed";
+                    const add = target.classList.contains("open") ? "closed" : "open";
+
+                    [target, el].forEach(e => e.classList.add(add));
+                    [target, el].forEach(e => e.classList.remove(remove));
+                }
+
+                ev.preventDefault();
+            });
+        });
     }
 
     /**

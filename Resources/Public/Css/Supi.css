@@ -504,6 +504,8 @@
         -webkit-transform: rotate(225deg);
             -ms-transform: rotate(225deg);
                 transform: rotate(225deg); }
+  .tx-supi__block ul {
+    list-style: none; }
   .tx-supi__block-item > div {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -521,6 +523,44 @@
     -webkit-box-direction: normal;
         -ms-flex-direction: column;
             flex-direction: column; }
+    .tx-supi__block-item__text-toggle {
+      position: relative; }
+      .tx-supi__block-item__text-toggle:before {
+        content: "";
+        width: 7px;
+        height: 7px;
+        border-left: 2px solid #000;
+        border-top: 2px solid #000;
+        position: absolute;
+        top: 7px;
+        left: -13px;
+        -webkit-transform: rotate(135deg);
+            -ms-transform: rotate(135deg);
+                transform: rotate(135deg);
+        -webkit-transition: -webkit-transform .2s ease-in-out;
+        transition: -webkit-transform .2s ease-in-out;
+        -o-transition: transform .2s ease-in-out;
+        transition: transform .2s ease-in-out;
+        transition: transform .2s ease-in-out, -webkit-transform .2s ease-in-out;
+        display: block; }
+      .tx-supi__block-item__text-toggle.open:before {
+        -webkit-transform: rotate(225deg);
+            -ms-transform: rotate(225deg);
+                transform: rotate(225deg); }
+  .tx-supi__block-item__table {
+    height: 0;
+    overflow: hidden;
+    -webkit-transition: -webkit-transform .2s ease-in-out;
+    transition: -webkit-transform .2s ease-in-out;
+    -o-transition: transform .2s ease-in-out;
+    transition: transform .2s ease-in-out;
+    transition: transform .2s ease-in-out, -webkit-transform .2s ease-in-out; }
+    .tx-supi__block-item__table.open {
+      height: auto; }
+    .tx-supi__block-item__table-cookie {
+      background: #F8F9FA;
+      -webkit-box-shadow: 0px 0px 2px 0px #00000040;
+              box-shadow: 0px 0px 2px 0px #00000040; }
   .tx-supi .supi-checkbox {
     -webkit-box-ordinal-group: 2;
         -ms-flex-order: 1;

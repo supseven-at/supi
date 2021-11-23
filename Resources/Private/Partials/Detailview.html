@@ -1,5 +1,6 @@
 <html data-namespace-typo3-fluid="true"
-	  xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers">
+	  xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+	  xmlns:supi="http://typo3.org/ns/Supseven/Supi/ViewHelpers">
 
     <div id="supi__detail">
         <div id="supi__overview" class="tx-supi__pane-visible">
@@ -36,8 +37,60 @@
                                                     </f:alias>
                                                 </f:if>
                                                 <div class="tx-supi__block-item__text">
-                                                    <span>{f:translate(key:'{item.label}', default: '{item.label}') -> f:format.raw()}</span>
-                                                    <f:if condition="{item.names}"><small>{f:translate(key:'{item.names}', default: '{item.names}') -> f:format.raw()}</small></f:if>
+                                                    <f:if condition="{item.table}">
+                                                        <f:then>
+                                                            <a href="#" data-toggle="supiDetails" data-target="#supiDetails{itemName}" class="tx-supi__block-item__text-toggle">{f:translate(key:'{item.label}', default: '{item.label}') -> f:format.raw()}</a>
+                                                            <div class="tx-supi__block-item__table closed" id="supiDetails{itemName}">
+                                                            <table class="tx-supi__block-item__table-overview">
+                                                                <tbody>
+                                                                <tr>
+                                                                    <th><f:translate key="banner.provider.name">name</f:translate></th>
+                                                                    <td><f:translate key="{item.table.name}">{item.table.name}</f:translate></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th><f:translate key="banner.provider.company">company</f:translate></th>
+                                                                    <td><f:translate key="{item.table.company}">{item.table.company}</f:translate></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th><f:translate key="banner.provider.policy">policy</f:translate></th>
+                                                                    <td><f:variable name="policyUrl"></f:variable><supi:ifInt value="{item.table.policy}">
+                                                                        <f:then><f:uri.typolink parameter="{item.table.policy}" absolute="1" /></f:then>
+                                                                        <f:else>{item.table.policy}</f:else>
+                                                                    </supi:ifInt><a href="{policyUrl}" target="_blank" rel="noreferrer noopener">{policyUrl}</a></td>
+                                                                </tr>
+                                                                </tbody>
+                                                            </table>
+                                                            <f:for each="{item.table.rows}" as="row" key="cookie">
+                                                                <table class="tx-supi__block-item__table-cookie">
+                                                                    <tbody>
+                                                                    <tr>
+                                                                        <th><f:translate key="banner.provider.cookie">cookie</f:translate></th>
+                                                                        <td>{f:if(condition: row.key, then: row.key, else: cookie)}</td>
+                                                                    </tr>
+                                                                    <f:if condition="{row.type}">
+                                                                    <tr>
+                                                                        <th><f:translate key="banner.provider.type">type</f:translate></th>
+                                                                        <td><f:translate key="{row.type}">{row.type}</f:translate></td>
+                                                                    </tr>
+                                                                    </f:if>
+                                                                    <tr>
+                                                                        <th><f:translate key="banner.provider.purpose">purpose</f:translate></th>
+                                                                        <td><f:translate key="{row.purpose}">{row.purpose}</f:translate></td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th><f:translate key="banner.provider.duration">duration</f:translate></th>
+                                                                        <td><f:translate key="{row.duration}">{row.duration}</f:translate></td>
+                                                                    </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </f:for>
+                                                        </div>
+                                                        </f:then>
+                                                        <f:else>
+                                                            <span>{f:translate(key:'{item.label}', default: '{item.label}') -> f:format.raw()}</span>
+                                                            <f:if condition="{item.names}"><small>{f:translate(key:'{item.names}', default: '{item.names}') -> f:format.raw()}</small></f:if>
+                                                        </f:else>
+                                                    </f:if>
                                                 </div>
                                             </div>
                                         </li>

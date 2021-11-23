@@ -94,10 +94,31 @@ plugin.tx_supi {
                     session {
                         label = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.essential.session.label
                         names = fe_typo_user, be_typo_user, be_lastLoginProvider, PHPSESSID
+                        table {
+                            name = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.session.name
+                            company = Website Company
+                            policy = 1
+                            rows {
+                                typo3 {
+                                    keys = fe_typo_user, be_typo_user, be_lastLoginProvider, PHPSESSID
+                                    purpose = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.typo3.purpose
+                                    duration = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.duration.session
+                                }
+                            }
+                        }
                     }
                     status {
                         label = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.essential.status.label
                         names = supi
+                        table {
+                            name = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.supi.name
+                            company = Website Company
+                            policy = 1
+                            rows.supi {
+                                purpose = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.supi.purpose
+                                duration = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.duration.supi
+                            }
+                        }
                     }
                 }
             }
@@ -123,16 +144,62 @@ plugin.tx_supi {
                 showOnLoad = 0
                 label = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.marketing.label
                 text = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.marketing.text
-                names = _dc_gtm_XXX, _ga, _gid, _fbp
+                names = _ga, _gid, _gat, AMP_TOKEN, _ga_XXX, _gac_XXX, _gac_gb_XXX, _fbp
 
                 items {
                     ga {
                         label = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.marketing.ga.label
-                        names = _dc_gtm_XXX, _ga,_gid
+                        names = _ga, _gid, _gat, AMP_TOKEN, _ga_XXX, _gac_XXX, _gac_gb_XXX
+                        table {
+                            name = Google Analytics
+                            company = Google LLC
+                            policy = https://policies.google.com/privacy
+                            rows {
+                                _ga {
+                                    purpose = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie._ga.purpose
+                                    duration = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.duration.2years
+                                }
+                                _gid {
+                                    purpose = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie._gid.purpose
+                                    duration = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.duration.1day
+                                }
+                                _gat {
+                                    purpose = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie._gat.purpose
+                                    duration = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.duration.1minute
+                                }
+                                AMP_TOKEN {
+                                    purpose = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.AMP_TOKEN.purpose
+                                    duration = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.duration.AMP_TOKEN
+                                }
+                                _gac_XXX {
+                                    purpose = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie._gac_XXX.purpose
+                                    duration = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.duration.90days
+                                }
+                                _ga_XXX {
+                                    purpose = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie._ga_XXX.purpose
+                                    duration = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.duration.2years
+                                }
+                                _gac_gb_XXX {
+                                    purpose = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie._gac_gb_XXX.purpose
+                                    duration = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.duration.90days
+                                }
+                            }
+                        }
                     }
                     fb {
                         label = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.marketing.fb.label
                         names = _fbp
+                        table {
+                            name = Facebook
+                            company = Facebook Technologies LLC; Facebook Technologies Ireland Ltd
+                            policy = https://www.facebook.com/policy.php
+                            rows {
+                                _fbp {
+                                    purpose = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie._fbp.purpose
+                                    duration = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.duration.3months
+                                }
+                            }
+                        }
                     }
                 }
             }

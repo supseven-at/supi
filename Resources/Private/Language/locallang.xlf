@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.2" xmlns:t3="http://typo3.org/schemas/xliff" xmlns="urn:oasis:names:tc:xliff:document:1.2">
- <file source-language="en" date="2021-04-12T20:06:52+02:00">
+ <file source-language="en" original="" datatype="plaintext" date="2021-11-23T14:57:55+01:00">
   <body>
    <trans-unit id="banner.content.headline" resname="banner.content.headline">
     <source>This website uses cookies</source>
@@ -100,6 +100,87 @@
    </trans-unit>
    <trans-unit id="map.text" resname="map.text">
     <source>During loading, data will be transmitted to Google.</source>
+   </trans-unit>
+   <trans-unit id="banner.cookie._ga.purpose" resname="banner.cookie._ga.purpose">
+    <source>Used to distinguish users.</source>
+   </trans-unit>
+   <trans-unit id="banner.cookie.duration.2years" resname="banner.cookie.duration.2years">
+    <source>2 years</source>
+   </trans-unit>
+   <trans-unit id="banner.cookie._gid.purpose" resname="banner.cookie._gid.purpose">
+    <source>Used to distinguish users.</source>
+   </trans-unit>
+   <trans-unit id="banner.cookie.duration.1day" resname="banner.cookie.duration.1day">
+    <source>1 day</source>
+   </trans-unit>
+   <trans-unit id="banner.cookie._gat.purpose" resname="banner.cookie._gat.purpose">
+    <source>Used to throttle request rate.</source>
+   </trans-unit>
+   <trans-unit id="banner.cookie.duration.1minute" resname="banner.cookie.duration.1minute">
+    <source>1 minute</source>
+   </trans-unit>
+   <trans-unit id="banner.cookie.AMP_TOKEN.purpose" resname="banner.cookie.AMP_TOKEN.purpose">
+    <source>Contains a token that can be used to retrieve a Client ID from AMP Client ID service. Other possible values indicate opt-out, inflight request or an error retrieving a Client ID from AMP Client ID service.</source>
+   </trans-unit>
+   <trans-unit id="banner.cookie.duration.AMP_TOKEN" resname="banner.cookie.duration.AMP_TOKEN">
+    <source>30 seconds to 1 year</source>
+   </trans-unit>
+   <trans-unit id="banner.cookie._gac_XXX.purpose" resname="banner.cookie._gac_XXX.purpose">
+    <source>Contains Google Ads campaign related information for the user.</source>
+   </trans-unit>
+   <trans-unit id="banner.cookie.duration.90days" resname="banner.cookie.duration.90days">
+    <source>90 days</source>
+   </trans-unit>
+   <trans-unit id="banner.cookie._ga_XXX.purpose" resname="banner.cookie._ga_XXX.purpose">
+    <source>Used to persist session state.</source>
+   </trans-unit>
+   <trans-unit id="banner.cookie._gac_gb_XXX.purpose" resname="banner.cookie._gac_gb_XXX.purpose">
+    <source>Contains Google Ads campaign related information for the user.</source>
+   </trans-unit>
+   <trans-unit id="banner.cookie._fbp.purpose" resname="banner.cookie._fbp.purpose">
+    <source>Used to distinguish users.</source>
+   </trans-unit>
+   <trans-unit id="banner.cookie.duration.3months" resname="banner.cookie.duration.3months">
+    <source>3 months</source>
+   </trans-unit>
+   <trans-unit id="banner.provider.name" resname="banner.provider.name">
+    <source>Name</source>
+   </trans-unit>
+   <trans-unit id="banner.provider.company" resname="banner.provider.company">
+    <source>Provider</source>
+   </trans-unit>
+   <trans-unit id="banner.provider.policy" resname="banner.provider.policy">
+    <source>Privacy Policy</source>
+   </trans-unit>
+   <trans-unit id="banner.provider.cookie" resname="banner.provider.cookie">
+    <source>Cookie</source>
+   </trans-unit>
+   <trans-unit id="banner.provider.type" resname="banner.provider.type">
+    <source>Data type</source>
+   </trans-unit>
+   <trans-unit id="banner.provider.purpose" resname="banner.provider.purpose">
+    <source>Purpose</source>
+   </trans-unit>
+   <trans-unit id="banner.provider.duration" resname="banner.provider.duration">
+    <source>Expires after</source>
+   </trans-unit>
+   <trans-unit id="banner.cookie.typo3.purpose" resname="banner.cookie.typo3.purpose">
+    <source>Individual behaviour during session</source>
+   </trans-unit>
+   <trans-unit id="banner.cookie.duration.session" resname="banner.cookie.duration.session">
+    <source>until session end</source>
+   </trans-unit>
+   <trans-unit id="banner.cookie.supi.purpose" resname="banner.cookie.supi.purpose">
+    <source>Selected settings for cookies and embeded services.</source>
+   </trans-unit>
+   <trans-unit id="banner.cookie.duration.supi" resname="banner.cookie.duration.supi">
+    <source>7 to 30 days</source>
+   </trans-unit>
+   <trans-unit id="banner.cookie.supi.name" resname="banner.cookie.supi.name">
+    <source>Cookie Settings</source>
+   </trans-unit>
+   <trans-unit id="banner.cookie.session.name" resname="banner.cookie.session.name">
+    <source>User session</source>
    </trans-unit>
   </body>
  </file>
