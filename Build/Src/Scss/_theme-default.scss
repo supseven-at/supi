@@ -187,6 +187,7 @@
         color: var(--supi-color-primary);
         text-decoration: underline;
         vertical-align: bottom;
+        text-align: left;
 
         &:after {
           display: none;
@@ -331,12 +332,15 @@
 
     ul {
       list-style: none;
+      padding: 0;
+      margin-bottom: $supi-grid-gutter-width;
     }
 
     &-item {
       & > div {
         display: flex;
         justify-content: space-between;
+        align-items: flex-start;
 
         small {
           opacity: .7;
@@ -375,7 +379,7 @@
         overflow: hidden;
         transition: transform .2s ease-in-out;
 
-        &.open {
+        &:not([hidden]) {
           height: auto;
         }
 
@@ -554,6 +558,17 @@ input[id^="supi"] {
     &.focus-visible {
       outline-offset: 3px;
     }
+  }
+
+  &__label {
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 1.3;
+    margin-bottom: 5px;
+  }
+
+  &__underline {
+    border-bottom: 1px solid black;
   }
 }
 
