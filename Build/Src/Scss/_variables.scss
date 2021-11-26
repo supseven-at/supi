@@ -14,9 +14,10 @@ $supi-colors: map-merge(
       primary: #000,
       secondary: #ccc,
       button-bar: #efefef,
-      success: green,
+      success: #198754,
       warning: red,
       notice: #000,
+      underline: #6C757D,
 
       button-wrap-bgcolor: #efefef,
       cookie-table-bgcolor: #F8F9FA,
@@ -25,7 +26,7 @@ $supi-colors: map-merge(
 );
 
 $supi-grid-gutter-width: 30px !default;
-$supi-breakpoint: 992px !default;
+$supi-breakpoint: 800px !default;
 $supi-border: true !default;
 $supi-box-shadow: true !default;
 $supi-font-base-size: 16px !default;
