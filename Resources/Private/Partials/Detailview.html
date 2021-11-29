@@ -16,13 +16,6 @@
                 <div class="tx-supi__block supi-px-hg supi-mb-hg">
                     <div class="tx-supi__block-header tx-supi__underline">
                         <f:render partial="Layout/Heading" arguments="{ key :'{element.label}', element : '{element}', default : '{element.label}'}" />
-                        <f:comment>
-                            <!--
-                            <button data-toggle="visibility" aria-expanded="{f:if(condition:'{element.showOnLoad} == 1', then:'true', else:'false')}" data-target="#supi_body_{blockName}" class="tx-supi__link-button{f:if(condition:'{element.showOnLoad} == 1', then:' tx-supi__pane-active')}">
-                            {f:translate(key:'{element.label}', default: '{element.label}') -> f:format.raw()}
-                            </button>
-                            -->
-                        </f:comment>
                         <f:render partial="Form/Checkbox" arguments="{_all}" />
                     </div>
 
@@ -63,11 +56,12 @@
                                                                         <td>
                                                                             <f:variable name="policyUrl">
                                                                                 <supi:ifInt value="{item.table.policy}">
-                                                                                    <f:then><f:uri.typolink parameter="{item.table.policy -> f:spaceless()}" absolute="1" /></f:then>
-                                                                                    <f:else>{item.table.policy -> f:spaceless()}</f:else>
+                                                                                    <f:then><f:uri.typolink parameter="{item.table.policy}" absolute="1" /></f:then>
+                                                                                    <f:else>{item.table.policy}</f:else>
                                                                                  </supi:ifInt>
                                                                             </f:variable>
-                                                                            <a href="{policyUrl}" target="_blank" rel="noreferrer noopener">{policyUrl}</a></td>
+                                                                            <a href="{policyUrl -> f:spaceless()}" target="_blank" rel="noreferrer noopener">{policyUrl -> f:spaceless()}</a>
+                                                                        </td>
                                                                     </tr>
                                                                     </tbody>
                                                                 </table>
