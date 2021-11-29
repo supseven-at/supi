@@ -60,10 +60,14 @@
                                                                     </tr>
                                                                     <tr>
                                                                         <th scope="row"><f:translate key="banner.provider.policy">policy</f:translate></th>
-                                                                        <td><f:variable name="policyUrl"></f:variable><supi:ifInt value="{item.table.policy}">
-                                                                            <f:then><f:uri.typolink parameter="{item.table.policy}" absolute="1" /></f:then>
-                                                                            <f:else>{item.table.policy}</f:else>
-                                                                        </supi:ifInt><a href="{policyUrl}" target="_blank" rel="noreferrer noopener">{policyUrl}</a></td>
+                                                                        <td>
+                                                                            <f:variable name="policyUrl">
+                                                                                <supi:ifInt value="{item.table.policy}">
+                                                                                    <f:then><f:uri.typolink parameter="{item.table.policy -> f:spaceless()}" absolute="1" /></f:then>
+                                                                                    <f:else>{item.table.policy -> f:spaceless()}</f:else>
+                                                                                 </supi:ifInt>
+                                                                            </f:variable>
+                                                                            <a href="{policyUrl}" target="_blank" rel="noreferrer noopener">{policyUrl}</a></td>
                                                                     </tr>
                                                                     </tbody>
                                                                 </table>
