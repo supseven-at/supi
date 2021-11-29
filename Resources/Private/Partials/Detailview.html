@@ -36,15 +36,17 @@
                                     <f:for each="{element.items}" as="item" key="itemName">
                                         <li class="tx-supi__block-item">
                                             <div>
-                                                <f:if condition="{settings.perItemSelect}">
-                                                    <f:alias map="{perItemSelect: settings.perItemSelect}">
-                                                        <f:render partial="Form/Checkbox" arguments="{_all}" />
-                                                    </f:alias>
-                                                </f:if>
                                                 <div class="tx-supi__block-item__text">
                                                     <f:if condition="{item.table}">
                                                         <f:then>
-                                                            <button data-toggle="supiDetails" aria-expanded="false" data-target="#supiDetails{itemName}" class="tx-supi__link-button">{f:translate(key:'{item.label}', default: '{item.label}') -> f:format.raw()}</button>
+                                                            <div class="tx-supi__block-item__header">
+                                                                <button data-toggle="supiDetails" aria-expanded="false" data-target="#supiDetails{itemName}" class="tx-supi__link-button">{f:translate(key:'{item.label}', default: '{item.label}') -> f:format.raw()}</button>
+                                                                <f:if condition="{settings.perItemSelect}">
+                                                                    <f:alias map="{perItemSelect: settings.perItemSelect}">
+                                                                        <f:render partial="Form/Checkbox" arguments="{_all}" />
+                                                                    </f:alias>
+                                                                </f:if>
+                                                            </div>
                                                             <div class="tx-supi__block-item__table" id="supiDetails{itemName}" hidden>
                                                                 <table class="tx-supi__block-item__table-overview">
                                                                     <tbody>
@@ -92,8 +94,15 @@
                                                             </div>
                                                         </f:then>
                                                         <f:else>
-                                                            <span>{f:translate(key:'{item.label}', default: '{item.label}') -> f:format.raw()}</span>
-                                                            <f:if condition="{item.names}"><small>{f:translate(key:'{item.names}', default: '{item.names}') -> f:format.raw()}</small></f:if>
+                                                            <div class="tx-supi__block-item__header">
+                                                                <span>{f:translate(key:'{item.label}', default: '{item.label}') -> f:format.raw()}</span>
+                                                                <f:if condition="{item.names}"><small>{f:translate(key:'{item.names}', default: '{item.names}') -> f:format.raw()}</small></f:if>
+                                                                <f:if condition="{settings.perItemSelect}">
+                                                                    <f:alias map="{perItemSelect: settings.perItemSelect}">
+                                                                        <f:render partial="Form/Checkbox" arguments="{_all}" />
+                                                                    </f:alias>
+                                                                </f:if>
+                                                            </div>
                                                         </f:else>
                                                     </f:if>
                                                 </div>
