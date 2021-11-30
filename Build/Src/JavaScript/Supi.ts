@@ -408,11 +408,12 @@ class Supi {
                 const target = findOne(el.dataset.target);
 
                 if (target) {
-                    const remove = target.classList.contains("open") ? "open" : "closed";
-                    const add = target.classList.contains("open") ? "closed" : "open";
-
-                    [target, el].forEach(e => e.classList.add(add));
-                    [target, el].forEach(e => e.classList.remove(remove));
+                    console.log('aria-expanded before: ' + el.attributes['aria-expanded'].value);
+                    console.log('hidden before: ' + target.hasAttribute('hidden'));
+                    el.attributes['aria-expanded'].value === 'false' ? el.setAttribute('aria-expanded','true') : el.setAttribute('aria-expanded','false');
+                    target.hasAttribute('hidden') ? target.removeAttribute('hidden') : target.setAttribute('hidden','');
+                    console.log('aria-expanded after: ' + el.attributes['aria-expanded'].value);
+                    console.log('hidden after: ' + target.hasAttribute('hidden'));
                 }
 
                 ev.preventDefault();

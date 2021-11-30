@@ -11,6 +11,8 @@
         </f:else>
     </f:if>
 
-    <f:render partial="Layout/Buttons" arguments="{_all}" />
+    <f:alias map="{ individual : 1, hideAutoEssential : 0 }">
+        <f:render partial="Layout/Buttons" arguments="{_all}" />
+    </f:alias>
 
 </html>

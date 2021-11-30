@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.2" xmlns:t3="http://typo3.org/schemas/xliff" xmlns="urn:oasis:names:tc:xliff:document:1.2">
- <file source-language="en" original="" datatype="plaintext" date="2021-11-23T14:57:55+01:00">
+ <file source-language="en" original="" datatype="plaintext" date="2021-11-26T15:35:17+01:00">
   <body>
    <trans-unit id="banner.content.headline" resname="banner.content.headline">
     <source>This website uses cookies</source>
@@ -48,13 +48,16 @@
     <source>Click on &#34;Allow all Cookies&#34;, to accept all types of cookies or click on &#34;Allow only required&#xA;                    cookies&#34; to allow only those cookies that are essential to the operation and function of the&#xA;                    website.&#xA;                </source>
    </trans-unit>
    <trans-unit id="banner.switch.text" resname="banner.switch.text">
-    <source>&lt;p&gt;Click on „&lt;button class=&#34;tx-supi__link-button&#34; data-inputs=&#34;disable&#34; data-toggle=&#34;switch&#34; data-switch-from=&#34;#supi__overview&#34; data-switch-to=&#34;#supi__detailview&#34;&gt;Cookie-Preferences&lt;/button&gt;“ to change the cookie settings manually.&lt;/p&gt;</source>
+    <source>&lt;p&gt;Click on &lt;strong&gt;Individual Cookie-Preferences&lt;/strong&gt; to change the settings manually.&lt;/p&gt;</source>
    </trans-unit>
    <trans-unit id="banner.detail.headline" resname="banner.detail.headline">
     <source>Cookie-Preferences</source>
    </trans-unit>
    <trans-unit id="banner.detail.text" resname="banner.detail.text">
     <source>Enable and disable individual cookies. Required cookies cannot be disabled.</source>
+   </trans-unit>
+   <trans-unit id="banner.button.individual.text" resname="banner.button.individual.text">
+    <source>Individual Cookie-Preferences</source>
    </trans-unit>
    <trans-unit id="banner.button.switch.label" resname="banner.button.switch.label">
     <source>Cookie-Preferences</source>
