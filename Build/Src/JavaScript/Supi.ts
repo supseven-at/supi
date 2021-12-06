@@ -81,7 +81,6 @@ class Supi {
         this.root = findOne('#supi');
 
         if (!this.root) {
-            console.info("Found no supi root element");
             return;
         }
 
@@ -409,12 +408,12 @@ class Supi {
                 const target = findOne(el.dataset.target);
 
                 if (target) {
-                    console.log('aria-expanded before: ' + el.attributes['aria-expanded'].value);
-                    console.log('hidden before: ' + target.hasAttribute('hidden'));
+                    this.log('aria-expanded before: ' + el.attributes['aria-expanded'].value);
+                    this.log('hidden before: ' + target.hasAttribute('hidden'));
                     el.attributes['aria-expanded'].value === 'false' ? el.setAttribute('aria-expanded','true') : el.setAttribute('aria-expanded','false');
                     target.hasAttribute('hidden') ? target.removeAttribute('hidden') : target.setAttribute('hidden','');
-                    console.log('aria-expanded after: ' + el.attributes['aria-expanded'].value);
-                    console.log('hidden after: ' + target.hasAttribute('hidden'));
+                    this.log('aria-expanded after: ' + el.attributes['aria-expanded'].value);
+                    this.log('hidden after: ' + target.hasAttribute('hidden'));
                 }
 
                 ev.preventDefault();
@@ -451,6 +450,8 @@ class Supi {
                 script.innerHTML = template.innerHTML;
 
                 template.parentNode.replaceChild(script, template);
+
+                this.trigger("injectScript", script as HTMLElement, null);
             });
 
         return true;
@@ -460,7 +461,6 @@ class Supi {
      * simply toggles the banner class
      */
     toggleBanner(): void {
-
         if (this.overlay == true) {
             this.body.classList.toggle('tx-supi__overlay');
             this.html.classList.toggle('tx-supi__overlay');
@@ -469,8 +469,10 @@ class Supi {
         this.banner.classList.toggle('hide');
 
         if(this.banner.classList.contains('hide')) {
+            this.trigger("bannerHide", this.banner, null);
             this.disableFocusTrap();
         } else {
+            this.trigger("bannerShow", this.banner, null);
             requestAnimationFrame(() => {
                 this.modal.focus();
             });
@@ -533,6 +535,7 @@ class Supi {
 
         switch (mode) {
             case Mode.All:
+                this.trigger("allowAll", document.body, null);
                 Object.keys(this.config.elements)
                     .forEach((k: string) => {
                         this.config.elements[k]?.names?.split(",").forEach((name: string) => {
@@ -542,6 +545,7 @@ class Supi {
                 break;
 
             case Mode.Essential:
+                this.trigger("allowEssential", document.body, null);
                 cookie.set(this.cookieNameGoogleMaps, 'n');
                 this.allowMaps = false;
                 cookie.set(this.cookieNameYoutube, 'n');
@@ -558,6 +562,7 @@ class Supi {
                 break;
 
             case Mode.Selected:
+                this.trigger("allowSelected", document.body, null);
                 cookie.set(this.cookieNameGoogleMaps, 'n');
                 this.allowMaps = false;
                 cookie.set(this.cookieNameYoutube, 'n');
@@ -644,6 +649,9 @@ class Supi {
             if (!this.allowAll && this.allowed.indexOf(cookieName) === -1) {
                 this.log("Removing cookie " + cookieName);
                 cookie.purgeCookie(cookieName);
+                this.trigger("cookieDeleted", document.body, {
+                    name: cookieName
+                });
             }
         });
 
@@ -735,8 +743,10 @@ class Supi {
         el.parentNode.replaceChild(iframe, el);
 
         // add custom event to react to (e.g. to handle classnames)
-        let onYouTubeAllowedEvent = new CustomEvent("onYouTubeAllowed", {detail: iframe});
-        window.dispatchEvent(onYouTubeAllowedEvent);
+        this.trigger("youTubeAllowed", iframe, {
+            iframe: iframe,
+            datset: el.dataset
+        });
     }
 
     private enableMaps() {
@@ -748,6 +758,11 @@ class Supi {
                     const cbName = toggle.dataset.callback;
                     wrapper.classList.add('active');
                     window[cbName]();
+
+                    this.trigger("customMapAllowed", wrapper, {
+                        wrapper: wrapper,
+                        callback: cbName
+                    });
                 }
             });
 
@@ -796,8 +811,10 @@ class Supi {
         el.parentNode.replaceChild(iframe, el);
 
         // add custom event to react to (e.g. to handle classnames)
-        let onSimpleMapsAllowedEvent = new CustomEvent("onSimpleMapsAllowedEvent", {detail: iframe});
-        window.dispatchEvent(onSimpleMapsAllowedEvent);
+        this.trigger("simpleMapAllowed", iframe, {
+            iframe: iframe,
+            data: el.dataset
+        });
     }
 
     private toggleService(serviceName: string): void {
@@ -815,11 +832,18 @@ class Supi {
                         try {
                             const func = el.dataset.supiServiceCallback;
                             window[func](el);
-
-                            let onServiceAllowedEvent = new CustomEvent("serviceCallback", {detail: {parent: parent, service: serviceName}});
-                            parent.dispatchEvent(onServiceAllowedEvent);
+                            this.trigger("serviceCallback", parent as HTMLElement, {
+                                newEl: newEl,
+                                service: serviceName
+                            });
                         } catch (e) {
                             this.log("Cannot call service callback %s: %s", el.dataset.supiServiceCallback, e);
+                            this.trigger("serviceCallbackError", parent as HTMLElement, {
+                                newEl: newEl,
+                                service: serviceName,
+                                func: el.dataset.supiServiceCallback,
+                                error: e
+                            });
                         }
                     }, 10);
 
@@ -864,10 +888,22 @@ class Supi {
 
                 parent.replaceChild(newEl, el);
 
-                let onServiceAllowedEvent = new CustomEvent("serviceEmbeded", {detail: newEl});
-                parent.dispatchEvent(onServiceAllowedEvent);
+                this.trigger("serviceEmbeded", parent as HTMLElement, {
+                    newEl: newEl,
+                    service: serviceName
+                });
             });
         }
+    }
+
+    private trigger(name: string, el: HTMLElement, detail: Object | null): void {
+        this.log("Trigger event %s on element %o", name, el);
+        let event = new CustomEvent(name, {
+            bubbles: true,
+            cancelable: true,
+            detail: detail || {}
+        });
+        el.dispatchEvent(event);
     }
 }
 
