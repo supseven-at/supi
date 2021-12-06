@@ -32,4 +32,5 @@ export interface SupiOptions {
     }
     essentialIncludesYoutube: boolean
     essentialIncludesMaps: boolean
+    debugClass: string | null
 }

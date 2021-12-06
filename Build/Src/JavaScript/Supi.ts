@@ -81,7 +81,7 @@ class Supi {
         this.root = findOne('#supi');
 
         if (!this.root) {
-            this.log("Found no supi root element");
+            console.info("Found no supi root element");
             return;
         }
 
@@ -95,9 +95,10 @@ class Supi {
         this.body = <HTMLBodyElement>document.body;
         this.switch = findOne('#supi__switchTo');
         this.save = findOne('[data-toggle=save]', this.root);
-        this.writeLog = this.body.classList.contains('develop');
 
         this.config = JSON.parse(this.root.getAttribute('data-supi-config'));
+        this.writeLog = this.body.classList.contains(this.config?.debugClass ?? 'develop');
+
         this.log("Loaded config %o", this.config);
 
         this.ttlReduced = this.config?.cookieTTL?.reduced ?? this.ttlReduced;

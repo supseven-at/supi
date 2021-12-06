@@ -48,6 +48,9 @@ plugin.tx_supi {
         # Google maps is enabled by essential
         essentialIncludesMaps = 0
 
+        # CSS class the body tag must contain to enable console logging
+        debugClass = be_user_login
+
         # Time to live of own cookies in days
         cookieTTL {
             # Allow all
