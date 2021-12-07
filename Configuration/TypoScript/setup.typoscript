@@ -99,12 +99,23 @@ plugin.tx_supi {
                         names = fe_typo_user, be_typo_user, be_lastLoginProvider, PHPSESSID
                         table {
                             name = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.session.name
-                            company = Website Company
+                            company = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.session.company
                             policy = 1
                             rows {
-                                typo3 {
-                                    keys = fe_typo_user, be_typo_user, be_lastLoginProvider, PHPSESSID
-                                    purpose = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.typo3.purpose
+                                fe_typo_user {
+                                    purpose = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.fe_typo_user.purpose
+                                    duration = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.duration.session
+                                }
+                                be_typo_user {
+                                    purpose = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.be_typo_user.purpose
+                                    duration = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.duration.session
+                                }
+                                be_lastLoginProvider {
+                                    purpose = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.be_lastLoginProvider.purpose
+                                    duration = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.duration.90days
+                                }
+                                PHPSESSID {
+                                    purpose = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.PHPSESSID.purpose
                                     duration = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.duration.session
                                 }
                             }
@@ -115,7 +126,7 @@ plugin.tx_supi {
                         names = supi
                         table {
                             name = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.supi.name
-                            company = Website Company
+                            company = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.session.company
                             policy = 1
                             rows.supi {
                                 purpose = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.supi.purpose
@@ -135,10 +146,20 @@ plugin.tx_supi {
                     googleMaps {
                         label = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.media.googleMaps.label
                         service = googleMaps
+                        table {
+                            name = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.media.googleMaps.label
+                            company = Google Ireland Limited
+                            policy = https://policies.google.com/privacy
+                        }
                     }
                     youtube {
                         label = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.media.youtube.label
                         service = youtube
+                        table {
+                            name = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.media.youtube.label
+                            company = Google Ireland Limited
+                            policy = https://policies.google.com/privacy
+                        }
                     }
                 }
             }
@@ -164,11 +185,11 @@ plugin.tx_supi {
                                 }
                                 _gid {
                                     purpose = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie._gid.purpose
-                                    duration = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.duration.1day
+                                    duration = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.duration.session
                                 }
                                 _gat {
                                     purpose = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie._gat.purpose
-                                    duration = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.duration.1minute
+                                    duration = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.duration.session
                                 }
                                 AMP_TOKEN {
                                     purpose = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.AMP_TOKEN.purpose
@@ -185,6 +206,10 @@ plugin.tx_supi {
                                 _gac_gb_XXX {
                                     purpose = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie._gac_gb_XXX.purpose
                                     duration = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.duration.90days
+                                }
+                                _dc_gtm_XXX {
+                                    purpose = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie._dc_gtm_XXX.purpose
+                                    duration = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.duration.session
                                 }
                             }
                         }

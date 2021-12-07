@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.2" xmlns:t3="http://typo3.org/schemas/xliff" xmlns="urn:oasis:names:tc:xliff:document:1.2">
- <file source-language="en" target-language="de" original="" datatype="plaintext" date="2021-11-26T15:35:17+01:00">
+ <file source-language="en" target-language="de" original="" datatype="plaintext" date="2021-12-07T13:21:42+01:00">
   <body>
    <trans-unit id="banner.content.headline" resname="banner.content.headline">
     <source>This website uses cookies</source>
@@ -23,8 +23,8 @@
     <target>Benutzersitzung</target>
    </trans-unit>
    <trans-unit id="banner.cookie.essential.status.label" resname="banner.cookie.essential.status.label">
-    <source>Current Cookie settings</source>
-    <target>Aktuelle Cookie Einstellungen</target>
+    <source>Cookie settings</source>
+    <target>Cookie Einstellungen</target>
    </trans-unit>
    <trans-unit id="banner.cookie.media.label" resname="banner.cookie.media.label">
     <source>Media Providers</source>
@@ -118,9 +118,29 @@
     <source>During loading, data will be transmitted to Google.</source>
     <target>Während des Ladens werden Daten zu Google übertragen.</target>
    </trans-unit>
+   <trans-unit id="banner.cookie.session.company" resname="banner.cookie.session.company">
+    <source>Website Operator</source>
+    <target>Website Betreiber</target>
+   </trans-unit>
+   <trans-unit id="banner.cookie.fe_typo_user.purpose" resname="banner.cookie.fe_typo_user.purpose">
+    <source>-</source>
+    <target>Dieser Cookie teilt TYPO3 alle Informationen zur Personalisierung der Website mit (zB. Login, Formulare, usw.)</target>
+   </trans-unit>
+   <trans-unit id="banner.cookie.be_typo_user.purpose" resname="banner.cookie.be_typo_user.purpose">
+    <source>-</source>
+    <target>Dieser Cookie teilt TYPO3 mit, ob der Besucher im TYPO3-Backend angemeldet und um welchen Backend-Benutzer es sich handelt.</target>
+   </trans-unit>
+   <trans-unit id="banner.cookie.be_lastLoginProvider.purpose" resname="banner.cookie.be_lastLoginProvider.purpose">
+    <source>-</source>
+    <target>Enthält die ID des verwendeten TYPO3 Backend Login Providers</target>
+   </trans-unit>
+   <trans-unit id="banner.cookie.PHPSESSID.purpose" resname="banner.cookie.PHPSESSID.purpose">
+    <source>-</source>
+    <target>PHPs Standard Sitzungsidentifikation</target>
+   </trans-unit>
    <trans-unit id="banner.cookie._ga.purpose" resname="banner.cookie._ga.purpose">
     <source>Used to distinguish users.</source>
-    <target>Zur Unterscheidung von Besuchenden.</target>
+    <target>Registriert eine eindeutige ID, um statistische Daten über die Nutzung der Website durch den Besucher zu generieren. </target>
    </trans-unit>
    <trans-unit id="banner.cookie.duration.2years" resname="banner.cookie.duration.2years">
     <source>2 years</source>
@@ -128,7 +148,11 @@
    </trans-unit>
    <trans-unit id="banner.cookie._gid.purpose" resname="banner.cookie._gid.purpose">
     <source>Used to distinguish users.</source>
-    <target>Zur Unterscheidung von Besuchenden.</target>
+    <target>Registriert eine eindeutige ID, um statistische Daten über die Nutzung der Website durch den Besucher zu generieren.</target>
+   </trans-unit>
+   <trans-unit id="banner.cookie._dc_gtm_XXX.purpose" resname="banner.cookie._dc_gtm_XXX.purpose">
+    <source>-</source>
+    <target>Wird von Google Tag Manager verwendet, um das Laden eines Google Analytics-Skript-Tags zu steuern.</target>
    </trans-unit>
    <trans-unit id="banner.cookie.duration.1day" resname="banner.cookie.duration.1day">
     <source>1 day</source>
@@ -136,7 +160,7 @@
    </trans-unit>
    <trans-unit id="banner.cookie._gat.purpose" resname="banner.cookie._gat.purpose">
     <source>Used to throttle request rate.</source>
-    <target>Zur Begrenzung der Anzahl der Anfragen.</target>
+    <target>Wird von Google Analytics verwendet, um die Anforderungsrate zu drosseln.</target>
    </trans-unit>
    <trans-unit id="banner.cookie.duration.1minute" resname="banner.cookie.duration.1minute">
     <source>1 minute</source>
@@ -168,7 +192,7 @@
    </trans-unit>
    <trans-unit id="banner.cookie._fbp.purpose" resname="banner.cookie._fbp.purpose">
     <source>Used to distinguish users.</source>
-    <target>Zur Unterscheidung von Besuchenden.</target>
+    <target>Um Besuche auf Websites zu speichern und zu verfolgen.</target>
    </trans-unit>
    <trans-unit id="banner.cookie.duration.3months" resname="banner.cookie.duration.3months">
     <source>3 months</source>
@@ -180,7 +204,7 @@
    </trans-unit>
    <trans-unit id="banner.provider.policy" resname="banner.provider.policy">
     <source>Privacy Policy</source>
-    <target>Privacy Policy</target>
+    <target>Datenschutz-Bestimmungen</target>
    </trans-unit>
    <trans-unit id="banner.provider.type" resname="banner.provider.type">
     <source>Data type</source>
@@ -196,27 +220,27 @@
    </trans-unit>
    <trans-unit id="banner.cookie.typo3.purpose" resname="banner.cookie.typo3.purpose">
     <source>Individual behaviour during session</source>
-    <target>Individuelles Verhalten während der Websitenutzung</target>
+    <target>Individuelles Verhalten während der Website Nutzung</target>
    </trans-unit>
    <trans-unit id="banner.cookie.duration.session" resname="banner.cookie.duration.session">
     <source>until session end</source>
-    <target>bis Sitzungsende</target>
+    <target>Ende der Sitzung</target>
    </trans-unit>
    <trans-unit id="banner.cookie.supi.purpose" resname="banner.cookie.supi.purpose">
     <source>Selected settings for cookies and embeded services.</source>
-    <target>Ausgewählte Einstellungen für Cookies und Drittanbieter Services.</target>
+    <target>Speichert die Information zur Zustimmung zu Cookies und Services.</target>
    </trans-unit>
    <trans-unit id="banner.cookie.duration.supi" resname="banner.cookie.duration.supi">
     <source>7 to 30 days</source>
     <target>7 bis 30 Tage</target>
    </trans-unit>
    <trans-unit id="banner.cookie.supi.name" resname="banner.cookie.supi.name">
-    <source>Cookie Settings</source>
-    <target>Cookie Einstellungen</target>
+    <source>Data protection cookie</source>
+    <target>Datenschutz Cookie</target>
    </trans-unit>
    <trans-unit id="banner.cookie.session.name" resname="banner.cookie.session.name">
-    <source>User session</source>
-    <target>Benutzersitzung</target>
+    <source>TYPO3 cookies</source>
+    <target>TYPO3 Cookies</target>
    </trans-unit>
   </body>
  </file>

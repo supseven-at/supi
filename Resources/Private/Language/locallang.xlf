@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.2" xmlns:t3="http://typo3.org/schemas/xliff" xmlns="urn:oasis:names:tc:xliff:document:1.2">
- <file source-language="en" original="" datatype="plaintext" date="2021-11-26T15:35:17+01:00">
+ <file source-language="en" original="" datatype="plaintext" date="2021-12-07T13:21:42+01:00">
   <body>
    <trans-unit id="banner.content.headline" resname="banner.content.headline">
     <source>This website uses cookies</source>
@@ -18,7 +18,7 @@
     <source>User session</source>
    </trans-unit>
    <trans-unit id="banner.cookie.essential.status.label" resname="banner.cookie.essential.status.label">
-    <source>Current Cookie settings</source>
+    <source>Cookie settings</source>
    </trans-unit>
    <trans-unit id="banner.cookie.media.label" resname="banner.cookie.media.label">
     <source>Media Providers</source>
@@ -104,6 +104,21 @@
    <trans-unit id="map.text" resname="map.text">
     <source>During loading, data will be transmitted to Google.</source>
    </trans-unit>
+   <trans-unit id="banner.cookie.session.company" resname="banner.cookie.session.company">
+    <source>Website Operator</source>
+   </trans-unit>
+   <trans-unit id="banner.cookie.fe_typo_user.purpose" resname="banner.cookie.fe_typo_user.purpose">
+    <source>-</source>
+   </trans-unit>
+   <trans-unit id="banner.cookie.be_typo_user.purpose" resname="banner.cookie.be_typo_user.purpose">
+    <source>-</source>
+   </trans-unit>
+   <trans-unit id="banner.cookie.be_lastLoginProvider.purpose" resname="banner.cookie.be_lastLoginProvider.purpose">
+    <source>-</source>
+   </trans-unit>
+   <trans-unit id="banner.cookie.PHPSESSID.purpose" resname="banner.cookie.PHPSESSID.purpose">
+    <source>-</source>
+   </trans-unit>
    <trans-unit id="banner.cookie._ga.purpose" resname="banner.cookie._ga.purpose">
     <source>Used to distinguish users.</source>
    </trans-unit>
@@ -112,6 +127,9 @@
    </trans-unit>
    <trans-unit id="banner.cookie._gid.purpose" resname="banner.cookie._gid.purpose">
     <source>Used to distinguish users.</source>
+   </trans-unit>
+   <trans-unit id="banner.cookie._dc_gtm_XXX.purpose" resname="banner.cookie._dc_gtm_XXX.purpose">
+    <source>-</source>
    </trans-unit>
    <trans-unit id="banner.cookie.duration.1day" resname="banner.cookie.duration.1day">
     <source>1 day</source>
@@ -180,10 +198,10 @@
     <source>7 to 30 days</source>
    </trans-unit>
    <trans-unit id="banner.cookie.supi.name" resname="banner.cookie.supi.name">
-    <source>Cookie Settings</source>
+    <source>Data protection cookie</source>
    </trans-unit>
    <trans-unit id="banner.cookie.session.name" resname="banner.cookie.session.name">
-    <source>User session</source>
+    <source>TYPO3 cookies</source>
    </trans-unit>
   </body>
  </file>
