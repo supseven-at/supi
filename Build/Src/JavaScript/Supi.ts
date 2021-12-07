@@ -110,7 +110,9 @@ class Supi {
         }
 
         this.config?.elements?.essential?.names.split(',').forEach((name: string) => {
-            if (this.allowed.indexOf(name) === -1) {
+            name = (name + "").trim();
+
+            if (name !== '' && this.allowed.indexOf(name) === -1) {
                 this.allowed.push(name);
             }
         });
@@ -132,9 +134,11 @@ class Supi {
             this.allowAll = true;
             this.injectJavaScripts();
             this.updateCookieTTL();
+            this.removeNotAllowedCookies();
         } else if (status == Status.Selected) {
             this.injectJavaScripts();
             this.updateCookieTTL();
+            this.removeNotAllowedCookies();
         } else if (!cookie.get(this.cookieNameStatus)) {
             cookie.remove(this.cookieNameStatus);
 
@@ -539,7 +543,11 @@ class Supi {
                 Object.keys(this.config.elements)
                     .forEach((k: string) => {
                         this.config.elements[k]?.names?.split(",").forEach((name: string) => {
-                            this.allowed.push(name);
+                            name = (name + "").trim();
+
+                            if (name !== '' && this.allowed.indexOf(name) === -1) {
+                                this.allowed.push(name);
+                            }
                         })
                     });
                 break;
@@ -556,7 +564,11 @@ class Supi {
                     .filter((k: string) => !!this.config?.elements[k]?.required)
                     .forEach((k: string) => {
                         this.config.elements[k]?.names?.split(",").forEach((name: string) => {
-                            this.allowed.push(name);
+                            name = (name + "").trim();
+
+                            if (name !== '' && this.allowed.indexOf(name) === -1) {
+                                this.allowed.push(name);
+                            }
                         })
                     });
                 break;
@@ -591,7 +603,7 @@ class Supi {
                             }
                         } else {
                             el.value.split(',').map((e: string) => e.trim()).forEach((el: string) => {
-                                if (this.allowed.indexOf(el) === -1) {
+                                if (el !== '' && this.allowed.indexOf(el) === -1) {
                                     this.allowed.push(el);
                                 }
                             });
@@ -599,6 +611,8 @@ class Supi {
                     });
                 break;
         }
+
+        cookie.set(this.cookieNameAllowed, this.allowed);
 
         return this.allowed.sort().join() === old;
     }
