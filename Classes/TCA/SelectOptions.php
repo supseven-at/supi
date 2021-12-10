@@ -6,7 +6,6 @@ use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\TypoScript\TemplateService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\RootlineUtility;
-use TYPO3\CMS\Core\Utility\StringUtility;
 
 class SelectOptions
 {
@@ -18,7 +17,7 @@ class SelectOptions
 
         $pid = $configuration['row']['pid'];
 
-        if ($pid < 0 && StringUtility::beginsWith($configuration['row']['uid'], 'NEW')) {
+        if ($pid < 0 && strncasecmp($configuration['row']['uid'], 'NEW', 3) === 0) {
             $pid = -$pid;
             $record = BackendUtility::getRecord('tt_content', $pid);
 
@@ -38,7 +37,7 @@ class SelectOptions
             if ((int)($service['internal'] ?? 0) !== 1) {
                 $label = $service['label'];
 
-                if (StringUtility::beginsWith($label, 'LLL:')) {
+                if (strncasecmp($label, 'LLL:', 4) === 0) {
                     $label = $GLOBALS['LANG']->sL($label);
                 }
 
