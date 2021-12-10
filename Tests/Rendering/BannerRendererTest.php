@@ -42,6 +42,10 @@ class BannerRendererTest extends TestCase
      */
     public function testRender()
     {
+        if (!class_exists(Request::class)) {
+            static::markTestSkipped('Request class does not exist, not supported in current TYPO3 anymore');
+        }
+
         $service = $this->createMock(TypoScriptService::class);
 
         $template = 'Banner';
@@ -96,6 +100,10 @@ class BannerRendererTest extends TestCase
      */
     public function testUserFunc()
     {
+        if (!class_exists(Request::class)) {
+            static::markTestSkipped('Request class does not exist, not supported in current TYPO3 anymore');
+        }
+
         $template = 'Banner';
         $templates = [
             ['DIR/Templates'],
