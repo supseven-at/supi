@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.2" xmlns:t3="http://typo3.org/schemas/xliff" xmlns="urn:oasis:names:tc:xliff:document:1.2">
- <file source-language="en" target-language="de" original="" datatype="plaintext" date="2021-12-10T14:46:20+01:00">
+ <file source-language="en" target-language="de" original="" datatype="plaintext" date="2021-12-10T15:29:14+01:00">
   <body>
    <trans-unit id="banner.content.headline" resname="banner.content.headline">
     <source>This website uses cookies</source>
@@ -43,12 +43,12 @@
     <target>Klicken Sie auf &#34;Alle Cookies erlauben&#34;, um alle Arten von Cookies zu akzeptieren oder klicken Sie auf &#34;Nur erforderliche Cookies erlauben&#34;, um nur jene Cookies zuzulassen, die für den Betrieb und Funktion der Webseite unbedingt erforderlich sind.</target>
    </trans-unit>
    <trans-unit id="banner.detail.headline" resname="banner.detail.headline">
-    <source>Cookie-Preferences</source>
-    <target>Cookie-Einstellungen</target>
+    <source>Your data protection settings</source>
+    <target>Ihre Datenschutzeinstellungen</target>
    </trans-unit>
    <trans-unit id="banner.detail.text" resname="banner.detail.text">
     <source>Enable and disable individual cookies. Required cookies cannot be disabled.</source>
-    <target>Aktivieren und deaktivieren von einzelnen Cookies. Funktionelle Cookies können nicht deaktiviert werden</target>
+    <target>Hier finden Sie eine Übersicht über alle Datenschutzeinstellungen. Sie können Ihre Zustimmung zu ganzen Kategorien geben oder weitere Informationen anzeigen und bestimmte Einstellungen auswählen.</target>
    </trans-unit>
    <trans-unit id="banner.button.individual.text" resname="banner.button.individual.text">
     <source>Individual Cookie-Preferences</source>
