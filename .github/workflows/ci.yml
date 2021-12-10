@@ -27,13 +27,24 @@ jobs:
 
     strategy:
       matrix:
-        typo3:
-          - '9.5'
-          - '10.4'
         php:
           - '7.2'
           - '7.3'
           - '7.4'
+          - '8.0'
+        typo3:
+          - '9.5'
+          - '10.4'
+          - '11.5'
+        exclude:
+          - php: '7.2'
+            typo3: '11.5'
+          - php: '7.3'
+            typo3: '11.5'
+          - php: '8.0'
+            typo3: '9.5'
+          - php: '8.0'
+            typo3: '10.4'
 
     steps:
       - name: Checkout repository
