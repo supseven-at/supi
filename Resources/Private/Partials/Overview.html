@@ -2,15 +2,6 @@
 
     <f:render partial="Layout/Description" arguments="{_all}" />
 
-    <f:if condition="{settings.detailed}">
-        <f:then>
-            <f:render partial="Layout/DetailedInformation" arguments="{_all}" />
-        </f:then>
-        <f:else>
-            <f:render partial="Layout/Elements" arguments="{_all}" />
-        </f:else>
-    </f:if>
-
     <f:alias map="{ individual : 1, hideAutoEssential : 0 }">
         <f:render partial="Layout/Buttons" arguments="{_all}" />
     </f:alias>
