@@ -176,7 +176,7 @@ plugin.tx_supi {
                         names = _ga, _gid, _gat, AMP_TOKEN, _ga_XXX, _gac_XXX, _gac_gb_XXX
                         table {
                             name = Google Analytics
-                            company = Google LLC
+                            company = Google Ireland Limited
                             policy = https://policies.google.com/privacy
                             rows {
                                 _ga {
@@ -185,11 +185,11 @@ plugin.tx_supi {
                                 }
                                 _gid {
                                     purpose = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie._gid.purpose
-                                    duration = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.duration.session
+                                    duration = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.duration.1day
                                 }
                                 _gat {
                                     purpose = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie._gat.purpose
-                                    duration = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.duration.session
+                                    duration = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.duration.1minute
                                 }
                                 AMP_TOKEN {
                                     purpose = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.AMP_TOKEN.purpose

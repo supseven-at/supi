@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.2" xmlns:t3="http://typo3.org/schemas/xliff" xmlns="urn:oasis:names:tc:xliff:document:1.2">
- <file source-language="en" original="" datatype="plaintext" date="2021-12-07T13:21:42+01:00">
+ <file source-language="en" original="" datatype="plaintext" date="2021-12-10T14:46:20+01:00">
   <body>
    <trans-unit id="banner.content.headline" resname="banner.content.headline">
     <source>This website uses cookies</source>
@@ -46,9 +46,6 @@
    </trans-unit>
    <trans-unit id="banner.cookie.essential.text" resname="banner.cookie.essential.text">
     <source>Click on &#34;Allow all Cookies&#34;, to accept all types of cookies or click on &#34;Allow only required&#xA;                    cookies&#34; to allow only those cookies that are essential to the operation and function of the&#xA;                    website.&#xA;                </source>
-   </trans-unit>
-   <trans-unit id="banner.switch.text" resname="banner.switch.text">
-    <source>&lt;p&gt;Click on &lt;strong&gt;Individual Cookie-Preferences&lt;/strong&gt; to change the settings manually.&lt;/p&gt;</source>
    </trans-unit>
    <trans-unit id="banner.detail.headline" resname="banner.detail.headline">
     <source>Cookie-Preferences</source>
@@ -132,7 +129,7 @@
     <source>-</source>
    </trans-unit>
    <trans-unit id="banner.cookie.duration.1day" resname="banner.cookie.duration.1day">
-    <source>1 day</source>
+    <source>24 hours</source>
    </trans-unit>
    <trans-unit id="banner.cookie._gat.purpose" resname="banner.cookie._gat.purpose">
     <source>Used to throttle request rate.</source>
