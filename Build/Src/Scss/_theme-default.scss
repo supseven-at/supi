@@ -421,14 +421,23 @@
           tr {
             display: flex;
             flex-wrap: wrap;
+
+            @include supi-media-breakpoint-up(md) {
+              flex-wrap: nowrap;
+            }
           }
 
           th {
-            flex: 0 0 138px;
+            flex: 0 0 100%;
             padding: 4px 16px 4px 0;
+
+            @include supi-media-breakpoint-up(md) {
+              flex: 0 0 138px;
+            }
           }
 
           td {
+            flex: 1;
             padding: 4px 8px 4px 0;
           }
         }
@@ -452,7 +461,11 @@
           box-shadow: 0px 0px 2px #00000040;
 
           th {
-            flex: 0 0 130px;
+            flex: 0 0 100%;
+
+            @include supi-media-breakpoint-up(md) {
+              flex: 0 0 130px;
+            }
           }
 
           th, td {
