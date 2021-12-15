@@ -498,7 +498,6 @@
           }
 
           & + label svg {
-            opacity: 1;
             transform: translate(-50%,-50%);
             transition: .1s ease-in-out;
           }
@@ -507,6 +506,10 @@
         &:disabled {
           & + label {
             opacity: .6;
+          }
+
+          & + label svg {
+            opacity: 1;
           }
         }
       }

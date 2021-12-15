@@ -670,7 +670,6 @@
           -webkit-box-shadow: 1px 1px rgba(0, 0, 0, 0.2), 0 0 0 2px #198754;
                   box-shadow: 1px 1px rgba(0, 0, 0, 0.2), 0 0 0 2px #198754; }
       .tx-supi .supi-checkbox input:checked + label svg {
-        opacity: 1;
         -webkit-transform: translate(-50%, -50%);
             -ms-transform: translate(-50%, -50%);
                 transform: translate(-50%, -50%);
@@ -679,6 +678,8 @@
         transition: .1s ease-in-out; }
       .tx-supi .supi-checkbox input:disabled + label {
         opacity: .6; }
+      .tx-supi .supi-checkbox input:disabled + label svg {
+        opacity: 1; }
     .tx-supi .supi-checkbox label {
       display: inline-block;
       position: relative;
