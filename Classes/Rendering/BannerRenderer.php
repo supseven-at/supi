@@ -2,6 +2,7 @@
 declare(strict_types=1);
 namespace Supseven\Supi\Rendering;
 
+use TYPO3\CMS\Core\Information\Typo3Version;
 use TYPO3\CMS\Core\Localization\LanguageService;
 use TYPO3\CMS\Core\TypoScript\TypoScriptService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -62,7 +63,12 @@ class BannerRenderer extends AbstractPlugin
 
         if (!$languageService) {
             $languageService = GeneralUtility::makeInstance(LanguageService::class);
-            $languageService->init($GLOBALS['TSFE']->sys_language_isocode);
+
+            if (GeneralUtility::makeInstance(Typo3Version::class)->getMajorVersion() >= 11) {
+                $languageService->init($GLOBALS['TYPO3_REQUEST']->getAttribute('language')->getTypo3Language());
+            } else {
+                $languageService->init($GLOBALS['TSFE']->sys_language_isocode);
+            }
         }
 
         $this->languageService = $languageService;
