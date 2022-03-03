@@ -6,6 +6,7 @@ use TYPO3\CMS\Core\Information\Typo3Version;
 use TYPO3\CMS\Core\Localization\LanguageService;
 use TYPO3\CMS\Core\TypoScript\TypoScriptService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Fluid\View\StandaloneView;
@@ -49,26 +50,19 @@ class BannerRenderer extends AbstractPlugin
     public function __construct(array $configuration = null, StandaloneView $view = null, TypoScriptService $typoscriptService = null, LanguageService $languageService = null)
     {
         if (empty($configuration)) {
-            $configuration = GeneralUtility::makeInstance(ObjectManager::class)
-                ->get(ConfigurationManagerInterface::class)
-                ->getConfiguration(
-                    ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK,
-                    'Supi',
-                    'Pi1'
-                );
+            $configuration = GeneralUtility::makeInstance(ConfigurationManagerInterface::class)->getConfiguration(
+                ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK,
+                'Supi',
+                'Pi1'
+            );
         }
 
         $this->configuration = $configuration;
-        $this->view = $view ?: GeneralUtility::makeInstance(ObjectManager::class)->get(StandaloneView::class);
+        $this->view = $view ?: GeneralUtility::makeInstance(StandaloneView::class);
 
         if (!$languageService) {
             $languageService = GeneralUtility::makeInstance(LanguageService::class);
-
-            if (GeneralUtility::makeInstance(Typo3Version::class)->getMajorVersion() >= 11) {
-                $languageService->init($GLOBALS['TYPO3_REQUEST']->getAttribute('language')->getTypo3Language());
-            } else {
-                $languageService->init($GLOBALS['TSFE']->sys_language_isocode);
-            }
+            $languageService->init($GLOBALS['TYPO3_REQUEST']->getAttribute('language')->getTypo3Language());
         }
 
         $this->languageService = $languageService;

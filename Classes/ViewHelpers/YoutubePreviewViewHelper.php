@@ -47,7 +47,10 @@ class YoutubePreviewViewHelper extends AbstractViewHelper
         }
 
         if (file_exists($temporaryFileName)) {
-            $file = ResourceFactory::getInstance()->getDefaultStorage()->getFile($fileId);
+            /** @var ResourceFactory $resourceFactory */
+            $resourceFactory = GeneralUtility::makeInstance(ResourceFactory::class);
+            $file = $resourceFactory->getDefaultStorage()->getFile($fileId);
+
             $renderingContext->getVariableProvider()->add($arguments['as'], $file);
             $content = (string)$renderChildrenClosure();
             $renderingContext->getVariableProvider()->remove($arguments['as']);
