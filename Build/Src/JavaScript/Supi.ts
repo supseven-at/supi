@@ -540,6 +540,7 @@ class Supi {
         iframe.style.border = '0';
         iframe.width = size.width + "";
         iframe.height = size.height + "";
+        iframe.allowFullscreen = true;
         el.parentNode.replaceChild(iframe, el);
     }
 
