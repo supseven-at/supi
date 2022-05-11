@@ -228,7 +228,7 @@
             justify-content: center;
 
             & + li {
-              margin-top: $supi-grid-gutter-width / 2;
+              margin-top: $supi-grid-gutter-width * 0.5;
 
               @include supi-media-breakpoint-up(md) {
                 margin-top: 0;
@@ -253,7 +253,7 @@
     text-align: center;
     font-family: inherit;
     font-weight: normal;
-    padding: $supi-grid-gutter-width / 2;
+    padding: $supi-grid-gutter-width * 0.5;
 
     &:after, &:before {
       display: none;
@@ -380,7 +380,7 @@
         display: flex;
         flex-direction: column;
         width: 100%;
-        padding-left: $supi-grid-gutter-width / 2;
+        padding-left: $supi-grid-gutter-width * 0.5;
 
         &-toggle {
           position: relative;
@@ -415,7 +415,7 @@
         height: 0;
         overflow: hidden;
         transition: transform .2s ease-in-out;
-        padding-top: $supi-grid-gutter-width / 2;
+        padding-top: $supi-grid-gutter-width * 0.5;
 
         & > * {
           tr {
@@ -443,7 +443,7 @@
         }
 
         & > * + * {
-          margin-top: $supi-grid-gutter-width / 2;
+          margin-top: $supi-grid-gutter-width * 0.5;
         }
 
         &:not([hidden]) {
@@ -707,4 +707,3 @@ input[id^="supi"] {
     border-bottom-color: var(--supi-color-underline);
   }
 }
-
