@@ -15,9 +15,9 @@ jobs:
       - name: Setup PHP
         uses: nanasess/setup-php@master
         with:
-          php-version: ${{ matrix.php }}
+          php-version: 7.2
 
-      - name: Test TYPO3 ${{ matrix.typo3 }}
+      - name: Run Tests
         run: |
           jq 'del(.require)' composer.json | jq 'del(.["require-dev"])' > c.json
           rm -rf composer.lock vendor bin typo3_src typo3 index.php composer.json
@@ -70,7 +70,7 @@ jobs:
         with:
           php-version: ${{ matrix.php }}
 
-      - name: Test TYPO3 ${{ matrix.typo3 }}
+      - name: Run Tests
         run: |
           jq 'del(.require)' composer.json | jq 'del(.["require-dev"])' > c.json
           rm -rf composer.lock vendor bin typo3_src typo3 index.php composer.json
