@@ -9,6 +9,7 @@ Resources/Public/JavaScript/*.map
 /typo3_src
 
 /.idea
-/.php_cs.cache
+/.php-cs-fixer.cache
 /composer.list
 /.phpunit.result.cache
+/auth.json

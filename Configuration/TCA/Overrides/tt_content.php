@@ -84,11 +84,29 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
         ]
     );
 
+    $GLOBALS['TCA'][$table]['columns']['tx_supi_youtube_ids'] = [
+        'label' => $ll . $table . '.field.tx_supi_youtube_ids.title',
+        'config' => [
+            'type' => 'input',
+            'max' => 255,
+            'eval' => 'trim',
+        ],
+    ];
+
+    $GLOBALS['TCA'][$table]['columns']['tx_supi_youtube_urls'] = [
+        'label' => $ll . $table . '.tx_supi_youtube_urls.label',
+        'config' => [
+            'type' => 'input',
+            'max' => 255,
+            'eval' => 'trim',
+        ],
+    ];
+
     $showitem = [
         '--div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:general',
         '--palette--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:palette.general;general',
         '--palette--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:palette.headers;headers',
-        'assets;Youtube',
+        'assets;Youtube,tx_supi_youtube_ids,tx_supi_youtube_urls,',
         '--div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.appearance',
         '--palette--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:palette.frames;frames',
         '--palette--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:palette.appearanceLinks;appearanceLinks',

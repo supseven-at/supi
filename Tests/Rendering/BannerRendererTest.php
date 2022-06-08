@@ -1,14 +1,16 @@
 <?php
+
 declare(strict_types=1);
+
 namespace Supseven\Supi\Tests\Rendering;
 
 use PHPUnit\Framework\TestCase;
 use Supseven\Supi\Rendering\BannerRenderer;
-use TYPO3\CMS\Core\Localization\LanguageService;
-use TYPO3\CMS\Core\TypoScript\TypoScriptService;
 use TYPO3\CMS\Extbase\Mvc\Request;
 use TYPO3\CMS\Fluid\View\StandaloneView;
+use TYPO3\CMS\Frontend\ContentObject\ContentDataProcessor;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
+use TYPO3\CMS\Frontend\DataProcessing\FilesProcessor;
 
 /**
  * Test renderer methods
@@ -22,11 +24,15 @@ class BannerRendererTest extends TestCase
      */
     public function testOverrideSettings()
     {
+        $langService = $this->getLanguageService();
+        $tsService = $this->getTypoScriptService();
+
         $subject = new BannerRenderer(
             ['settings' => ['a' => 'b']],
             $this->createMock(StandaloneView::class),
-            $this->createMock(TypoScriptService::class),
-            $this->createMock(LanguageService::class)
+            $tsService,
+            $langService,
+            $this->createMock(ContentDataProcessor::class)
         );
         $subject->overrideSettings(['settings' => ['b' => 'c', 'a' => 'd'], 'e' => 'f']);
 
@@ -42,11 +48,7 @@ class BannerRendererTest extends TestCase
      */
     public function testRender()
     {
-        if (!class_exists(Request::class)) {
-            static::markTestSkipped('Request class does not exist, not supported in current TYPO3 anymore');
-        }
-
-        $service = $this->createMock(TypoScriptService::class);
+        $service = $this->getTypoScriptService();
 
         $template = 'Banner';
         $templates = [
@@ -89,9 +91,15 @@ class BannerRendererTest extends TestCase
             'extbase'           => ['controllerExtensionName' => 'Supi'],
         ];
 
-        $langService = $this->createMock(LanguageService::class);
+        $langService = $this->getLanguageService();
 
-        $subject = new BannerRenderer($configuration, $view, $service, $langService);
+        $subject = new BannerRenderer(
+            $configuration,
+            $view,
+            $service,
+            $langService,
+            $this->createMock(ContentDataProcessor::class)
+        );
         $subject->render();
     }
 
@@ -100,10 +108,6 @@ class BannerRendererTest extends TestCase
      */
     public function testUserFunc()
     {
-        if (!class_exists(Request::class)) {
-            static::markTestSkipped('Request class does not exist, not supported in current TYPO3 anymore');
-        }
-
         $template = 'Banner';
         $templates = [
             ['DIR/Templates'],
@@ -150,14 +154,69 @@ class BannerRendererTest extends TestCase
             'settings'          => $settings + $conf,
             'extbase'           => ['controllerExtensionName' => 'Supi'],
         ];
-        $langService = $this->createMock(LanguageService::class);
+        $langService = $this->getLanguageService();
 
-        $subject = new BannerRenderer($configuration, $view, new TypoScriptService(), $langService);
+        $procData = $configuration + $conf;
+        $procData['data'] = $data;
+
+        $proc = $this->createMock(ContentDataProcessor::class);
+        $subject = new BannerRenderer(
+            $configuration,
+            $view,
+            $this->getTypoScriptService(false),
+            $langService,
+            $proc
+        );
         $subject->cObj = (new \ReflectionClass(ContentObjectRenderer::class))->newInstanceWithoutConstructor();
         $subject->cObj->data = $data;
 
+        $dataProcessingConf = [
+            '10'  => FilesProcessor::class,
+            '10.' => [
+                'references.' => ['field' => 'assets'],
+                'as'          => 'files',
+            ],
+        ];
+
+        $proc->expects(static::once())->method('process')->with(
+            static::equalTo($subject->cObj),
+            static::equalTo(['dataProcessing.' => $dataProcessingConf]),
+            static::equalTo($procData)
+        )->willReturn($procData);
+
+        $conf['dataProcessing.'] = $dataProcessingConf;
         $actual = $subject->userFunc('', $conf);
 
         static::assertSame($expected, $actual);
+    }
+
+    /**
+     * @return \PHPUnit\Framework\MockObject\MockObject&\TYPO3\CMS\Lang\LanguageService&\TYPO3\CMS\Core\Localization\LanguageService
+     * @throws \ReflectionException
+     */
+    protected function getLanguageService()
+    {
+        if (class_exists(\TYPO3\CMS\Lang\LanguageService::class)) {
+            $langService = $this->createMock(\TYPO3\CMS\Lang\LanguageService::class);
+        } else {
+            $langService = $this->createMock(\TYPO3\CMS\Core\Localization\LanguageService::class);
+        }
+
+        return $langService;
+    }
+
+    /**
+     * @return \PHPUnit\Framework\MockObject\MockObject&\TYPO3\CMS\Extbase\Service\TypoScriptService&\TYPO3\CMS\Core\TypoScript\TypoScriptService
+     * @throws \ReflectionException
+     */
+    protected function getTypoScriptService($createMock = true)
+    {
+        if (class_exists(\TYPO3\CMS\Extbase\Service\TypoScriptService::class)) {
+            $class = \TYPO3\CMS\Extbase\Service\TypoScriptService::class;
+        } else {
+            $class = \TYPO3\CMS\Core\TypoScript\TypoScriptService::class;
+        }
+
+        return $createMock ? $this->createMock($class) : new $class();
     }
 }

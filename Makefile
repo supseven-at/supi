@@ -6,13 +6,13 @@ frontend: Build/node_modules/.yarn-integrity
 	@cd Build && yarn gulp
 
 fix: vendor/autoload.php
-	@bin/php-cs-fixer fix --config=.php_cs --diff -vvv --diff-format=udiff
+	@bin/php-cs-fixer fix --config=.php-cs-fixer.php --diff
 
 lint: vendor/autoload.php
-	@bin/php-cs-fixer fix --config=.php_cs --diff -vvv --dry-run --diff-format=udiff
+	@bin/php-cs-fixer fix --config=.php-cs-fixer.php --diff --dry-run
 
 test: vendor/autoload.php
-	@bin/phpunit -c phpunit.xml
+	@bin/phpunit --bootstrap vendor/autoload Tests/
 
 .PHONY: clean
 clean:

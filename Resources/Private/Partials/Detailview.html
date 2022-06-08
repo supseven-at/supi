@@ -1,6 +1,5 @@
 <html data-namespace-typo3-fluid="true"
-	  xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
-	  xmlns:supi="http://typo3.org/ns/Supseven/Supi/ViewHelpers">
+	  xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers">
 
     <div id="supi__detail">
         <div id="supi__overview" class="tx-supi__pane-visible">
@@ -54,13 +53,7 @@
                                                                     <tr>
                                                                         <th scope="row"><f:translate key="banner.provider.policy">policy</f:translate></th>
                                                                         <td>
-                                                                            <f:variable name="policyUrl">
-                                                                                <supi:ifInt value="{item.table.policy}">
-                                                                                    <f:then><f:uri.typolink parameter="{item.table.policy}" absolute="1" /></f:then>
-                                                                                    <f:else>{item.table.policy}</f:else>
-                                                                                 </supi:ifInt>
-                                                                            </f:variable>
-                                                                            <a href="{policyUrl -> f:spaceless()}" target="_blank" rel="noreferrer noopener">{policyUrl -> f:spaceless()}</a>
+                                                                            <a href="{item.table.policyUrl}" target="_blank" rel="noreferrer noopener">{item.table.policyUrl}</a>
                                                                         </td>
                                                                     </tr>
                                                                     </tbody>

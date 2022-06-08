@@ -1,5 +1,7 @@
 <?php
+
 declare(strict_types=1);
+
 namespace Supseven\Supi\Tests\Rendering;
 
 use PHPUnit\Framework\TestCase;

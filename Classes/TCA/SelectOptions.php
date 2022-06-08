@@ -1,5 +1,7 @@
 <?php
+
 declare(strict_types=1);
+
 namespace Supseven\Supi\TCA;
 
 use TYPO3\CMS\Backend\Utility\BackendUtility;
@@ -9,6 +11,34 @@ use TYPO3\CMS\Core\Utility\RootlineUtility;
 
 class SelectOptions
 {
+    /**
+     * @var \TYPO3\CMS\Core\Localization\LanguageService|\TYPO3\CMS\Lang\LanguageService
+     */
+    private $languageService;
+
+    /**
+     * @param \TYPO3\CMS\Core\Localization\LanguageService|\TYPO3\CMS\Lang\LanguageService $languageService
+     */
+    public function __construct($languageService)
+    {
+        $this->languageService = $languageService ?? $GLOBALS['LANG'] ?? null;
+        if (!$this->languageService) {
+            if (class_exists(\TYPO3\CMS\Lang\LanguageService::class)) {
+                $this->languageService = GeneralUtility::makeInstance(\TYPO3\CMS\Lang\LanguageService::class);
+            } else {
+                $this->languageService = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Localization\LanguageService::class);
+            }
+
+            if (method_exists($this->languageService, 'init')) {
+                if (!empty($GLOBALS['TYPO3_REQUEST'])) {
+                    $this->languageService->init($GLOBALS['TYPO3_REQUEST']->getAttribute('language')->getTypo3Language());
+                } else {
+                    $this->languageService->init($GLOBALS['TSFE']->sys_language_isocode);
+                }
+            }
+        }
+    }
+
     public function addServices(array &$configuration): void
     {
         if (!is_array($configuration['items'] ?? null)) {
@@ -38,7 +68,7 @@ class SelectOptions
                 $label = $service['label'];
 
                 if (strncasecmp($label, 'LLL:', 4) === 0) {
-                    $label = $GLOBALS['LANG']->sL($label);
+                    $label = $this->languageService->sL($label);
                 }
 
                 $configuration['items'][] = [$label, trim($id, '.')];
