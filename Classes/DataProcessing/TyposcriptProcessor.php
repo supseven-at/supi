@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Supseven\Supi\Rendering;
+namespace Supseven\Supi\DataProcessing;
 
 use TYPO3\CMS\Core\TypoScript\TypoScriptService;
 use TYPO3\CMS\Core\Utility\ArrayUtility;

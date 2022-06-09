@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Supseven\Supi\Tests\Rendering;
+namespace Supseven\Supi\Tests\DataProcessing;
 
 use PHPUnit\Framework\TestCase;
-use Supseven\Supi\Rendering\TyposcriptProcessor;
+use Supseven\Supi\DataProcessing\TyposcriptProcessor;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
 /**

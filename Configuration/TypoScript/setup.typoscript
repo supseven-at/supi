@@ -368,7 +368,7 @@ tt_content.tx_supi_embed {
     layoutRootPaths.0 = EXT:supi/Resources/Private/Layouts/
 
     dataProcessing {
-        10 = Supseven\Supi\Rendering\TyposcriptProcessor
+        10 = Supseven\Supi\DataProcessing\TyposcriptProcessor
         10.path = plugin.tx_supi.settings
     }
 }
