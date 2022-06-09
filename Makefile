@@ -12,7 +12,7 @@ lint: vendor/autoload.php
 	@bin/php-cs-fixer fix --config=.php-cs-fixer.php --diff --dry-run
 
 test: vendor/autoload.php
-	@bin/phpunit --bootstrap vendor/autoload Tests/
+	@bin/phpunit --bootstrap vendor/autoload.php Tests/
 
 .PHONY: clean
 clean:
