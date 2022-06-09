@@ -316,22 +316,23 @@ tt_content.tx_supi_youtube {
     layoutRootPaths.0 = EXT:supi/Resources/Private/Layouts/
 
     dataProcessing {
-        10 = TYPO3\CMS\Frontend\DataProcessing\FilesProcessor
-        10 {
+        10 = Supseven\Supi\DataProcessing\TyposcriptProcessor
+        10.path = plugin.tx_supi.settings
+
+        20 = TYPO3\CMS\Frontend\DataProcessing\FilesProcessor
+        20 {
             references.fieldName = assets
             as = files
         }
 
-        20 = Supseven\Supi\DataProcessing\YoutubeProcessor
-        20 {
+        30 = Supseven\Supi\DataProcessing\YoutubeProcessor
+        30 {
             referencesField = files
             idsField = tx_supi_youtube_id
             urlsField = tx_supi_youtube_urls
             as = videos
         }
     }
-
-    settings < plugin.tx_supi.settings
 }
 
 tt_content.tx_supi_maps = FLUIDTEMPLATE
@@ -343,20 +344,21 @@ tt_content.tx_supi_maps {
     layoutRootPaths.0 = EXT:supi/Resources/Private/Layouts/
 
     dataProcessing {
-        10 = TYPO3\CMS\Frontend\DataProcessing\FilesProcessor
-        10 {
+        10 = Supseven\Supi\DataProcessing\TyposcriptProcessor
+        10.path = plugin.tx_supi.settings
+
+        20 = TYPO3\CMS\Frontend\DataProcessing\FilesProcessor
+        20 {
             references.fieldName = image
             as = preview
         }
 
-        20 = Supseven\Supi\DataProcessing\AddressProcessor
-        20 {
+        30 = Supseven\Supi\DataProcessing\AddressProcessor
+        30 {
             field = bodytext
             as = address
         }
     }
-
-    settings < plugin.tx_supi.settings
 }
 
 tt_content.tx_supi_embed = FLUIDTEMPLATE
