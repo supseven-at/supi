@@ -31,6 +31,14 @@ mod.wizards.newContentElement.wizardItems.plugins {
             CType = tx_supi_embed
         }
     }
+    elements.tx_supi_spotify {
+        iconIdentifier = supi
+        title = LLL:EXT:supi/Resources/Private/Language/locallang_db.xlf:tt_content.tx_supi_spotify.title
+        description = LLL:EXT:supi/Resources/Private/Language/locallang_db.xlf:tt_content.tx_supi_spotify.description
+        tt_content_defValues {
+            CType = tx_supi_spotify
+        }
+    }
 
-    show := addToList(tx_supi_button, tx_supi_youtube, tx_supi_maps, tx_supi_embed)
+    show := addToList(tx_supi_button, tx_supi_youtube, tx_supi_maps, tx_supi_embed, tx_supi_spotify)
 }

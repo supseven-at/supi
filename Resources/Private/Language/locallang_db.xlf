@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.2" xmlns:t3="http://typo3.org/schemas/xliff" xmlns="urn:oasis:names:tc:xliff:document:1.2">
- <file source-language="en" original="" datatype="plaintext" date="2022-06-08T14:47:34+02:00">
+ <file source-language="en" original="" datatype="plaintext" date="2022-06-09T15:00:13+02:00">
   <body>
    <trans-unit id="tt_content.button.description" resname="tt_content.button.description">
     <source>Button to (re)display the cookie banner</source>
@@ -38,6 +38,12 @@
    <trans-unit id="tt_content.tx_supi_embed.description" resname="tt_content.tx_supi_embed.description">
     <source>Page or service of an external website</source>
    </trans-unit>
+   <trans-unit id="tt_content.tx_supi_spotify.title" resname="tt_content.tx_supi_spotify.title">
+    <source>Spotify Playlist</source>
+   </trans-unit>
+   <trans-unit id="tt_content.tx_supi_spotify.description" resname="tt_content.tx_supi_spotify.description">
+    <source>Embeded Spotify playlist player</source>
+   </trans-unit>
    <trans-unit id="tt_content.field.tx_supi_youtube_ids.title" resname="tt_content.field.tx_supi_youtube_ids.title">
     <source>Youtube Video ID</source>
    </trans-unit>
@@ -46,6 +52,9 @@
    </trans-unit>
    <trans-unit id="tt_content.field.bodytext.tx_supi_embed.title" resname="tt_content.field.bodytext.tx_supi_embed.title">
     <source>Page</source>
+   </trans-unit>
+   <trans-unit id="tt_content.field.bodytext.tx_supi_spotify.title" resname="tt_content.field.bodytext.tx_supi_spotify.title">
+    <source>Spotify Playlist ID</source>
    </trans-unit>
    <trans-unit id="tt_content.field.imagewidth.tx_supi_embed.title" resname="tt_content.field.imagewidth.tx_supi_embed.title">
     <source>Width</source>

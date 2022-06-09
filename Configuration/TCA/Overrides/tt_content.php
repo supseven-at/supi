@@ -238,4 +238,50 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
         ],
     ];
     $GLOBALS['TCA'][$table]['ctrl']['typeicon_classes']['tx_supi_embed'] = 'supi';
+
+
+    // Spotify Player CE
+    ExtensionManagementUtility::addTcaSelectItem(
+        $table,
+        'CType',
+        [
+            $ll . $table .'.tx_supi_spotify.title',
+            'tx_supi_spotify',
+            'supi'
+        ]
+    );
+
+    $showitem = [
+        '--div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:general',
+        '--palette--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:palette.general;general',
+        '--palette--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:palette.headers;headers',
+        'bodytext;'. $ll . $table .'.field.bodytext.tx_supi_spotify.title',
+        '--div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.appearance',
+        '--palette--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:palette.frames;frames',
+        '--palette--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:palette.appearanceLinks;appearanceLinks',
+        '--div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:language',
+        '--palette--;;language',
+        '--div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:access',
+        '--palette--;;hidden',
+        '--palette--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:palette.access;access',
+        '--div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:categories',
+        'categories',
+        '--div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:notes',
+        'rowDescription',
+        '--div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:extended',
+    ];
+
+    $GLOBALS['TCA'][$table]['types']['tx_supi_spotify'] = [
+        'showitem'         => implode(',', $showitem),
+        'columnsOverrides' => [
+            'bodytext' => [
+                'description' => $ll . $table .'.field.bodytext.tx_supi_spotify.description',
+                'config'      => [
+                    'type' => 'input',
+                    'eval' => 'required,trim',
+                ],
+            ],
+        ],
+    ];
+    $GLOBALS['TCA'][$table]['ctrl']['typeicon_classes']['tx_supi_embed'] = 'supi';
 })('supi', 'tt_content', 'tx_supi_button');
