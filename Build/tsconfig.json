@@ -10,7 +10,7 @@
       "ES6",
       "dom"
     ],
-    "rootDir": "./Src/JavaScript",
+    "rootDir": ".",
     "moduleResolution": "node"
   }
 }

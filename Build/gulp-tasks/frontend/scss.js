@@ -1,5 +1,5 @@
 var _gulp = require('gulp'),
-    _sass = require('gulp-sass'),
+    _sass = require('gulp-sass')(require('dart-sass')),
     _prefix = require('gulp-autoprefixer'),
     _sourcemaps = require('gulp-sourcemaps'),
     _glob = require('gulp-sass-glob'),

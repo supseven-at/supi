@@ -3,7 +3,7 @@
  * paths and more you can use in
  * the gulp-tasks
  *
- * @return {{ext: *, frontend: {css: {src: string, watch: string, dest: string}, javascript: {src: string, watch: string, dest: string}}}}
+ * @return {{ext: string, frontend: {css: {src: string, watch: string, dest: string}, javascript: {src: string, watch: string, dest: string}}}}
  *
  */
 module.exports = function () {
