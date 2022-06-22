@@ -18,11 +18,11 @@
                         <f:render partial="Form/Checkbox" arguments="{_all}" />
                     </div>
 
-                    <f:if condition="{settings.perItemDetail}">
-                        <f:else>
-                            <f:format.raw><f:translate key="{element.text}">{element.text}</f:translate></f:format.raw>
-                        </f:else>
+                    <f:if condition="{settings.text}">
                         <f:then>
+                            <f:format.raw><f:translate key="{element.text}">{element.text}</f:translate></f:format.raw>
+                        </f:then>
+                        <f:else>
                             <div class="tx-supi__block-body" id="supi_body_{blockName}">
                                 <ul>
                                     <f:for each="{element.items}" as="item" key="itemName">
@@ -39,6 +39,7 @@
                                                                     </f:alias>
                                                                 </f:if>
                                                             </div>
+                                                            <f:if condition="{item.table.name}">
                                                             <div class="tx-supi__block-item__table" id="supiDetails{itemName}" hidden>
                                                                 <table class="tx-supi__block-item__table-overview">
                                                                     <tbody>
@@ -83,6 +84,7 @@
                                                                     </table>
                                                                 </f:for>
                                                             </div>
+                                                            </f:if>
                                                         </f:then>
                                                         <f:else>
                                                             <div class="tx-supi__block-item__header">
@@ -102,7 +104,7 @@
                                     </f:for>
                                 </ul>
                             </div>
-                        </f:then>
+                        </f:else>
                     </f:if>
                 </div>
             </f:for>
