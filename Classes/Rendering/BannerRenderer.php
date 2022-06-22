@@ -6,6 +6,7 @@ namespace Supseven\Supi\Rendering;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
+use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Fluid\View\StandaloneView;
 use TYPO3\CMS\Frontend\ContentObject\ContentDataProcessor;
 use TYPO3\CMS\Frontend\Plugin\AbstractPlugin;
@@ -58,7 +59,12 @@ class BannerRenderer extends AbstractPlugin
     public function __construct(array $configuration = null, StandaloneView $view = null, $typoscriptService = null, $languageService = null, $dataProcessor = null)
     {
         if (empty($configuration)) {
-            $configuration = GeneralUtility::makeInstance(ConfigurationManagerInterface::class)->getConfiguration(
+            if (class_exists(ObjectManager::class)) {
+                $configurationManager = GeneralUtility::makeInstance(ObjectManager::class)->get(ConfigurationManagerInterface::class);
+            } else {
+                $configurationManager = GeneralUtility::makeInstance(ConfigurationManagerInterface::class);
+            }
+            $configuration = $configurationManager->getConfiguration(
                 ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK,
                 'Supi',
                 'Pi1'
