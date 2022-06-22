@@ -38,4 +38,4 @@ jobs:
         run: |
           cd Build
           yarn install --frozen-lockfile --prefer-offline
-          cd Build && ./node_modules/.bin/prettier --check .
+          node_modules/.bin/prettier --check .
