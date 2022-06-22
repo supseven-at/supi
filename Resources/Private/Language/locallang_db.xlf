@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.2" xmlns:t3="http://typo3.org/schemas/xliff" xmlns="urn:oasis:names:tc:xliff:document:1.2">
- <file source-language="en" original="" datatype="plaintext" date="2022-06-09T15:00:13+02:00">
+ <file source-language="en" original="" datatype="plaintext" date="2022-06-10T13:18:03+02:00">
   <body>
+   <trans-unit id="tab.general" resname="tab.general">
+    <source>General</source>
+   </trans-unit>
    <trans-unit id="tt_content.button.description" resname="tt_content.button.description">
     <source>Button to (re)display the cookie banner</source>
    </trans-unit>

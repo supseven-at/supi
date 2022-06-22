@@ -1,6 +1,7 @@
 <?php
 declare(strict_types=1);
 
+use Supseven\Supi\TCA\ArrayUtil;
 use TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider;
 use TYPO3\CMS\Core\Imaging\IconRegistry;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
@@ -94,7 +95,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
     ];
 
     $GLOBALS['TCA'][$table]['columns']['tx_supi_youtube_urls'] = [
-        'label' => $ll . $table . '.tx_supi_youtube_urls.label',
+        'label' => $ll . $table . '.field.tx_supi_youtube_urls.title',
         'config' => [
             'type' => 'input',
             'max' => 255,
@@ -134,6 +135,14 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
         ],
     ];
     $GLOBALS['TCA'][$table]['ctrl']['typeicon_classes']['tx_supi_youtube'] = 'supi';
+
+    // Remove youtube from default assets fields if configured
+    if (!empty($GLOBALS['TYPO3_CONF_VARS']['EXTENSIONS']['supi']['supiYoutubeOnly'])) {
+        $GLOBALS['TCA'][$table]['columns']['assets'] = ArrayUtil::removeValue($GLOBALS['TCA'][$table]['columns']['assets'], 'youtube');
+        if (is_array($GLOBALS['TCA'][$table]['columns']['image'] ?? null)) {
+            $GLOBALS['TCA'][$table]['columns']['image'] = ArrayUtil::removeValue($GLOBALS['TCA'][$table]['columns']['image'], 'youtube');
+        }
+    }
 
     // Maps CE
     ExtensionManagementUtility::addTcaSelectItem(

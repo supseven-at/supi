@@ -1,0 +1,3 @@
+
+# cat=enable; type=boolean; label=Supi Youtube Only; Disable youtube support in textmedia element fields
+supiYoutubeOnly = 0
