@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.2" xmlns:t3="http://typo3.org/schemas/xliff" xmlns="urn:oasis:names:tc:xliff:document:1.2">
- <file source-language="en" target-language="de" original="" datatype="plaintext" date="2021-12-10T15:29:14+01:00">
+ <file source-language="en" target-language="de" original="" datatype="plaintext" date="2022-06-22T08:39:29+02:00">
   <body>
    <trans-unit id="banner.content.headline" resname="banner.content.headline">
     <source>This website uses cookies</source>

@@ -1,12 +1,11 @@
 <html data-namespace-typo3-fluid="true"
-      xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
-      xmlns:s="http://typo3.org/ns/Supseven/Supi/ViewHelpers">
+      xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers">
 
 
-<f:if condition="{videos.0}">
-    <s:youtubePreview video="{videos.0}">
-        <div class="tx-supi__youtube" data-youtube-id="{videos.0.contents}">
-            <f:image image="{preview}" maxWidth="730" class="tx-supi__youtube-preview-image" />
+<f:if condition="{videos -> f:count()} > 0">
+    <f:for each="{videos}" as="video">
+        <div class="tx-supi__youtube" data-youtube-id="{video.id}" data-youtube-url="{video.url -> f:format.htmlspecialchars()}">
+            <f:image image="{video.preview}" maxWidth="730" class="tx-supi__youtube-preview-image" />
             <div class="tx-supi__youtube-text">
                 <p><button type="button" data-toggle="youtube" class="btn btn-primary tx-supi__youtube-enable"><f:translate key="youtube.button" /></button></p>
                 <f:if condition="{settings.enableYoutubeOnce}">
@@ -15,5 +14,5 @@
                 <p><f:translate key="youtube.text" /></p>
             </div>
         </div>
-    </s:youtubePreview>
+    </f:for>
 </f:if>

@@ -3,7 +3,7 @@
  * paths and more you can use in
  * the gulp-tasks
  *
- * @return {{ext: *, frontend: {css: {src: string, watch: string, dest: string}, javascript: {src: string, watch: string, dest: string}}}}
+ * @return {{ext: string, frontend: {css: {src: string, watch: string, dest: string}, javascript: {src: string, watch: string, dest: string}}}}
  *
  */
 module.exports = function () {
@@ -15,14 +15,14 @@ module.exports = function () {
             css: {
                 src: ext + '/Build/Src/Scss/Supi.scss',
                 dest: ext + '/Resources/Public/Css',
-                watch: ext + '/Build/Src/Scss/**/*.scss'
+                watch: ext + '/Build/Src/Scss/**/*.scss',
             },
             javascript: {
-                src: ext + '/Build/Src/JavaScript/Supi.ts',
+                src: ext + '/Build/Src/JavaScript/main.ts',
                 dest: ext + '/Resources/Public/JavaScript',
                 outFile: 'Supi.js',
-                watch: ext + '/Build/Src/JavaScript/**/*.ts'
+                watch: ext + '/Build/Src/JavaScript/**/*.ts',
             },
-        }
+        },
     };
 };

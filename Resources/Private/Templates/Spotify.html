@@ -1,0 +1,11 @@
+<html data-namespace-typo3-fluid="true"
+      xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers">
+
+<f:layout name="Default" />
+
+<f:section name="Main">
+    <div class="supi-service" data-supi-service-container="spotify" data-supi-service-type="iframe" data-supi-service-attr="{spotifyAttr -> f:format.htmlspecialchars()}">
+        <p><f:translate key="{settings.spotify.enableDescription}">To load and display this player, an external resource must be loaded, which will transmit data to Spotify.</f:translate></p>
+        <button type="button" data-toggle="supiServiceContainer"><f:translate key="{settings.spotify.enableToggle}">Enable Spotify</f:translate></button>
+    </div>
+</f:section>

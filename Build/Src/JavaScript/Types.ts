@@ -1,19 +1,18 @@
-
 export enum Position {
     CenterCenter,
-    BottomLeft
+    BottomLeft,
 }
 
 export enum Status {
     None,
     All,
-    Selected
+    Selected,
 }
 
 export enum Mode {
     All,
     Essential,
-    Selected
+    Selected,
 }
 
-export type SupiElement = HTMLElement & Node | null;
+export type SupiElement = (HTMLElement & Node) | null;

@@ -1,6 +1,11 @@
 plugin.tx_supi = USER
 plugin.tx_supi {
     userFunc = Supseven\Supi\Rendering\BannerRenderer->userFunc
+
+    dataProcessing {
+        10 = Supseven\Supi\DataProcessing\ItemsProcessor
+    }
+
     extbase.controllerExtensionName = Supi
     templateName = Banner
     templateRootPaths.0 = EXT:supi/Resources/Private/Templates/
@@ -50,6 +55,9 @@ plugin.tx_supi {
 
         # CSS class the body tag must contain to enable console logging
         debugClass = be_user_login
+
+        # Use this domain for the supi-settings cookie
+        cookieDomain =
 
         # Time to live of own cookies in days
         cookieTTL {
@@ -106,14 +114,17 @@ plugin.tx_supi {
                                     purpose = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.fe_typo_user.purpose
                                     duration = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.duration.session
                                 }
+
                                 be_typo_user {
                                     purpose = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.be_typo_user.purpose
                                     duration = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.duration.session
                                 }
+
                                 be_lastLoginProvider {
                                     purpose = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.be_lastLoginProvider.purpose
                                     duration = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.duration.90days
                                 }
+
                                 PHPSESSID {
                                     purpose = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.PHPSESSID.purpose
                                     duration = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.duration.session
@@ -121,6 +132,7 @@ plugin.tx_supi {
                             }
                         }
                     }
+
                     status {
                         label = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.essential.status.label
                         names = supi
@@ -136,6 +148,7 @@ plugin.tx_supi {
                     }
                 }
             }
+
             media {
                 required = 0
                 showOnLoad = 1
@@ -152,6 +165,7 @@ plugin.tx_supi {
                             policy = https://policies.google.com/privacy
                         }
                     }
+
                     youtube {
                         label = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.media.youtube.label
                         service = youtube
@@ -161,8 +175,19 @@ plugin.tx_supi {
                             policy = https://policies.google.com/privacy
                         }
                     }
+
+                    spotify {
+                        label = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.media.spotify.label
+                        service = spotify
+                        table {
+                            name = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.media.spotify.label
+                            company = Spotify AB
+                            policy = https://www.spotify.com/legal/cookies-policy/
+                        }
+                    }
                 }
             }
+
             marketing {
                 required = 0
                 showOnLoad = 0
@@ -183,30 +208,37 @@ plugin.tx_supi {
                                     purpose = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie._ga.purpose
                                     duration = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.duration.2years
                                 }
+
                                 _gid {
                                     purpose = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie._gid.purpose
                                     duration = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.duration.1day
                                 }
+
                                 _gat {
                                     purpose = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie._gat.purpose
                                     duration = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.duration.1minute
                                 }
+
                                 AMP_TOKEN {
                                     purpose = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.AMP_TOKEN.purpose
                                     duration = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.duration.AMP_TOKEN
                                 }
+
                                 _gac_XXX {
                                     purpose = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie._gac_XXX.purpose
                                     duration = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.duration.90days
                                 }
+
                                 _ga_XXX {
                                     purpose = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie._ga_XXX.purpose
                                     duration = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.duration.2years
                                 }
+
                                 _gac_gb_XXX {
                                     purpose = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie._gac_gb_XXX.purpose
                                     duration = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.duration.90days
                                 }
+
                                 _dc_gtm_XXX {
                                     purpose = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie._dc_gtm_XXX.purpose
                                     duration = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.duration.session
@@ -214,6 +246,7 @@ plugin.tx_supi {
                             }
                         }
                     }
+
                     fb {
                         label = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.marketing.fb.label
                         names = _fbp
@@ -238,23 +271,40 @@ plugin.tx_supi {
                 label = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.button.allow.label
                 text = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.button.allow.text
             }
+
             dismiss {
                 label = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.button.dismiss.label
                 text = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.button.dismiss.text
                 disable = 0
             }
+
             choose {
                 label = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:plugin.button.label
                 text = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:plugin.button.text
             }
+
             switch {
                 label = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.button.switch.label
                 text = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.button.switch.text
             }
+
             save {
                 label = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.button.save.label
                 text = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.button.save.text
             }
+        }
+
+        spotify {
+            url = https://open.spotify.com/embed/playlist/{id}
+            playerAttr {
+                width = 100%
+                height = 380
+                allowfullscreen = allowfullscreen
+                allow = autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture
+                style = border-radius:12px
+            }
+            enableDescription = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:ce.spotify.enable.description
+            enableToggle = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:ce.spotify.enable.toggle
         }
     }
 }
@@ -292,14 +342,23 @@ tt_content.tx_supi_youtube {
     layoutRootPaths.0 = EXT:supi/Resources/Private/Layouts/
 
     dataProcessing {
-        10 = TYPO3\CMS\Frontend\DataProcessing\FilesProcessor
-        10 {
-          references.fieldName = assets
-          as = videos
+        10 = Supseven\Supi\DataProcessing\TyposcriptProcessor
+        10.path = plugin.tx_supi.settings
+
+        20 = TYPO3\CMS\Frontend\DataProcessing\FilesProcessor
+        20 {
+            references.fieldName = assets
+            as = files
+        }
+
+        30 = Supseven\Supi\DataProcessing\YoutubeProcessor
+        30 {
+            referencesField = files
+            idsField = tx_supi_youtube_id
+            urlsField = tx_supi_youtube_urls
+            as = videos
         }
     }
-
-    settings < plugin.tx_supi.settings
 }
 
 tt_content.tx_supi_maps = FLUIDTEMPLATE
@@ -311,14 +370,21 @@ tt_content.tx_supi_maps {
     layoutRootPaths.0 = EXT:supi/Resources/Private/Layouts/
 
     dataProcessing {
-        10 = TYPO3\CMS\Frontend\DataProcessing\FilesProcessor
-        10 {
+        10 = Supseven\Supi\DataProcessing\TyposcriptProcessor
+        10.path = plugin.tx_supi.settings
+
+        20 = TYPO3\CMS\Frontend\DataProcessing\FilesProcessor
+        20 {
             references.fieldName = image
             as = preview
         }
-    }
 
-    settings < plugin.tx_supi.settings
+        30 = Supseven\Supi\DataProcessing\AddressProcessor
+        30 {
+            field = bodytext
+            as = address
+        }
+    }
 }
 
 tt_content.tx_supi_embed = FLUIDTEMPLATE
@@ -330,8 +396,23 @@ tt_content.tx_supi_embed {
     layoutRootPaths.0 = EXT:supi/Resources/Private/Layouts/
 
     dataProcessing {
-        10 = Supseven\Supi\Rendering\TyposcriptProcessor
+        10 = Supseven\Supi\DataProcessing\TyposcriptProcessor
         10.path = plugin.tx_supi.settings
+    }
+}
+
+tt_content.tx_supi_spotify = FLUIDTEMPLATE
+tt_content.tx_supi_spotify {
+    extbase.controllerExtensionName = Supi
+    templateName = Spotify
+    templateRootPaths.0 = EXT:supi/Resources/Private/Templates/
+    partialRootPaths.0 = EXT:supi/Resources/Private/Partials/
+    layoutRootPaths.0 = EXT:supi/Resources/Private/Layouts/
+
+    dataProcessing {
+        10 = Supseven\Supi\DataProcessing\TyposcriptProcessor
+        10.path = plugin.tx_supi.settings
+        20 = Supseven\Supi\DataProcessing\SpotifyProcessor
     }
 }
 

@@ -1,15 +1,13 @@
-
-import { Mode, Status, SupiElement } from "./Types";
-import { findAll, findOne } from "./Dom";
-import { SupiOptions } from "./Options";
-import { cookie } from "./Cookie";
-
+import { Mode, Status, SupiElement } from './Types';
+import { findAll, findOne } from './Dom';
+import { SupiOptions } from './Options';
+import { cookie } from './Cookie';
 
 /**
  * Supseven User Privacy Interface Class
  * for GDPR Issues
  */
-class Supi {
+export class Supi {
     // Main wrapper around everything
     private root: SupiElement;
 
@@ -72,7 +70,7 @@ class Supi {
 
     private readonly writeLog: boolean = false;
 
-    private services: Array<string> = []
+    private services: Array<string> = [];
 
     /**
      * the constructor
@@ -89,7 +87,7 @@ class Supi {
         this.banner = findOne('#supi__overlay') ?? findOne('#supi__banner');
         this.modal = findOne('#supi__banner');
         this.focusTrapEventHandler = this.focusTrapNavigator.bind(this);
-        this.overlay = !!(findOne('#supi__overlay'));
+        this.overlay = !!findOne('#supi__overlay');
         this.html = findOne('html');
         this.body = <HTMLBodyElement>document.body;
         this.switch = findOne('#supi__switchTo');
@@ -98,10 +96,14 @@ class Supi {
         this.config = JSON.parse(this.root.getAttribute('data-supi-config'));
         this.writeLog = this.body.classList.contains(this.config?.debugClass ?? 'develop');
 
-        this.log("Loaded config %o", this.config);
+        this.log('Loaded config %o', this.config);
 
         this.ttlReduced = this.config?.cookieTTL?.reduced ?? this.ttlReduced;
         this.ttlAll = this.config?.cookieTTL?.all ?? this.ttlAll;
+
+        if (this.config.cookieDomain) {
+            cookie.useDomain(this.config.cookieDomain);
+        }
 
         const data = cookie.get(this.cookieNameAllowed);
 
@@ -110,7 +112,7 @@ class Supi {
         }
 
         this.config?.elements?.essential?.names.split(',').forEach((name: string) => {
-            name = (name + "").trim();
+            name = (name + '').trim();
 
             if (name !== '' && this.allowed.indexOf(name) === -1) {
                 this.allowed.push(name);
@@ -125,7 +127,7 @@ class Supi {
             });
         });
 
-        this.log("Collected services %o", this.services);
+        this.log('Collected services %o', this.services);
 
         const status = cookie.get(this.cookieNameStatus) as Status;
 
@@ -150,11 +152,17 @@ class Supi {
         }
 
         this.log('Checking for yt cookie');
-        this.allowYoutube = cookie.get(this.cookieNameYoutube) as string === 'y' || this.allowAll || (status == Status.Selected && this.config?.essentialIncludesYoutube);
+        this.allowYoutube =
+            (cookie.get(this.cookieNameYoutube) as string) === 'y' ||
+            this.allowAll ||
+            (status == Status.Selected && this.config?.essentialIncludesYoutube);
         this.log('Youtube cookie is "%o" resulting in %o', cookie.get(this.cookieNameYoutube), this.allowYoutube);
         this.enableYoutubeVideos();
 
-        this.allowMaps = cookie.get(this.cookieNameGoogleMaps) === 'y' || this.allowAll || (status == Status.Selected && this.config?.essentialIncludesMaps);
+        this.allowMaps =
+            cookie.get(this.cookieNameGoogleMaps) === 'y' ||
+            this.allowAll ||
+            (status == Status.Selected && this.config?.essentialIncludesMaps);
         this.log('Maps cookie is "%o" resulting in %o', cookie.get(this.cookieNameGoogleMaps), this.allowMaps);
         this.enableMaps();
 
@@ -180,9 +188,9 @@ class Supi {
         // on click removes first all scripts and readds then
         // the scripts, after that the banner will be toggled
         findAll('[data-toggle=allow]', this.root).forEach((el: HTMLElement) => {
-            this.log("Allow all on click on %o", el);
+            this.log('Allow all on click on %o', el);
             el.addEventListener('click', (e: Event) => {
-                this.log("Allow all was clicked, processing");
+                this.log('Allow all was clicked, processing');
                 this.allowAll = true;
                 this.allowMaps = true;
                 this.allowYoutube = true;
@@ -260,7 +268,7 @@ class Supi {
         // this click event simply opens the banner for
         // further interaction
         if (this.choose) {
-            this.log("Add main choose toggle to %o", this.choose);
+            this.log('Add main choose toggle to %o', this.choose);
             this.choose.addEventListener('click', (e: Event) => {
                 e.preventDefault();
                 this.toggleBanner();
@@ -268,91 +276,102 @@ class Supi {
         }
 
         findAll('a, button')
-            .filter((el: HTMLButtonElement) => el.getAttribute("href") == "#supi-choose")
+            .filter((el: HTMLButtonElement) => el.getAttribute('href') == '#supi-choose')
             .forEach((el: SupiElement) => {
-                this.log("Add choose toggle to %o", el);
+                this.log('Add choose toggle to %o', el);
 
-                el.addEventListener("click", (e: Event) => {
+                el.addEventListener('click', (e: Event) => {
                     e.preventDefault();
                     this.toggleBanner();
                 });
             });
 
         // Add click handler for switching between overview and detailview
-        findAll('[data-toggle=switch]').filter((el: HTMLElement) => {
-            return findOne(el.dataset.switchFrom) && findOne(el.dataset.switchTo);
-        }).forEach((el: HTMLElement) => {
-            el.addEventListener('click', (e: Event) => {
-                findOne(el.dataset.switchFrom).classList.add('tx-supi__pane-hidden');
-                findOne(el.dataset.switchFrom).setAttribute('hidden','');
-                findOne(el.dataset.switchTo).classList.remove('tx-supi__pane-hidden');
-                findOne(el.dataset.switchTo).removeAttribute('hidden');
+        findAll('[data-toggle=switch]')
+            .filter((el: HTMLElement) => {
+                return findOne(el.dataset.switchFrom) && findOne(el.dataset.switchTo);
+            })
+            .forEach((el: HTMLElement) => {
+                el.addEventListener('click', (e: Event) => {
+                    findOne(el.dataset.switchFrom).classList.add('tx-supi__pane-hidden');
+                    findOne(el.dataset.switchFrom).setAttribute('hidden', '');
+                    findOne(el.dataset.switchTo).classList.remove('tx-supi__pane-hidden');
+                    findOne(el.dataset.switchTo).removeAttribute('hidden');
 
-                if (el.dataset.inputs === 'disable' && this.allowed.length < 1) {
-                    findAll('input[type=checkbox]').forEach((el: HTMLInputElement) => {
-                        el.checked = (el.disabled || !!el.dataset.required);
-                    });
-                }
+                    if (el.dataset.inputs === 'disable' && this.allowed.length < 1) {
+                        findAll('input[type=checkbox]').forEach((el: HTMLInputElement) => {
+                            el.checked = el.disabled || !!el.dataset.required;
+                        });
+                    }
 
-                this.focusTrapElements = this.getFocusTrapElements();
+                    this.focusTrapElements = this.getFocusTrapElements();
 
-                e.preventDefault();
+                    e.preventDefault();
+                });
             });
-        });
 
         // Simple hide/show toggle, like tabs
-        findAll('[data-toggle=visibility]').filter((el: HTMLElement) => {
-            return !!(findOne(el.dataset.target));
-        }).forEach((el: HTMLElement) => {
-            el.addEventListener('click', (e: Event) => {
-
-                el.classList.toggle('tx-supi__pane-active');
-                let expanded = el.getAttribute('aria-expanded')
-                if (expanded === 'false') {
-                    el.setAttribute('aria-expanded','true')
-                    this.focusTrapElements = this.getFocusTrapElements();
-                } else {
-                    el.setAttribute('aria-expanded', 'false')
-                }
-                let target = findOne(el.dataset.target)
-                target.classList.toggle('tx-supi__pane-hidden')
-                if (!target.classList.contains('tx-supi__pane-hidden')) {
-                    this.focusTrapElements = this.getFocusTrapElements();
-                }
-                target.toggleAttribute('hidden')
-                e.preventDefault();
+        findAll('[data-toggle=visibility]')
+            .filter((el: HTMLElement) => {
+                return !!findOne(el.dataset.target);
             })
-        });
+            .forEach((el: HTMLElement) => {
+                el.addEventListener('click', (e: Event) => {
+                    el.classList.toggle('tx-supi__pane-active');
+                    let expanded = el.getAttribute('aria-expanded');
+                    if (expanded === 'false') {
+                        el.setAttribute('aria-expanded', 'true');
+                        this.focusTrapElements = this.getFocusTrapElements();
+                    } else {
+                        el.setAttribute('aria-expanded', 'false');
+                    }
+                    let target = findOne(el.dataset.target);
+                    target.classList.toggle('tx-supi__pane-hidden');
+                    if (!target.classList.contains('tx-supi__pane-hidden')) {
+                        this.focusTrapElements = this.getFocusTrapElements();
+                    }
+                    target.toggleAttribute('hidden');
+                    e.preventDefault();
+                });
+            });
 
         // Checkbox groups toggling
-        findAll('input[data-supi-block]').filter((el: HTMLInputElement) => !el.disabled).forEach((el: HTMLInputElement) => {
-            el.addEventListener('click', (e:Event) => {
-                if (el.dataset.supiParent) {
-                    findAll('[data-supi-block=' + el.dataset.supiBlock + ']').forEach(function (child: HTMLInputElement) {
-                        if (!child.dataset.supiParent) {
-                            child.checked = el.checked;
+        findAll('input[data-supi-block]')
+            .filter((el: HTMLInputElement) => !el.disabled)
+            .forEach((el: HTMLInputElement) => {
+                el.addEventListener('click', (e: Event) => {
+                    if (el.dataset.supiParent) {
+                        findAll('[data-supi-block=' + el.dataset.supiBlock + ']').forEach(function (
+                            child: HTMLInputElement
+                        ) {
+                            if (!child.dataset.supiParent) {
+                                child.checked = el.checked;
+                            }
+                        });
+                    } else {
+                        const parent: HTMLInputElement = <HTMLInputElement>(
+                            findOne('[data-supi-parent=' + el.dataset.supiBlock + ']')
+                        );
+                        const children = findAll('[data-supi-block=' + el.dataset.supiBlock + ']').filter(function (
+                            el: HTMLInputElement
+                        ) {
+                            return !!el.dataset.supiItem;
+                        });
+
+                        if (parent && children.length) {
+                            parent.checked = children.reduce(function (prev: boolean, el: HTMLInputElement) {
+                                return prev && el.checked;
+                            }, true);
                         }
-                    });
-                } else {
-                    const parent: HTMLInputElement = <HTMLInputElement>findOne('[data-supi-parent=' + el.dataset.supiBlock + ']');
-                    const children = findAll('[data-supi-block=' + el.dataset.supiBlock + ']').filter(function (el: HTMLInputElement) {
-                        return !!el.dataset.supiItem;
-                    });
-
-                    if (parent && children.length) {
-                        parent.checked = children.reduce(function (prev: boolean, el: HTMLInputElement) {
-                            return prev && el.checked;
-                        }, true);
                     }
-                }
 
-                e.stopPropagation();
+                    e.stopPropagation();
+                });
             });
-        });
 
         // Enabling youtube videos on click
         findAll('.tx-supi__youtube').forEach((el: HTMLElement) => {
-            this.log("Add listener to child of %o", el);
+            this.log('Add listener to child of %o', el);
 
             el.querySelector('[data-toggle=youtube]')?.addEventListener('click', () => {
                 this.log('Enabling all youtube elements');
@@ -395,7 +414,7 @@ class Supi {
 
         // Enable services
         findAll('[data-supi-service-container]').forEach((el: HTMLElement) => {
-            let serviceName = el.dataset.supiServiceContainer || "";
+            let serviceName = el.dataset.supiServiceContainer || '';
 
             if (serviceName) {
                 el.querySelector('[data-toggle=supiServiceContainer]')?.addEventListener('click', () => {
@@ -407,15 +426,19 @@ class Supi {
         });
 
         // Details accordion in banner overlay
-        findAll("[data-toggle=supiDetails]").forEach((el: HTMLElement) => {
-            el.addEventListener("click", (ev: Event) => {
+        findAll('[data-toggle=supiDetails]').forEach((el: HTMLElement) => {
+            el.addEventListener('click', (ev: Event) => {
                 const target = findOne(el.dataset.target);
 
                 if (target) {
                     this.log('aria-expanded before: ' + el.attributes['aria-expanded'].value);
                     this.log('hidden before: ' + target.hasAttribute('hidden'));
-                    el.attributes['aria-expanded'].value === 'false' ? el.setAttribute('aria-expanded','true') : el.setAttribute('aria-expanded','false');
-                    target.hasAttribute('hidden') ? target.removeAttribute('hidden') : target.setAttribute('hidden','');
+                    el.attributes['aria-expanded'].value === 'false'
+                        ? el.setAttribute('aria-expanded', 'true')
+                        : el.setAttribute('aria-expanded', 'false');
+                    target.hasAttribute('hidden')
+                        ? target.removeAttribute('hidden')
+                        : target.setAttribute('hidden', '');
                     this.log('aria-expanded after: ' + el.attributes['aria-expanded'].value);
                     this.log('hidden after: ' + target.hasAttribute('hidden'));
                 }
@@ -431,11 +454,11 @@ class Supi {
      * to load the correct scripts
      */
     injectJavaScripts(): boolean {
-        let elements = findAll("script") as Array<HTMLScriptElement>;
+        let elements = findAll('script') as Array<HTMLScriptElement>;
 
         elements
-            .filter(el => el.type == 'application/supi')
-            .filter(el => {
+            .filter((el) => el.type == 'application/supi')
+            .filter((el) => {
                 let ok: boolean = this.allowAll || !!el.dataset.supiRequired;
 
                 if (!ok && el.dataset.supiCookies) {
@@ -446,7 +469,7 @@ class Supi {
 
                 return ok;
             })
-            .forEach(template => {
+            .forEach((template) => {
                 const script = <HTMLScriptElement>document.createElement('script');
                 script.type = 'text/javascript';
                 script.className = 'supi-scripts';
@@ -455,7 +478,7 @@ class Supi {
 
                 template.parentNode.replaceChild(script, template);
 
-                this.trigger("injectScript", script as HTMLElement, null);
+                this.trigger('injectScript', script as HTMLElement, null);
             });
 
         return true;
@@ -472,11 +495,11 @@ class Supi {
 
         this.banner.classList.toggle('hide');
 
-        if(this.banner.classList.contains('hide')) {
-            this.trigger("bannerHide", this.banner, null);
+        if (this.banner.classList.contains('hide')) {
+            this.trigger('bannerHide', this.banner, null);
             this.disableFocusTrap();
         } else {
-            this.trigger("bannerShow", this.banner, null);
+            this.trigger('bannerShow', this.banner, null);
             requestAnimationFrame(() => {
                 this.modal.focus();
             });
@@ -484,29 +507,33 @@ class Supi {
         }
 
         let allowAllServices = true;
-        let mapsToggle = findOne("[data-supi-service=googleMaps]", this.root);
+        let mapsToggle = findOne('[data-supi-service=googleMaps]', this.root);
 
         if (mapsToggle) {
             allowAllServices = this.allowMaps && allowAllServices;
             (mapsToggle as HTMLInputElement).checked = this.allowMaps;
         }
 
-        let youtubeToggle = findOne("[data-supi-service=youtube]", this.root);
+        let youtubeToggle = findOne('[data-supi-service=youtube]', this.root);
 
         if (youtubeToggle) {
             allowAllServices = this.allowYoutube && allowAllServices;
             (youtubeToggle as HTMLInputElement).checked = this.allowYoutube;
         }
 
-        findAll("[data-supi-service]", this.root).forEach((el: HTMLInputElement) => {
-            if (!el.dataset.supiParent && el.dataset.supiService != "youtube" && el.dataset.supiService != "googleMaps") {
-                let allowed = this.allowAll || cookie.get(el.dataset.supiService) == "y";
+        findAll('[data-supi-service]', this.root).forEach((el: HTMLInputElement) => {
+            if (
+                !el.dataset.supiParent &&
+                el.dataset.supiService != 'youtube' &&
+                el.dataset.supiService != 'googleMaps'
+            ) {
+                let allowed = this.allowAll || cookie.get(el.dataset.supiService) == 'y';
                 el.checked = allowed;
                 allowAllServices = allowed && allowAllServices;
             }
-        })
+        });
 
-        let mediaToggle = findOne("[data-supi-parent=media]", this.root);
+        let mediaToggle = findOne('[data-supi-parent=media]', this.root);
 
         if (mediaToggle) {
             (mediaToggle as HTMLInputElement).checked = allowAllServices;
@@ -521,7 +548,7 @@ class Supi {
     removeScripts(): boolean {
         let elements: Array<HTMLScriptElement> = findAll('.supi-scripts') as Array<HTMLScriptElement>;
 
-        elements.forEach(script => {
+        elements.forEach((script) => {
             let template = <HTMLScriptElement>document.createElement('script');
             template.type = 'application/supi';
             template.dataset.supiCookies = script.dataset.supiCookies;
@@ -539,21 +566,20 @@ class Supi {
 
         switch (mode) {
             case Mode.All:
-                this.trigger("allowAll", document.body, null);
-                Object.keys(this.config.elements)
-                    .forEach((k: string) => {
-                        this.config.elements[k]?.names?.split(",").forEach((name: string) => {
-                            name = (name + "").trim();
+                this.trigger('allowAll', document.body, null);
+                Object.keys(this.config.elements).forEach((k: string) => {
+                    this.config.elements[k]?.names?.split(',').forEach((name: string) => {
+                        name = (name + '').trim();
 
-                            if (name !== '' && this.allowed.indexOf(name) === -1) {
-                                this.allowed.push(name);
-                            }
-                        })
+                        if (name !== '' && this.allowed.indexOf(name) === -1) {
+                            this.allowed.push(name);
+                        }
                     });
+                });
                 break;
 
             case Mode.Essential:
-                this.trigger("allowEssential", document.body, null);
+                this.trigger('allowEssential', document.body, null);
                 cookie.set(this.cookieNameGoogleMaps, 'n');
                 this.allowMaps = false;
                 cookie.set(this.cookieNameYoutube, 'n');
@@ -563,18 +589,18 @@ class Supi {
                 Object.keys(this.config.elements || {})
                     .filter((k: string) => !!this.config?.elements[k]?.required)
                     .forEach((k: string) => {
-                        this.config.elements[k]?.names?.split(",").forEach((name: string) => {
-                            name = (name + "").trim();
+                        this.config.elements[k]?.names?.split(',').forEach((name: string) => {
+                            name = (name + '').trim();
 
                             if (name !== '' && this.allowed.indexOf(name) === -1) {
                                 this.allowed.push(name);
                             }
-                        })
+                        });
                     });
                 break;
 
             case Mode.Selected:
-                this.trigger("allowSelected", document.body, null);
+                this.trigger('allowSelected', document.body, null);
                 cookie.set(this.cookieNameGoogleMaps, 'n');
                 this.allowMaps = false;
                 cookie.set(this.cookieNameYoutube, 'n');
@@ -602,11 +628,14 @@ class Supi {
                                     this.toggleAllServices();
                             }
                         } else {
-                            el.value.split(',').map((e: string) => e.trim()).forEach((el: string) => {
-                                if (el !== '' && this.allowed.indexOf(el) === -1) {
-                                    this.allowed.push(el);
-                                }
-                            });
+                            el.value
+                                .split(',')
+                                .map((e: string) => e.trim())
+                                .forEach((el: string) => {
+                                    if (el !== '' && this.allowed.indexOf(el) === -1) {
+                                        this.allowed.push(el);
+                                    }
+                                });
                         }
                     });
                 break;
@@ -619,7 +648,7 @@ class Supi {
 
     private enableFocusTrap(): void {
         this.preFocusTrapActiveElement = undefined;
-        if(document.activeElement instanceof HTMLElement) {
+        if (document.activeElement instanceof HTMLElement) {
             this.preFocusTrapActiveElement = document.activeElement;
             document.activeElement.blur();
         }
@@ -628,43 +657,50 @@ class Supi {
 
     private disableFocusTrap(): void {
         document.removeEventListener('keydown', this.focusTrapEventHandler);
-        if(this.preFocusTrapActiveElement instanceof HTMLElement) {
+        if (this.preFocusTrapActiveElement instanceof HTMLElement) {
             this.preFocusTrapActiveElement.focus();
         }
     }
 
     private focusTrapNavigator(event: KeyboardEvent) {
-        if(event.key !== 'Tab') {
+        if (event.key !== 'Tab') {
             return;
         }
         event.preventDefault();
         this.focusTrapElements = this.getFocusTrapElements();
         const currentlyFocusedElementIndex = this.focusTrapElements.indexOf(document.activeElement as HTMLElement);
         let nextFocusElementIndex = currentlyFocusedElementIndex + (event.shiftKey ? -1 : 1);
-        if(nextFocusElementIndex < 0) {
+        if (nextFocusElementIndex < 0) {
             nextFocusElementIndex = this.focusTrapElements.length - 1;
-        } else if(nextFocusElementIndex >= this.focusTrapElements.length) {
+        } else if (nextFocusElementIndex >= this.focusTrapElements.length) {
             nextFocusElementIndex = 0;
         }
         this.focusTrapElements[nextFocusElementIndex].focus();
     }
 
     private getFocusTrapElements() {
-        return findAll('a, button, *[tabindex], input[type=checkbox]:not([disabled])', this.banner).filter(element => {
-            return element.offsetWidth > 0 || element.offsetHeight > 0 || element.getClientRects().length > 0
-        });
+        return findAll('a, button, *[tabindex], input[type=checkbox]:not([disabled])', this.banner).filter(
+            (element) => {
+                return element.offsetWidth > 0 || element.offsetHeight > 0 || element.getClientRects().length > 0;
+            }
+        );
     }
 
     private removeNotAllowedCookies(): void {
         // Remove previously set cookies
-        this.log("Comparing currently set cookies %o with allowed %o, allow all is %o", cookie.getCookieNames(), this.allowed, this.allowAll);
+        this.log(
+            'Comparing currently set cookies %o with allowed %o, allow all is %o',
+            cookie.getCookieNames(),
+            this.allowed,
+            this.allowAll
+        );
 
         cookie.getCookieNames().forEach((cookieName: string) => {
             if (!this.allowAll && this.allowed.indexOf(cookieName) === -1) {
-                this.log("Removing cookie " + cookieName);
+                this.log('Removing cookie ' + cookieName);
                 cookie.purgeCookie(cookieName);
-                this.trigger("cookieDeleted", document.body, {
-                    name: cookieName
+                this.trigger('cookieDeleted', document.body, {
+                    name: cookieName,
                 });
             }
         });
@@ -679,30 +715,39 @@ class Supi {
             if (singleItems.length) {
                 parent.checked = true;
                 singleItems.forEach((el: HTMLInputElement) => {
-                    el.checked = el.disabled || this.allowAll || el.value.split(',').reduce((prev: boolean, val: string): boolean => {
-                        return prev && this.allowed.indexOf(val) > -1;
-                    }, true);
+                    el.checked =
+                        el.disabled ||
+                        this.allowAll ||
+                        el.value.split(',').reduce((prev: boolean, val: string): boolean => {
+                            return prev && this.allowed.indexOf(val) > -1;
+                        }, true);
                 });
 
-                parent.checked = singleItems.reduce((prev: boolean, item: HTMLInputElement): boolean => prev && item.checked, true);
+                parent.checked = singleItems.reduce(
+                    (prev: boolean, item: HTMLInputElement): boolean => prev && item.checked,
+                    true
+                );
                 this.log('Set parent %o to %o', parent, parent.checked);
             } else {
                 this.log('Check if all of parent values %s', parent.value, this.allowed);
-                parent.checked = parent.disabled || this.allowAll || parent.value.split(',').reduce((prev: boolean, val: string) => {
-                    this.log('Checking value %s with prev of %o', val, prev);
+                parent.checked =
+                    parent.disabled ||
+                    this.allowAll ||
+                    parent.value.split(',').reduce((prev: boolean, val: string) => {
+                        this.log('Checking value %s with prev of %o', val, prev);
 
-                    if (prev) {
-                        val = val.replace(/\s+/g, '');
-                        this.log('Prev still true, checking if value %s is in %o', val, this.allowed);
+                        if (prev) {
+                            val = val.replace(/\s+/g, '');
+                            this.log('Prev still true, checking if value %s is in %o', val, this.allowed);
 
-                        if (val !== '' && this.allowed.indexOf(val) === -1) {
-                            this.log('Value %s is not in %o, setting to false', val, this.allowed);
-                            prev = false;
+                            if (val !== '' && this.allowed.indexOf(val) === -1) {
+                                this.log('Value %s is not in %o, setting to false', val, this.allowed);
+                                prev = false;
+                            }
                         }
-                    }
 
-                    return prev;
-                }, true);
+                        return prev;
+                    }, true);
             }
         });
     }
@@ -715,7 +760,7 @@ class Supi {
 
     private enableYoutubeVideos(): void {
         if (this.allowYoutube) {
-            this.log('Enabling all videos, non autostart')
+            this.log('Enabling all videos, non autostart');
             findAll('.tx-supi__youtube').forEach((el: HTMLElement) => {
                 this.log('Enabling %o', el);
                 this.addVideo(el, '');
@@ -746,20 +791,21 @@ class Supi {
 
         const size = el.querySelector('.tx-supi__youtube-preview-image').getBoundingClientRect();
         const youtubeId = el.dataset.youtubeId;
-        const youtubeUrl = 'https://www.youtube-nocookie.com/embed/' + youtubeId + '?rel=0&modestbranding=1' + additionalParams;
+        const youtubeUrl =
+            'https://www.youtube-nocookie.com/embed/' + youtubeId + '?rel=0&modestbranding=1' + additionalParams;
         const iframe: HTMLIFrameElement = document.createElement('iframe');
         iframe.src = youtubeUrl;
-        iframe.frameBorder = "0";
+        iframe.frameBorder = '0';
         iframe.style.border = '0';
-        iframe.width = size.width + "";
-        iframe.height = size.height + "";
+        iframe.width = size.width + '';
+        iframe.height = size.height + '';
         iframe.setAttribute('autoplay', 'true');
         el.parentNode.replaceChild(iframe, el);
 
         // add custom event to react to (e.g. to handle classnames)
-        this.trigger("youTubeAllowed", iframe, {
+        this.trigger('youTubeAllowed', iframe, {
             iframe: iframe,
-            datset: el.dataset
+            datset: el.dataset,
         });
     }
 
@@ -773,9 +819,9 @@ class Supi {
                     wrapper.classList.add('active');
                     window[cbName]();
 
-                    this.trigger("customMapAllowed", wrapper, {
+                    this.trigger('customMapAllowed', wrapper, {
                         wrapper: wrapper,
-                        callback: cbName
+                        callback: cbName,
                     });
                 }
             });
@@ -815,48 +861,49 @@ class Supi {
 
         const address = el.dataset.mapAddress;
         const zoom = el.dataset?.mapZoom ? el.dataset?.mapZoom : 15;
-        const simpleMapsUrl = 'https://maps.google.com/maps?q='+ address +'&t=&z='+ zoom +'&ie=UTF8&iwloc=&output=embed';
+        const simpleMapsUrl =
+            'https://maps.google.com/maps?q=' + address + '&t=&z=' + zoom + '&ie=UTF8&iwloc=&output=embed';
         const iframe: HTMLIFrameElement = document.createElement('iframe');
         iframe.src = simpleMapsUrl;
-        iframe.frameBorder = "0";
+        iframe.frameBorder = '0';
         iframe.style.border = '0';
-        iframe.width = "800";
-        iframe.height = "600";
+        iframe.width = '800';
+        iframe.height = '600';
         el.parentNode.replaceChild(iframe, el);
 
         // add custom event to react to (e.g. to handle classnames)
-        this.trigger("simpleMapAllowed", iframe, {
+        this.trigger('simpleMapAllowed', iframe, {
             iframe: iframe,
-            data: el.dataset
+            data: el.dataset,
         });
     }
 
     private toggleService(serviceName: string): void {
         if (cookie.get(serviceName) == 'y' || this.allowAll) {
-            this.log("Enabling service %o", serviceName);
+            this.log('Enabling service %o', serviceName);
 
-            findAll("[data-supi-service-container=" + serviceName + "]").forEach((el: HTMLElement) => {
+            findAll('[data-supi-service-container=' + serviceName + ']').forEach((el: HTMLElement) => {
                 const parent = el.parentNode;
                 let newEl: HTMLElement;
                 const attr = el.dataset.supiServiceAttr;
 
-                if (el.dataset.supiServiceType === "callback") {
-                    this.log("Executing service %s callback %s", serviceName, el.dataset.supiServiceCallback);
+                if (el.dataset.supiServiceType === 'callback') {
+                    this.log('Executing service %s callback %s', serviceName, el.dataset.supiServiceCallback);
                     setTimeout(() => {
                         try {
                             const func = el.dataset.supiServiceCallback;
                             window[func](el);
-                            this.trigger("serviceCallback", parent as HTMLElement, {
+                            this.trigger('serviceCallback', parent as HTMLElement, {
                                 newEl: newEl,
-                                service: serviceName
+                                service: serviceName,
                             });
                         } catch (e) {
-                            this.log("Cannot call service callback %s: %s", el.dataset.supiServiceCallback, e);
-                            this.trigger("serviceCallbackError", parent as HTMLElement, {
+                            this.log('Cannot call service callback %s: %s', el.dataset.supiServiceCallback, e);
+                            this.trigger('serviceCallbackError', parent as HTMLElement, {
                                 newEl: newEl,
                                 service: serviceName,
                                 func: el.dataset.supiServiceCallback,
-                                error: e
+                                error: e,
                             });
                         }
                     }, 10);
@@ -864,66 +911,59 @@ class Supi {
                     return;
                 }
 
-                this.log("Enable element %o of service %o", el, serviceName);
+                this.log('Enable element %o of service %o', el, serviceName);
 
                 switch (el.dataset.supiServiceType) {
-                    case "script":
-                        newEl = document.createElement("script");
-                        (newEl as HTMLScriptElement).type = "text/javascript";
+                    case 'script':
+                        newEl = document.createElement('script');
+                        (newEl as HTMLScriptElement).type = 'text/javascript';
                         (newEl as HTMLScriptElement).async = true;
                         (newEl as HTMLScriptElement).defer = true;
                         break;
 
-                    case "img":
-                        newEl = document.createElement("img");
-                        (newEl as HTMLImageElement).alt = "";
-                        (newEl as HTMLImageElement).border = "0";
+                    case 'img':
+                        newEl = document.createElement('img');
+                        (newEl as HTMLImageElement).alt = '';
+                        (newEl as HTMLImageElement).border = '0';
                         break;
 
                     default:
                         newEl = document.createElement('iframe');
-                        (newEl as HTMLIFrameElement).frameBorder = "0";
-                        (newEl as HTMLIFrameElement).referrerPolicy = "no-referrer";
+                        (newEl as HTMLIFrameElement).frameBorder = '0';
+                        (newEl as HTMLIFrameElement).referrerPolicy = 'no-referrer';
                         newEl.style.border = '0';
                 }
 
                 if (attr) {
                     try {
                         for (const [name, value] of Object.entries(JSON.parse(attr))) {
-                            newEl.setAttribute(name, value + "");
-                            this.log("Setting property %s to %s", name, value);
+                            newEl.setAttribute(name, value + '');
+                            this.log('Setting property %s to %s', name, value);
                         }
                     } catch (e) {
                         this.log(e);
                     }
                 }
 
-                this.log("Replacing %o with %o", el, newEl);
+                this.log('Replacing %o with %o', el, newEl);
 
                 parent.replaceChild(newEl, el);
 
-                this.trigger("serviceEmbeded", parent as HTMLElement, {
+                this.trigger('serviceEmbeded', parent as HTMLElement, {
                     newEl: newEl,
-                    service: serviceName
+                    service: serviceName,
                 });
             });
         }
     }
 
     private trigger(name: string, el: HTMLElement, detail: Object | null): void {
-        this.log("Trigger event %s on element %o", name, el);
+        this.log('Trigger event %s on element %o', name, el);
         let event = new CustomEvent(name, {
             bubbles: true,
             cancelable: true,
-            detail: detail || {}
+            detail: detail || {},
         });
         el.dispatchEvent(event);
     }
 }
-
-const initFunc = () => {
-    (window as any).supi = new Supi();
-    window.removeEventListener("load", initFunc);
-};
-
-window.addEventListener("load", initFunc);

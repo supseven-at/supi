@@ -1,0 +1,92 @@
+name: 'Tests'
+
+on: [push, pull_request]
+
+jobs:
+
+  test-legacy:
+    name: PHPUnit Tests TYPO3 v7.6
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Setup PHP
+        uses: nanasess/setup-php@master
+        with:
+          php-version: 7.2
+
+      - name: Run Tests
+        run: |
+          jq 'del(.require)' composer.json | jq 'del(.["require-dev"])' > c.json
+          rm -rf composer.lock vendor bin typo3_src typo3 index.php composer.json
+          mv c.json composer.json
+          composer require --ansi -n --no-progress --no-plugins --no-scripts typo3/cms:^7.6
+          composer require --dev --ansi -n --no-progress --no-plugins --no-scripts -W mikey179/vfsstream phpunit/phpunit:^7
+          php bin/phpunit --bootstrap vendor/autoload.php Tests/
+
+  test:
+    name: PHPUnit Tests
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        include:
+          - typo3: '8.7'
+            php: '7.2'
+            phpunit: '7'
+          - typo3: '8.7'
+            php: '7.3'
+            phpunit: '7'
+          - typo3: '8.7'
+            php: '7.4'
+            phpunit: '7'
+
+          - typo3: '9.5'
+            php: '7.2'
+            phpunit: '8'
+          - typo3: '9.5'
+            php: '7.3'
+            phpunit: '8'
+          - typo3: '9.5'
+            php: '7.4'
+            phpunit: '8'
+
+          - typo3: '10.4'
+            php: '7.2'
+            phpunit: '8'
+          - typo3: '10.4'
+            php: '7.3'
+            phpunit: '8'
+          - typo3: '10.4'
+            php: '7.4'
+            phpunit: '8'
+
+          - typo3: '11.5'
+            php: '7.4'
+            phpunit: '8'
+          - typo3: '11.5'
+            php: '8.0'
+            phpunit: '9'
+          - typo3: '11.5'
+            php: '8.1'
+            phpunit: '9'
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup PHP
+        uses: nanasess/setup-php@master
+        with:
+          php-version: ${{ matrix.php }}
+
+      - name: Run Tests
+        run: |
+          jq 'del(.require)' composer.json | jq 'del(.["require-dev"])' > c.json
+          rm -rf composer.lock vendor bin typo3_src typo3 index.php composer.json
+          mv c.json composer.json
+          composer require --ansi -n --no-progress --no-plugins --no-scripts typo3/cms-backend:^${{ matrix.typo3 }} typo3/cms-core:^${{ matrix.typo3 }} typo3/cms-extbase:^${{ matrix.typo3 }} typo3/cms-fluid:^${{ matrix.typo3 }} typo3/cms-frontend:^${{ matrix.typo3 }}
+          composer require --dev --ansi -n --no-progress --no-plugins --no-scripts -W mikey179/vfsstream phpunit/phpunit:^${{ matrix.phpunit }}
+          php bin/phpunit --bootstrap vendor/autoload.php Tests/

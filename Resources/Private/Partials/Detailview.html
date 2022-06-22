@@ -1,6 +1,5 @@
 <html data-namespace-typo3-fluid="true"
-	  xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
-	  xmlns:supi="http://typo3.org/ns/Supseven/Supi/ViewHelpers">
+	  xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers">
 
     <div id="supi__detail">
         <div id="supi__overview" class="tx-supi__pane-visible">
@@ -19,11 +18,11 @@
                         <f:render partial="Form/Checkbox" arguments="{_all}" />
                     </div>
 
-                    <f:if condition="{settings.perItemDetail}">
-                        <f:else>
-                            <f:format.raw><f:translate key="{element.text}">{element.text}</f:translate></f:format.raw>
-                        </f:else>
+                    <f:if condition="{settings.text}">
                         <f:then>
+                            <f:format.raw><f:translate key="{element.text}">{element.text}</f:translate></f:format.raw>
+                        </f:then>
+                        <f:else>
                             <div class="tx-supi__block-body" id="supi_body_{blockName}">
                                 <ul>
                                     <f:for each="{element.items}" as="item" key="itemName">
@@ -40,6 +39,7 @@
                                                                     </f:alias>
                                                                 </f:if>
                                                             </div>
+                                                            <f:if condition="{item.table.name}">
                                                             <div class="tx-supi__block-item__table" id="supiDetails{itemName}" hidden>
                                                                 <table class="tx-supi__block-item__table-overview">
                                                                     <tbody>
@@ -54,13 +54,7 @@
                                                                     <tr>
                                                                         <th scope="row"><f:translate key="banner.provider.policy">policy</f:translate></th>
                                                                         <td>
-                                                                            <f:variable name="policyUrl">
-                                                                                <supi:ifInt value="{item.table.policy}">
-                                                                                    <f:then><f:uri.typolink parameter="{item.table.policy}" absolute="1" /></f:then>
-                                                                                    <f:else>{item.table.policy}</f:else>
-                                                                                 </supi:ifInt>
-                                                                            </f:variable>
-                                                                            <a href="{policyUrl -> f:spaceless()}" target="_blank" rel="noreferrer noopener">{policyUrl -> f:spaceless()}</a>
+                                                                            <a href="{item.table.policyUrl}" target="_blank" rel="noreferrer noopener">{item.table.policyUrl}</a>
                                                                         </td>
                                                                     </tr>
                                                                     </tbody>
@@ -90,6 +84,7 @@
                                                                     </table>
                                                                 </f:for>
                                                             </div>
+                                                            </f:if>
                                                         </f:then>
                                                         <f:else>
                                                             <div class="tx-supi__block-item__header">
@@ -109,7 +104,7 @@
                                     </f:for>
                                 </ul>
                             </div>
-                        </f:then>
+                        </f:else>
                     </f:if>
                 </div>
             </f:for>

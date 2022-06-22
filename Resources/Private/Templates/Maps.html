@@ -1,6 +1,5 @@
 <html data-namespace-typo3-fluid="true"
-      xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
-      xmlns:s="http://typo3.org/ns/Supseven/Supi/ViewHelpers">
+      xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers">
 
     <f:layout name="Default" />
 
@@ -12,7 +11,7 @@
         </f:if>
 
         <div class="tx-supi__simpleMaps-wrapper">
-            <div class="tx-supi__simpleMaps" data-map-address="{data.bodytext -> s:address()}" data-map-zoom="13">
+            <div class="tx-supi__simpleMaps" data-map-address="{address}" data-map-zoom="13">
                 <div class="tx-supi__simpleMaps-preview">
                     <div class="tx-supi__simpleMaps-text">
                         <p><button type="button" data-toggle="simpleMaps" class="btn btn-primary tx-supi__simpleMaps-enable"><f:translate key="simpleMaps.button" default="simpleMaps.button" /></button></p>
@@ -26,7 +25,7 @@
                             <f:image image="{preview.0}" maxWidth="800" />
                         </picture>
                         <figcaption class="sr-only">
-                            <address>{data.bodytext -> s:address()}</address>
+                            <address>{address}</address>
                         </figcaption>
                     </figure>
                 </div>

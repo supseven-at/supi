@@ -1,5 +1,5 @@
 @function supi-breakpoint-infix($name, $breakpoints: $supi-breakpoints) {
-  @return if(supi-breakpoint-min($name, $breakpoints) == null, "", "-#{$name}");
+  @return if(supi-breakpoint-min($name, $breakpoints) == null, '', '-#{$name}');
 }
 
 @function supi-breakpoint-min($name, $breakpoints: $supi-breakpoints) {

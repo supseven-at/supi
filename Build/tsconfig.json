@@ -5,12 +5,8 @@
     "sourceMap": true,
     "allowJs": true,
     "downlevelIteration": true,
-    "lib": [
-      "ES5",
-      "ES6",
-      "dom"
-    ],
-    "rootDir": "./Src/JavaScript",
+    "lib": ["ES5", "ES6", "dom"],
+    "rootDir": ".",
     "moduleResolution": "node"
   }
 }
