@@ -53,9 +53,9 @@ class SelectOptions
             $configuration['items'] = [];
         }
 
-        $pid = $configuration['row']['pid'];
+        $pid = (int)$configuration['row']['pid'];
 
-        if ($pid < 0 && strncasecmp($configuration['row']['uid'], 'NEW', 3) === 0) {
+        if ($pid < 0 && strncasecmp((string)$configuration['row']['uid'], 'NEW', 3) === 0) {
             $pid = -$pid;
             $record = BackendUtility::getRecord('tt_content', $pid);
 
