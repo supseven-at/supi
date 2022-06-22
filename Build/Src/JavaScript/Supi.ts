@@ -7,7 +7,7 @@ import { cookie } from './Cookie';
  * Supseven User Privacy Interface Class
  * for GDPR Issues
  */
-class Supi {
+export class Supi {
     // Main wrapper around everything
     private root: SupiElement;
 
@@ -967,10 +967,3 @@ class Supi {
         el.dispatchEvent(event);
     }
 }
-
-const initFunc = () => {
-    (window as any).supi = new Supi();
-    window.removeEventListener('load', initFunc);
-};
-
-window.addEventListener('load', initFunc);

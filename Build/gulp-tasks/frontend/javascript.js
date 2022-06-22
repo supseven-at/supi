@@ -2,7 +2,8 @@ var _gulp = require('gulp'),
     _webpack = require('webpack'),
     _gulpWebpack = require('webpack-stream'),
     _named = require('vinyl-named'),
-    _config = require('../../config.js');
+    _config = require('../../config.js'),
+    _rename = require('gulp-rename');
 
 /**
  * writes the javascript files into the public javascript folder
@@ -35,6 +36,11 @@ module.exports = function () {
                 },
                 _webpack
             )
+        )
+        .pipe(
+            _rename(function (path) {
+                path.basename = 'Supi';
+            })
         )
         .pipe(_gulp.dest(_config().frontend.javascript.dest));
 };
