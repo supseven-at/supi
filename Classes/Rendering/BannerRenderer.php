@@ -73,19 +73,22 @@ class BannerRenderer extends AbstractPlugin
 
         $this->configuration = $configuration;
         $this->view = $view ?: GeneralUtility::makeInstance(StandaloneView::class);
+        $this->languageService = $languageService ?? $GLOBALS['LANG'] ?? null;
 
-        if (!$languageService) {
+        if (!$this->languageService) {
             if (class_exists(\TYPO3\CMS\Lang\LanguageService::class)) {
-                $languageService = GeneralUtility::makeInstance(\TYPO3\CMS\Lang\LanguageService::class);
+                $this->languageService = GeneralUtility::makeInstance(\TYPO3\CMS\Lang\LanguageService::class);
             } else {
-                $languageService = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Localization\LanguageService::class);
+                $this->languageService = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Localization\LanguageService::class);
             }
 
-            if (method_exists($languageService, 'init')) {
+            if (method_exists($this->languageService, 'init')) {
                 if (!empty($GLOBALS['TYPO3_REQUEST'])) {
-                    $languageService->init($GLOBALS['TYPO3_REQUEST']->getAttribute('language')->getTypo3Language());
+                    $this->languageService->init($GLOBALS['TYPO3_REQUEST']->getAttribute('language')->getTypo3Language());
+                } elseif (!empty($GLOBALS['TSFE'])) {
+                    $this->languageService->init($GLOBALS['TSFE']->sys_language_isocode);
                 } else {
-                    $languageService->init($GLOBALS['TSFE']->sys_language_isocode);
+                    $this->languageService->init('default');
                 }
             }
         }
@@ -98,7 +101,6 @@ class BannerRenderer extends AbstractPlugin
             }
         }
 
-        $this->languageService = $languageService;
         $this->typoscriptService = $typoscriptService;
         $this->dataProcessor = $dataProcessor ?: GeneralUtility::makeInstance(ContentDataProcessor::class);
     }
@@ -125,7 +127,7 @@ class BannerRenderer extends AbstractPlugin
         $this->view->assignMultiple([
             'settings' => $this->configuration['settings'],
             'data'     => $this->configuration['data'] ?? null,
-            'config'   => json_encode($this->compileClientConfig($this->configuration['settings'])),
+            'config'   => json_encode($this->compileClientConfig($this->configuration['settings'], true)),
         ]);
 
         return $this->view->render();
@@ -147,8 +149,20 @@ class BannerRenderer extends AbstractPlugin
         return $this->render();
     }
 
-    private function compileClientConfig(array $elements): array
+    private function compileClientConfig(array $elements, bool $isRoot): array
     {
+        if ($isRoot) {
+            unset(
+                $elements['content'],
+                $elements['overview'],
+                $elements['switch'],
+                $elements['detail'],
+                $elements['gdpr'],
+                $elements['spotify'],
+                $elements['button']
+            );
+        }
+
         $new = [];
         $booleans = [
             'detailed',
@@ -179,7 +193,7 @@ class BannerRenderer extends AbstractPlugin
                 }
 
                 if (is_array($value)) {
-                    $value = $this->compileClientConfig($value);
+                    $value = $this->compileClientConfig($value, false);
                 }
 
                 if (($value !== null && $value !== '') || (is_array($value) && count($value) > 0)) {
@@ -187,14 +201,6 @@ class BannerRenderer extends AbstractPlugin
                 }
             }
         }
-
-        unset(
-            $new['button'],
-            $new['content'],
-            $new['detail'],
-            $new['gdpr'],
-            $new['overview']
-        );
 
         return $new;
     }
