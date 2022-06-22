@@ -15,9 +15,8 @@ class ItemsProcessor implements DataProcessorInterface
 {
     public function process(ContentObjectRenderer $cObj, array $contentObjectConfiguration, array $processorConfiguration, array $processedData)
     {
-        $elements = $processedData['settings']['elements'] ?? [];
-
-        foreach ($elements as $i => $element) {
+        // Generate URLs for policy pages
+        foreach ($processedData['settings']['elements'] ?? [] as $i => $element) {
             foreach ($element['items'] ?? [] as $j => $item) {
                 $policy = $item['table']['policy'] ?? '';
 
@@ -26,6 +25,13 @@ class ItemsProcessor implements DataProcessorInterface
                 }
 
                 $processedData['settings']['elements'][$i]['items'][$j]['table']['policyUrl'] = $policy;
+            }
+        }
+
+        // Generate JSON for service tag attributes
+        foreach ($processedData['settings']['services'] ?? [] as $i => $service) {
+            if (!empty($service['attr'])) {
+                $processedData['settings']['services'][$i]['attrJson'] = json_encode($service['attr'], JSON_FORCE_OBJECT);
             }
         }
 
