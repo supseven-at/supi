@@ -5,7 +5,7 @@ on: [push, pull_request]
 jobs:
 
   test-legacy:
-    name: PHPUnit Tests Legacy
+    name: PHPUnit Tests TYPO3 v7.6
     runs-on: ubuntu-latest
 
     steps:
