@@ -103,6 +103,10 @@ class Supi {
         this.ttlReduced = this.config?.cookieTTL?.reduced ?? this.ttlReduced;
         this.ttlAll = this.config?.cookieTTL?.all ?? this.ttlAll;
 
+        if (this.config.cookieDomain) {
+            cookie.useDomain(this.config.cookieDomain)
+        }
+
         const data = cookie.get(this.cookieNameAllowed);
 
         if (Array.isArray(data) && data.length) {

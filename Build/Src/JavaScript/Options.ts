@@ -27,6 +27,7 @@ export interface SupiOptions {
     theme: string
     detailed: boolean
     cookieTTL: CookieLifetime
+    cookieDomain: string
     elements: {
         [name: string]: Element
     }

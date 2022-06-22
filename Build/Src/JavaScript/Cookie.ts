@@ -6,6 +6,7 @@ export const cookie = new class {
     private lifetime: number = 7
 
     private persistTimeout: any
+    private domain: string;
 
     constructor() {
         document.cookie.split('; ').forEach((cookie: string) => {
@@ -65,13 +66,18 @@ export const cookie = new class {
                 values[key] = value;
             });
 
-            expires.setTime(expires.getTime() + (this.lifetime * 24 * 60 * 60 * 1000));
+            const ttl = (this.lifetime * 24 * 60 * 60 * 1000);
+            expires.setTime(expires.getTime() + ttl);
 
-            let c = `supi=${encodeURIComponent(JSON.stringify(values))}; expires=${expires.toUTCString()}; path=/;`;
+            let c = `supi=${encodeURIComponent(JSON.stringify(values))}; expires=${expires.toUTCString()}; path=/`;
+
+            if (this.domain) {
+                c += `; Domain=${this.domain}`;
+            }
 
             // @ts-ignore
             if (!window.MSInputMethodContext && !document.documentMode) {
-                c += "; SameSite=Strict";
+                c += "; SameSite=Lax";
 
                 if (location.protocol == "https:") {
                     c += "; Secure";
@@ -92,5 +98,9 @@ export const cookie = new class {
         let expires = new Date();
         expires.setTime(expires.getTime() - (3600 * 24 * 1000));
         document.cookie = `${name}=x; expires=${expires.toUTCString()}; path=/; SameSite=Strict`;
+    }
+
+    useDomain(domain: string) {
+        this.domain = domain;
     }
 };

@@ -56,6 +56,9 @@ plugin.tx_supi {
         # CSS class the body tag must contain to enable console logging
         debugClass = be_user_login
 
+        # Use this domain for the supi-settings cookie
+        cookieDomain =
+
         # Time to live of own cookies in days
         cookieTTL {
             # Allow all
