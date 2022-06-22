@@ -1,18 +1,16 @@
-
-export const cookie = new class {
-
+export const cookie = new (class {
     private values: Map<string, any> = new Map();
 
-    private lifetime: number = 7
+    private lifetime: number = 7;
 
-    private persistTimeout: any
+    private persistTimeout: any;
     private domain: string;
 
     constructor() {
         document.cookie.split('; ').forEach((cookie: string) => {
-            let [name, value] = cookie.split("=");
+            let [name, value] = cookie.split('=');
 
-            if (name == "supi") {
+            if (name == 'supi') {
                 let data = JSON.parse(decodeURIComponent(value));
 
                 for (let key of Object.keys(data)) {
@@ -66,7 +64,7 @@ export const cookie = new class {
                 values[key] = value;
             });
 
-            const ttl = (this.lifetime * 24 * 60 * 60 * 1000);
+            const ttl = this.lifetime * 24 * 60 * 60 * 1000;
             expires.setTime(expires.getTime() + ttl);
 
             let c = `supi=${encodeURIComponent(JSON.stringify(values))}; expires=${expires.toUTCString()}; path=/`;
@@ -77,10 +75,10 @@ export const cookie = new class {
 
             // @ts-ignore
             if (!window.MSInputMethodContext && !document.documentMode) {
-                c += "; SameSite=Lax";
+                c += '; SameSite=Lax';
 
-                if (location.protocol == "https:") {
-                    c += "; Secure";
+                if (location.protocol == 'https:') {
+                    c += '; Secure';
                 }
             }
 
@@ -89,18 +87,20 @@ export const cookie = new class {
     }
 
     public getCookieNames(): Array<string> {
-        return document.cookie.split("; ")
-            .map((c: string): string => c.split("=").shift())
-            .filter((c: string): boolean => c !== "supi");
+        return document.cookie
+            .split('; ')
+            .map((c: string): string => c.split('=').shift())
+            .filter((c: string): boolean => c !== 'supi');
     }
 
     public purgeCookie(name: string): void {
         let expires = new Date();
-        expires.setTime(expires.getTime() - (3600 * 24 * 1000));
+        const ttl = 3600 * 24 * 1000;
+        expires.setTime(expires.getTime() - ttl);
         document.cookie = `${name}=x; expires=${expires.toUTCString()}; path=/; SameSite=Strict`;
     }
 
     useDomain(domain: string) {
         this.domain = domain;
     }
-};
+})();

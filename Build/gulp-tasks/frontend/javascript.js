@@ -10,28 +10,32 @@ var _gulp = require('gulp'),
  *
  * @return {*}
  */
-module.exports = function() {
-    return _gulp.src([
-            _config().frontend.javascript.src
-        ])
+module.exports = function () {
+    return _gulp
+        .src([_config().frontend.javascript.src])
         .pipe(_named())
-        .pipe(_gulpWebpack({
-            mode: process.env.NODE_ENV === 'development' ? 'development' : 'production',
-            target: ['web', 'es5'],
-            devtool: 'source-map',
-            module: {
-                rules: [
-                    {
-                        test: /\.tsx?$/,
-                        use: 'ts-loader',
-                        exclude: /node_modules/,
-                    }
-                ]
-            },
-            resolve: {
-                extensions: ['.ts', '.tsx', '.js']
-            }
-        }, _webpack))
+        .pipe(
+            _gulpWebpack(
+                {
+                    mode: process.env.NODE_ENV === 'development' ? 'development' : 'production',
+                    target: ['web', 'es5'],
+                    devtool: 'source-map',
+                    module: {
+                        rules: [
+                            {
+                                test: /\.tsx?$/,
+                                use: 'ts-loader',
+                                exclude: /node_modules/,
+                            },
+                        ],
+                    },
+                    resolve: {
+                        extensions: ['.ts', '.tsx', '.js'],
+                    },
+                },
+                _webpack
+            )
+        )
         .pipe(_gulp.dest(_config().frontend.javascript.dest));
 };
 

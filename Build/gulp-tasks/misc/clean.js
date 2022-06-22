@@ -1,9 +1,6 @@
 var _config = require('../../config.js'),
     _del = require('del'),
-    _folderAndFiles = [
-        _config().frontend.css.dest,
-        _config().frontend.javascript.dest,
-    ];
+    _folderAndFiles = [_config().frontend.css.dest, _config().frontend.javascript.dest];
 
 /**
  * sets up a browser sync for more fancy development
@@ -12,7 +9,7 @@ var _config = require('../../config.js'),
  *
  * @return {*}
  */
-module.exports = function() {
+module.exports = function () {
     return _del(_folderAndFiles, { force: true });
 };
 

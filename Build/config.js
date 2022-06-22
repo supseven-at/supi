@@ -15,14 +15,14 @@ module.exports = function () {
             css: {
                 src: ext + '/Build/Src/Scss/Supi.scss',
                 dest: ext + '/Resources/Public/Css',
-                watch: ext + '/Build/Src/Scss/**/*.scss'
+                watch: ext + '/Build/Src/Scss/**/*.scss',
             },
             javascript: {
                 src: ext + '/Build/Src/JavaScript/Supi.ts',
                 dest: ext + '/Resources/Public/JavaScript',
                 outFile: 'Supi.js',
-                watch: ext + '/Build/Src/JavaScript/**/*.ts'
+                watch: ext + '/Build/Src/JavaScript/**/*.ts',
             },
-        }
+        },
     };
 };

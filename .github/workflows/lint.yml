@@ -3,13 +3,13 @@ name: 'Code Style'
 on: [push, pull_request]
 
 jobs:
-  lint:
-    name: Code Style Check
+  lint-php:
+    name: PHP Code Style
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Setup PHP
         uses: nanasess/setup-php@master
@@ -20,3 +20,22 @@ jobs:
         run: |
           composer install --no-scripts --no-plugins --ignore-platform-reqs --no-progress -n --ansi
           bin/php-cs-fixer fix --config=.php-cs-fixer.php --diff --dry-run
+
+  lint-frontend:
+    name: Frontend Code Style
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - name: Lint code
+        run: |
+          cd Build
+          yarn install --frozen-lockfile --prefer-offline
+          cd Build && ./node_modules/.bin/prettier --check .

@@ -4,11 +4,13 @@ build: vendor/autoload.php Build/node_modules/.yarn-integrity
 
 frontend: Resources/Public/Css/Supi.css Resources/Public/JavaScript/Supi.js
 
-fix: vendor/autoload.php
-	@bin/php-cs-fixer fix --config=.php-cs-fixer.php --diff
+fix: vendor/autoload.php Build/node_modules/.yarn-integrity
+	bin/php-cs-fixer fix --config=.php-cs-fixer.php --diff
+	cd Build && ./node_modules/.bin/prettier --write .
 
-lint: vendor/autoload.php
+lint: vendor/autoload.php Build/node_modules/.yarn-integrity
 	@bin/php-cs-fixer fix --config=.php-cs-fixer.php --diff --dry-run
+	cd Build && ./node_modules/.bin/prettier --check .
 
 test: vendor/autoload.php
 	@bin/phpunit --bootstrap vendor/autoload.php Tests/

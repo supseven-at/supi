@@ -72,7 +72,7 @@
     position: fixed;
     z-index: 999999;
     background-color: #fff;
-    transition: all .2s ease-in-out;
+    transition: all 0.2s ease-in-out;
 
     font-size: $supi-font-base-size;
     font-size: var(--supi-font-base-size);
@@ -92,7 +92,6 @@
         left: var(--supi-position-left);
 
         width: 100%;
-
 
         @include supi-media-breakpoint-up(md) {
           bottom: #{map-get($supi-position, bottom)};
@@ -159,12 +158,14 @@
 
       line-height: 1.5;
 
-      #supi__description, .elements {
+      #supi__description,
+      .elements {
         padding: #{$supi-banner-box-padding};
         padding: var(--supi-padding);
       }
 
-      h3, .tx-supi__link-button {
+      h3,
+      .tx-supi__link-button {
         color: inherit;
       }
 
@@ -173,7 +174,7 @@
         font-size: var(--supi-font-size-head);
 
         line-height: inherit;
-        margin: 0 0 .5em 0;
+        margin: 0 0 0.5em 0;
       }
 
       p {
@@ -210,7 +211,6 @@
       }
 
       .tx-supi__buttongroup {
-
         ul {
           display: flex;
           flex-direction: column;
@@ -255,7 +255,8 @@
     font-weight: normal;
     padding: $supi-grid-gutter-width * 0.5;
 
-    &:after, &:before {
+    &:after,
+    &:before {
       display: none;
     }
 
@@ -309,7 +310,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(#fff, .9);
+    background: rgba(#fff, 0.9);
     display: flex;
     justify-content: center;
     z-index: 999999;
@@ -339,7 +340,7 @@
         text-decoration: none;
 
         &:before {
-          content: "";
+          content: '';
           width: 7px;
           height: 7px;
           border-left: 2px solid map-get($supi-colors, primary);
@@ -348,7 +349,7 @@
           top: 10px;
           left: 0;
           transform: rotate(135deg);
-          transition: transform .2s ease-in-out;
+          transition: transform 0.2s ease-in-out;
           display: block;
         }
 
@@ -372,7 +373,7 @@
         align-items: flex-start;
 
         small {
-          opacity: .7;
+          opacity: 0.7;
         }
       }
 
@@ -386,7 +387,7 @@
           position: relative;
 
           &:before {
-            content: "";
+            content: '';
             width: 7px;
             height: 7px;
             border-left: 2px solid map-get($supi-colors, primary);
@@ -395,7 +396,7 @@
             top: 7px;
             left: -13px;
             transform: rotate(135deg);
-            transition: transform .2s ease-in-out;
+            transition: transform 0.2s ease-in-out;
             display: block;
           }
 
@@ -414,7 +415,7 @@
         width: 100%;
         height: 0;
         overflow: hidden;
-        transition: transform .2s ease-in-out;
+        transition: transform 0.2s ease-in-out;
         padding-top: $supi-grid-gutter-width * 0.5;
 
         & > * {
@@ -468,7 +469,8 @@
             }
           }
 
-          th, td {
+          th,
+          td {
             padding: 4px 8px;
           }
         }
@@ -489,23 +491,23 @@
         &:checked {
           & + label {
             background: #{map-get($supi-colors, success)};
-            box-shadow: inset 0 0 0 0 rgba(0, 0, 0, .2), 0 0 0 2px #{map-get($supi-colors, success)};
+            box-shadow: inset 0 0 0 0 rgba(0, 0, 0, 0.2), 0 0 0 2px #{map-get($supi-colors, success)};
 
             &:before {
               transform: translateX(20px);
-              box-shadow: 1px 1px rgba(0, 0, 0, .2), 0 0 0 2px #{map-get($supi-colors, success)};
+              box-shadow: 1px 1px rgba(0, 0, 0, 0.2), 0 0 0 2px #{map-get($supi-colors, success)};
             }
           }
 
           & + label svg {
-            transform: translate(-50%,-50%);
-            transition: .1s ease-in-out;
+            transform: translate(-50%, -50%);
+            transition: 0.1s ease-in-out;
           }
         }
 
         &:disabled {
           & + label {
-            opacity: .6;
+            opacity: 0.6;
           }
 
           & + label svg {
@@ -522,8 +524,8 @@
         height: 20px;
         border-radius: 20px;
         background: #f8f8f8;
-        box-shadow: inset 0 0 0 0 rgba(0, 0, 0, .2), 0 0 0 2px #ddd;
-        transition: .1s ease-in-out;
+        box-shadow: inset 0 0 0 0 rgba(0, 0, 0, 0.2), 0 0 0 2px #ddd;
+        transition: 0.1s ease-in-out;
         margin: 0;
         color: #{map-get($supi-colors, success)};
         color: var(--supi-color-keyhole);
@@ -535,8 +537,8 @@
           height: 20px;
           border-radius: 100%;
           background: #fff;
-          box-shadow: 1px 1px rgba(0, 0, 0, .2), 0 0 0 2px #ddd;
-          transition: .1s ease-in-out;
+          box-shadow: 1px 1px rgba(0, 0, 0, 0.2), 0 0 0 2px #ddd;
+          transition: 0.1s ease-in-out;
         }
       }
 
@@ -547,7 +549,7 @@
         top: 50%;
         right: 4px;
         transform: translate(-400%, -50%);
-        transition: .1s ease-in-out;
+        transition: 0.1s ease-in-out;
       }
     }
   }
@@ -556,7 +558,6 @@
     cursor: pointer;
   }
 }
-
 
 // Youtube element
 
@@ -570,7 +571,7 @@
     margin: 0 40px;
     padding: 40px 12px;
     width: 100%;
-    background: rgba(255, 255, 255, .7);
+    background: rgba(255, 255, 255, 0.7);
   }
 }
 
@@ -588,11 +589,11 @@
   }
 }
 
-input[id^="supi"] {
+input[id^='supi'] {
   outline: none;
 }
 
-.js-focus-visible input[id^="supi"] {
+.js-focus-visible input[id^='supi'] {
   outline: none;
 }
 
@@ -625,7 +626,7 @@ input[id^="supi"] {
       font-size: 16px;
 
       &:before {
-        content: "";
+        content: '';
         width: 8px;
         height: 8px;
         border-left: 2px solid map-get($supi-colors, primary);
@@ -634,19 +635,19 @@ input[id^="supi"] {
         top: 6px;
         left: -17px;
         transform: rotate(135deg);
-        transition: transform .2s ease-in-out;
+        transition: transform 0.2s ease-in-out;
         display: block;
       }
     }
 
-    &[aria-expanded=true] {
+    &[aria-expanded='true'] {
       &:before {
         transform: rotate(225deg);
       }
     }
   }
 
-  input[id^=supi] {
+  input[id^='supi'] {
     &:focus-visible + label {
       outline-offset: 3px;
       overflow: hidden;
@@ -656,7 +657,7 @@ input[id^="supi"] {
     }
   }
 
-  input[id^=supi] {
+  input[id^='supi'] {
     &.focus-visible + label {
       outline-offset: 3px;
       overflow: hidden;

@@ -1,28 +1,28 @@
 $supi-position: () !default;
 $supi-position: map-merge(
-    (
-      bottom: 15px,
-      left: 15px,
-    ),
-    $supi-position
+  (
+    bottom: 15px,
+    left: 15px,
+  ),
+  $supi-position
 );
 
 $supi-colors: () !default;
 $supi-colors: map-merge(
-    (
-      background: #fff,
-      primary: #000,
-      secondary: #ccc,
-      button-bar: #efefef,
-      success: #198754,
-      warning: red,
-      notice: #000,
-      underline: #6C757D,
+  (
+    background: #fff,
+    primary: #000,
+    secondary: #ccc,
+    button-bar: #efefef,
+    success: #198754,
+    warning: red,
+    notice: #000,
+    underline: #6c757d,
 
-      button-wrap-bgcolor: #efefef,
-      cookie-table-bgcolor: #F8F9FA,
-    ),
-    $supi-colors
+    button-wrap-bgcolor: #efefef,
+    cookie-table-bgcolor: #f8f9fa,
+  ),
+  $supi-colors
 );
 
 $supi-grid-gutter-width: 30px !default;
@@ -36,7 +36,7 @@ $supi-font-size-head: 1.5em !default;
 $supi-banner-box-padding: $supi-grid-gutter-width * 0.5 !default;
 $supi-banner-box-margin: $supi-grid-gutter-width * 0.5 !default;
 $supi-banner-box-border: 1px solid map-get($supi-colors, primary) !default;
-$supi-banner-box-shadow: 0 0 10px rgba(map-get($supi-colors, primary), .8) !default;
+$supi-banner-box-shadow: 0 0 10px rgba(map-get($supi-colors, primary), 0.8) !default;
 
 $supi-button-wrap-padding: $supi-grid-gutter-width * 0.5 !default;
 
@@ -47,9 +47,9 @@ $supi-breakpoints: (
 
 $supi-spacers: () !default;
 $supi-spacers: map-merge(
-      (
-        hg: $supi-grid-gutter-width * 0.5,
-        fg: $supi-grid-gutter-width,
-      ),
-    $supi-spacers
+  (
+    hg: $supi-grid-gutter-width * 0.5,
+    fg: $supi-grid-gutter-width,
+  ),
+  $supi-spacers
 );

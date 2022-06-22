@@ -1,8 +1,7 @@
-
-import { SupiElement } from "./Types";
+import { SupiElement } from './Types';
 
 export function findOne(selector: string, scope: SupiElement = null): SupiElement | null {
-    return (scope || document).querySelector(selector)
+    return (scope || document).querySelector(selector);
 }
 
 export function findAll(selector: string, scope: SupiElement = null): Array<SupiElement> {
@@ -18,8 +17,12 @@ if (!Array.from) {
         };
         var toInteger = function (value) {
             var number = Number(value);
-            if (isNaN(number)) { return 0; }
-            if (number === 0 || !isFinite(number)) { return number; }
+            if (isNaN(number)) {
+                return 0;
+            }
+            if (number === 0 || !isFinite(number)) {
+                return number;
+            }
             return (number > 0 ? 1 : -1) * Math.floor(Math.abs(number));
         };
         var maxSafeInteger = Math.pow(2, 53) - 1;
@@ -29,7 +32,7 @@ if (!Array.from) {
         };
 
         // The length property of the from method is 1.
-        return function from(arrayLike/*, mapFn, thisArg */) {
+        return function from(arrayLike /*, mapFn, thisArg */) {
             // 1. Let C be the this value.
             var C = this;
 
@@ -38,7 +41,7 @@ if (!Array.from) {
 
             // 3. ReturnIfAbrupt(items).
             if (arrayLike == null) {
-                throw new TypeError("Array.from requires an array-like object - not null or undefined");
+                throw new TypeError('Array.from requires an array-like object - not null or undefined');
             }
 
             // 4. If mapfn is undefined, then let mapping be false.
@@ -84,5 +87,5 @@ if (!Array.from) {
             // 20. Return A.
             return A;
         };
-    }());
+    })();
 }

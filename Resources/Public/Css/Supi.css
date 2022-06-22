@@ -358,7 +358,7 @@
   --supi-font-base-size: 16px;
   --supi-font-size: 1em;
   --supi-font-size-head: 1.5em;
-  --supi-color-underline: #6C757D;
+  --supi-color-underline: #6c757d;
   --supi-banner-border: 1px solid #000;
   --supi-banner-box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
   --supi-button-wrap-bgcolor: #efefef;
@@ -482,11 +482,13 @@
     border: var(--supi-banner-border);
   }
 }
-.tx-supi.theme-default #supi__description, .tx-supi.theme-default .elements {
+.tx-supi.theme-default #supi__description,
+.tx-supi.theme-default .elements {
   padding: 15px;
   padding: var(--supi-padding);
 }
-.tx-supi.theme-default h3, .tx-supi.theme-default .tx-supi__link-button {
+.tx-supi.theme-default h3,
+.tx-supi.theme-default .tx-supi__link-button {
   color: inherit;
 }
 .tx-supi.theme-default h3 {
@@ -802,7 +804,7 @@
 }
 .tx-supi__block-item__table-cookie {
   width: 100%;
-  background: #F8F9FA;
+  background: #f8f9fa;
   -webkit-box-shadow: 0px 0px 2px #00000040;
           box-shadow: 0px 0px 2px #00000040;
 }
@@ -818,7 +820,8 @@
             flex: 0 0 130px;
   }
 }
-.tx-supi__block-item__table-cookie th, .tx-supi__block-item__table-cookie td {
+.tx-supi__block-item__table-cookie th,
+.tx-supi__block-item__table-cookie td {
   padding: 4px 8px;
 }
 .tx-supi .supi-checkbox {
@@ -1039,7 +1042,7 @@ input[id^=supi] {
 .tx-supi__underline {
   border-bottom-width: 1px;
   border-bottom-style: solid;
-  border-bottom-color: #6C757D;
+  border-bottom-color: #6c757d;
   border-bottom-color: var(--supi-color-underline);
 }
 /*# sourceMappingURL=Supi.css.map */

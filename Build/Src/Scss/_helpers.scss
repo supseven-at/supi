@@ -4,7 +4,9 @@
 
     @each $prop, $abbrev in (margin: supi-m, padding: supi-p) {
       @each $size, $length in $supi-spacers {
-        .#{$abbrev}#{$infix}-#{$size} { #{$prop}: $length !important; }
+        .#{$abbrev}#{$infix}-#{$size} {
+          #{$prop}: $length !important;
+        }
         .#{$abbrev}t#{$infix}-#{$size},
         .#{$abbrev}y#{$infix}-#{$size} {
           #{$prop}-top: $length !important;
@@ -26,7 +28,9 @@
 
     @each $size, $length in $supi-spacers {
       @if $size != 0 {
-        .supi-m#{$infix}-n#{$size} { margin: -$length !important; }
+        .supi-m#{$infix}-n#{$size} {
+          margin: -$length !important;
+        }
         .supi-mt#{$infix}-n#{$size},
         .supi-my#{$infix}-n#{$size} {
           margin-top: -$length !important;
@@ -47,7 +51,9 @@
     }
 
     // Some special margin utils
-    .supi-m#{$infix}-auto { margin: auto !important; }
+    .supi-m#{$infix}-auto {
+      margin: auto !important;
+    }
     .supi-mt#{$infix}-auto,
     .supi-my#{$infix}-auto {
       margin-top: auto !important;
