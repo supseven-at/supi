@@ -92,7 +92,7 @@ export class Supi {
 
         const configSrc = this.root.getAttribute('data-supi-config');
         if (configSrc) {
-            this.config = <SupiOptions>JSON.parse(configSrc)
+            this.config = <SupiOptions>JSON.parse(configSrc);
         } else {
             this.config = <SupiOptions>{};
         }
@@ -124,7 +124,7 @@ export class Supi {
 
         Object.keys(this.config.elements).forEach((element: string) => {
             Object.keys(this.config.elements[element].items).forEach((item: string) => {
-                const serviceName = this.config?.elements[element]?.items[item]?.service ?? ""
+                const serviceName = this.config?.elements[element]?.items[item]?.service ?? '';
                 if (serviceName) {
                     this.services.push(serviceName);
                 }
@@ -293,14 +293,14 @@ export class Supi {
         // Add click handler for switching between overview and detailview
         findAll('[data-toggle=switch]')
             .filter((el: SupiElement) => {
-                return findOne(el?.dataset.switchFrom ?? "") && findOne(el?.dataset.switchTo ?? "");
+                return findOne(el?.dataset.switchFrom ?? '') && findOne(el?.dataset.switchTo ?? '');
             })
             .forEach((el: SupiElement) => {
                 el?.addEventListener('click', (e: Event) => {
-                    findOne(el?.dataset.switchFrom ?? "")?.classList.add('tx-supi__pane-hidden');
-                    findOne(el?.dataset.switchFrom ?? "")?.setAttribute('hidden', '');
-                    findOne(el?.dataset.switchTo ?? "")?.classList.remove('tx-supi__pane-hidden');
-                    findOne(el?.dataset.switchTo ?? "")?.removeAttribute('hidden');
+                    findOne(el?.dataset.switchFrom ?? '')?.classList.add('tx-supi__pane-hidden');
+                    findOne(el?.dataset.switchFrom ?? '')?.setAttribute('hidden', '');
+                    findOne(el?.dataset.switchTo ?? '')?.classList.remove('tx-supi__pane-hidden');
+                    findOne(el?.dataset.switchTo ?? '')?.removeAttribute('hidden');
 
                     if (el.dataset.inputs === 'disable' && this.allowed.length < 1) {
                         findAll('input[type=checkbox]').forEach((e: SupiElement) => {
@@ -318,7 +318,7 @@ export class Supi {
         // Simple hide/show toggle, like tabs
         findAll('[data-toggle=visibility]')
             .filter((el: SupiElement) => {
-                return !!findOne(el?.dataset.target ?? "");
+                return !!findOne(el?.dataset.target ?? '');
             })
             .forEach((el: SupiElement) => {
                 el?.addEventListener('click', (e: Event) => {
@@ -330,7 +330,7 @@ export class Supi {
                     } else {
                         el?.setAttribute('aria-expanded', 'false');
                     }
-                    let target = findOne(el?.dataset.target ?? "");
+                    let target = findOne(el?.dataset.target ?? '');
                     target?.classList.toggle('tx-supi__pane-hidden');
                     if (!target?.classList.contains('tx-supi__pane-hidden')) {
                         this.focusTrapElements = this.getFocusTrapElements();
@@ -346,18 +346,22 @@ export class Supi {
             .forEach((el: SupiElement) => {
                 el?.addEventListener('click', (e: Event) => {
                     if (el?.dataset.supiParent) {
-                        findAll('[data-supi-block=' + el.dataset.supiBlock + ']')
-                            .forEach(function (child: SupiElement) {
-                                if (!child?.dataset.supiParent) {
-                                    (child as HTMLInputElement).checked = (el as HTMLInputElement).checked;
-                                }
-                            });
+                        findAll('[data-supi-block=' + el.dataset.supiBlock + ']').forEach(function (
+                            child: SupiElement
+                        ) {
+                            if (!child?.dataset.supiParent) {
+                                (child as HTMLInputElement).checked = (el as HTMLInputElement).checked;
+                            }
+                        });
                     } else {
-                        const parent: HTMLInputElement = <HTMLInputElement>findOne('[data-supi-parent=' + el.dataset.supiBlock + ']');
-                        const children = findAll('[data-supi-block=' + el.dataset.supiBlock + ']')
-                            .filter(function (el: SupiElement) {
-                                return !!el?.dataset.supiItem;
-                            }) as Array<HTMLInputElement>
+                        const parent: HTMLInputElement = <HTMLInputElement>(
+                            findOne('[data-supi-parent=' + el.dataset.supiBlock + ']')
+                        );
+                        const children = findAll('[data-supi-block=' + el.dataset.supiBlock + ']').filter(function (
+                            el: SupiElement
+                        ) {
+                            return !!el?.dataset.supiItem;
+                        }) as Array<HTMLInputElement>;
 
                         if (parent && children.length) {
                             parent.checked = children.reduce(function (prev: boolean, el: HTMLInputElement) {
@@ -429,10 +433,10 @@ export class Supi {
         // Details accordion in banner overlay
         findAll('[data-toggle=supiDetails]').forEach((el: SupiElement) => {
             el?.addEventListener('click', (ev: Event) => {
-                const target = findOne(el?.dataset.target ?? "");
+                const target = findOne(el?.dataset.target ?? '');
 
                 if (target) {
-                    const exp = el?.getAttribute("aria-expanded") ?? "";
+                    const exp = el?.getAttribute('aria-expanded') ?? '';
                     this.log('aria-expanded before: ' + exp);
                     this.log('hidden before: ' + target?.hasAttribute('hidden'));
                     exp === 'false'
@@ -441,7 +445,7 @@ export class Supi {
                     target.hasAttribute('hidden')
                         ? target.removeAttribute('hidden')
                         : target.setAttribute('hidden', '');
-                    this.log('aria-expanded after: ' + el?.getAttribute("aria-expanded") ?? "");
+                    this.log('aria-expanded after: ' + el?.getAttribute('aria-expanded') ?? '');
                     this.log('hidden after: ' + target.hasAttribute('hidden'));
                 }
 
@@ -529,7 +533,7 @@ export class Supi {
                 el?.dataset.supiService != 'youtube' &&
                 el?.dataset.supiService != 'googleMaps'
             ) {
-                let allowed = this.allowAll || cookie.get(el?.dataset.supiService ?? "") == 'y';
+                let allowed = this.allowAll || cookie.get(el?.dataset.supiService ?? '') == 'y';
                 (el as HTMLInputElement).checked = allowed;
                 allowAllServices = allowed && allowAllServices;
             }
@@ -611,7 +615,10 @@ export class Supi {
                 this.services.forEach((serviceName: string) => cookie.set(serviceName, 'n'));
 
                 findAll('input[type=checkbox]', this.root)
-                    .filter((el: SupiElement) => (el as HTMLInputElement).checked || (parseInt(el?.dataset.supiRequired ?? "0") || 0) > 0)
+                    .filter(
+                        (el: SupiElement) =>
+                            (el as HTMLInputElement).checked || (parseInt(el?.dataset.supiRequired ?? '0') || 0) > 0
+                    )
                     .forEach((el: SupiElement) => {
                         if (el != null && el.dataset.supiService) {
                             switch (el.dataset.supiService) {
@@ -681,10 +688,14 @@ export class Supi {
     }
 
     private getFocusTrapElements(): SupiElement[] {
-        return findAll('a, button, *[tabindex], input[type=checkbox]:not([disabled])', this.banner)
-            .filter((element) => {
-                return element != null && (element.offsetWidth > 0 || element.offsetHeight > 0 || element.getClientRects().length > 0);
-            });
+        return findAll('a, button, *[tabindex], input[type=checkbox]:not([disabled])', this.banner).filter(
+            (element) => {
+                return (
+                    element != null &&
+                    (element.offsetWidth > 0 || element.offsetHeight > 0 || element.getClientRects().length > 0)
+                );
+            }
+        );
     }
 
     private removeNotAllowedCookies(): void {
