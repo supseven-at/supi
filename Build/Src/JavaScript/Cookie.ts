@@ -1,3 +1,8 @@
+type CookieData = {
+    [index: string]: any
+}
+
+
 export const cookie = new (class {
     private values: Map<string, any> = new Map();
 
@@ -7,6 +12,7 @@ export const cookie = new (class {
     private domain: string;
 
     constructor() {
+        this.domain = "";
         document.cookie.split('; ').forEach((cookie: string) => {
             let [name, value] = cookie.split('=');
 
@@ -58,9 +64,9 @@ export const cookie = new (class {
         this.persistTimeout = setTimeout(() => {
             this.persistTimeout = null;
             let expires = new Date();
-            let values = {};
+            let values: CookieData = {};
 
-            this.values.forEach((value, key) => {
+            this.values.forEach((value: any, key: string): void => {
                 values[key] = value;
             });
 
@@ -88,9 +94,11 @@ export const cookie = new (class {
 
     public getCookieNames(): Array<string> {
         return document.cookie
+            .toString()
             .split('; ')
-            .map((c: string): string => c.split('=').shift())
-            .filter((c: string): boolean => c !== 'supi');
+            // @ts-ignore
+            .map((c) => c.split('=').shift())
+            .filter((c): boolean => c !== 'supi') as Array<string>;
     }
 
     public purgeCookie(name: string): void {
