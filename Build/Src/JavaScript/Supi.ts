@@ -2,12 +2,15 @@ import { Mode, Status, SupiElement } from './Types';
 import { findAll, findOne } from './Dom';
 import { SupiOptions } from './Options';
 import { cookie } from './Cookie';
+import { ConsoleLogger, Logger, NullLogger } from './Logger';
 
 /**
  * Supseven User Privacy Interface Class
  * for GDPR Issues
  */
 export class Supi {
+    private logger: Logger;
+
     // Main wrapper around everything
     private root: SupiElement = null;
 
@@ -66,8 +69,6 @@ export class Supi {
 
     private allowMaps: boolean = false;
 
-    private readonly writeLog: boolean = false;
-
     private services: Array<string> = [];
 
     /**
@@ -97,9 +98,13 @@ export class Supi {
             this.config = <SupiOptions>{};
         }
 
-        this.writeLog = this.body.classList.contains(this.config?.debugClass ?? 'develop');
+        if (this.body.classList.contains(this.config?.debugClass ?? 'develop')) {
+            this.logger = new ConsoleLogger();
+        } else {
+            this.logger = new NullLogger();
+        }
 
-        this.log('Loaded config %o', this.config);
+        this.logger.info('Loaded config %o', this.config);
 
         this.ttlReduced = this.config?.cookieTTL?.reduced ?? this.ttlReduced;
         this.ttlAll = this.config?.cookieTTL?.all ?? this.ttlAll;
@@ -131,7 +136,7 @@ export class Supi {
             });
         });
 
-        this.log('Collected services %o', this.services);
+        this.logger.info('Collected services %o', this.services);
 
         const status = cookie.get(this.cookieNameStatus) as Status;
 
@@ -149,25 +154,29 @@ export class Supi {
             cookie.remove(this.cookieNameStatus);
 
             if (findOne('[data-hide-overlay="1"]')) {
-                this.log('Hides the Banner-Overlay due to the given Setting "hideOverlayOnButtonCe"', '', '');
+                this.logger.info('Hides the Banner-Overlay due to the given Setting "hideOverlayOnButtonCe"', '', '');
             } else {
                 this.toggleBanner();
             }
         }
 
-        this.log('Checking for yt cookie');
+        this.logger.info('Checking for yt cookie');
         this.allowYoutube =
             (cookie.get(this.cookieNameYoutube) as string) === 'y' ||
             this.allowAll ||
             (status == Status.Selected && this.config?.essentialIncludesYoutube);
-        this.log('Youtube cookie is "%o" resulting in %o', cookie.get(this.cookieNameYoutube), this.allowYoutube);
+        this.logger.info(
+            'Youtube cookie is "%o" resulting in %o',
+            cookie.get(this.cookieNameYoutube),
+            this.allowYoutube
+        );
         this.enableYoutubeVideos();
 
         this.allowMaps =
             cookie.get(this.cookieNameGoogleMaps) === 'y' ||
             this.allowAll ||
             (status == Status.Selected && this.config?.essentialIncludesMaps);
-        this.log('Maps cookie is "%o" resulting in %o', cookie.get(this.cookieNameGoogleMaps), this.allowMaps);
+        this.logger.info('Maps cookie is "%o" resulting in %o', cookie.get(this.cookieNameGoogleMaps), this.allowMaps);
         this.enableMaps();
 
         // add all click handlers to the buttons
@@ -192,9 +201,9 @@ export class Supi {
         // on click removes first all scripts and readds then
         // the scripts, after that the banner will be toggled
         findAll('[data-toggle=allow]', this.root).forEach((el: SupiElement) => {
-            this.log('Allow all on click on %o', el);
+            this.logger.info('Allow all on click on %o', el);
             el?.addEventListener('click', (e: Event) => {
-                this.log('Allow all was clicked, processing');
+                this.logger.info('Allow all was clicked, processing');
                 this.allowAll = true;
                 this.allowMaps = true;
                 this.allowYoutube = true;
@@ -272,7 +281,7 @@ export class Supi {
         // this click event simply opens the banner for
         // further interaction
         if (this.choose) {
-            this.log('Add main choose toggle to %o', this.choose);
+            this.logger.info('Add main choose toggle to %o', this.choose);
             this.choose.addEventListener('click', (e: Event) => {
                 e.preventDefault();
                 this.toggleBanner();
@@ -282,7 +291,7 @@ export class Supi {
         findAll('a, button')
             .filter((el: SupiElement) => el?.getAttribute('href') == '#supi-choose')
             .forEach((el: SupiElement) => {
-                this.log('Add choose toggle to %o', el);
+                this.logger.info('Add choose toggle to %o', el);
 
                 el?.addEventListener('click', (e: Event) => {
                     e.preventDefault();
@@ -376,16 +385,16 @@ export class Supi {
 
         // Enabling youtube videos on click
         findAll('.tx-supi__youtube').forEach((el: SupiElement) => {
-            this.log('Add listener to child of %o', el);
+            this.logger.info('Add listener to child of %o', el);
 
             el?.querySelector('[data-toggle=youtube]')?.addEventListener('click', () => {
-                this.log('Enabling all youtube elements');
+                this.logger.info('Enabling all youtube elements');
                 cookie.set(this.cookieNameYoutube, 'y');
                 this.toggleYoutubeVideos(el);
             });
 
             el?.querySelector('[data-toggle=youtube-once]')?.addEventListener('click', () => {
-                this.log('Enabling one youtube element: %o', el);
+                this.logger.info('Enabling one youtube element: %o', el);
                 this.toggleYoutubeVideos(el, true);
             });
         });
@@ -393,7 +402,7 @@ export class Supi {
         // Enabling maps on click
         findAll('.tx_supi__map').forEach((wrapper: SupiElement) => {
             const toggle = wrapper?.querySelector('[data-toggle=map]') as SupiElement;
-            this.log('Add listener to toggle %o for map %o', toggle, wrapper);
+            this.logger.info('Add listener to toggle %o for map %o', toggle, wrapper);
             toggle?.addEventListener('click', () => {
                 this.allowMaps = true;
                 cookie.set(this.cookieNameGoogleMaps, 'y');
@@ -403,16 +412,16 @@ export class Supi {
 
         // Enabling simpleMaps on click
         findAll('.tx-supi__simpleMaps').forEach((el: SupiElement) => {
-            this.log('Add listener to for simpleMap %o', el);
+            this.logger.info('Add listener to for simpleMap %o', el);
 
             el?.querySelector('[data-toggle=simpleMaps]')?.addEventListener('click', () => {
-                this.log('Enabling all simple google maps elements');
+                this.logger.info('Enabling all simple google maps elements');
                 cookie.set(this.cookieNameGoogleMaps, 'y');
                 this.toggleSimpleMaps(el);
             });
 
             el?.querySelector('[data-toggle=simpleMaps-once]')?.addEventListener('click', () => {
-                this.log('Enabling onr simple google maps elements');
+                this.logger.info('Enabling onr simple google maps elements');
                 this.toggleSimpleMaps(el, true);
             });
         });
@@ -423,7 +432,7 @@ export class Supi {
 
             if (serviceName) {
                 el?.querySelector('[data-toggle=supiServiceContainer]')?.addEventListener('click', () => {
-                    this.log('Enabling service ' + serviceName);
+                    this.logger.info('Enabling service ' + serviceName);
                     cookie.set(serviceName, 'y');
                     this.toggleService(serviceName);
                 });
@@ -437,16 +446,16 @@ export class Supi {
 
                 if (target) {
                     const exp = el?.getAttribute('aria-expanded') ?? '';
-                    this.log('aria-expanded before: ' + exp);
-                    this.log('hidden before: ' + target?.hasAttribute('hidden'));
+                    this.logger.info('aria-expanded before: ' + exp);
+                    this.logger.info('hidden before: ' + target?.hasAttribute('hidden'));
                     exp === 'false'
                         ? el.setAttribute('aria-expanded', 'true')
                         : el.setAttribute('aria-expanded', 'false');
                     target.hasAttribute('hidden')
                         ? target.removeAttribute('hidden')
                         : target.setAttribute('hidden', '');
-                    this.log('aria-expanded after: ' + el?.getAttribute('aria-expanded') ?? '');
-                    this.log('hidden after: ' + target.hasAttribute('hidden'));
+                    this.logger.info('aria-expanded after: ' + el?.getAttribute('aria-expanded') ?? '');
+                    this.logger.info('hidden after: ' + target.hasAttribute('hidden'));
                 }
 
                 ev.preventDefault();
@@ -700,7 +709,7 @@ export class Supi {
 
     private removeNotAllowedCookies(): void {
         // Remove previously set cookies
-        this.log(
+        this.logger.info(
             'Comparing currently set cookies %o with allowed %o, allow all is %o',
             cookie.getCookieNames(),
             this.allowed,
@@ -709,7 +718,7 @@ export class Supi {
 
         cookie.getCookieNames().forEach((cookieName: string) => {
             if (!this.allowAll && this.allowed.indexOf(cookieName) === -1) {
-                this.log('Removing cookie ' + cookieName);
+                this.logger.info('Removing cookie ' + cookieName);
                 cookie.purgeCookie(cookieName);
                 this.trigger('cookieDeleted', document.body, {
                     name: cookieName,
@@ -742,21 +751,21 @@ export class Supi {
                         parent.checked = false;
                     }
                 });
-                this.log('Set parent %o to %o', parent, parent.checked);
+                this.logger.info('Set parent %o to %o', parent, parent.checked);
             } else {
-                this.log('Check if all of parent values %s', parent.value, this.allowed);
+                this.logger.info('Check if all of parent values %s', parent.value, this.allowed);
                 parent.checked =
                     parent.disabled ||
                     this.allowAll ||
                     parent.value.split(',').reduce((prev: boolean, val: string) => {
-                        this.log('Checking value %s with prev of %o', val, prev);
+                        this.logger.info('Checking value %s with prev of %o', val, prev);
 
                         if (prev) {
                             val = val.replace(/\s+/g, '');
-                            this.log('Prev still true, checking if value %s is in %o', val, this.allowed);
+                            this.logger.info('Prev still true, checking if value %s is in %o', val, this.allowed);
 
                             if (val !== '' && this.allowed.indexOf(val) === -1) {
-                                this.log('Value %s is not in %o, setting to false', val, this.allowed);
+                                this.logger.info('Value %s is not in %o, setting to false', val, this.allowed);
                                 prev = false;
                             }
                         }
@@ -767,31 +776,25 @@ export class Supi {
         });
     }
 
-    private log(...values: any[]): void {
-        if (this.writeLog) {
-            console.log(...values);
-        }
-    }
-
     private enableYoutubeVideos(): void {
         if (this.allowYoutube) {
-            this.log('Enabling all videos, non autostart');
+            this.logger.info('Enabling all videos, non autostart');
             findAll('.tx-supi__youtube').forEach((el: SupiElement) => {
-                this.log('Enabling %o', el);
+                this.logger.info('Enabling %o', el);
                 this.addVideo(el as HTMLElement, '');
             });
         }
     }
 
     private toggleYoutubeVideos(autoplayEl: SupiElement, once: boolean = false): void {
-        this.log('Enabling youtube');
+        this.logger.info('Enabling youtube');
         this.allowYoutube = true;
-        this.log('Start video for %o', autoplayEl);
+        this.logger.info('Start video for %o', autoplayEl);
         this.addVideo(autoplayEl as HTMLElement, '&autoplay=1&mute=1');
 
         if (!once) {
             cookie.set(this.cookieNameYoutube, 'y');
-            this.log('Enabling other videos');
+            this.logger.info('Enabling other videos');
             this.enableYoutubeVideos();
         } else {
             this.allowYoutube = false;
@@ -800,7 +803,7 @@ export class Supi {
 
     private addVideo(el: HTMLElement, additionalParams: string): void {
         if (!this.allowYoutube) {
-            this.log('Youtube not enabled');
+            this.logger.info('Youtube not enabled');
             return;
         }
 
@@ -849,22 +852,22 @@ export class Supi {
 
     // simple iframe maps implementation
     private enableSimpleMaps() {
-        this.log('Enabling all simple maps implementations');
+        this.logger.info('Enabling all simple maps implementations');
         findAll('.tx-supi__simpleMaps').forEach((e: SupiElement) => {
             const el = e as HTMLElement;
-            this.log('Enabling %o', el);
+            this.logger.info('Enabling %o', el);
             this.addSimpleMap(el);
         });
     }
 
     private toggleSimpleMaps(el: SupiElement, once: boolean = false): void {
-        this.log('Enabling Simple Maps');
+        this.logger.info('Enabling Simple Maps');
         this.allowMaps = true;
         this.addSimpleMap(el as HTMLElement);
 
         if (!once) {
             cookie.set(this.cookieNameGoogleMaps, 'y');
-            this.log('Enabling all maps');
+            this.logger.info('Enabling all maps');
             this.enableSimpleMaps();
         } else {
             this.allowMaps = false;
@@ -873,7 +876,7 @@ export class Supi {
 
     private addSimpleMap(el: HTMLElement): void {
         if (!this.allowMaps) {
-            this.log('Google Maps not enabled');
+            this.logger.info('Google Maps not enabled');
             return;
         }
 
@@ -898,7 +901,7 @@ export class Supi {
 
     private toggleService(serviceName: string): void {
         if (cookie.get(serviceName) == 'y' || this.allowAll) {
-            this.log('Enabling service %o', serviceName);
+            this.logger.info('Enabling service %o', serviceName);
 
             findAll('[data-supi-service-container=' + serviceName + ']').forEach((e: SupiElement): void => {
                 const el = e as HTMLElement;
@@ -907,7 +910,7 @@ export class Supi {
                 const attr = el.dataset.supiServiceAttr;
 
                 if (el.dataset.supiServiceType === 'callback') {
-                    this.log('Executing service %s callback %s', serviceName, el.dataset.supiServiceCallback);
+                    this.logger.info('Executing service %s callback %s', serviceName, el.dataset.supiServiceCallback);
                     setTimeout(() => {
                         try {
                             const func = el.dataset.supiServiceCallback;
@@ -918,7 +921,7 @@ export class Supi {
                                 service: serviceName,
                             });
                         } catch (e) {
-                            this.log('Cannot call service callback %s: %s', el.dataset.supiServiceCallback, e);
+                            this.logger.info('Cannot call service callback %s: %s', el.dataset.supiServiceCallback, e);
                             this.trigger('serviceCallbackError', parent as HTMLElement, {
                                 newEl: newEl,
                                 service: serviceName,
@@ -931,7 +934,7 @@ export class Supi {
                     return;
                 }
 
-                this.log('Enable element %o of service %o', el, serviceName);
+                this.logger.info('Enable element %o of service %o', el, serviceName);
 
                 switch (el.dataset.supiServiceType) {
                     case 'script':
@@ -958,14 +961,14 @@ export class Supi {
                     try {
                         for (const [name, value] of Object.entries(JSON.parse(attr))) {
                             newEl.setAttribute(name, value + '');
-                            this.log('Setting property %s to %s', name, value);
+                            this.logger.info('Setting property %s to %s', name, value);
                         }
                     } catch (e) {
-                        this.log(e);
+                        this.logger.error(e);
                     }
                 }
 
-                this.log('Replacing %o with %o', el, newEl);
+                this.logger.info('Replacing %o with %o', el, newEl);
 
                 parent?.replaceChild(newEl, el);
 
@@ -978,7 +981,7 @@ export class Supi {
     }
 
     private trigger(name: string, el: HTMLElement, detail: Object | null): void {
-        this.log('Trigger event %s on element %o', name, el);
+        this.logger.info('Trigger event %s on element %o', name, el);
         let event = new CustomEvent(name, {
             bubbles: true,
             cancelable: true,
