@@ -398,6 +398,7 @@ tt_content.tx_supi_embed {
     dataProcessing {
         10 = Supseven\Supi\DataProcessing\TyposcriptProcessor
         10.path = plugin.tx_supi.settings
+        20 = Supseven\Supi\DataProcessing\ServicesProcessor
     }
 }
 
