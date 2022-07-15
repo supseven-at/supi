@@ -114,7 +114,13 @@ class BannerRenderer extends AbstractPlugin
     {
         if ($this->cObj && $this->dataProcessing) {
             $conf = ['dataProcessing.' => $this->dataProcessing];
-            $out = $this->dataProcessor->process($this->cObj, $conf, $this->configuration);
+            $data = $this->configuration;
+
+            if (empty($data['data'])) {
+                $data['data'] = $this->cObj->data;
+            }
+
+            $out = $this->dataProcessor->process($this->cObj, $conf, $data);
             $this->configuration['settings'] = $out['settings'];
             $this->configuration['data'] = $out['data'];
         }
