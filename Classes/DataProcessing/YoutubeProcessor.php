@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Supseven\Supi\DataProcessing;
 
+use TYPO3\CMS\Core\Resource\FileReference;
 use TYPO3\CMS\Core\Resource\ResourceFactory;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
@@ -64,7 +65,7 @@ class YoutubeProcessor implements DataProcessorInterface
 
         foreach ($processedData[$referencesField] ?? [] as $reference) {
             $videoId = $reference->getContents();
-            $video = $this->getVideo($videoId);
+            $video = $this->getVideo($videoId, $reference);
 
             if ($video) {
                 $videos[] = $video;
@@ -103,7 +104,7 @@ class YoutubeProcessor implements DataProcessorInterface
      * @param $videoId
      * @return array|null
      */
-    protected function getVideo($videoId): ?array
+    protected function getVideo($videoId, ?FileReference $reference = null): ?array
     {
         $fileId = '/user_upload/youtube_' . md5($videoId) . '.jpg';
         $fileName = $this->fileadmin . $fileId;
@@ -131,9 +132,10 @@ class YoutubeProcessor implements DataProcessorInterface
         if (file_exists($fileName)) {
             $file = $this->storage->getFile($fileId);
             $video = [
-                'preview' => $file,
-                'id'      => $videoId,
-                'url'     => str_replace('{id}', $videoId, $this->embedUrl),
+                'reference' => $reference,
+                'preview'   => $file,
+                'id'        => $videoId,
+                'url'       => str_replace('{id}', $videoId, $this->embedUrl),
             ];
         }
 

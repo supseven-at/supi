@@ -31,9 +31,10 @@ class YoutubeProcessorTest extends TestCase
         $expected = array_merge($processedData, [
             'videos' => [
                 [
-                    'preview' => $preview,
-                    'id'      => $id,
-                    'url'     => $embedUrl . $id,
+                    'reference' => $ref,
+                    'preview'   => $preview,
+                    'id'        => $id,
+                    'url'       => $embedUrl . $id,
                 ]
             ],
         ]);
@@ -58,9 +59,10 @@ class YoutubeProcessorTest extends TestCase
         $expected = [
             'videos' => [
                 [
-                    'preview' => $preview,
-                    'id'      => $id,
-                    'url'     => $embedUrl . $id,
+                    'reference' => null,
+                    'preview'   => $preview,
+                    'id'        => $id,
+                    'url'       => $embedUrl . $id,
                 ],
             ],
         ];
@@ -85,9 +87,10 @@ class YoutubeProcessorTest extends TestCase
         $expected = [
             'videos' => [
                 [
-                    'preview' => $preview,
-                    'id'      => $id,
-                    'url'     => $embedUrl . $id,
+                    'reference' => null,
+                    'preview'   => $preview,
+                    'id'        => $id,
+                    'url'       => $embedUrl . $id,
                 ],
             ],
         ];
