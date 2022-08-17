@@ -486,7 +486,6 @@ export class Supi {
             })
             .forEach((template) => {
                 const script = <HTMLScriptElement>document.createElement('script');
-                script.type = 'text/javascript';
                 script.className = 'supi-scripts';
                 script.dataset.supiCookies = template.dataset.supiCookies;
                 script.innerHTML = template.innerHTML;
@@ -939,7 +938,6 @@ export class Supi {
                 switch (el.dataset.supiServiceType) {
                     case 'script':
                         newEl = document.createElement('script');
-                        (newEl as HTMLScriptElement).type = 'text/javascript';
                         (newEl as HTMLScriptElement).async = true;
                         (newEl as HTMLScriptElement).defer = true;
                         break;
