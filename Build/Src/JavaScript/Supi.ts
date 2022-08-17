@@ -9,7 +9,7 @@ import { ConsoleLogger, Logger, NullLogger } from './Logger';
  * for GDPR Issues
  */
 export class Supi {
-    private logger: Logger;
+    private logger: Logger = new NullLogger();
 
     // Main wrapper around everything
     private root: SupiElement = null;
