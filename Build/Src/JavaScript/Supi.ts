@@ -136,6 +136,8 @@ export class Supi {
             });
         });
 
+        this.trigger('supiInitStart', this.body, {});
+
         this.logger.info('Collected services %o', this.services);
 
         const status = cookie.get(this.cookieNameStatus) as Status;
@@ -184,6 +186,10 @@ export class Supi {
         this.setDetailDefaults();
 
         this.toggleAllServices();
+
+        setTimeout(() => {
+            this.trigger('supiInitEnd', this.body, {});
+        }, 180);
     }
 
     private toggleAllServices(): void {
