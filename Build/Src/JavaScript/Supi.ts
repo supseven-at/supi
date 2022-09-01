@@ -783,7 +783,7 @@ export class Supi {
 
     private enableYoutubeVideos(): void {
         if (this.allowYoutube) {
-            this.trigger("youTubeAllowedGlobal", document.documentElement, {});
+            this.trigger('youTubeAllowedGlobal', document.documentElement, {});
             this.logger.info('Enabling all videos, non autostart');
             findAll('.tx-supi__youtube').forEach((el: SupiElement) => {
                 this.logger.info('Enabling %o', el);
