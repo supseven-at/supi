@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.2" xmlns:t3="http://typo3.org/schemas/xliff" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+ <file source-language="en" target-language="es" original="" datatype="plaintext" date="2022-09-19T14:30:06+02:00">
+  <body>
+   <trans-unit id="banner.button.allow.label" resname="banner.button.allow.label">
+    <source>Allow all cookies</source>
+    <target>Aceptar todas las cookies</target>
+   </trans-unit>
+   <trans-unit id="banner.button.allow.text" resname="banner.button.allow.text">
+    <source>Allow all cookies</source>
+    <target>Aceptar todas las cookies</target>
+   </trans-unit>
+   <trans-unit id="banner.button.dismiss.label" resname="banner.button.dismiss.label">
+    <source>Allow only required cookies</source>
+    <target>Aceptar sólo cookies necesarias</target>
+   </trans-unit>
+   <trans-unit id="banner.button.dismiss.text" resname="banner.button.dismiss.text">
+    <source>Allow only required cookies</source>
+    <target>Aceptar sólo cookies necesarias</target>
+   </trans-unit>
+   <trans-unit id="banner.button.individual.text" resname="banner.button.individual.text">
+    <source>Individual Cookie-Preferences</source>
+    <target>Configurar cookies</target>
+   </trans-unit>
+   <trans-unit id="banner.button.save.label" resname="banner.button.save.label">
+    <source>Save preferences</source>
+    <target>Guardar ajustes</target>
+   </trans-unit>
+   <trans-unit id="banner.button.save.text" resname="banner.button.save.text">
+    <source>Save preferences</source>
+    <target>Guardar ajustes</target>
+   </trans-unit>
+   <trans-unit id="banner.button.switch.label" resname="banner.button.switch.label">
+    <source>Cookie-Preferences</source>
+    <target>Configurar cookies</target>
+   </trans-unit>
+   <trans-unit id="banner.button.switch.text" resname="banner.button.switch.text">
+    <source>Cookie-Preferences</source>
+    <target>Configurar cookies</target>
+   </trans-unit>
+   <trans-unit id="banner.content.headline" resname="banner.content.headline">
+    <source>This website uses cookies</source>
+    <target>Este sitio web utiliza cookies</target>
+   </trans-unit>
+   <trans-unit id="banner.cookie.essential.label" resname="banner.cookie.essential.label">
+    <source>Required Cookies</source>
+    <target>Cookies necesarias</target>
+   </trans-unit>
+   <trans-unit id="banner.gdpr.name" resname="banner.gdpr.name">
+    <source>privacy policy</source>
+    <target>política de privacidad</target>
+   </trans-unit>
+   <trans-unit id="banner.provider.company" resname="banner.provider.company">
+    <source>Provider</source>
+    <target>Proveedor</target>
+   </trans-unit>
+   <trans-unit id="banner.provider.duration" resname="banner.provider.duration">
+    <source>Expires after</source>
+    <target>Expira después de</target>
+   </trans-unit>
+   <trans-unit id="banner.provider.name" resname="banner.provider.name">
+    <source>Name</source>
+    <target>Nombre</target>
+   </trans-unit>
+   <trans-unit id="banner.provider.policy" resname="banner.provider.policy">
+    <source>Privacy Policy</source>
+    <target>Política de privacidad</target>
+   </trans-unit>
+   <trans-unit id="banner.provider.purpose" resname="banner.provider.purpose">
+    <source>Purpose</source>
+    <target>Objetivo</target>
+   </trans-unit>
+  </body>
+ </file>
+</xliff>
