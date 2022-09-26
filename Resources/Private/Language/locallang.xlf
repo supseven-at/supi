@@ -189,10 +189,10 @@
     <source>During loading, data will be transmitted to Google.</source>
    </trans-unit>
    <trans-unit id="plugin.button.label" resname="plugin.button.label">
-    <source>Change current cookie settings</source>
+    <source>Change current privacy settings</source>
    </trans-unit>
    <trans-unit id="plugin.button.text" resname="plugin.button.text">
-    <source>Change current cookie settings</source>
+    <source>Change current privacy settings</source>
    </trans-unit>
    <trans-unit id="youtube.button" resname="youtube.button">
     <source>Play Video</source>

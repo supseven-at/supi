@@ -219,12 +219,12 @@
     <target>Während des Ladens werden Daten zu Google übertragen.</target>
    </trans-unit>
    <trans-unit id="plugin.button.label" resname="plugin.button.label">
-    <source>Change current cookie settings</source>
-    <target>Aktuelle Cookie Einstellung ändern</target>
+    <source>Change current privacy settings</source>
+    <target>Datenschutz-Einstellungen ändern</target>
    </trans-unit>
    <trans-unit id="plugin.button.text" resname="plugin.button.text">
-    <source>Change current cookie settings</source>
-    <target>Aktuelle Cookie Einstellung ändern</target>
+    <source>Change current privacy settings</source>
+    <target>Datenschutz-Einstellungen ändern</target>
    </trans-unit>
    <trans-unit id="youtube.button" resname="youtube.button">
     <source>Play Video</source>
