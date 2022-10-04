@@ -1,0 +1,2 @@
+.. figure:: /Images/FlushCache.png
+   :class: with-shadow

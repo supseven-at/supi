@@ -1,0 +1,2 @@
+.. figure:: /Images/EssentialItems.png
+   :class: with-shadow
