@@ -188,7 +188,7 @@ export class Supi {
         this.toggleAllServices();
 
         setTimeout(() => {
-            this.trigger('supiInitEnd', this.body, {});
+            this.trigger('supiInitEnd', this.body as HTMLElement, {});
         }, 180);
     }
 
