@@ -90,7 +90,7 @@ export const cookie = new (class {
         let expires = new Date();
         const ttl = 3600 * 24 * 1000;
         expires.setTime(expires.getTime() - ttl);
-        this.setCookie(name, "x", expires);
+        this.setCookie(name, 'x', expires);
     }
 
     private setCookie(name: string, value: string, expires: Date): void {
