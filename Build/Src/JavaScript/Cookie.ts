@@ -71,23 +71,7 @@ export const cookie = new (class {
 
             const ttl = this.lifetime * 24 * 60 * 60 * 1000;
             expires.setTime(expires.getTime() + ttl);
-
-            let c = `supi=${encodeURIComponent(JSON.stringify(values))}; expires=${expires.toUTCString()}; path=/`;
-
-            if (this.domain) {
-                c += `; Domain=${this.domain}`;
-            }
-
-            // @ts-ignore
-            if (!window.MSInputMethodContext && !document.documentMode) {
-                c += '; SameSite=Lax';
-
-                if (location.protocol == 'https:') {
-                    c += '; Secure';
-                }
-            }
-
-            document.cookie = c;
+            this.setCookie('supi', encodeURIComponent(JSON.stringify(values)), expires);
         }, 20);
     }
 
@@ -106,7 +90,26 @@ export const cookie = new (class {
         let expires = new Date();
         const ttl = 3600 * 24 * 1000;
         expires.setTime(expires.getTime() - ttl);
-        document.cookie = `${name}=x; expires=${expires.toUTCString()}; path=/; SameSite=Strict`;
+        this.setCookie(name, "x", expires);
+    }
+
+    private setCookie(name: string, value: string, expires: Date): void {
+        let c = `${name}=${value}; expires=${expires.toUTCString()}; path=/`;
+
+        if (this.domain) {
+            c += `; Domain=${this.domain}`;
+        }
+
+        // @ts-ignore
+        if (!window.MSInputMethodContext && !document.documentMode) {
+            c += '; SameSite=Lax';
+
+            if (location.protocol == 'https:') {
+                c += '; Secure';
+            }
+        }
+
+        document.cookie = c;
     }
 
     useDomain(domain: string) {
