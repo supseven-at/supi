@@ -306,6 +306,17 @@ plugin.tx_supi {
             enableDescription = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:ce.spotify.enable.description
             enableToggle = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:ce.spotify.enable.toggle
         }
+
+        youtube {
+            breakpoints {
+                0 {
+                    media = min-width
+                    size = 320
+                    maxWidth = 320
+                    cropVariant = xs
+                }
+            }
+        }
     }
 }
 

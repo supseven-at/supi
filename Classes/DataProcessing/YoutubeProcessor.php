@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Supseven\Supi\DataProcessing;
 
 use TYPO3\CMS\Core\Resource\FileReference;
+use TYPO3\CMS\Core\Resource\FileRepository;
 use TYPO3\CMS\Core\Resource\ResourceFactory;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
@@ -39,10 +40,15 @@ class YoutubeProcessor implements DataProcessorInterface
     private $storage;
 
     /**
+     * @var FileRepository
+     */
+    private $fileRepository;
+
+    /**
      * @param string $fileadmin
      * @param \TYPO3\CMS\Core\Resource\ResourceStorage $storage
      */
-    public function __construct(string $fileadmin = null, \TYPO3\CMS\Core\Resource\ResourceStorage $storage = null, string $downloadUrl = '', string $embedUrl = '')
+    public function __construct(string $fileadmin = null, \TYPO3\CMS\Core\Resource\ResourceStorage $storage = null, string $downloadUrl = '', string $embedUrl = '', $fileRepository = null)
     {
         if (!$fileadmin) {
             if (class_exists('TYPO3\CMS\Core\Core\Environment')) {
@@ -56,6 +62,7 @@ class YoutubeProcessor implements DataProcessorInterface
         $this->fileadmin = $fileadmin;
         $this->downloadUrl = $downloadUrl ?: 'https://img.youtube.com/vi/{id}/{file}';
         $this->embedUrl = $embedUrl ?: 'https://www.youtube-nocookie.com/embed/{id}';
+        $this->fileRepository = $fileRepository ?? GeneralUtility::makeInstance(FileRepository::class);
     }
 
     public function process(ContentObjectRenderer $cObj, array $contentObjectConfiguration, array $processorConfiguration, array $processedData)
@@ -109,36 +116,42 @@ class YoutubeProcessor implements DataProcessorInterface
         $fileId = '/user_upload/youtube_' . md5($videoId) . '.jpg';
         $fileName = $this->fileadmin . $fileId;
         $video = null;
+        $fileObjects = null;
 
-        if (!file_exists($fileName)) {
-            $tryNames = ['maxresdefault.jpg', 'mqdefault.jpg', '0.jpg'];
+        if ($reference->getProperty('tx_supi_video_cover') > 0) {
+            $fileObjects = $this->fileRepository->findByRelation('sys_file_reference', 'tx_supi_video_cover', $reference->getUid())[0] ?? null;
+        }
 
-            foreach ($tryNames as $tryName) {
-                $previewUrl = str_replace(
-                    ['{id}', '{file}'],
-                    [$videoId, $tryName],
-                    $this->downloadUrl
-                );
-                $previewImage = GeneralUtility::getUrl($previewUrl);
+        if (!$fileObjects) {
+            if (!file_exists($fileName)) {
+                $tryNames = ['maxresdefault.jpg', 'mqdefault.jpg', '0.jpg'];
 
-                if ($previewImage) {
-                    GeneralUtility::mkdir_deep(dirname($fileName));
-                    GeneralUtility::writeFile($fileName, $previewImage, true);
-                    break;
+                foreach ($tryNames as $tryName) {
+                    $previewUrl = str_replace(
+                        ['{id}', '{file}'],
+                        [$videoId, $tryName],
+                        $this->downloadUrl
+                    );
+                    $previewImage = GeneralUtility::getUrl($previewUrl);
+
+                    if ($previewImage) {
+                        GeneralUtility::mkdir_deep(dirname($fileName));
+                        GeneralUtility::writeFile($fileName, $previewImage, true);
+                        break;
+                    }
                 }
+            }
+
+            if (file_exists($fileName)) {
+                $file = $this->storage->getFile($fileId);
             }
         }
 
-        if (file_exists($fileName)) {
-            $file = $this->storage->getFile($fileId);
-            $video = [
-                'reference' => $reference,
-                'preview'   => $file,
-                'id'        => $videoId,
-                'url'       => str_replace('{id}', $videoId, $this->embedUrl),
-            ];
-        }
-
-        return $video;
+        return [
+            'reference' => $reference,
+            'preview'   => $fileObjects ?? $file,
+            'id'        => $videoId,
+            'url'       => str_replace('{id}', $videoId, $this->embedUrl),
+        ];
     }
 }

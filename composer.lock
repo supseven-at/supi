@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ec78457772699553993b2a7db0733b62",
+    "content-hash": "903110855650914b865aaffc3009484c",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -1158,6 +1158,57 @@
                 }
             ],
             "time": "2022-06-09T08:26:02+00:00"
+        },
+        {
+            "name": "josefglatz/cropvariantsbuilder",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/josefglatz/cropvariantsbuilder.git",
+                "reference": "f0a9383354d404538523a2cd5f9373964af9fc50"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/josefglatz/cropvariantsbuilder/zipball/f0a9383354d404538523a2cd5f9373964af9fc50",
+                "reference": "f0a9383354d404538523a2cd5f9373964af9fc50",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.4.1",
+                "typo3/cms-core": "^10.4 || ^11.5 || dev-main"
+            },
+            "replace": {
+                "typo3-ter/cropvariantsbuilder": "self.version"
+            },
+            "default-branch": true,
+            "type": "typo3-cms-extension",
+            "extra": {
+                "typo3/cms": {
+                    "extension-key": "cropvariantsbuilder"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "JosefGlatz\\CropVariantsBuilder\\": "Classes/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "description": "Simplify writing cropVariants for TYPO3 Integrators/Developers",
+            "keywords": [
+                "cropvariant",
+                "cropvariants",
+                "extension",
+                "imagemanipulation",
+                "typo3"
+            ],
+            "support": {
+                "issues": "https://github.com/josefglatz/cropvariantsbuilder/issues",
+                "source": "https://github.com/josefglatz/cropvariantsbuilder/tree/master"
+            },
+            "time": "2022-11-08T13:26:45+00:00"
         },
         {
             "name": "lolli42/finediff",
@@ -7583,7 +7634,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "josefglatz/cropvariantsbuilder": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
