@@ -267,6 +267,10 @@ plugin.tx_supi {
         }
 
         button {
+            individual {
+                text = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.button.individual.text
+            }
+            
             allow {
                 label = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.button.allow.label
                 text = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.button.allow.text
