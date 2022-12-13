@@ -1,0 +1,5 @@
+.. figure:: /Images/EnableSimpleMapsOnceFalse.png
+   :class: with-shadow
+
+.. figure:: /Images/EnableSimpleMapsOnceTrue.png
+   :class: with-shadow

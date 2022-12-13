@@ -13,3 +13,5 @@ Resources/Public/JavaScript/*.map
 /composer.list
 /.phpunit.result.cache
 /auth.json
+
+Documentation-GENERATED-temp
