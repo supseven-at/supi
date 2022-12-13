@@ -8,6 +8,7 @@ use org\bovigo\vfs\vfsStream;
 use Supseven\Supi\DataProcessing\YoutubeProcessor;
 use PHPUnit\Framework\TestCase;
 use TYPO3\CMS\Core\Resource\FileReference;
+use TYPO3\CMS\Core\Resource\FileRepository;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
 /**
@@ -19,13 +20,14 @@ class YoutubeProcessorTest extends TestCase
     {
         list($id, $root, $previewUrl, $storage, $fileadmin, $cObj, $embedUrl, $preview) = $this->createShared();
 
+        $fileRepo = $this->createMock(FileRepository::class);
         $ref = $this->createMock(FileReference::class);
         $ref->expects(static::any())->method('getContents')->willReturn($id);
         $refencesField = 'assets';
         $config['referencesField'] = $refencesField;
         $processedData = [$refencesField => [$ref]];
 
-        $subject = new YoutubeProcessor($fileadmin, $storage, $previewUrl, $embedUrl . '{id}');
+        $subject = new YoutubeProcessor($fileadmin, $storage, $previewUrl, $embedUrl . '{id}', $fileRepo);
         $actual = $subject->process($cObj, [], $config, $processedData);
 
         $expected = array_merge($processedData, [
@@ -47,13 +49,14 @@ class YoutubeProcessorTest extends TestCase
     {
         list($id, $root, $previewUrl, $storage, $fileadmin, $cObj, $embedUrl, $preview) = $this->createShared();
 
+        $fileRepo = $this->createMock(FileRepository::class);
         $ref = $this->createMock(FileReference::class);
         $ref->expects(static::any())->method('getContents')->willReturn($id);
         $idsField = 'yt_ids';
         $config['idsField'] = $idsField;
         $cObj->data[$idsField] = $id;
 
-        $subject = new YoutubeProcessor($fileadmin, $storage, $previewUrl, $embedUrl . '{id}');
+        $subject = new YoutubeProcessor($fileadmin, $storage, $previewUrl, $embedUrl . '{id}', $fileRepo);
         $actual = $subject->process($cObj, [], $config, []);
 
         $expected = [
@@ -75,13 +78,14 @@ class YoutubeProcessorTest extends TestCase
     {
         list($id, $root, $previewUrl, $storage, $fileadmin, $cObj, $embedUrl, $preview) = $this->createShared();
 
+        $fileRepo = $this->createMock(FileRepository::class);
         $ref = $this->createMock(FileReference::class);
         $ref->expects(static::any())->method('getContents')->willReturn($id);
         $urlsField = 'yt_urls';
         $config['urlsField'] = $urlsField;
         $cObj->data[$urlsField] = 'https://www.youtube.com/embed/' . $id;
 
-        $subject = new YoutubeProcessor($fileadmin, $storage, $previewUrl, $embedUrl . '{id}');
+        $subject = new YoutubeProcessor($fileadmin, $storage, $previewUrl, $embedUrl . '{id}', $fileRepo);
         $actual = $subject->process($cObj, [], $config, []);
 
         $expected = [
