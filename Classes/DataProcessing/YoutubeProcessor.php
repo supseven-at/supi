@@ -118,7 +118,7 @@ class YoutubeProcessor implements DataProcessorInterface
         $video = null;
         $fileObjects = null;
 
-        if ($reference->getProperty('tx_supi_video_cover') > 0) {
+        if ($reference && $reference->getProperty('tx_supi_video_cover') > 0) {
             $fileObjects = $this->fileRepository->findByRelation('sys_file_reference', 'tx_supi_video_cover', $reference->getUid())[0] ?? null;
         }
 

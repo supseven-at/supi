@@ -1,0 +1,5 @@
+.. figure:: /Images/EnableYoutubeOnceFalse.png
+   :class: with-shadow
+
+.. figure:: /Images/EnableYoutubeOnceTrue.png
+   :class: with-shadow

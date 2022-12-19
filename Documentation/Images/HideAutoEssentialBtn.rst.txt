@@ -1,0 +1,5 @@
+.. figure:: /Images/HideAutoEssentialBtnTrue.png
+   :class: with-shadow
+
+.. figure:: /Images/HideAutoEssentialBtnFalse.png
+   :class: with-shadow

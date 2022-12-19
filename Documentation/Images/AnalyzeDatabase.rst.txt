@@ -1,0 +1,2 @@
+.. figure:: /Images/AnalyzeDatabase.png
+   :class: with-shadow
