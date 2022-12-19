@@ -1,192 +1,158 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.2" xmlns:t3="http://typo3.org/schemas/xliff" xmlns="urn:oasis:names:tc:xliff:document:1.2">
-	<file source-language="en" original="" datatype="plaintext" date="2022-12-19T14:10:29+01:00">
+	<file source-language="en" target-language="ko" original="" datatype="plaintext" date="2022-12-19T14:10:29+01:00">
 		<body>
 			<trans-unit id="banner.button.allow.label" resname="banner.button.allow.label">
 				<source>Accept all</source>
+				<target>모든것을 받아 들인다</target>
 			</trans-unit>
 			<trans-unit id="banner.button.allow.text" resname="banner.button.allow.text">
 				<source>Accept all</source>
+				<target>모든것을 받아 들인다</target>
 			</trans-unit>
 			<trans-unit id="banner.button.dismiss.label" resname="banner.button.dismiss.label">
 				<source>Decline all</source>
+				<target>모두 거부</target>
 			</trans-unit>
 			<trans-unit id="banner.button.dismiss.text" resname="banner.button.dismiss.text">
 				<source>Allow only required cookies</source>
+				<target>필수 쿠키만 허용</target>
 			</trans-unit>
 			<trans-unit id="banner.button.individual.text" resname="banner.button.individual.text">
 				<source>Individual settings</source>
+				<target>개별 설정</target>
 			</trans-unit>
 			<trans-unit id="banner.button.save.label" resname="banner.button.save.label">
 				<source>Save preferences</source>
+				<target>환경 설정 저장</target>
 			</trans-unit>
 			<trans-unit id="banner.button.save.text" resname="banner.button.save.text">
 				<source>Save preferences</source>
+				<target>환경 설정 저장</target>
 			</trans-unit>
 			<trans-unit id="banner.button.switch.label" resname="banner.button.switch.label">
 				<source>Cookie-Preferences</source>
+				<target>쿠키 기본 설정</target>
 			</trans-unit>
 			<trans-unit id="banner.button.switch.text" resname="banner.button.switch.text">
 				<source>Cookie-Preferences</source>
+				<target>쿠키 기본 설정</target>
 			</trans-unit>
 			<trans-unit id="banner.content.headline" resname="banner.content.headline">
 				<source>Your privacy settings</source>
+				<target>개인 정보 설정</target>
 			</trans-unit>
 			<trans-unit id="banner.content.text" resname="banner.content.text">
 				<source>&lt;p&gt;We use cookies to adapt the website to your needs and to offer special features to you. By using our website, you agree to it.&lt;/p&gt;&lt;p&gt;Further information on cookies can be found in our &lt;a href=&#34;%s&#34; target=&#34;_blank&#34;&gt;%s&lt;/a&gt;.&lt;/p&gt;&lt;p&gt;Click on „Cookie-Preferences“ to change the cookie settings manually.&lt;/p&gt;</source>
-			</trans-unit>
-			<trans-unit id="banner.cookie.AMP_TOKEN.purpose" resname="banner.cookie.AMP_TOKEN.purpose">
-				<source>Contains a token that can be used to retrieve a Client ID from AMP Client ID service. Other possible values indicate opt-out, inflight request or an error retrieving a Client ID from AMP Client ID service.</source>
+				<target>&lt;p&gt;우리는 쿠키를 사용하여 웹사이트를 귀하의 필요에 맞게 조정된 특별한 기능을 제공합니다. 당사 웹사이트를 사용함으로써 귀하는 이에 동의하는 것입니다.&lt;/p&gt;&lt;p&gt;쿠키에 대한 추가 정보는 당사의 개인정보 보호정책에서 확인할 수 있습니다.&lt;/p&gt;&lt;p&gt;쿠키 설정을 수동으로 변경하려면 &#34;쿠키 기본 설정&#34;을 클릭하십시오.&lt;/p&gt;</target>
 			</trans-unit>
 			<trans-unit id="banner.cookie.PHPSESSID.purpose" resname="banner.cookie.PHPSESSID.purpose">
 				<source>PHP standard session identification.</source>
-			</trans-unit>
-			<trans-unit id="banner.cookie._dc_gtm_XXX.purpose" resname="banner.cookie._dc_gtm_XXX.purpose">
-				<source>Used by Google Tag Manager to control the loading of a Google Analytics script tag.</source>
-			</trans-unit>
-			<trans-unit id="banner.cookie._fbp.purpose" resname="banner.cookie._fbp.purpose">
-				<source>The Facebook cookie is used to distinguish users.</source>
+				<target>PHP 표준 세션 식별.</target>
 			</trans-unit>
 			<trans-unit id="banner.cookie._ga.purpose" resname="banner.cookie._ga.purpose">
 				<source>Used to distinguish users.</source>
+				<target>사용자를 구별하기 위해 사용합니다.</target>
 			</trans-unit>
 			<trans-unit id="banner.cookie._ga_XXX.purpose" resname="banner.cookie._ga_XXX.purpose">
 				<source>Used to distinguish users.</source>
-			</trans-unit>
-			<trans-unit id="banner.cookie._gac_XXX.purpose" resname="banner.cookie._gac_XXX.purpose">
-				<source>Contains Google Ads campaign related information for the user.</source>
-			</trans-unit>
-			<trans-unit id="banner.cookie._gac_gb_XXX.purpose" resname="banner.cookie._gac_gb_XXX.purpose">
-				<source>Contains Google Ads campaign related information for the user.</source>
+				<target>사용자를 구별하기 위해 사용합니다.</target>
 			</trans-unit>
 			<trans-unit id="banner.cookie._gat.purpose" resname="banner.cookie._gat.purpose">
 				<source>Used to throttle request rate.</source>
+				<target>요청 속도를 조절하는 데 사용됩니다.</target>
 			</trans-unit>
 			<trans-unit id="banner.cookie._gid.purpose" resname="banner.cookie._gid.purpose">
 				<source>Used to distinguish users.</source>
-			</trans-unit>
-			<trans-unit id="banner.cookie.be_lastLoginProvider.purpose" resname="banner.cookie.be_lastLoginProvider.purpose">
-				<source>Contains the ID of the TYPO3 backend login provider used.</source>
-			</trans-unit>
-			<trans-unit id="banner.cookie.be_typo_user.purpose" resname="banner.cookie.be_typo_user.purpose">
-				<source>This cookie tells TYPO3 whether the visitor is logged into the TYPO3 backend and which backend user it is.</source>
+				<target>사용자를 구별하기 위해 사용합니다.</target>
 			</trans-unit>
 			<trans-unit id="banner.cookie.duration.90days" resname="banner.cookie.duration.90days">
 				<source>90 days</source>
+				<target>90 일</target>
 			</trans-unit>
 			<trans-unit id="banner.cookie.duration.AMP_TOKEN" resname="banner.cookie.duration.AMP_TOKEN">
 				<source>30 seconds to 1 year</source>
+				<target>30초 ~ 1년</target>
 			</trans-unit>
 			<trans-unit id="banner.cookie.duration.session" resname="banner.cookie.duration.session">
 				<source>until session end</source>
+				<target>세션 종료까지</target>
 			</trans-unit>
 			<trans-unit id="banner.cookie.duration.supi" resname="banner.cookie.duration.supi">
 				<source>7 to 30 days</source>
+				<target>7~30 일</target>
 			</trans-unit>
 			<trans-unit id="banner.cookie.essential.label" resname="banner.cookie.essential.label">
 				<source>Required Cookies</source>
+				<target>필수 쿠키</target>
 			</trans-unit>
 			<trans-unit id="banner.cookie.essential.session.label" resname="banner.cookie.essential.session.label">
 				<source>User session</source>
+				<target>사용자 세션</target>
 			</trans-unit>
 			<trans-unit id="banner.cookie.essential.status.label" resname="banner.cookie.essential.status.label">
 				<source>Cookie settings</source>
-			</trans-unit>
-			<trans-unit id="banner.cookie.essential.text" resname="banner.cookie.essential.text">
-				<source>Click on &#34;Allow all Cookies&#34;, to accept all types of cookies or click on &#34;Decline all&#34; to allow only those cookies that are essential to the operation and function of the website.</source>
-			</trans-unit>
-			<trans-unit id="banner.cookie.fe_typo_user.purpose" resname="banner.cookie.fe_typo_user.purpose">
-				<source>This cookie tells TYPO3 all the information to personalize the website (e.g. login, forms, etc.).</source>
-			</trans-unit>
-			<trans-unit id="banner.cookie.marketing.fb.label" resname="banner.cookie.marketing.fb.label">
-				<source>Facebook</source>
-			</trans-unit>
-			<trans-unit id="banner.cookie.marketing.ga.label" resname="banner.cookie.marketing.ga.label">
-				<source>Google Analytics</source>
+				<target>쿠키 설정</target>
 			</trans-unit>
 			<trans-unit id="banner.cookie.marketing.label" resname="banner.cookie.marketing.label">
 				<source>Marketing &amp; Analytics</source>
-			</trans-unit>
-			<trans-unit id="banner.cookie.marketing.text" resname="banner.cookie.marketing.text">
-				<source>User analytics and embeded social media functions.</source>
-			</trans-unit>
-			<trans-unit id="banner.cookie.media.googleMaps.label" resname="banner.cookie.media.googleMaps.label">
-				<source>Google Maps</source>
+				<target>마케팅 &amp; 분석</target>
 			</trans-unit>
 			<trans-unit id="banner.cookie.media.label" resname="banner.cookie.media.label">
 				<source>Media Providers</source>
-			</trans-unit>
-			<trans-unit id="banner.cookie.media.spotify.label" resname="banner.cookie.media.spotify.label">
-				<source>Spotify</source>
-			</trans-unit>
-			<trans-unit id="banner.cookie.media.text" resname="banner.cookie.media.text">
-				<source>External services for the display of media content and interactive elements.</source>
-			</trans-unit>
-			<trans-unit id="banner.cookie.media.youtube.label" resname="banner.cookie.media.youtube.label">
-				<source>Youtube</source>
+				<target>미디어 제공업체</target>
 			</trans-unit>
 			<trans-unit id="banner.cookie.session.company" resname="banner.cookie.session.company">
 				<source>Website Operator</source>
-			</trans-unit>
-			<trans-unit id="banner.cookie.session.name" resname="banner.cookie.session.name">
-				<source>TYPO3 cookies</source>
+				<target>웹사이트 운영자</target>
 			</trans-unit>
 			<trans-unit id="banner.cookie.supi.name" resname="banner.cookie.supi.name">
 				<source>Data protection cookie</source>
+				<target>데이터 보호 쿠키</target>
 			</trans-unit>
 			<trans-unit id="banner.cookie.supi.purpose" resname="banner.cookie.supi.purpose">
 				<source>Selected settings for cookies and embeded services.</source>
-			</trans-unit>
-			<trans-unit id="banner.cookie.typo3.purpose" resname="banner.cookie.typo3.purpose">
-				<source>Individual behaviour during session</source>
+				<target>쿠키 및 내장형 서비스에 대해 선택된 설정.</target>
 			</trans-unit>
 			<trans-unit id="banner.detail.text" resname="banner.detail.text">
 				<source>Enable and disable individual cookies. Required cookies cannot be disabled.</source>
-			</trans-unit>
-			<trans-unit id="banner.gdpr.name" resname="banner.gdpr.name">
-				<source>Privacy policy</source>
+				<target>개별 쿠키를 활성화 및 비활성화합니다. 필수 쿠키는 비활성화할 수 없습니다.</target>
 			</trans-unit>
 			<trans-unit id="banner.provider.company" resname="banner.provider.company">
 				<source>Provider</source>
-			</trans-unit>
-			<trans-unit id="banner.provider.cookie" resname="banner.provider.cookie">
-				<source>Cookie</source>
+				<target>공급자</target>
 			</trans-unit>
 			<trans-unit id="banner.provider.duration" resname="banner.provider.duration">
 				<source>Expires after</source>
+				<target>만료일</target>
 			</trans-unit>
 			<trans-unit id="banner.provider.name" resname="banner.provider.name">
 				<source>Name</source>
+				<target>이름</target>
 			</trans-unit>
 			<trans-unit id="banner.provider.policy" resname="banner.provider.policy">
 				<source>Privacy Policy</source>
+				<target>개인 정보 정책</target>
 			</trans-unit>
 			<trans-unit id="banner.provider.purpose" resname="banner.provider.purpose">
 				<source>Purpose</source>
-			</trans-unit>
-			<trans-unit id="banner.provider.type" resname="banner.provider.type">
-				<source>Data type</source>
-			</trans-unit>
-			<trans-unit id="map.button" resname="map.button">
-				<source>Load Maps</source>
-			</trans-unit>
-			<trans-unit id="map.text" resname="map.text">
-				<source>During loading, data will be transmitted to Google.</source>
+				<target>목적</target>
 			</trans-unit>
 			<trans-unit id="plugin.button.label" resname="plugin.button.label">
 				<source>Change current cookie settings</source>
+				<target>현재 쿠키 설정 변경</target>
 			</trans-unit>
 			<trans-unit id="plugin.button.text" resname="plugin.button.text">
 				<source>Change current cookie settings</source>
+				<target>현재 쿠키 설정 변경</target>
 			</trans-unit>
 			<trans-unit id="youtube.button" resname="youtube.button">
 				<source>Play Video</source>
-			</trans-unit>
-			<trans-unit id="youtube.button.once" resname="youtube.button.once">
-				<source>Play only this video</source>
+				<target>동영상 재생</target>
 			</trans-unit>
 			<trans-unit id="youtube.text" resname="youtube.text">
 				<source>This content is provided by YouTube. If you activate the content, personal data may be processed and cookies set.</source>
+				<target>이 콘텐츠는 YouTube에서 제공합니다. 콘텐츠를 활성화하면 개인 데이터가 처리되고 쿠키가 설정될 수 있습니다.</target>
 			</trans-unit>
 		</body>
 	</file>
