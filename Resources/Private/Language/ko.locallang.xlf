@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.2" xmlns:t3="http://typo3.org/schemas/xliff" xmlns="urn:oasis:names:tc:xliff:document:1.2">
-	<file source-language="en" target-language="ko" original="" datatype="plaintext" date="2022-12-19T14:10:29+01:00">
+	<file source-language="en" target-language="ko" original="" datatype="plaintext" date="2023-01-30T12:19:38+01:00">
 		<body>
 			<trans-unit id="banner.button.allow.label" resname="banner.button.allow.label">
 				<source>Accept all</source>
@@ -50,6 +50,30 @@
 				<source>PHP standard session identification.</source>
 				<target>PHP 표준 세션 식별.</target>
 			</trans-unit>
+			<trans-unit id="banner.cookie.__ctmid.purpose" resname="banner.cookie.__ctmid.purpose">
+				<source>The Call Tracking Metrics tracking code will remember the original source the visitor came from and will continue to show them the tracking number associated to that source.</source>
+				<target>Call Tracking Metrics 추적 코드는 방문자의 원래 소스를 기억하고 해당 소스와 연결된 추적 번호를 계속 표시합니다.</target>
+			</trans-unit>
+			<trans-unit id="banner.cookie.__utma.purpose" resname="banner.cookie.__utma.purpose">
+				<source>Used to distinguish users and sessions.</source>
+				<target>사용자와 세션을 구분하기 위해 사용합니다.</target>
+			</trans-unit>
+			<trans-unit id="banner.cookie.__utmb.purpose" resname="banner.cookie.__utmb.purpose">
+				<source>Used to determine new sessions/visits.</source>
+				<target>새로운 세션/방문을 결정하는 데 사용됩니다.</target>
+			</trans-unit>
+			<trans-unit id="banner.cookie.__utmc.purpose" resname="banner.cookie.__utmc.purpose">
+				<source>Used to keep track of website sessions.</source>
+				<target>웹사이트 세션을 추적하는 데 사용됩니다.</target>
+			</trans-unit>
+			<trans-unit id="banner.cookie.__utmt.purpose" resname="banner.cookie.__utmt.purpose">
+				<source>Used to throttle request rate.</source>
+				<target>요청 속도를 조절하는 데 사용됩니다.</target>
+			</trans-unit>
+			<trans-unit id="banner.cookie.__utmz.purpose" resname="banner.cookie.__utmz.purpose">
+				<source>Used to determine the traffic source, medium, campaign name and campaign term which delivered the user to the website.</source>
+				<target>사용자를 웹사이트로 인도한 트래픽 소스, 매체, 캠페인 이름 및 캠페인 용어를 결정하는 데 사용됩니다.</target>
+			</trans-unit>
 			<trans-unit id="banner.cookie._ga.purpose" resname="banner.cookie._ga.purpose">
 				<source>Used to distinguish users.</source>
 				<target>사용자를 구별하기 위해 사용합니다.</target>
@@ -65,6 +89,46 @@
 			<trans-unit id="banner.cookie._gid.purpose" resname="banner.cookie._gid.purpose">
 				<source>Used to distinguish users.</source>
 				<target>사용자를 구별하기 위해 사용합니다.</target>
+			</trans-unit>
+			<trans-unit id="banner.cookie.duration.13months" resname="banner.cookie.duration.13months">
+				<source>13 months</source>
+				<target>13 달</target>
+			</trans-unit>
+			<trans-unit id="banner.cookie.duration.18months" resname="banner.cookie.duration.18months">
+				<source>18 months</source>
+				<target>18 달</target>
+			</trans-unit>
+			<trans-unit id="banner.cookie.duration.1day" resname="banner.cookie.duration.1day">
+				<source>1 day</source>
+				<target>1 일</target>
+			</trans-unit>
+			<trans-unit id="banner.cookie.duration.1minute" resname="banner.cookie.duration.1minute">
+				<source>1 minute</source>
+				<target>1 분</target>
+			</trans-unit>
+			<trans-unit id="banner.cookie.duration.1year" resname="banner.cookie.duration.1year">
+				<source>1 year</source>
+				<target>1 anni</target>
+			</trans-unit>
+			<trans-unit id="banner.cookie.duration.290days" resname="banner.cookie.duration.290days">
+				<source>290 days</source>
+				<target>290 일</target>
+			</trans-unit>
+			<trans-unit id="banner.cookie.duration.2years" resname="banner.cookie.duration.2years">
+				<source>2 years</source>
+				<target>2 anni</target>
+			</trans-unit>
+			<trans-unit id="banner.cookie.duration.30minutes" resname="banner.cookie.duration.30minutes">
+				<source>30 minutes</source>
+				<target>30 분</target>
+			</trans-unit>
+			<trans-unit id="banner.cookie.duration.3months" resname="banner.cookie.duration.3months">
+				<source>3 months</source>
+				<target>3 달</target>
+			</trans-unit>
+			<trans-unit id="banner.cookie.duration.6months" resname="banner.cookie.duration.6months">
+				<source>6 months</source>
+				<target>6 달</target>
 			</trans-unit>
 			<trans-unit id="banner.cookie.duration.90days" resname="banner.cookie.duration.90days">
 				<source>90 days</source>
@@ -145,6 +209,18 @@
 			<trans-unit id="plugin.button.text" resname="plugin.button.text">
 				<source>Change current cookie settings</source>
 				<target>현재 쿠키 설정 변경</target>
+			</trans-unit>
+			<trans-unit id="sage.button" resname="sage.button">
+				<source>Show content</source>
+				<target>콘텐츠 표시</target>
+			</trans-unit>
+			<trans-unit id="sage.text" resname="sage.text">
+				<source>&lt;p&gt;For the use of this service, prior consent to the processing of your data and in particular to the setting of cookies is necessary. You can consent to the processing and setting of cookies &lt;a href=&#34;#supi-choose&#34; target=&#34;_self&#34; class=&#34;rtelinkblackarr&#34;&gt;here&lt;/a&gt;. Without your consent, your data will not be processed in connection with this service and no cookies will be set. You can revoke your consent at any time. For more information on cookies and the processing of your data in connection with this content and a way to revoke your consent, please see our &lt;a href=&#34;%s&#34; target=&#34;_blank&#34;&gt;%s&lt;/a&gt;&lt;/p&gt;</source>
+				<target>이 서비스를 사용하려면 데이터 처리, 특히 쿠키 설정에 대한 사전 동의가 필요합니다. 여기에서 쿠키 처리 및 설정에 동의할 수 있습니다. 귀하의 동의 없이는 이 서비스와 관련하여 귀하의 데이터가 처리되지 않으며 쿠키가 설정되지 않습니다. 귀하는 언제든지 동의를 철회할 수 있습니다. 쿠키 및 이 콘텐츠와 관련된 귀하의 데이터 처리 및 귀하의 동의를 철회하는 방법에 대한 자세한 내용은 당사의 개인정보 보호정책을 참조하십시오.</target>
+			</trans-unit>
+			<trans-unit id="wiffme.text" resname="wiffme.text">
+				<source>&lt;p&gt;For the use of this service, prior consent to the processing of your data and in particular to the setting of cookies is necessary. You can consent to the processing and setting of cookies &lt;a href=&#34;#supi-choose&#34; target=&#34;_self&#34; class=&#34;rtelinkblackarr&#34;&gt;here&lt;/a&gt;. Without your consent, your data will not be processed in connection with this service and no cookies will be set. You can revoke your consent at any time. For more information on cookies and the processing of your data in connection with this content and a way to revoke your consent, please see our &lt;a href=&#34;%s&#34; target=&#34;_blank&#34;&gt;%s&lt;/a&gt;&lt;/p&gt;</source>
+				<target>이 서비스를 사용하려면 데이터 처리, 특히 쿠키 설정에 대한 사전 동의가 필요합니다. 여기에서 쿠키 처리 및 설정에 동의할 수 있습니다. 귀하의 동의 없이는 이 서비스와 관련하여 귀하의 데이터가 처리되지 않으며 쿠키가 설정되지 않습니다. 귀하는 언제든지 동의를 철회할 수 있습니다. 쿠키 및 이 콘텐츠와 관련된 귀하의 데이터 처리 및 귀하의 동의를 철회하는 방법에 대한 자세한 내용은 당사의 개인정보 보호정책을 참조하십시오.</target>
 			</trans-unit>
 			<trans-unit id="youtube.button" resname="youtube.button">
 				<source>Play Video</source>
