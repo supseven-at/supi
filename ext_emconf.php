@@ -3,7 +3,7 @@
 $EM_CONF[$_EXTKEY] = [
     'title'            => 'Super User Privacy Interface',
     'description'      => 'Cookie Consent popout, easy, yet powerful',
-    'version'          => '6.1.14',
+    'version'          => '6.1.16',
     'state'            => 'stable',
     'category'         => 'misc',
     'clearCacheOnLoad' => 0,
