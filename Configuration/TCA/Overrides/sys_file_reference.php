@@ -44,14 +44,16 @@ declare(strict_types=1);
         'after:autoplay'
     );
 
-    \JosefGlatz\CropVariantsBuilder\Builder::getInstance($table, 'tx_supi_video_cover')
-        ->disableDefaultCropVariants()
-        ->addCropVariant(
-            \JosefGlatz\CropVariantsBuilder\CropVariant::create('xs')
-                ->addAllowedAspectRatios(\JosefGlatz\CropVariantsBuilder\Defaults\AspectRatio::get(['16:9']))
-                ->setCropArea(\JosefGlatz\CropVariantsBuilder\Defaults\CropArea::get())
-                ->get()
-        )
-        ->persistToTca();
+    if (\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('cropvariantsbuilder')) {
+        \JosefGlatz\CropVariantsBuilder\Builder::getInstance($table, 'tx_supi_video_cover')
+            ->disableDefaultCropVariants()
+            ->addCropVariant(
+                \JosefGlatz\CropVariantsBuilder\CropVariant::create('xs')
+                    ->addAllowedAspectRatios(\JosefGlatz\CropVariantsBuilder\Defaults\AspectRatio::get(['16:9']))
+                    ->setCropArea(\JosefGlatz\CropVariantsBuilder\Defaults\CropArea::get())
+                    ->get()
+            )
+            ->persistToTca();
+    }
 
 })('supi', 'sys_file_reference', 'tx_supi_youtube');
