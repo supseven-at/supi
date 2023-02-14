@@ -990,8 +990,33 @@ export class Supi {
         let event = new CustomEvent(name, {
             bubbles: true,
             cancelable: true,
-            detail: detail || {},
+            detail: this.addDetailsForEvents(detail),
         });
         el.dispatchEvent(event);
+    }
+
+    private addDetailsForEvents(detail: Object | null): Object {
+        if (!detail) {
+            detail = {};
+        }
+
+        findAll('[data-supi-service-container]').forEach((e: SupiElement): void => {
+            const serviceName = e?.dataset.supiServiceContainer || null;
+            const cookieValue = cookie.get(serviceName || '') || null;
+
+            if (serviceName && cookieValue) {
+                // @ts-ignore
+                detail[serviceName] = this.allowAll ? 'y' : cookieValue;
+            }
+
+            // @ts-ignore
+            detail['allowAll'] = this.allowAll;
+            // @ts-ignore
+            detail['allowMaps'] = this.allowMaps;
+            // @ts-ignore
+            detail['allowYoutube'] = this.allowYoutube;
+        });
+
+        return detail;
     }
 }

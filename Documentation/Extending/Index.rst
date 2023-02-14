@@ -7,6 +7,7 @@ you can extend the behaviour using some javascript events.
 
 .. code-block:: javascript
 
+    // you have now service and cookie state in the event.detail object available
     document.getElementById('myElement').addEventListener('supiInitStart', (event) => {
        alert("supi init done);
     });

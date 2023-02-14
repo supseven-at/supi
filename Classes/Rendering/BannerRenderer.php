@@ -165,6 +165,7 @@ class BannerRenderer extends AbstractPlugin
                 $elements['detail'],
                 $elements['gdpr'],
                 $elements['spotify'],
+                $elements['youtube'],
                 $elements['button']
             );
         }
