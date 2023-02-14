@@ -10,9 +10,6 @@
             "typo3/cms-composer-installers": true
         }
     },
-    "replace": {
-        "supseven/supi": "self.version"
-    },
     "suggest": {
         "josefglatz/cropvariantsbuilder": "^1"
     },
