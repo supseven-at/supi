@@ -1,243 +1,395 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.2" xmlns:t3="http://typo3.org/schemas/xliff" xmlns="urn:oasis:names:tc:xliff:document:1.2">
- <file source-language="en" target-language="de" original="" datatype="plaintext" date="2022-09-19T14:30:06+02:00">
-  <body>
-   <trans-unit id="banner.button.allow.label" resname="banner.button.allow.label">
-    <source>Allow all cookies</source>
-    <target>Alle Cookies erlauben</target>
-   </trans-unit>
-   <trans-unit id="banner.button.allow.text" resname="banner.button.allow.text">
-    <source>Allow all cookies</source>
-    <target>Alle Cookies erlauben</target>
-   </trans-unit>
-   <trans-unit id="banner.button.dismiss.label" resname="banner.button.dismiss.label">
-    <source>Allow only required cookies</source>
-    <target>Nur erforderliche Cookies erlauben</target>
-   </trans-unit>
-   <trans-unit id="banner.button.dismiss.text" resname="banner.button.dismiss.text">
-    <source>Allow only required cookies</source>
-    <target>Nur erforderliche Cookies erlauben</target>
-   </trans-unit>
-   <trans-unit id="banner.button.individual.text" resname="banner.button.individual.text">
-    <source>Individual Cookie-Preferences</source>
-    <target>Individuelle Cookie-Einstellungen</target>
-   </trans-unit>
-   <trans-unit id="banner.button.save.label" resname="banner.button.save.label">
-    <source>Save preferences</source>
-    <target>Einstellungen Speichern</target>
-   </trans-unit>
-   <trans-unit id="banner.button.save.text" resname="banner.button.save.text">
-    <source>Save preferences</source>
-    <target>Einstellungen Speichern</target>
-   </trans-unit>
-   <trans-unit id="banner.button.switch.label" resname="banner.button.switch.label">
-    <source>Cookie-Preferences</source>
-    <target>Cookie-Einstellungen</target>
-   </trans-unit>
-   <trans-unit id="banner.button.switch.text" resname="banner.button.switch.text">
-    <source>Cookie-Preferences</source>
-    <target>Cookie-Einstellungen</target>
-   </trans-unit>
-   <trans-unit id="banner.content.headline" resname="banner.content.headline">
-    <source>This website uses cookies</source>
-    <target>Diese Webseite verwendet Cookies</target>
-   </trans-unit>
-   <trans-unit id="banner.content.text" resname="banner.content.text">
-    <source>&lt;p&gt;We use cookies to adapt the website to your needs and to offer special features to you. By using our website, you agree to it.&lt;/p&gt;&#xA;&lt;p&gt;Further information on cookies can be found in our &lt;a href=&#34;%s&#34; target=&#34;_blank&#34;&gt;%s&lt;/a&gt;.&lt;/p&gt;</source>
-    <target>&lt;p&gt;Wir verwenden Cookies, um die Website Ihren Bedürfnissen anzupassen bzw. um Ihnen spezielle Funktionen anbieten zu können. Durch die Nutzung unserer Website erklären Sie sich damit einverstanden.&lt;/p&gt;&#xA;&lt;p&gt;Weitere Informationen zu Cookies erhalten Sie in unserer &lt;a href=&#34;%s&#34; target=&#34;_blank&#34;&gt;%s&lt;/a&gt;.&lt;/p&gt;</target>
-   </trans-unit>
-   <trans-unit id="banner.cookie.AMP_TOKEN.purpose" resname="banner.cookie.AMP_TOKEN.purpose">
-    <source>Contains a token that can be used to retrieve a Client ID from AMP Client ID service. Other possible values indicate opt-out, inflight request or an error retrieving a Client ID from AMP Client ID service.</source>
-    <target>Enthält einen Token für einen AMP Client ID service. Kann außerdem andere AMP relevante Werte enthalten, wie Opt-out, oder Fehler Informationen.</target>
-   </trans-unit>
-   <trans-unit id="banner.cookie.PHPSESSID.purpose" resname="banner.cookie.PHPSESSID.purpose">
-    <source>-</source>
-    <target>PHPs Standard Sitzungsidentifikation</target>
-   </trans-unit>
-   <trans-unit id="banner.cookie._dc_gtm_XXX.purpose" resname="banner.cookie._dc_gtm_XXX.purpose">
-    <source>-</source>
-    <target>Wird von Google Tag Manager verwendet, um das Laden eines Google Analytics-Skript-Tags zu steuern.</target>
-   </trans-unit>
-   <trans-unit id="banner.cookie._fbp.purpose" resname="banner.cookie._fbp.purpose">
-    <source>Used to distinguish users.</source>
-    <target>Um Besuche auf Websites zu speichern und zu verfolgen.</target>
-   </trans-unit>
-   <trans-unit id="banner.cookie._ga.purpose" resname="banner.cookie._ga.purpose">
-    <source>Used to distinguish users.</source>
-    <target>Registriert eine eindeutige ID, um statistische Daten über die Nutzung der Website durch den Besucher zu generieren. </target>
-   </trans-unit>
-   <trans-unit id="banner.cookie._ga_XXX.purpose" resname="banner.cookie._ga_XXX.purpose">
-    <source>Used to persist session state.</source>
-    <target>Zur Weiterführung einer Benutzersitzung</target>
-   </trans-unit>
-   <trans-unit id="banner.cookie._gac_XXX.purpose" resname="banner.cookie._gac_XXX.purpose">
-    <source>Contains Google Ads campaign related information for the user.</source>
-    <target>Enthält Google Ads Informationen über Kampagnen, spezifisch für einzelne Benutzer.</target>
-   </trans-unit>
-   <trans-unit id="banner.cookie._gac_gb_XXX.purpose" resname="banner.cookie._gac_gb_XXX.purpose">
-    <source>Contains Google Ads campaign related information for the user.</source>
-    <target>Enthält Google Ads Informationen über Kampagnen, spezifisch für einzelne Benutzer.</target>
-   </trans-unit>
-   <trans-unit id="banner.cookie._gat.purpose" resname="banner.cookie._gat.purpose">
-    <source>Used to throttle request rate.</source>
-    <target>Wird von Google Analytics verwendet, um die Anforderungsrate zu drosseln.</target>
-   </trans-unit>
-   <trans-unit id="banner.cookie._gid.purpose" resname="banner.cookie._gid.purpose">
-    <source>Used to distinguish users.</source>
-    <target>Registriert eine eindeutige ID, um statistische Daten über die Nutzung der Website durch den Besucher zu generieren.</target>
-   </trans-unit>
-   <trans-unit id="banner.cookie.be_lastLoginProvider.purpose" resname="banner.cookie.be_lastLoginProvider.purpose">
-    <source>-</source>
-    <target>Enthält die ID des verwendeten TYPO3 Backend Login Providers</target>
-   </trans-unit>
-   <trans-unit id="banner.cookie.be_typo_user.purpose" resname="banner.cookie.be_typo_user.purpose">
-    <source>-</source>
-    <target>Dieser Cookie teilt TYPO3 mit, ob der Besucher im TYPO3-Backend angemeldet und um welchen Backend-Benutzer es sich handelt.</target>
-   </trans-unit>
-   <trans-unit id="banner.cookie.duration.1day" resname="banner.cookie.duration.1day">
-    <source>24 hours</source>
-    <target>24 Stunden</target>
-   </trans-unit>
-   <trans-unit id="banner.cookie.duration.1minute" resname="banner.cookie.duration.1minute">
-    <source>1 minute</source>
-    <target>1 Minute</target>
-   </trans-unit>
-   <trans-unit id="banner.cookie.duration.2years" resname="banner.cookie.duration.2years">
-    <source>2 years</source>
-    <target>2 Jahre</target>
-   </trans-unit>
-   <trans-unit id="banner.cookie.duration.3months" resname="banner.cookie.duration.3months">
-    <source>3 months</source>
-    <target>3 Monate</target>
-   </trans-unit>
-   <trans-unit id="banner.cookie.duration.90days" resname="banner.cookie.duration.90days">
-    <source>90 days</source>
-    <target>90 Tage</target>
-   </trans-unit>
-   <trans-unit id="banner.cookie.duration.AMP_TOKEN" resname="banner.cookie.duration.AMP_TOKEN">
-    <source>30 seconds to 1 year</source>
-    <target>zwischen 30 Sekunden und 1 Jahr</target>
-   </trans-unit>
-   <trans-unit id="banner.cookie.duration.session" resname="banner.cookie.duration.session">
-    <source>until session end</source>
-    <target>Ende der Sitzung</target>
-   </trans-unit>
-   <trans-unit id="banner.cookie.duration.supi" resname="banner.cookie.duration.supi">
-    <source>7 to 30 days</source>
-    <target>7 bis 30 Tage</target>
-   </trans-unit>
-   <trans-unit id="banner.cookie.essential.label" resname="banner.cookie.essential.label">
-    <source>Required Cookies</source>
-    <target>Erforderliche Cookies</target>
-   </trans-unit>
-   <trans-unit id="banner.cookie.essential.session.label" resname="banner.cookie.essential.session.label">
-    <source>User session</source>
-    <target>Benutzersitzung</target>
-   </trans-unit>
-   <trans-unit id="banner.cookie.essential.status.label" resname="banner.cookie.essential.status.label">
-    <source>Cookie settings</source>
-    <target>Cookie Einstellungen</target>
-   </trans-unit>
-   <trans-unit id="banner.cookie.essential.text" resname="banner.cookie.essential.text">
-    <source>Click on &#34;Allow all Cookies&#34;, to accept all types of cookies or click on &#34;Allow only required&#xA;                    cookies&#34; to allow only those cookies that are essential to the operation and function of the&#xA;                    website.&#xA;                </source>
-    <target>Klicken Sie auf &#34;Alle Cookies erlauben&#34;, um alle Arten von Cookies zu akzeptieren oder klicken Sie auf &#34;Nur erforderliche Cookies erlauben&#34;, um nur jene Cookies zuzulassen, die für den Betrieb und Funktion der Webseite unbedingt erforderlich sind.</target>
-   </trans-unit>
-   <trans-unit id="banner.cookie.fe_typo_user.purpose" resname="banner.cookie.fe_typo_user.purpose">
-    <source>-</source>
-    <target>Dieser Cookie teilt TYPO3 alle Informationen zur Personalisierung der Website mit (zB. Login, Formulare, usw.)</target>
-   </trans-unit>
-   <trans-unit id="banner.cookie.marketing.text" resname="banner.cookie.marketing.text">
-    <source>User analytics and embeded social media functions.</source>
-    <target>Benutzeranalyse und Einbettung von Social Media Funktionen</target>
-   </trans-unit>
-   <trans-unit id="banner.cookie.media.label" resname="banner.cookie.media.label">
-    <source>Media Providers</source>
-    <target>Medien Anbieter</target>
-   </trans-unit>
-   <trans-unit id="banner.cookie.media.text" resname="banner.cookie.media.text">
-    <source>External services for the display of media content and interactive elements.</source>
-    <target>Externe Dienste zur Anzeige von Medien und interaktiven Elementen.</target>
-   </trans-unit>
-   <trans-unit id="banner.cookie.session.company" resname="banner.cookie.session.company">
-    <source>Website Operator</source>
-    <target>Website Betreiber</target>
-   </trans-unit>
-   <trans-unit id="banner.cookie.session.name" resname="banner.cookie.session.name">
-    <source>TYPO3 cookies</source>
-    <target>TYPO3 Cookies</target>
-   </trans-unit>
-   <trans-unit id="banner.cookie.supi.name" resname="banner.cookie.supi.name">
-    <source>Data protection cookie</source>
-    <target>Datenschutz Cookie</target>
-   </trans-unit>
-   <trans-unit id="banner.cookie.supi.purpose" resname="banner.cookie.supi.purpose">
-    <source>Selected settings for cookies and embeded services.</source>
-    <target>Speichert die Information zur Zustimmung zu Cookies und Services.</target>
-   </trans-unit>
-   <trans-unit id="banner.cookie.typo3.purpose" resname="banner.cookie.typo3.purpose">
-    <source>Individual behaviour during session</source>
-    <target>Individuelles Verhalten während der Website Nutzung</target>
-   </trans-unit>
-   <trans-unit id="banner.detail.headline" resname="banner.detail.headline">
-    <source>Your data protection settings</source>
-    <target>Ihre Datenschutzeinstellungen</target>
-   </trans-unit>
-   <trans-unit id="banner.detail.text" resname="banner.detail.text">
-    <source>Enable and disable individual cookies. Required cookies cannot be disabled.</source>
-    <target>Hier finden Sie eine Übersicht über alle Datenschutzeinstellungen. Sie können Ihre Zustimmung zu ganzen Kategorien geben oder weitere Informationen anzeigen und bestimmte Einstellungen auswählen.</target>
-   </trans-unit>
-   <trans-unit id="banner.gdpr.name" resname="banner.gdpr.name">
-    <source>privacy policy</source>
-    <target>Datenschutzerklärung</target>
-   </trans-unit>
-   <trans-unit id="banner.provider.company" resname="banner.provider.company">
-    <source>Provider</source>
-    <target>Anbieter</target>
-   </trans-unit>
-   <trans-unit id="banner.provider.duration" resname="banner.provider.duration">
-    <source>Expires after</source>
-    <target>Speicherdauer</target>
-   </trans-unit>
-   <trans-unit id="banner.provider.policy" resname="banner.provider.policy">
-    <source>Privacy Policy</source>
-    <target>Datenschutz-Bestimmungen</target>
-   </trans-unit>
-   <trans-unit id="banner.provider.purpose" resname="banner.provider.purpose">
-    <source>Purpose</source>
-    <target>Zweck</target>
-   </trans-unit>
-   <trans-unit id="banner.provider.type" resname="banner.provider.type">
-    <source>Data type</source>
-    <target>Datenart</target>
-   </trans-unit>
-   <trans-unit id="map.button" resname="map.button">
-    <source>Load Maps</source>
-    <target>Lade Karten</target>
-   </trans-unit>
-   <trans-unit id="map.text" resname="map.text">
-    <source>During loading, data will be transmitted to Google.</source>
-    <target>Während des Ladens werden Daten zu Google übertragen.</target>
-   </trans-unit>
-   <trans-unit id="plugin.button.label" resname="plugin.button.label">
-    <source>Change current privacy settings</source>
-    <target>Datenschutz-Einstellungen ändern</target>
-   </trans-unit>
-   <trans-unit id="plugin.button.text" resname="plugin.button.text">
-    <source>Change current privacy settings</source>
-    <target>Datenschutz-Einstellungen ändern</target>
-   </trans-unit>
-   <trans-unit id="youtube.button" resname="youtube.button">
-    <source>Play Video</source>
-    <target>Video abspielen</target>
-   </trans-unit>
-   <trans-unit id="youtube.button.once" resname="youtube.button.once">
-    <source>Play only this video</source>
-    <target>Nur dieses Video abspielen</target>
-   </trans-unit>
-   <trans-unit id="youtube.text" resname="youtube.text">
-    <source>When loading the video, data will be transmitted to Youtube.</source>
-    <target>Beim Laden des Videos, werden Daten an Youtube übermittelt.</target>
-   </trans-unit>
-  </body>
- </file>
+	<file source-language="en" target-language="de" original="" datatype="plaintext" date="2023-01-30T12:19:38+01:00">
+		<body>
+			<trans-unit id="banner.button.allow.label" resname="banner.button.allow.label">
+				<source>Accept all</source>
+				<target>Alle akzeptieren</target>
+			</trans-unit>
+			<trans-unit id="banner.button.allow.text" resname="banner.button.allow.text">
+				<source>Accept all</source>
+				<target>Alle akzeptieren</target>
+			</trans-unit>
+			<trans-unit id="banner.button.dismiss.label" resname="banner.button.dismiss.label">
+				<source>Decline all</source>
+				<target>Alle ablehnen</target>
+			</trans-unit>
+			<trans-unit id="banner.button.dismiss.text" resname="banner.button.dismiss.text">
+				<source>Allow only required cookies</source>
+				<target>Nur erforderliche Cookies erlauben</target>
+			</trans-unit>
+			<trans-unit id="banner.button.individual.text" resname="banner.button.individual.text">
+				<source>Individual settings</source>
+				<target>Individuelle Einstellungen</target>
+			</trans-unit>
+			<trans-unit id="banner.button.save.label" resname="banner.button.save.label">
+				<source>Save preferences</source>
+				<target>Einstellungen Speichern</target>
+			</trans-unit>
+			<trans-unit id="banner.button.save.text" resname="banner.button.save.text">
+				<source>Save preferences</source>
+				<target>Einstellungen Speichern</target>
+			</trans-unit>
+			<trans-unit id="banner.button.switch.label" resname="banner.button.switch.label">
+				<source>Cookie-Preferences</source>
+				<target>Cookie-Einstellungen</target>
+			</trans-unit>
+			<trans-unit id="banner.button.switch.text" resname="banner.button.switch.text">
+				<source>Cookie-Preferences</source>
+				<target>Cookie-Einstellungen</target>
+			</trans-unit>
+			<trans-unit id="banner.content.headline" resname="banner.content.headline">
+				<source>Your privacy settings</source>
+				<target>Ihre Datenschutzeinstellungen</target>
+			</trans-unit>
+			<trans-unit id="banner.content.text" resname="banner.content.text">
+				<source>&lt;p&gt;We use cookies to adapt the website to your needs and to offer special features to you. By using our website, you agree to it.&lt;/p&gt;&lt;p&gt;Further information on cookies can be found in our &lt;a href=&#34;%s&#34; target=&#34;_blank&#34;&gt;%s&lt;/a&gt;.&lt;/p&gt;&lt;p&gt;Click on „Cookie-Preferences“ to change the cookie settings manually.&lt;/p&gt;</source>
+				<target>&lt;p&gt;Wir verwenden Cookies, um die Website Ihren Bedüfnissen anzupassen bzw. um Ihnen spezielle Funktionen anbieten zu können. Durch die Nutzung unserer Website erklären Sie sich damit einverstanden.&lt;/p&gt;&lt;p&gt;Weitere Informationen zu Cookies erhalten Sie in unserer &lt;a href=&#34;%s&#34; target=&#34;_blank&#34;&gt;%s&lt;/a&gt;.&lt;/p&gt;&lt;p&gt;Klicken Sie auf „Cookie-Einstellungen“, um die Cookie-Einstellungen manuell zu ändern.&lt;/p&gt;</target>
+			</trans-unit>
+			<trans-unit id="banner.cookie.ADCELLvpidX.purpose" resname="banner.cookie.ADCELLvpidX.purpose">
+				<source>This cookie is set after an ADCELL ad has been played and contains information about the publisher, ad, SubID, referrer and timestamp. The X in the cookie name stands for the program ID of the ad media.</source>
+				<target>Dieses Cookie wird gesetzt nach dem Ausspielen eines ADCELL Werbemittels und enthält Informationen über Publisher, Werbemittel, SubID, Referrer und Zeitstempel. Das X im Cookie-Namen steht für die ProgrammID des Werbemittels.</target>
+			</trans-unit>
+			<trans-unit id="banner.cookie.AMP_TOKEN.purpose" resname="banner.cookie.AMP_TOKEN.purpose">
+				<source>Contains a token that can be used to retrieve a Client ID from AMP Client ID service. Other possible values indicate opt-out, inflight request or an error retrieving a Client ID from AMP Client ID service.</source>
+				<target>Enthält einen Token für einen AMP Client ID service. Kann außerdem andere AMP relevante Werte enthalten, wie Opt-out, oder Fehler Informationen.</target>
+			</trans-unit>
+			<trans-unit id="banner.cookie.IDE.purpose" resname="banner.cookie.IDE.purpose">
+				<source>Used by Google DoubleClick to recognize the user across different websites across domains.</source>
+				<target>Wird von Google DoubleClick verwendet, um den Nutzer auf verschiedenen Websites in verschiedenen Domänen zu erkennen.</target>
+			</trans-unit>
+			<trans-unit id="banner.cookie.MUID.purpose" resname="banner.cookie.MUID.purpose">
+				<source>Identify unique web browsers that visit Microsoft websites. This cookie is used for advertising, page analysis, and other operational purposes.</source>
+				<target>Identifizieren eindeutige Webbrowser, die Microsoft-Websites besuchen. Dieses Cookie wird für Werbung, Seitenanalyse und andere betriebliche Zwecke benutzt.</target>
+			</trans-unit>
+			<trans-unit id="banner.cookie.PHPSESSID.purpose" resname="banner.cookie.PHPSESSID.purpose">
+				<source>PHP standard session identification.</source>
+				<target>PHP-Standard-Sitzungskennung.</target>
+			</trans-unit>
+			<trans-unit id="banner.cookie.__ctmid.purpose" resname="banner.cookie.__ctmid.purpose">
+				<source>The Call Tracking Metrics tracking code will remember the original source the visitor came from and will continue to show them the tracking number associated to that source.</source>
+				<target>Der Tracking-Code von Call Tracking Metrics merkt sich die ursprüngliche Quelle, von der der Besucher kam, und zeigt ihm Im Weiteren die Tracking-Nummer an, die mit dieser Quelle verbunden ist.</target>
+			</trans-unit>
+			<trans-unit id="banner.cookie.__lc_cid.purpose" resname="banner.cookie.__lc_cid.purpose">
+				<source>The purpose of this cookie (customerId) is to verify the identity of a customer created in LiveChat and is used by LiveChat accounts service.</source>
+				<target>Der Zweck dieses Cookies (customerId) ist es, die Identität eines in LiveChat angelegten Kunden zu überprüfen und wird vom LiveChat-Konten-Service verwendet.</target>
+			</trans-unit>
+			<trans-unit id="banner.cookie.__lc_cst.purpose" resname="banner.cookie.__lc_cst.purpose">
+				<source>The purpose of this cookie (customerSecureToken) is to verify the customer’s token and is used by LiveChat accounts service.</source>
+				<target>Der Zweck dieses Cookies (customerSecureToken) besteht darin, das Token des Kunden zu verifizieren und wird vom LiveChat-Konten-Service verwendet.</target>
+			</trans-unit>
+			<trans-unit id="banner.cookie.__utma.purpose" resname="banner.cookie.__utma.purpose">
+				<source>Used to distinguish users and sessions.</source>
+				<target>Dient zur Unterscheidung von Benutzern und Sitzungen.</target>
+			</trans-unit>
+			<trans-unit id="banner.cookie.__utmb.purpose" resname="banner.cookie.__utmb.purpose">
+				<source>Used to determine new sessions/visits.</source>
+				<target>Dient zur Ermittlung neuer Sitzungen/Besuche.</target>
+			</trans-unit>
+			<trans-unit id="banner.cookie.__utmc.purpose" resname="banner.cookie.__utmc.purpose">
+				<source>Used to keep track of website sessions.</source>
+				<target>Dient der Verfolgung von Website-Sitzungen</target>
+			</trans-unit>
+			<trans-unit id="banner.cookie.__utmt.purpose" resname="banner.cookie.__utmt.purpose">
+				<source>Used to throttle request rate.</source>
+				<target>Dient zur Drosselung der Anfragerate.</target>
+			</trans-unit>
+			<trans-unit id="banner.cookie.__utmv.purpose" resname="banner.cookie.__utmv.purpose">
+				<source>Used to store data on user-defined variables at the visitor level.</source>
+				<target>Wird zum Speichern von Daten zu benutzerdefinierten Variablen auf Besucherebene verwendet.</target>
+			</trans-unit>
+			<trans-unit id="banner.cookie.__utmz.purpose" resname="banner.cookie.__utmz.purpose">
+				<source>Used to determine the traffic source, medium, campaign name and campaign term which delivered the user to the website.</source>
+				<target>Zur Ermittlung der Verkehrsquelle, des Mediums, des Kampagnennamens und des Kampagnenbegriffs, die den Nutzer auf die Website geführt haben.</target>
+			</trans-unit>
+			<trans-unit id="banner.cookie._dc_gtm_XXX.purpose" resname="banner.cookie._dc_gtm_XXX.purpose">
+				<source>Used by Google Tag Manager to control the loading of a Google Analytics script tag.</source>
+				<target>Wird von Google Tag Manager verwendet, um das Laden eines Google Analytics-Skript-Tags zu steuern.</target>
+			</trans-unit>
+			<trans-unit id="banner.cookie._fbp.purpose" resname="banner.cookie._fbp.purpose">
+				<source>The Facebook cookie is used to distinguish users.</source>
+				<target>Das Facebook-Cookie wird zur Unterscheidung einzelner Nutzer verwendet.</target>
+			</trans-unit>
+			<trans-unit id="banner.cookie._ga.purpose" resname="banner.cookie._ga.purpose">
+				<source>Used to distinguish users.</source>
+				<target>Dient zur Unterscheidung von Benutzern.</target>
+			</trans-unit>
+			<trans-unit id="banner.cookie._ga_XXX.purpose" resname="banner.cookie._ga_XXX.purpose">
+				<source>Used to distinguish users.</source>
+				<target>Dient zur Unterscheidung von Benutzern.</target>
+			</trans-unit>
+			<trans-unit id="banner.cookie._gac_XXX.purpose" resname="banner.cookie._gac_XXX.purpose">
+				<source>Contains Google Ads campaign related information for the user.</source>
+				<target>Enthält Google Ads Informationen über Kampagnen, spezifisch für einzelne Benutzer.</target>
+			</trans-unit>
+			<trans-unit id="banner.cookie._gac_gb_XXX.purpose" resname="banner.cookie._gac_gb_XXX.purpose">
+				<source>Contains Google Ads campaign related information for the user.</source>
+				<target>Enthält Google Ads Informationen über Kampagnen, spezifisch für einzelne Benutzer.</target>
+			</trans-unit>
+			<trans-unit id="banner.cookie._gat.purpose" resname="banner.cookie._gat.purpose">
+				<source>Used to throttle request rate.</source>
+				<target>Dient zur Drosselung der Anfragerate.</target>
+			</trans-unit>
+			<trans-unit id="banner.cookie._gat_UA.purpose" resname="banner.cookie._gat_UA.purpose">
+				<source>Used to throttle request rate.</source>
+				<target>Dient zur Drosselung der Anfragerate.</target>
+			</trans-unit>
+			<trans-unit id="banner.cookie._gcl_au.purpose" resname="banner.cookie._gcl_au.purpose">
+				<source>The cookie is used to track and store conversions.</source>
+				<target>Das Cookie wird genutzt, um Conversions zu tracken und zu speichern.</target>
+			</trans-unit>
+			<trans-unit id="banner.cookie._gid.purpose" resname="banner.cookie._gid.purpose">
+				<source>Used to distinguish users.</source>
+				<target>Dient zur Unterscheidung von Benutzern.</target>
+			</trans-unit>
+			<trans-unit id="banner.cookie._pk_cvar.purpose" resname="banner.cookie._pk_cvar.purpose">
+				<source>Contains user-defined variables stipulated during the previous site view.</source>
+				<target>Enthält benutzerdefinierte Variablen, die während der vorherigen Seitenansicht festgelegt wurden.</target>
+			</trans-unit>
+			<trans-unit id="banner.cookie._pk_hsr.purpose" resname="banner.cookie._pk_hsr.purpose">
+				<source>This cookie is set to record heatmaps (clicks, mouse movements, and scrolling activities are displayed graphically) and session records (clicks, mouse movements, scrolling, window resizing, page changes, and form interactions).</source>
+				<target>Dieses Cookie wird zur Aufzeichnung von Heatmaps (Klicks, Mausbewegungen und Bildlaufaktivitäten werden grafisch dargestellt) und zur Sitzungsaufzeichnungen (Klicks, Mausbewegungen, Scrollen, Fenstergrößenänderungen, Seitenwechsel und Formularinteraktionen) gesetzt.</target>
+			</trans-unit>
+			<trans-unit id="banner.cookie._pk_id.purpose" resname="banner.cookie._pk_id.purpose">
+				<source>Retains a unique user ID.</source>
+				<target>Speichert eine einmalige Nutzer ID.</target>
+			</trans-unit>
+			<trans-unit id="banner.cookie._pk_ref.purpose" resname="banner.cookie._pk_ref.purpose">
+				<source>Records the website from which you visit us.</source>
+				<target>Zeichnet die Website auf, von der aus Sie uns besuchen.</target>
+			</trans-unit>
+			<trans-unit id="banner.cookie._pk_ses.purpose" resname="banner.cookie._pk_ses.purpose">
+				<source>Displays a visitor’s active session.</source>
+				<target>Zeigt die aktive Sitzung eines Besuchers an.</target>
+			</trans-unit>
+			<trans-unit id="banner.cookie.be_lastLoginProvider.purpose" resname="banner.cookie.be_lastLoginProvider.purpose">
+				<source>Contains the ID of the TYPO3 backend login provider used.</source>
+				<target>Enthält die ID des verwendeten TYPO3 Backend Login Providers.</target>
+			</trans-unit>
+			<trans-unit id="banner.cookie.be_typo_user.purpose" resname="banner.cookie.be_typo_user.purpose">
+				<source>This cookie tells TYPO3 whether the visitor is logged into the TYPO3 backend and which backend user it is.</source>
+				<target>Dieser Cookie teilt TYPO3 mit, ob der Besucher im TYPO3-Backend angemeldet ist und um welchen Backend-Benutzer es sich handelt.</target>
+			</trans-unit>
+			<trans-unit id="banner.cookie.duration.13months" resname="banner.cookie.duration.13months">
+				<source>13 months</source>
+				<target>13 Monate</target>
+			</trans-unit>
+			<trans-unit id="banner.cookie.duration.18months" resname="banner.cookie.duration.18months">
+				<source>18 months</source>
+				<target>18 Monate</target>
+			</trans-unit>
+			<trans-unit id="banner.cookie.duration.1day" resname="banner.cookie.duration.1day">
+				<source>1 day</source>
+				<target>1 Tag</target>
+			</trans-unit>
+			<trans-unit id="banner.cookie.duration.1minute" resname="banner.cookie.duration.1minute">
+				<source>1 minute</source>
+				<target>1 Minute</target>
+			</trans-unit>
+			<trans-unit id="banner.cookie.duration.1year" resname="banner.cookie.duration.1year">
+				<source>1 year</source>
+				<target>1 Jahr</target>
+			</trans-unit>
+			<trans-unit id="banner.cookie.duration.290days" resname="banner.cookie.duration.290days">
+				<source>290 days</source>
+				<target>290 Tage</target>
+			</trans-unit>
+			<trans-unit id="banner.cookie.duration.2years" resname="banner.cookie.duration.2years">
+				<source>2 years</source>
+				<target>2 Jahre</target>
+			</trans-unit>
+			<trans-unit id="banner.cookie.duration.30minutes" resname="banner.cookie.duration.30minutes">
+				<source>30 minutes</source>
+				<target>30 Minuten</target>
+			</trans-unit>
+			<trans-unit id="banner.cookie.duration.3months" resname="banner.cookie.duration.3months">
+				<source>3 months</source>
+				<target>3 Monate</target>
+			</trans-unit>
+			<trans-unit id="banner.cookie.duration.6months" resname="banner.cookie.duration.6months">
+				<source>6 months</source>
+				<target>6 Monate</target>
+			</trans-unit>
+			<trans-unit id="banner.cookie.duration.90days" resname="banner.cookie.duration.90days">
+				<source>90 days</source>
+				<target>90 Tage</target>
+			</trans-unit>
+			<trans-unit id="banner.cookie.duration.AMP_TOKEN" resname="banner.cookie.duration.AMP_TOKEN">
+				<source>30 seconds to 1 year</source>
+				<target>30 Sekunden bis 1 Jahr</target>
+			</trans-unit>
+			<trans-unit id="banner.cookie.duration.session" resname="banner.cookie.duration.session">
+				<source>until session end</source>
+				<target>bis zum Ende der Sitzung</target>
+			</trans-unit>
+			<trans-unit id="banner.cookie.duration.supi" resname="banner.cookie.duration.supi">
+				<source>7 to 30 days</source>
+				<target>7 bis 30 Tage</target>
+			</trans-unit>
+			<trans-unit id="banner.cookie.essential.label" resname="banner.cookie.essential.label">
+				<source>Required Cookies</source>
+				<target>Erforderliche Cookies</target>
+			</trans-unit>
+			<trans-unit id="banner.cookie.essential.session.label" resname="banner.cookie.essential.session.label">
+				<source>User session</source>
+				<target>Benutzersitzung</target>
+			</trans-unit>
+			<trans-unit id="banner.cookie.essential.status.label" resname="banner.cookie.essential.status.label">
+				<source>Cookie settings</source>
+				<target>Cookie Einstellungen</target>
+			</trans-unit>
+			<trans-unit id="banner.cookie.essential.text" resname="banner.cookie.essential.text">
+				<source>Click on &#34;Allow all Cookies&#34;, to accept all types of cookies or click on &#34;Decline all&#34; to allow only those cookies that are essential to the operation and function of the website.</source>
+				<target>Klicken Sie auf „Alle Cookies erlauben“, um alle Arten von Cookies zu akzeptieren oder klicken Sie auf „Alle ablehnen“, um nur jene Cookies zuzulassen, die für den Betrieb und Funktion der Webseite unbedingt erforderlich sind.</target>
+			</trans-unit>
+			<trans-unit id="banner.cookie.fe_typo_user.purpose" resname="banner.cookie.fe_typo_user.purpose">
+				<source>This cookie tells TYPO3 all the information to personalize the website (e.g. login, forms, etc.).</source>
+				<target>Dieser Cookie teilt TYPO3 alle Informationen zur Personalisierung der Website mit (z.B. Login, Formulare, usw.).</target>
+			</trans-unit>
+			<trans-unit id="banner.cookie.jts-rw.purpose" resname="banner.cookie.jts-rw.purpose">
+				<source>The JENTIS first party identifier (User-ID).</source>
+				<target>Die JENTIS-Kennung des ersten Teilnehmers (User-ID).</target>
+			</trans-unit>
+			<trans-unit id="banner.cookie.jts-sid.purpose" resname="banner.cookie.jts-sid.purpose">
+				<source>The JENTIS session identifier (Session ID).</source>
+				<target>Die JENTIS-Sitzungskennung (Session-ID).</target>
+			</trans-unit>
+			<trans-unit id="banner.cookie.jts-uid.purpose" resname="banner.cookie.jts-uid.purpose">
+				<source>The JENTIS user identifier (User ID).</source>
+				<target>Die JENTIS-Besucherkennung (User-ID).</target>
+			</trans-unit>
+			<trans-unit id="banner.cookie.marketing.label" resname="banner.cookie.marketing.label">
+				<source>Marketing &amp; Analytics</source>
+				<target>Marketing &amp; Analyse</target>
+			</trans-unit>
+			<trans-unit id="banner.cookie.marketing.text" resname="banner.cookie.marketing.text">
+				<source>User analytics and embeded social media functions.</source>
+				<target>Benutzeranalyse und Einbettung von Social Media Funktionen</target>
+			</trans-unit>
+			<trans-unit id="banner.cookie.media.label" resname="banner.cookie.media.label">
+				<source>Media Providers</source>
+				<target>Medien Anbieter</target>
+			</trans-unit>
+			<trans-unit id="banner.cookie.media.text" resname="banner.cookie.media.text">
+				<source>External services for the display of media content and interactive elements.</source>
+				<target>Externe Dienste zur Anzeige von Medien und interaktiven Elementen.</target>
+			</trans-unit>
+			<trans-unit id="banner.cookie.media.yumpu.label" resname="banner.cookie.media.yumpu.label">
+				<source>YUMPU Browsable PDF</source>
+				<target>YUMPU Browsable PDF</target>
+			</trans-unit>
+			<trans-unit id="banner.cookie.session.company" resname="banner.cookie.session.company">
+				<source>Website Operator</source>
+				<target>Website Betreiber</target>
+			</trans-unit>
+			<trans-unit id="banner.cookie.session.name" resname="banner.cookie.session.name">
+				<source>TYPO3 cookies</source>
+				<target>TYPO3 Cookies</target>
+			</trans-unit>
+			<trans-unit id="banner.cookie.supi.name" resname="banner.cookie.supi.name">
+				<source>Data protection cookie</source>
+				<target>Datenschutz Cookie</target>
+			</trans-unit>
+			<trans-unit id="banner.cookie.supi.purpose" resname="banner.cookie.supi.purpose">
+				<source>Selected settings for cookies and embeded services.</source>
+				<target>Ausgewählte Einstellungen für Cookies und eingebettete Dienste.</target>
+			</trans-unit>
+			<trans-unit id="banner.cookie.typo3.purpose" resname="banner.cookie.typo3.purpose">
+				<source>Individual behaviour during session</source>
+				<target>Individuelles Verhalten während der Website Nutzung</target>
+			</trans-unit>
+			<trans-unit id="banner.detail.text" resname="banner.detail.text">
+				<source>Enable and disable individual cookies. Required cookies cannot be disabled.</source>
+				<target>Aktivieren und deaktivieren Sie einzelne Cookies. Erforderliche Cookies können nicht deaktiviert werden.</target>
+			</trans-unit>
+			<trans-unit id="banner.gdpr.name" resname="banner.gdpr.name">
+				<source>Privacy policy</source>
+				<target>Datenschutzerklärung</target>
+			</trans-unit>
+			<trans-unit id="banner.provider.company" resname="banner.provider.company">
+				<source>Provider</source>
+				<target>Anbieter</target>
+			</trans-unit>
+			<trans-unit id="banner.provider.duration" resname="banner.provider.duration">
+				<source>Expires after</source>
+				<target>Läuft ab nach</target>
+			</trans-unit>
+			<trans-unit id="banner.provider.name" resname="banner.provider.name">
+				<source>Name</source>
+				<target>Name</target>
+			</trans-unit>
+			<trans-unit id="banner.provider.policy" resname="banner.provider.policy">
+				<source>Privacy Policy</source>
+				<target>Datenschutz-Bestimmungen</target>
+			</trans-unit>
+			<trans-unit id="banner.provider.purpose" resname="banner.provider.purpose">
+				<source>Purpose</source>
+				<target>Zweck</target>
+			</trans-unit>
+			<trans-unit id="banner.provider.type" resname="banner.provider.type">
+				<source>Data type</source>
+				<target>Datenart</target>
+			</trans-unit>
+			<trans-unit id="map.button" resname="map.button">
+				<source>Load Maps</source>
+				<target>Lade Karten</target>
+			</trans-unit>
+			<trans-unit id="map.text" resname="map.text">
+				<source>During loading, data will be transmitted to Google.</source>
+				<target>Während des Ladens werden Daten zu Google übertragen.</target>
+			</trans-unit>
+			<trans-unit id="plugin.button.label" resname="plugin.button.label">
+				<source>Change current cookie settings</source>
+				<target>Aktuelle Cookie Einstellung ändern</target>
+			</trans-unit>
+			<trans-unit id="plugin.button.text" resname="plugin.button.text">
+				<source>Change current cookie settings</source>
+				<target>Aktuelle Cookie Einstellung ändern</target>
+			</trans-unit>
+			<trans-unit id="sage.button" resname="sage.button">
+				<source>Show content</source>
+				<target>Inhalt anzeigen</target>
+			</trans-unit>
+			<trans-unit id="sage.text" resname="sage.text">
+				<source>&lt;p&gt;For the use of this service, prior consent to the processing of your data and in particular to the setting of cookies is necessary. You can consent to the processing and setting of cookies &lt;a href=&#34;#supi-choose&#34; target=&#34;_self&#34; class=&#34;rtelinkblackarr&#34;&gt;here&lt;/a&gt;. Without your consent, your data will not be processed in connection with this service and no cookies will be set. You can revoke your consent at any time. For more information on cookies and the processing of your data in connection with this content and a way to revoke your consent, please see our &lt;a href=&#34;%s&#34; target=&#34;_blank&#34;&gt;%s&lt;/a&gt;&lt;/p&gt;</source>
+				<target>&lt;p&gt;Für die Nutzung dieses Services ist die vorherige Zustimmung zur Verarbeitung Ihrer Daten und insbesondere zur Setzung von Cookies notwendig. Sie können der Verarbeitung und Setzung von Cookies &lt;a href=&#34;#supi-choose&#34; target=&#34;_self&#34; class=&#34;rtelinkblackarr&#34;&gt;hier&lt;/a&gt; zustimmen. Ohne Ihre Zustimmung werden Ihre Daten im Zusammenhang mit diesem Service nicht verarbeitet und keine Cookies gesetzt. Sie können Ihre Einwilligung jederzeit widerrufen. Weitere Informationen zu Cookies und zur Verarbeitung Ihrer Daten im Zusammenhang mit diesem Inhalt und eine Möglichkeit zum Widerruf Ihrer Einwilligung finden Sie in unserer &lt;a href=&#34;%s&#34; target=&#34;_blank&#34;&gt;%s&lt;/a&gt;&lt;/p&gt;</target>
+			</trans-unit>
+			<trans-unit id="vimeo.button" resname="vimeo.button">
+				<source>Play video</source>
+				<target>Video abspielen</target>
+			</trans-unit>
+			<trans-unit id="vimeo.text" resname="vimeo.text">
+				<source>&lt;p&gt;For the use of this service, prior consent to the processing of your data and in particular to the setting of cookies is necessary. You can consent to the processing and setting of cookies &lt;a href=&#34;#supi-choose&#34; target=&#34;_self&#34; class=&#34;rtelinkblackarr&#34;&gt;here&lt;/a&gt;. Without your consent, your data will not be processed in connection with this service and no cookies will be set. You can revoke your consent at any time. For more information on cookies and the processing of your data in connection with this content and a way to revoke your consent, please see our &lt;a href=&#34;%s&#34; target=&#34;_blank&#34;&gt;%s&lt;/a&gt;&lt;/p&gt;</source>
+				<target>&lt;p&gt;Für die Nutzung dieses Services ist die vorherige Zustimmung zur Verarbeitung Ihrer Daten und insbesondere zur Setzung von Cookies notwendig. Sie können der Verarbeitung und Setzung von Cookies &lt;a href=&#34;#supi-choose&#34; target=&#34;_self&#34; class=&#34;rtelinkblackarr&#34;&gt;hier&lt;/a&gt; zustimmen. Ohne Ihre Zustimmung werden Ihre Daten im Zusammenhang mit diesem Service nicht verarbeitet und keine Cookies gesetzt. Sie können Ihre Einwilligung jederzeit widerrufen. Weitere Informationen zu Cookies und zur Verarbeitung Ihrer Daten im Zusammenhang mit diesem Inhalt und eine Möglichkeit zum Widerruf Ihrer Einwilligung finden Sie in unserer &lt;a href=&#34;%s&#34; target=&#34;_blank&#34;&gt;%s&lt;/a&gt;&lt;/p&gt;</target>
+			</trans-unit>
+			<trans-unit id="wiffme.button" resname="wiffme.button">
+				<source>Show WIFFme Map</source>
+				<target>WIFFme Map anzeigen</target>
+			</trans-unit>
+			<trans-unit id="wiffme.text" resname="wiffme.text">
+				<source>&lt;p&gt;For the use of this service, prior consent to the processing of your data and in particular to the setting of cookies is necessary. You can consent to the processing and setting of cookies &lt;a href=&#34;#supi-choose&#34; target=&#34;_self&#34; class=&#34;rtelinkblackarr&#34;&gt;here&lt;/a&gt;. Without your consent, your data will not be processed in connection with this service and no cookies will be set. You can revoke your consent at any time. For more information on cookies and the processing of your data in connection with this content and a way to revoke your consent, please see our &lt;a href=&#34;%s&#34; target=&#34;_blank&#34;&gt;%s&lt;/a&gt;&lt;/p&gt;</source>
+				<target>&lt;p&gt;Für die Nutzung dieses Services ist die vorherige Zustimmung zur Verarbeitung Ihrer Daten und insbesondere zur Setzung von Cookies notwendig. Sie können der Verarbeitung und Setzung von Cookies &lt;a href=&#34;#supi-choose&#34; target=&#34;_self&#34; class=&#34;rtelinkblackarr&#34;&gt;hier&lt;/a&gt; zustimmen. Ohne Ihre Zustimmung werden Ihre Daten im Zusammenhang mit diesem Service nicht verarbeitet und keine Cookies gesetzt. Sie können Ihre Einwilligung jederzeit widerrufen. Weitere Informationen zu Cookies und zur Verarbeitung Ihrer Daten im Zusammenhang mit diesem Inhalt und eine Möglichkeit zum Widerruf Ihrer Einwilligung finden Sie in unserer &lt;a href=&#34;%s&#34; target=&#34;_blank&#34;&gt;%s&lt;/a&gt;&lt;/p&gt;</target>
+			</trans-unit>
+			<trans-unit id="youtube.button" resname="youtube.button">
+				<source>Play Video</source>
+				<target>Video abspielen</target>
+			</trans-unit>
+			<trans-unit id="youtube.button.once" resname="youtube.button.once">
+				<source>Play only this video</source>
+				<target>Nur dieses Video abspielen</target>
+			</trans-unit>
+			<trans-unit id="youtube.text" resname="youtube.text">
+				<source>This content is provided by YouTube. If you activate the content, personal data may be processed and cookies set.</source>
+				<target>Dieser Inhalt wird von YouTube bereitgestellt. Wenn Sie den Inhalt aktivieren werden ggf. personenbezogene Daten verarbeitet und Cookies gesetzt.</target>
+			</trans-unit>
+			<trans-unit id="yumpu.button" resname="yumpu.button">
+				<source>Load PDF</source>
+				<target>PDF Laden</target>
+			</trans-unit>
+			<trans-unit id="yumpu.text" resname="yumpu.text">
+				<source>&lt;p&gt;For the use of this service, prior consent to the processing of your data and in particular to the setting of cookies is necessary. You can consent to the processing and setting of cookies &lt;a href=&#34;#supi-choose&#34; target=&#34;_self&#34; class=&#34;rtelinkblackarr&#34;&gt;here&lt;/a&gt;. Without your consent, your data will not be processed in connection with this service and no cookies will be set. You can revoke your consent at any time. For more information on cookies and the processing of your data in connection with this content and a way to revoke your consent, please see our &lt;a href=&#34;%s&#34; target=&#34;_blank&#34;&gt;%s&lt;/a&gt;&lt;/p&gt;</source>
+				<target>&lt;p&gt;Für die Nutzung dieses Services ist die vorherige Zustimmung zur Verarbeitung Ihrer Daten und insbesondere zur Setzung von Cookies notwendig. Sie können der Verarbeitung und Setzung von Cookies &lt;a href=&#34;#supi-choose&#34; target=&#34;_self&#34; class=&#34;rtelinkblackarr&#34;&gt;hier&lt;/a&gt; zustimmen. Ohne Ihre Zustimmung werden Ihre Daten im Zusammenhang mit diesem Service nicht verarbeitet und keine Cookies gesetzt. Sie können Ihre Einwilligung jederzeit widerrufen. Weitere Informationen zu Cookies und zur Verarbeitung Ihrer Daten im Zusammenhang mit diesem Inhalt und eine Möglichkeit zum Widerruf Ihrer Einwilligung finden Sie in unserer &lt;a href=&#34;%s&#34; target=&#34;_blank&#34;&gt;%s&lt;/a&gt;&lt;/p&gt;</target>
+			</trans-unit>
+		</body>
+	</file>
 </xliff>

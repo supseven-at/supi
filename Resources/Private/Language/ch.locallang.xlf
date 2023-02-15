@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.2" xmlns:t3="http://typo3.org/schemas/xliff" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+	<file source-language="en" target-language="ch" original="" datatype="plaintext" date="2023-01-30T12:19:38+01:00">
+		<body>
+			<trans-unit id="banner.button.allow.label" resname="banner.button.allow.label">
+				<source>Accept all</source>
+				<target>接受所有</target>
+			</trans-unit>
+			<trans-unit id="banner.button.allow.text" resname="banner.button.allow.text">
+				<source>Accept all</source>
+				<target>接受所有</target>
+			</trans-unit>
+			<trans-unit id="banner.button.dismiss.label" resname="banner.button.dismiss.label">
+				<source>Decline all</source>
+				<target>拒绝所有</target>
+			</trans-unit>
+			<trans-unit id="banner.button.dismiss.text" resname="banner.button.dismiss.text">
+				<source>Allow only required cookies</source>
+				<target>只允许需要的 Cookie</target>
+			</trans-unit>
+			<trans-unit id="banner.button.individual.text" resname="banner.button.individual.text">
+				<source>Individual settings</source>
+				<target>个人设置</target>
+			</trans-unit>
+			<trans-unit id="banner.button.save.label" resname="banner.button.save.label">
+				<source>Save preferences</source>
+				<target>환경 설정 저장</target>
+			</trans-unit>
+			<trans-unit id="banner.button.save.text" resname="banner.button.save.text">
+				<source>Save preferences</source>
+				<target>환경 설정 저장</target>
+			</trans-unit>
+			<trans-unit id="banner.button.switch.label" resname="banner.button.switch.label">
+				<source>Cookie-Preferences</source>
+				<target>Cookie 偏好</target>
+			</trans-unit>
+			<trans-unit id="banner.button.switch.text" resname="banner.button.switch.text">
+				<source>Cookie-Preferences</source>
+				<target>Cookie 偏好</target>
+			</trans-unit>
+			<trans-unit id="banner.content.headline" resname="banner.content.headline">
+				<source>Your privacy settings</source>
+				<target>你的隐私设置</target>
+			</trans-unit>
+			<trans-unit id="banner.content.text" resname="banner.content.text">
+				<source>&lt;p&gt;We use cookies to adapt the website to your needs and to offer special features to you. By using our website, you agree to it.&lt;/p&gt;&lt;p&gt;Further information on cookies can be found in our &lt;a href=&#34;%s&#34; target=&#34;_blank&#34;&gt;%s&lt;/a&gt;.&lt;/p&gt;&lt;p&gt;Click on „Cookie-Preferences“ to change the cookie settings manually.&lt;/p&gt;</source>
+				<target>&#34;&lt;p&gt;&#34;&#34;我们的网站使用 Cookie将适应您的需求，并为您提供特殊功能。&#xA;使用我们的网站，即表示您同意使用Cookie。&lt;/p&gt;&lt;p&gt;有关 Cookie 的更多信息，请参阅我们的隐私政策。&#xA;​&lt;/p&gt;&lt;p&gt;单击“Cookie 首选项”可以手动更改 Cookie 设置。&#34;&#34;&lt;/p&gt;&#34;</target>
+			</trans-unit>
+			<trans-unit id="banner.cookie.PHPSESSID.purpose" resname="banner.cookie.PHPSESSID.purpose">
+				<source>PHP standard session identification.</source>
+				<target>PHP标准会话识别。</target>
+			</trans-unit>
+			<trans-unit id="banner.cookie.__ctmid.purpose" resname="banner.cookie.__ctmid.purpose">
+				<source>The Call Tracking Metrics tracking code will remember the original source the visitor came from and will continue to show them the tracking number associated to that source.</source>
+				<target>Call Tracking Metrics 跟踪代码将记住访问者的原始来源，并将继续向他们显示与该来源关联的跟踪号。</target>
+			</trans-unit>
+			<trans-unit id="banner.cookie.__utma.purpose" resname="banner.cookie.__utma.purpose">
+				<source>Used to distinguish users and sessions.</source>
+				<target>用于区分用户和会话。</target>
+			</trans-unit>
+			<trans-unit id="banner.cookie.__utmb.purpose" resname="banner.cookie.__utmb.purpose">
+				<source>Used to determine new sessions/visits.</source>
+				<target>用于确定新的会话/访问。</target>
+			</trans-unit>
+			<trans-unit id="banner.cookie.__utmc.purpose" resname="banner.cookie.__utmc.purpose">
+				<source>Used to keep track of website sessions.</source>
+				<target>用于跟踪网站会话。</target>
+			</trans-unit>
+			<trans-unit id="banner.cookie.__utmt.purpose" resname="banner.cookie.__utmt.purpose">
+				<source>Used to throttle request rate.</source>
+				<target>用于限制请求速率。</target>
+			</trans-unit>
+			<trans-unit id="banner.cookie.__utmz.purpose" resname="banner.cookie.__utmz.purpose">
+				<source>Used to determine the traffic source, medium, campaign name and campaign term which delivered the user to the website.</source>
+				<target>用于确定引导用户至网站的流量来源、媒介、广告系列名称和广告系列术语。</target>
+			</trans-unit>
+			<trans-unit id="banner.cookie._ga.purpose" resname="banner.cookie._ga.purpose">
+				<source>Used to distinguish users.</source>
+				<target>用于区分用户。</target>
+			</trans-unit>
+			<trans-unit id="banner.cookie._ga_XXX.purpose" resname="banner.cookie._ga_XXX.purpose">
+				<source>Used to distinguish users.</source>
+				<target>用于区分用户。</target>
+			</trans-unit>
+			<trans-unit id="banner.cookie._gat.purpose" resname="banner.cookie._gat.purpose">
+				<source>Used to throttle request rate.</source>
+				<target>用于限制请求速率。</target>
+			</trans-unit>
+			<trans-unit id="banner.cookie._gid.purpose" resname="banner.cookie._gid.purpose">
+				<source>Used to distinguish users.</source>
+				<target>用于区分用户。</target>
+			</trans-unit>
+			<trans-unit id="banner.cookie.duration.13months" resname="banner.cookie.duration.13months">
+				<source>13 months</source>
+				<target>13 月</target>
+			</trans-unit>
+			<trans-unit id="banner.cookie.duration.18months" resname="banner.cookie.duration.18months">
+				<source>18 months</source>
+				<target>18 月</target>
+			</trans-unit>
+			<trans-unit id="banner.cookie.duration.1day" resname="banner.cookie.duration.1day">
+				<source>1 day</source>
+				<target>1 天</target>
+			</trans-unit>
+			<trans-unit id="banner.cookie.duration.1minute" resname="banner.cookie.duration.1minute">
+				<source>1 minute</source>
+				<target>1 分钟</target>
+			</trans-unit>
+			<trans-unit id="banner.cookie.duration.1year" resname="banner.cookie.duration.1year">
+				<source>1 year</source>
+				<target>1 年</target>
+			</trans-unit>
+			<trans-unit id="banner.cookie.duration.290days" resname="banner.cookie.duration.290days">
+				<source>290 days</source>
+				<target>290 天</target>
+			</trans-unit>
+			<trans-unit id="banner.cookie.duration.2years" resname="banner.cookie.duration.2years">
+				<source>2 years</source>
+				<target>2 年</target>
+			</trans-unit>
+			<trans-unit id="banner.cookie.duration.30minutes" resname="banner.cookie.duration.30minutes">
+				<source>30 minutes</source>
+				<target>30 分钟</target>
+			</trans-unit>
+			<trans-unit id="banner.cookie.duration.3months" resname="banner.cookie.duration.3months">
+				<source>3 months</source>
+				<target>3 月</target>
+			</trans-unit>
+			<trans-unit id="banner.cookie.duration.6months" resname="banner.cookie.duration.6months">
+				<source>6 months</source>
+				<target>6 月</target>
+			</trans-unit>
+			<trans-unit id="banner.cookie.duration.90days" resname="banner.cookie.duration.90days">
+				<source>90 days</source>
+				<target>90 天</target>
+			</trans-unit>
+			<trans-unit id="banner.cookie.duration.AMP_TOKEN" resname="banner.cookie.duration.AMP_TOKEN">
+				<source>30 seconds to 1 year</source>
+				<target>30秒至1年</target>
+			</trans-unit>
+			<trans-unit id="banner.cookie.duration.session" resname="banner.cookie.duration.session">
+				<source>until session end</source>
+				<target>直到会话结束</target>
+			</trans-unit>
+			<trans-unit id="banner.cookie.duration.supi" resname="banner.cookie.duration.supi">
+				<source>7 to 30 days</source>
+				<target>7到30天</target>
+			</trans-unit>
+			<trans-unit id="banner.cookie.essential.label" resname="banner.cookie.essential.label">
+				<source>Required Cookies</source>
+				<target>需要的 Cookie</target>
+			</trans-unit>
+			<trans-unit id="banner.cookie.essential.session.label" resname="banner.cookie.essential.session.label">
+				<source>User session</source>
+				<target>用户会话</target>
+			</trans-unit>
+			<trans-unit id="banner.cookie.essential.status.label" resname="banner.cookie.essential.status.label">
+				<source>Cookie settings</source>
+				<target>Cookie设置</target>
+			</trans-unit>
+			<trans-unit id="banner.cookie.marketing.label" resname="banner.cookie.marketing.label">
+				<source>Marketing &amp; Analytics</source>
+				<target>마케팅 &amp; 분석</target>
+			</trans-unit>
+			<trans-unit id="banner.cookie.media.label" resname="banner.cookie.media.label">
+				<source>Media Providers</source>
+				<target>媒体供应商</target>
+			</trans-unit>
+			<trans-unit id="banner.cookie.session.company" resname="banner.cookie.session.company">
+				<source>Website Operator</source>
+				<target>网站操作者</target>
+			</trans-unit>
+			<trans-unit id="banner.cookie.supi.name" resname="banner.cookie.supi.name">
+				<source>Data protection cookie</source>
+				<target>数据保护 Cookie</target>
+			</trans-unit>
+			<trans-unit id="banner.cookie.supi.purpose" resname="banner.cookie.supi.purpose">
+				<source>Selected settings for cookies and embeded services.</source>
+				<target>选择 Cookie 和嵌入式服务的设置。</target>
+			</trans-unit>
+			<trans-unit id="banner.detail.text" resname="banner.detail.text">
+				<source>Enable and disable individual cookies. Required cookies cannot be disabled.</source>
+				<target>啟用和禁用單個 cookie。 無法禁用所需的 cookie。</target>
+			</trans-unit>
+			<trans-unit id="banner.provider.company" resname="banner.provider.company">
+				<source>Provider</source>
+				<target>供应商</target>
+			</trans-unit>
+			<trans-unit id="banner.provider.duration" resname="banner.provider.duration">
+				<source>Expires after</source>
+				<target>有效期至</target>
+			</trans-unit>
+			<trans-unit id="banner.provider.name" resname="banner.provider.name">
+				<source>Name</source>
+				<target>姓名</target>
+			</trans-unit>
+			<trans-unit id="banner.provider.policy" resname="banner.provider.policy">
+				<source>Privacy Policy</source>
+				<target>隐私政策</target>
+			</trans-unit>
+			<trans-unit id="banner.provider.purpose" resname="banner.provider.purpose">
+				<source>Purpose</source>
+				<target>目的</target>
+			</trans-unit>
+			<trans-unit id="plugin.button.label" resname="plugin.button.label">
+				<source>Change current cookie settings</source>
+				<target>更改当前 Cookie 设置</target>
+			</trans-unit>
+			<trans-unit id="plugin.button.text" resname="plugin.button.text">
+				<source>Change current cookie settings</source>
+				<target>更改当前 Cookie 设置</target>
+			</trans-unit>
+			<trans-unit id="sage.button" resname="sage.button">
+				<source>Show content</source>
+				<target>显示内容</target>
+			</trans-unit>
+			<trans-unit id="sage.text" resname="sage.text">
+				<source>&lt;p&gt;For the use of this service, prior consent to the processing of your data and in particular to the setting of cookies is necessary. You can consent to the processing and setting of cookies &lt;a href=&#34;#supi-choose&#34; target=&#34;_self&#34; class=&#34;rtelinkblackarr&#34;&gt;here&lt;/a&gt;. Without your consent, your data will not be processed in connection with this service and no cookies will be set. You can revoke your consent at any time. For more information on cookies and the processing of your data in connection with this content and a way to revoke your consent, please see our &lt;a href=&#34;%s&#34; target=&#34;_blank&#34;&gt;%s&lt;/a&gt;&lt;/p&gt;</source>
+				<target>为了使用此服务，您必须事先同意处理您的数据，特别是设置cookie。您可以在此处同意处理和设置 Cookie。未经您的同意，您与此服务相关的数据将不会被处理，任何 cookie 也不会被设置。您可以随时撤销您的同意。有关 Cookie 和相关数据内容处理的更多信息，以及撤销您的同意的方法，请参阅我们的隐私政策。</target>
+			</trans-unit>
+			<trans-unit id="wiffme.text" resname="wiffme.text">
+				<source>&lt;p&gt;For the use of this service, prior consent to the processing of your data and in particular to the setting of cookies is necessary. You can consent to the processing and setting of cookies &lt;a href=&#34;#supi-choose&#34; target=&#34;_self&#34; class=&#34;rtelinkblackarr&#34;&gt;here&lt;/a&gt;. Without your consent, your data will not be processed in connection with this service and no cookies will be set. You can revoke your consent at any time. For more information on cookies and the processing of your data in connection with this content and a way to revoke your consent, please see our &lt;a href=&#34;%s&#34; target=&#34;_blank&#34;&gt;%s&lt;/a&gt;&lt;/p&gt;</source>
+				<target>为了使用此服务，您必须事先同意处理您的数据，特别是设置cookie。您可以在此处同意处理和设置 Cookie。未经您的同意，您与此服务相关的数据将不会被处理，任何 cookie 也不会被设置。您可以随时撤销您的同意。有关 Cookie 和相关数据内容处理的更多信息，以及撤销您的同意的方法，请参阅我们的隐私政策。</target>
+			</trans-unit>
+			<trans-unit id="youtube.button" resname="youtube.button">
+				<source>Play Video</source>
+				<target>播放视频</target>
+			</trans-unit>
+			<trans-unit id="youtube.text" resname="youtube.text">
+				<source>This content is provided by YouTube. If you activate the content, personal data may be processed and cookies set.</source>
+				<target>此内容由YouTube提供。如果你激活了这些内容，个人数据可能会被处理并设置cookies。</target>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>
