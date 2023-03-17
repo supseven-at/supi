@@ -24,11 +24,11 @@
 			</trans-unit>
 			<trans-unit id="banner.button.save.label" resname="banner.button.save.label">
 				<source>Save preferences</source>
-				<target>Einstellungen Speichern</target>
+				<target>Einstellungen speichern</target>
 			</trans-unit>
 			<trans-unit id="banner.button.save.text" resname="banner.button.save.text">
 				<source>Save preferences</source>
-				<target>Einstellungen Speichern</target>
+				<target>Einstellungen speichern</target>
 			</trans-unit>
 			<trans-unit id="banner.button.switch.label" resname="banner.button.switch.label">
 				<source>Cookie-Preferences</source>
