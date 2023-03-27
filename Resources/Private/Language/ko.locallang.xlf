@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.2" xmlns:t3="http://typo3.org/schemas/xliff" xmlns="urn:oasis:names:tc:xliff:document:1.2">
-	<file source-language="en" target-language="ko" original="" datatype="plaintext" date="2023-01-30T12:19:38+01:00">
+	<file source-language="en" target-language="ko" original="" datatype="plaintext" date="2023-03-27T13:37:37+02:00">
 		<body>
 			<trans-unit id="banner.button.allow.label" resname="banner.button.allow.label">
 				<source>Accept all</source>
@@ -181,6 +181,10 @@
 			<trans-unit id="banner.detail.text" resname="banner.detail.text">
 				<source>Enable and disable individual cookies. Required cookies cannot be disabled.</source>
 				<target>개별 쿠키를 활성화 및 비활성화합니다. 필수 쿠키는 비활성화할 수 없습니다.</target>
+			</trans-unit>
+			<trans-unit id="banner.detail.headline" resname="banner.detail.headline">
+				<source>Your data protection settings</source>
+				<target>데이터 보호 설정</target>
 			</trans-unit>
 			<trans-unit id="banner.provider.company" resname="banner.provider.company">
 				<source>Provider</source>

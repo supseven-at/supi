@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.2" xmlns:t3="http://typo3.org/schemas/xliff" xmlns="urn:oasis:names:tc:xliff:document:1.2">
-	<file source-language="en" target-language="fr" original="" datatype="plaintext" date="2023-01-30T12:19:38+01:00">
+	<file source-language="en" target-language="fr" original="" datatype="plaintext" date="2023-03-27T13:37:37+02:00">
 		<body>
 			<trans-unit id="banner.button.allow.label" resname="banner.button.allow.label">
 				<source>Accept all</source>
@@ -301,6 +301,10 @@
 			<trans-unit id="banner.detail.text" resname="banner.detail.text">
 				<source>Enable and disable individual cookies. Required cookies cannot be disabled.</source>
 				<target>Activez et désactivez les cookies individuels. Les cookies obligatoires ne peuvent pas être désactivés.</target>
+			</trans-unit>
+			<trans-unit id="banner.detail.headline" resname="banner.detail.headline">
+				<source>Your data protection settings</source>
+				<target>Vos paramètres de protection des données</target>
 			</trans-unit>
 			<trans-unit id="banner.gdpr.name" resname="banner.gdpr.name">
 				<source>Privacy policy</source>
