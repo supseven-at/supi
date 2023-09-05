@@ -131,8 +131,13 @@ class SelectOptionsTest extends TestCase
 
         if (class_exists(\TYPO3\CMS\Core\Database\Query\Restriction\DeletedRestriction::class)) {
             $restrictions = new DefaultRestrictionContainer();
-            $res = $this->createMock(Statement::class);
-            $res->expects(static::any())->method('fetch')->willReturn(['pid' => $pid]);
+            if (method_exists(Statement::class, 'fetch')) {
+                $res = $this->createMock(Statement::class);
+                $res->expects(static::any())->method('fetch')->willReturn(['pid' => $pid]);
+            } else {
+                $res = $this->createMock(\Doctrine\DBAL\Result::class);
+                $res->expects(static::any())->method('fetchAssociative')->willReturn(['pid' => $pid]);
+            }
             $qb = $this->createMock(QueryBuilder::class);
             $qb->expects(static::any())->method('getRestrictions')->willReturn($restrictions);
             $qb->expects(static::any())->method('from')->willReturn($qb);

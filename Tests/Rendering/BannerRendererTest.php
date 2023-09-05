@@ -72,7 +72,11 @@ class BannerRendererTest extends TestCase
         ];
 
         $request = $this->createMock(Request::class);
-        $request->expects(static::once())->method('setControllerExtensionName')->with(static::equalTo('Supi'));
+
+        if (method_exists(Request::class, 'setControllerExtensionName')) {
+            $request->expects(static::once())->method('setControllerExtensionName')->with(static::equalTo('Supi'));
+        }
+
         $view = $this->createMock(StandaloneView::class);
         $view->expects(static::any())->method('getRequest')->willReturn($request);
         $view->expects(static::once())->method('setTemplate')->with(static::equalTo($template));
@@ -136,7 +140,11 @@ class BannerRendererTest extends TestCase
 
         $expected = 'RESULT';
         $request = $this->createMock(Request::class);
-        $request->expects(static::once())->method('setControllerExtensionName')->with(static::equalTo('Supi'));
+
+        if (method_exists(Request::class, 'setControllerExtensionName')) {
+            $request->expects(static::once())->method('setControllerExtensionName')->with(static::equalTo('Supi'));
+        }
+
         $view = $this->createMock(StandaloneView::class);
         $view->expects(static::any())->method('getRequest')->willReturn($request);
         $view->expects(static::once())->method('setTemplate')->with(static::equalTo($template));
@@ -167,8 +175,17 @@ class BannerRendererTest extends TestCase
             $langService,
             $proc
         );
-        $subject->cObj = (new \ReflectionClass(ContentObjectRenderer::class))->newInstanceWithoutConstructor();
-        $subject->cObj->data = $data;
+        $cObj = (new \ReflectionClass(ContentObjectRenderer::class))->newInstanceWithoutConstructor();
+        $cObj->data = $data;
+
+        if (method_exists($cObj, 'setContentObjectRenderer')) {
+            $subject->setContentObjectRenderer($cObj);
+        } else {
+            $reflObj = new \ReflectionObject($subject);
+            $reflProp = $reflObj->getProperty('cObj');
+            $reflProp->setAccessible(true);
+            $reflProp->setValue($subject, $cObj);
+        }
 
         $dataProcessingConf = [
             '10'  => FilesProcessor::class,
@@ -179,7 +196,7 @@ class BannerRendererTest extends TestCase
         ];
 
         $proc->expects(static::once())->method('process')->with(
-            static::equalTo($subject->cObj),
+            static::equalTo($cObj),
             static::equalTo(['dataProcessing.' => $dataProcessingConf]),
             static::equalTo($procData)
         )->willReturn($procData);

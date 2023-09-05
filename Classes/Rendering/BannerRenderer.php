@@ -125,7 +125,10 @@ class BannerRenderer extends AbstractPlugin
             $this->configuration['data'] = $out['data'];
         }
 
-        $this->view->getRequest()->setControllerExtensionName($this->configuration['extbase']['controllerExtensionName']);
+        if ($this->view->getRequest() && method_exists($this->view->getRequest(), 'setControllerExtensionName')) {
+            $this->view->getRequest()->setControllerExtensionName($this->configuration['extbase']['controllerExtensionName']);
+        }
+
         $this->view->setTemplateRootPaths($this->configuration['templateRootPaths']);
         $this->view->setLayoutRootPaths($this->configuration['layoutRootPaths']);
         $this->view->setPartialRootPaths($this->configuration['partialRootPaths']);
