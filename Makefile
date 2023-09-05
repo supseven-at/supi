@@ -1,4 +1,5 @@
 
+PHP_CS_FIXER_IGNORE_ENV = 1
 RELEASE_VERSION ?= $(git tag -l | sort -V | tail -n 1)
 PREV_VERSION = $(shell php .github/helper/find-previous-version.php $(RELEASE_VERSION))
 
@@ -10,12 +11,12 @@ frontend: Resources/Public/Css/Supi.css Resources/Public/JavaScript/Supi.js
 
 .PHONY: fix
 fix: vendor/autoload.php Build/node_modules/.yarn-integrity
-	bin/php-cs-fixer fix --config=.php-cs-fixer.php --diff
+	PHP_CS_FIXER_IGNORE_ENV=1 bin/php-cs-fixer fix --config=.php-cs-fixer.php --diff
 	cd Build && ./node_modules/.bin/prettier --write .
 
 .PHONY: lint
 lint: vendor/autoload.php Build/node_modules/.yarn-integrity
-	@bin/php-cs-fixer fix --config=.php-cs-fixer.php --diff --dry-run
+	PHP_CS_FIXER_IGNORE_ENV=1 bin/php-cs-fixer fix --config=.php-cs-fixer.php --diff --dry-run
 	cd Build && ./node_modules/.bin/prettier --check .
 
 .PHONY: test
