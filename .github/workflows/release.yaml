@@ -38,10 +38,3 @@ jobs:
           body_path: release/changelog.md
           files: |
             release/supi.zip
-
-      - name: Create TER release
-        env:
-          TYPO3_EXTENSION_KEY: supi
-          TYPO3_API_TOKEN: ${{ secrets.TYPO3_API_TOKEN }}
-        run: |
-          php ~/.composer/vendor/bin/tailor ter:publish --path=release/supi --comment="Changelog available at https://github.com/supseven-at/supi/releases/tag/${{ steps.vars.outputs.tag }}" ${{ steps.vars.outputs.version }}
