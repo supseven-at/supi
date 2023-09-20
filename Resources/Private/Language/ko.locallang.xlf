@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.2" xmlns:t3="http://typo3.org/schemas/xliff" xmlns="urn:oasis:names:tc:xliff:document:1.2">
-	<file source-language="en" target-language="ko" original="" datatype="plaintext" date="2023-03-27T13:37:37+02:00">
+	<file source-language="en" target-language="ko" original="" datatype="plaintext" date="2023-09-20T13:47:29+02:00">
 		<body>
 			<trans-unit id="banner.button.allow.label" resname="banner.button.allow.label">
 				<source>Accept all</source>

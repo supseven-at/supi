@@ -262,6 +262,38 @@ plugin.tx_supi {
                             }
                         }
                     }
+
+                    matomo {
+                        label = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.marketing.matomo.label
+                        names = _pk_id.*,_pk_ref.*,_pk_ses.*,_pk_cvar.*,_pk_hsr.*
+                        table {
+                            name = Matomo Cloud
+                            company = InnoCraft Ltd.
+                            policy = https://matomo.org/matomo-cloud-privacy-policy/
+                            rows {
+                                _pk_id {
+                                    purpose = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie._pk_id.purpose
+                                    duration = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.duration.6months
+                                }
+                                _pk_ref {
+                                    purpose = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie._pk_ref.purpose
+                                    duration = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.duration.13months
+                                }
+                                _pk_ses {
+                                    purpose = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie._pk_ses.purpose
+                                    duration = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.duration.session
+                                }
+                                _pk_cvar {
+                                    purpose = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie._pk_ses.purpose
+                                    duration = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.duration.session
+                                }
+                                _pk_hsr {
+                                    purpose = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie._pk_ses.purpose
+                                    duration = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.duration.session
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -453,4 +485,34 @@ page.headerData.31337 {
             console.log("SUPI FB Snippet active")
         </script>
     )
+
+    40 = COA
+    40 {
+        stdWrap.wrap = <script type="application/supi" data-supi-cookies="_pk_id.*,_pk_ref.*,_pk_ses.*,_pk_cvar.*,_pk_hsr.*">|</script>
+        stdWrap.if.value = {$plugin.tx_supi.matomo.domain}{$plugin.tx_supi.matomoId}
+
+        10 = TEXT
+        10.if {
+            value.data = getenv : TYPO3_CONTEXT
+            equals = Production/Live
+        }
+        10.value (
+var _paq = window._paq = window._paq || [];
+_paq.push(['trackPageView']);
+_paq.push(['enableLinkTracking']);
+(function() {
+    var u="//{$plugin.tx_supi.matomo.domain}/";
+    _paq.push(['setTrackerUrl', u+'matomo.php']);
+    _paq.push(['setSiteId', {$plugin.tx_supi.matomoId}]);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+})();
+        )
+
+        20 < .10
+        20.if.negate = 1
+        20.value (
+console.log("Would load Matomo tracker from {$plugin.tx_supi.matomoDomain} with ID {$plugin.tx_supi.matomoId} on Live");
+        )
+    }
 }

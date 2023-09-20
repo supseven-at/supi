@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.2" xmlns:t3="http://typo3.org/schemas/xliff" xmlns="urn:oasis:names:tc:xliff:document:1.2">
-	<file source-language="en" original="" datatype="plaintext" date="2023-03-27T13:37:37+02:00">
+	<file source-language="en" original="" datatype="plaintext" date="2023-09-20T13:47:29+02:00">
 		<body>
 			<trans-unit id="banner.button.allow.label" resname="banner.button.allow.label">
 				<source>Accept all</source>
@@ -161,6 +161,9 @@
 			<trans-unit id="banner.cookie.duration.90days" resname="banner.cookie.duration.90days">
 				<source>90 days</source>
 			</trans-unit>
+			<trans-unit id="banner.cookie.duration.13months" resname="banner.cookie.duration.13months">
+				<source>13 months</source>
+			</trans-unit>
 			<trans-unit id="banner.cookie.duration.AMP_TOKEN" resname="banner.cookie.duration.AMP_TOKEN">
 				<source>30 seconds to 1 year</source>
 			</trans-unit>
@@ -205,6 +208,18 @@
 			</trans-unit>
 			<trans-unit id="banner.cookie.marketing.fb.label" resname="banner.cookie.marketing.fb.label">
 				<source>Facebook</source>
+			</trans-unit>
+			<trans-unit id="banner.cookie.marketing.matomo.label" resname="banner.cookie.marketing.matomo.label">
+				<source>Matomo</source>
+			</trans-unit>
+			<trans-unit id="banner.cookie._pk_id.purpose" resname="banner.cookie._pk_id.purpose">
+				<source>Unique user ID</source>
+			</trans-unit>
+			<trans-unit id="banner.cookie._pk_ref.purpose" resname="banner.cookie._pk_ref.purpose">
+				<source>Attribution information</source>
+			</trans-unit>
+			<trans-unit id="banner.cookie._pk_ses.purpose" resname="banner.cookie._pk_ses.purpose">
+				<source>Session ID</source>
 			</trans-unit>
 			<trans-unit id="banner.cookie.marketing.ga.label" resname="banner.cookie.marketing.ga.label">
 				<source>Google Analytics</source>
