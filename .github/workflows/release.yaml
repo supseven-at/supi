@@ -36,5 +36,6 @@ jobs:
         with:
           name: Release ${{ steps.vars.outputs.tag }}
           body_path: release/changelog.md
+          draft: true
           files: |
             release/supi.zip
