@@ -129,10 +129,13 @@ class BannerRenderer extends AbstractPlugin
             $this->configuration['data'] = $out['data'];
         }
 
-        $request = $this->view->getRenderingContext();
 
-        if (!empty($GLOBALS['TYPO3_REQUEST']) && method_exists($request, 'setRequest')) {
-            $request->setRequest($GLOBALS['TYPO3_REQUEST']);
+        if (method_exists($this->view, 'getRenderingContext')) {
+            $request = $this->view->getRenderingContext();
+
+            if (!empty($GLOBALS['TYPO3_REQUEST']) && method_exists($request, 'setRequest')) {
+                $request->setRequest($GLOBALS['TYPO3_REQUEST']);
+            }
         }
 
         if ($this->view->getRequest() && method_exists($this->view->getRequest(), 'setControllerExtensionName')) {
