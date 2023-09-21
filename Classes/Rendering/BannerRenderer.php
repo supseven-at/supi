@@ -77,7 +77,7 @@ class BannerRenderer extends AbstractPlugin
 
         if (!$this->languageService) {
             if (class_exists(\TYPO3\CMS\Core\Localization\LanguageServiceFactory::class) && !empty($GLOBALS['TYPO3_REQUEST'])) {
-                $this->languageService = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Localization\LanguageServiceFactory::class)->createFromSiteLanguage($GLOBALS['TYPO3_REQUEST']);
+                $this->languageService = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Localization\LanguageServiceFactory::class)->createFromSiteLanguage($GLOBALS['TYPO3_REQUEST']->getAttribute('language'));
             } else {
                 if (class_exists(\TYPO3\CMS\Lang\LanguageService::class)) {
                     $this->languageService = GeneralUtility::makeInstance(\TYPO3\CMS\Lang\LanguageService::class);
