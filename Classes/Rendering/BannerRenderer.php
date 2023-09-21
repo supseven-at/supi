@@ -129,7 +129,6 @@ class BannerRenderer extends AbstractPlugin
             $this->configuration['data'] = $out['data'];
         }
 
-
         if (method_exists($this->view, 'getRenderingContext')) {
             $request = $this->view->getRenderingContext();
 
