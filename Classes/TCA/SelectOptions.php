@@ -24,19 +24,23 @@ class SelectOptions
         $this->languageService = $languageService ?? $GLOBALS['LANG'] ?? null;
 
         if (!$this->languageService) {
-            if (class_exists(\TYPO3\CMS\Lang\LanguageService::class)) {
-                $this->languageService = GeneralUtility::makeInstance(\TYPO3\CMS\Lang\LanguageService::class);
+            if (class_exists(\TYPO3\CMS\Core\Localization\LanguageServiceFactory::class) && !empty($GLOBALS['TYPO3_REQUEST'])) {
+                $this->languageService = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Localization\LanguageServiceFactory::class)->createFromSiteLanguage($GLOBALS['TYPO3_REQUEST']);
             } else {
-                $this->languageService = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Localization\LanguageService::class);
-            }
-
-            if (method_exists($this->languageService, 'init')) {
-                if (!empty($GLOBALS['TYPO3_REQUEST'])) {
-                    $this->languageService->init($GLOBALS['TYPO3_REQUEST']->getAttribute('language')->getTypo3Language());
-                } elseif (!empty($GLOBALS['TSFE'])) {
-                    $this->languageService->init($GLOBALS['TSFE']->sys_language_isocode);
+                if (class_exists(\TYPO3\CMS\Lang\LanguageService::class)) {
+                    $this->languageService = GeneralUtility::makeInstance(\TYPO3\CMS\Lang\LanguageService::class);
                 } else {
-                    $this->languageService->init('default');
+                    $this->languageService = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Localization\LanguageService::class);
+                }
+
+                if (method_exists($this->languageService, 'init')) {
+                    if (!empty($GLOBALS['TYPO3_REQUEST'])) {
+                        $this->languageService->init($GLOBALS['TYPO3_REQUEST']->getAttribute('language')->getTypo3Language());
+                    } elseif (!empty($GLOBALS['TSFE'])) {
+                        $this->languageService->init($GLOBALS['TSFE']->sys_language_isocode);
+                    } else {
+                        $this->languageService->init('default');
+                    }
                 }
             }
         }

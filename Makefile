@@ -21,7 +21,7 @@ lint: vendor/autoload.php Build/node_modules/.yarn-integrity
 
 .PHONY: test
 test: vendor/autoload.php
-	@bin/phpunit --bootstrap vendor/autoload.php Tests/
+	bin/phpunit --bootstrap vendor/autoload.php Tests/
 
 .PHONY: clean
 clean:
