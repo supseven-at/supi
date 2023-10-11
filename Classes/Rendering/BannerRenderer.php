@@ -6,6 +6,7 @@ namespace Supseven\Supi\Rendering;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
+use TYPO3\CMS\Extbase\Mvc\Request;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Fluid\View\StandaloneView;
 use TYPO3\CMS\Frontend\ContentObject\ContentDataProcessor;
@@ -133,11 +134,14 @@ class BannerRenderer extends AbstractPlugin
             $request = $this->view->getRenderingContext();
 
             if (!empty($GLOBALS['TYPO3_REQUEST']) && method_exists($request, 'setRequest')) {
-                $request->setRequest($GLOBALS['TYPO3_REQUEST']);
+                $request->setRequest((new Request())->withControllerExtensionName('Theme'));
             }
         }
 
-        if ($this->view->getRequest() && method_exists($this->view->getRequest(), 'setControllerExtensionName')) {
+        if (method_exists($this->view, 'getRequest')
+            && $this->view->getRequest()
+            && method_exists($this->view->getRequest(), 'setControllerExtensionName')
+            && !empty($this->configuration['extbase']['controllerExtensionName'])) {
             $this->view->getRequest()->setControllerExtensionName($this->configuration['extbase']['controllerExtensionName']);
         }
 
