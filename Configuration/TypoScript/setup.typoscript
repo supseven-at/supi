@@ -512,7 +512,7 @@ _paq.push(['enableLinkTracking']);
         20 < .10
         20.if.negate = 1
         20.value (
-console.log("Would load Matomo tracker from {$plugin.tx_supi.matomoDomain} with ID {$plugin.tx_supi.matomoId} on Live");
+console.log("Would load Matomo tracker from {$plugin.tx_supi.matomo.domain} with ID {$plugin.tx_supi.matomoId} on Live");
         )
     }
 }
