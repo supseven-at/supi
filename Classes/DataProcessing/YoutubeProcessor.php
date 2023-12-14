@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace Supseven\Supi\DataProcessing;
 
+use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Core\Resource\FileReference;
 use TYPO3\CMS\Core\Resource\FileRepository;
-use TYPO3\CMS\Core\Resource\ResourceFactory;
+use TYPO3\CMS\Core\Resource\StorageRepository;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 use TYPO3\CMS\Frontend\ContentObject\DataProcessorInterface;
@@ -22,50 +23,20 @@ class YoutubeProcessor implements DataProcessorInterface
     /**
      * @var string
      */
-    private $downloadUrl;
+    public string $downloadUrl = 'https://img.youtube.com/vi/{id}/{file}';
 
     /**
      * @var string
      */
-    private $embedUrl;
+    public string $embedUrl = 'https://www.youtube-nocookie.com/embed/{id}';
 
-    /**
-     * @var string
-     */
-    private $fileadmin;
-
-    /**
-     * @var \TYPO3\CMS\Core\Resource\ResourceStorage
-     */
-    private $storage;
-
-    /**
-     * @var FileRepository
-     */
-    private $fileRepository;
-
-    /**
-     * @param string $fileadmin
-     * @param \TYPO3\CMS\Core\Resource\ResourceStorage $storage
-     */
-    public function __construct(string $fileadmin = null, \TYPO3\CMS\Core\Resource\ResourceStorage $storage = null, string $downloadUrl = '', string $embedUrl = '', $fileRepository = null)
-    {
-        if (!$fileadmin) {
-            if (class_exists('TYPO3\CMS\Core\Core\Environment')) {
-                $fileadmin = \TYPO3\CMS\Core\Core\Environment::getPublicPath() . '/fileadmin';
-            } else {
-                $fileadmin = PATH_site . 'fileadmin';
-            }
-        }
-
-        $this->storage = $storage ?: GeneralUtility::makeInstance(ResourceFactory::class)->getDefaultStorage();
-        $this->fileadmin = $fileadmin;
-        $this->downloadUrl = $downloadUrl ?: 'https://img.youtube.com/vi/{id}/{file}';
-        $this->embedUrl = $embedUrl ?: 'https://www.youtube-nocookie.com/embed/{id}';
-        $this->fileRepository = $fileRepository ?? GeneralUtility::makeInstance(FileRepository::class);
+    public function __construct(
+        private readonly StorageRepository $storageRepository,
+        private readonly FileRepository $fileRepository,
+    ) {
     }
 
-    public function process(ContentObjectRenderer $cObj, array $contentObjectConfiguration, array $processorConfiguration, array $processedData)
+    public function process(ContentObjectRenderer $cObj, array $contentObjectConfiguration, array $processorConfiguration, array $processedData): array
     {
         $videos = [];
         $referencesField = $processorConfiguration['referencesField'] ?? 'files';
@@ -114,8 +85,8 @@ class YoutubeProcessor implements DataProcessorInterface
     protected function getVideo($videoId, ?FileReference $reference = null): ?array
     {
         $fileId = '/user_upload/youtube_' . md5($videoId) . '.jpg';
-        $fileName = $this->fileadmin . $fileId;
-        $video = null;
+        $fileName = Environment::getPublicPath() . '/fileadmin' . $fileId;
+        $file = null;
         $fileObjects = null;
 
         if ($reference && $reference->getProperty('tx_supi_video_cover') > 0) {
@@ -143,7 +114,7 @@ class YoutubeProcessor implements DataProcessorInterface
             }
 
             if (file_exists($fileName)) {
-                $file = $this->storage->getFile($fileId);
+                $file = $this->storageRepository->getDefaultStorage()->getFile($fileId);
             }
         }
 

@@ -4,8 +4,8 @@
         <ul>
             <f:for each="{settings.elements}" as="element">
                 <li class="supi-element">
-                    <span class="supi-element__label">{f:translate(key: '{element.label}', default: '{element.label}')}</span>
-                    <span class="supi-element__text">{f:translate(key: '{element.text}', default: '{element.text}')}</span>
+                    <span class="supi-element__label">{f:translate(key: '{element.label}', default: '{element.label}', extensionName: 'Supi')}</span>
+                    <span class="supi-element__text">{f:translate(key: '{element.text}', default: '{element.text}', extensionName: 'Supi')}</span>
                 </li>
             </f:for>
         </ul>

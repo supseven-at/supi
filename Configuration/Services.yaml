@@ -1,0 +1,26 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+
+  Supseven\Supi\DataProcessing\SettingsProcessor:
+    public: true
+
+  Supseven\Supi\DataProcessing\TyposcriptProcessor:
+    public: true
+
+  Supseven\Supi\DataProcessing\YoutubeProcessor:
+    public: true
+
+  Supseven\Supi\ContentObject\SupiJsContentObject:
+    public: true
+    tags:
+      - name: frontend.contentobject
+        identifier: 'SUPI_JS'
+
+  Supseven\Supi\CSP\SupiPolicyExtender:
+    public: true
+    shared: true
+    tags:
+      - name: event.listener
+        identifier: 'supseven/supi/csp'

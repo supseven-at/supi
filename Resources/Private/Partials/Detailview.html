@@ -8,7 +8,7 @@
         <div id="supi__detailview" class="tx-supi__pane-hidden">
             <div class="supi-p-hg">
                 <f:render partial="Layout/Heading" arguments="{ key : settings.detail.headline, suffix: '_detail' }" />
-                {f:translate(key:'{settings.detail.text}', default: '{settings.detail.text}') -> f:format.raw()}
+                {f:translate(key:'{settings.detail.text}', default: '{settings.detail.text}', extensionName: 'Supi') -> f:format.raw()}
             </div>
 
             <f:for each="{settings.elements}" as="element" key="blockName">
@@ -20,7 +20,7 @@
 
                     <f:if condition="{settings.text}">
                         <f:then>
-                            <f:format.raw><f:translate key="{element.text}">{element.text}</f:translate></f:format.raw>
+                            <f:format.raw><f:translate key="{element.text}" extensionName="Supi">{element.text}</f:translate></f:format.raw>
                         </f:then>
                         <f:else>
                             <div class="tx-supi__block-body" id="supi_body_{blockName}">
@@ -32,7 +32,7 @@
                                                     <f:if condition="{item.table}">
                                                         <f:then>
                                                             <div class="tx-supi__block-item__header">
-                                                                <button data-toggle="supiDetails" aria-expanded="false" data-target="#supiDetails{itemName}" class="tx-supi__link-button">{f:translate(key:'{item.label}', default: '{item.label}') -> f:format.raw()}</button>
+                                                                <button data-toggle="supiDetails" aria-expanded="false" data-target="#supiDetails{itemName}" class="tx-supi__link-button">{f:translate(key:'{item.label}', default: '{item.label}', extensionName: 'Supi') -> f:format.raw()}</button>
                                                                 <f:if condition="{settings.perItemSelect}">
                                                                     <f:alias map="{perItemSelect: settings.perItemSelect}">
                                                                         <f:render partial="Form/Checkbox" arguments="{_all}" />
@@ -44,15 +44,15 @@
                                                                 <table class="tx-supi__block-item__table-overview">
                                                                     <tbody>
                                                                     <tr>
-                                                                        <th scope="row"><f:translate key="banner.provider.name">name</f:translate></th>
-                                                                        <td><f:translate key="{item.table.name}">{item.table.name}</f:translate></td>
+                                                                        <th scope="row"><f:translate key="banner.provider.name" extensionName="Supi">name</f:translate></th>
+                                                                        <td><f:translate key="{item.table.name}" extensionName="Supi">{item.table.name}</f:translate></td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <th scope="row"><f:translate key="banner.provider.company">company</f:translate></th>
-                                                                        <td><f:translate key="{item.table.company}">{item.table.company}</f:translate></td>
+                                                                        <th scope="row"><f:translate key="banner.provider.company" extensionName="Supi">company</f:translate></th>
+                                                                        <td><f:translate key="{item.table.company}" extensionName="Supi">{item.table.company}</f:translate></td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <th scope="row"><f:translate key="banner.provider.policy">policy</f:translate></th>
+                                                                        <th scope="row"><f:translate key="banner.provider.policy" extensionName="Supi">policy</f:translate></th>
                                                                         <td>
                                                                             <a href="{item.table.policyUrl}" target="_blank" rel="noreferrer noopener">{item.table.policyUrl}</a>
                                                                         </td>
@@ -63,22 +63,22 @@
                                                                     <table class="tx-supi__block-item__table-cookie">
                                                                         <tbody>
                                                                         <tr>
-                                                                            <th scope="row"><f:translate key="banner.provider.cookie">cookie</f:translate></th>
+                                                                            <th scope="row"><f:translate key="banner.provider.cookie" extensionName="Supi">cookie</f:translate></th>
                                                                             <td>{f:if(condition: row.key, then: row.key, else: cookie)}</td>
                                                                         </tr>
                                                                         <f:if condition="{row.type}">
                                                                             <tr>
-                                                                                <th scope="row"><f:translate key="banner.provider.type">type</f:translate></th>
-                                                                                <td><f:translate key="{row.type}">{row.type}</f:translate></td>
+                                                                                <th scope="row"><f:translate key="banner.provider.type" extensionName="Supi">type</f:translate></th>
+                                                                                <td><f:translate key="{row.type}" extensionName="Supi">{row.type}</f:translate></td>
                                                                             </tr>
                                                                         </f:if>
                                                                         <tr>
-                                                                            <th scope="row"><f:translate key="banner.provider.purpose">purpose</f:translate></th>
-                                                                            <td><f:translate key="{row.purpose}">{row.purpose}</f:translate></td>
+                                                                            <th scope="row"><f:translate key="banner.provider.purpose" extensionName="Supi">purpose</f:translate></th>
+                                                                            <td><f:translate key="{row.purpose}" extensionName="Supi">{row.purpose}</f:translate></td>
                                                                         </tr>
                                                                         <tr>
-                                                                            <th scope="row"><f:translate key="banner.provider.duration">duration</f:translate></th>
-                                                                            <td><f:translate key="{row.duration}">{row.duration}</f:translate></td>
+                                                                            <th scope="row"><f:translate key="banner.provider.duration" extensionName="Supi">duration</f:translate></th>
+                                                                            <td><f:translate key="{row.duration}" extensionName="Supi">{row.duration}</f:translate></td>
                                                                         </tr>
                                                                         </tbody>
                                                                     </table>
@@ -88,8 +88,8 @@
                                                         </f:then>
                                                         <f:else>
                                                             <div class="tx-supi__block-item__header">
-                                                                <span>{f:translate(key:'{item.label}', default: '{item.label}') -> f:format.raw()}</span>
-                                                                <f:if condition="{item.names}"><small>{f:translate(key:'{item.names}', default: '{item.names}') -> f:format.raw()}</small></f:if>
+                                                                <span>{f:translate(key:'{item.label}', default: '{item.label}', extensionName: 'Supi') -> f:format.raw()}</span>
+                                                                <f:if condition="{item.names}"><small>{f:translate(key:'{item.names}', default: '{item.names}', extensionName: 'Supi') -> f:format.raw()}</small></f:if>
                                                                 <f:if condition="{settings.perItemSelect}">
                                                                     <f:alias map="{perItemSelect: settings.perItemSelect}">
                                                                         <f:render partial="Form/Checkbox" arguments="{_all}" />

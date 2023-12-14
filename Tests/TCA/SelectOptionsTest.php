@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace Supseven\Supi\Tests\TCA;
 
-use Doctrine\DBAL\Statement;
 use PHPUnit\Framework\TestCase;
 use Supseven\Supi\TCA\SelectOptions;
+use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Database\Query\QueryBuilder;
 use TYPO3\CMS\Core\Database\Query\Restriction\DefaultRestrictionContainer;
+use TYPO3\CMS\Core\Localization\LanguageServiceFactory;
 use TYPO3\CMS\Core\TypoScript\TemplateService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\RootlineUtility;
@@ -52,18 +53,21 @@ class SelectOptionsTest extends TestCase
             ],
         ];
 
-        if (class_exists(\TYPO3\CMS\Lang\LanguageService::class)) {
-            $languageService = $this->createMock(\TYPO3\CMS\Lang\LanguageService::class);
-        } else {
-            $languageService = $this->createMock(\TYPO3\CMS\Core\Localization\LanguageService::class);
-        }
-
+        $languageService = $this->createMock(\TYPO3\CMS\Core\Localization\LanguageService::class);
         $languageService->expects(static::any())->method('sL')->with(static::equalTo('LLL:sec'))->willReturn('Second');
+
+        $GLOBALS['BE_USER'] = $this->createMock(BackendUserAuthentication::class);
+        $languageServiceFactory = $this->createMock(LanguageServiceFactory::class);
+        $languageServiceFactory
+            ->expects(static::once())
+            ->method('createFromUserPreferences')
+            ->with(self::equalTo($GLOBALS['BE_USER']))
+            ->willReturn($languageService);
 
         GeneralUtility::addInstance(RootlineUtility::class, $rootlineUtil);
         GeneralUtility::addInstance(TemplateService::class, $templatesUtil);
 
-        $subject = new SelectOptions($languageService);
+        $subject = new SelectOptions($languageServiceFactory);
         $expected = [
             'row' => [
                 'uid' => 3,
@@ -116,44 +120,38 @@ class SelectOptionsTest extends TestCase
             ],
         ];
 
-        if (class_exists(\TYPO3\CMS\Lang\LanguageService::class)) {
-            $languageService = $this->createMock(\TYPO3\CMS\Lang\LanguageService::class);
-        } else {
-            $languageService = $this->createMock(\TYPO3\CMS\Core\Localization\LanguageService::class);
-        }
-
+        $languageService = $this->createMock(\TYPO3\CMS\Core\Localization\LanguageService::class);
         $languageService->expects(static::any())->method('sL')->with(static::equalTo('LLL:sec'))->willReturn('Second');
+
+        $GLOBALS['BE_USER'] = $this->createMock(BackendUserAuthentication::class);
+        $languageServiceFactory = $this->createMock(LanguageServiceFactory::class);
+        $languageServiceFactory
+            ->expects(static::once())
+            ->method('createFromUserPreferences')
+            ->with(self::equalTo($GLOBALS['BE_USER']))
+            ->willReturn($languageService);
 
         GeneralUtility::addInstance(RootlineUtility::class, $rootlineUtil);
         GeneralUtility::addInstance(TemplateService::class, $templatesUtil);
 
         $GLOBALS['TCA']['tt_content']['ctrl']['delete'] = false;
 
-        if (class_exists(\TYPO3\CMS\Core\Database\Query\Restriction\DeletedRestriction::class)) {
-            $restrictions = new DefaultRestrictionContainer();
-            if (method_exists(Statement::class, 'fetch')) {
-                $res = $this->createMock(Statement::class);
-                $res->expects(static::any())->method('fetch')->willReturn(['pid' => $pid]);
-            } else {
-                $res = $this->createMock(\Doctrine\DBAL\Result::class);
-                $res->expects(static::any())->method('fetchAssociative')->willReturn(['pid' => $pid]);
-            }
-            $qb = $this->createMock(QueryBuilder::class);
-            $qb->expects(static::any())->method('getRestrictions')->willReturn($restrictions);
-            $qb->expects(static::any())->method('from')->willReturn($qb);
-            $qb->expects(static::any())->method('where')->willReturn($qb);
-            $qb->expects(static::any())->method('andWhere')->willReturn($qb);
-            $qb->expects(static::any())->method('execute')->willReturn($res);
-            $pool = $this->createMock(ConnectionPool::class);
-            $pool->expects(static::any())->method('getQueryBuilderForTable')->willReturn($qb);
-            GeneralUtility::addInstance(ConnectionPool::class, $pool);
-        } else {
-            $db = $this->createMock(\TYPO3\CMS\Core\Database\DatabaseConnection::class);
-            $db->expects(static::once())->method('exec_SELECTgetSingleRow')->willReturn(['pid' => $pid]);
-            $GLOBALS['TYPO3_DB'] = $db;
-        }
+        $restrictions = new DefaultRestrictionContainer();
 
-        $subject = new SelectOptions($languageService);
+        $res = $this->createMock(\Doctrine\DBAL\Result::class);
+        $res->expects(static::any())->method('fetchAssociative')->willReturn(['pid' => $pid]);
+
+        $qb = $this->createMock(QueryBuilder::class);
+        $qb->expects(static::any())->method('getRestrictions')->willReturn($restrictions);
+        $qb->expects(static::any())->method('from')->willReturn($qb);
+        $qb->expects(static::any())->method('where')->willReturn($qb);
+        $qb->expects(static::any())->method('andWhere')->willReturn($qb);
+        $qb->expects(static::any())->method('execute')->willReturn($res);
+        $pool = $this->createMock(ConnectionPool::class);
+        $pool->expects(static::any())->method('getQueryBuilderForTable')->willReturn($qb);
+        GeneralUtility::addInstance(ConnectionPool::class, $pool);
+
+        $subject = new SelectOptions($languageServiceFactory);
         $expected = [
             'row' => [
                 'uid' => 'NEW123',

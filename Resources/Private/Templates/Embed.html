@@ -7,7 +7,7 @@
     <f:for each="{settings.services}" as="service" key="id">
         <f:if condition="{id} == {data.bodytext}">
             <div class="supi-service" data-supi-service-container="{service.service}" data-supi-service-type="{service.type}" data-supi-service-attr="{service.attrJson}"{f:if(condition: service.callback, then: ' data-supi-service-callback="{service.callback}"')}>
-                <button type="button" data-toggle="supiServiceContainer"><f:translate key="{f:if(condition: service.toggle, then: service.toggle, else: service.label)}">{f:if(condition: service.toggle, then: service.toggle, else: service.label)}</f:translate></button>
+                <button type="button" data-toggle="supiServiceContainer"><f:translate key="{f:if(condition: service.toggle, then: service.toggle, else: service.label)}" extensionName="Supi">{f:if(condition: service.toggle, then: service.toggle, else: service.label)}</f:translate></button>
             </div>
         </f:if>
     </f:for>

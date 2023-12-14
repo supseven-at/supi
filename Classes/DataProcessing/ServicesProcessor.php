@@ -12,7 +12,7 @@ use TYPO3\CMS\Frontend\ContentObject\DataProcessorInterface;
  */
 class ServicesProcessor implements DataProcessorInterface
 {
-    public function process(ContentObjectRenderer $cObj, array $contentObjectConfiguration, array $processorConfiguration, array $processedData)
+    public function process(ContentObjectRenderer $cObj, array $contentObjectConfiguration, array $processorConfiguration, array $processedData): array
     {
         foreach ($processedData['settings']['services'] ?? [] as $key => $data) {
             if (!empty($data['attr'])) {

@@ -11,17 +11,17 @@ frontend: Resources/Public/Css/Supi.css Resources/Public/JavaScript/Supi.js
 
 .PHONY: fix
 fix: vendor/autoload.php Build/node_modules/.yarn-integrity
-	PHP_CS_FIXER_IGNORE_ENV=1 bin/php-cs-fixer fix --config=.php-cs-fixer.php --diff
+	PHP_CS_FIXER_IGNORE_ENV=1 vendor/bin/php-cs-fixer fix --config=.php-cs-fixer.php --diff
 	cd Build && ./node_modules/.bin/prettier --write .
 
 .PHONY: lint
 lint: vendor/autoload.php Build/node_modules/.yarn-integrity
-	PHP_CS_FIXER_IGNORE_ENV=1 bin/php-cs-fixer fix --config=.php-cs-fixer.php --diff --dry-run
+	PHP_CS_FIXER_IGNORE_ENV=1 vendor/bin/php-cs-fixer fix --config=.php-cs-fixer.php --diff --dry-run
 	cd Build && ./node_modules/.bin/prettier --check .
 
 .PHONY: test
 test: vendor/autoload.php
-	bin/phpunit --bootstrap vendor/autoload.php Tests/
+	vendor/bin/phpunit --bootstrap vendor/autoload.php Tests/
 
 .PHONY: clean
 clean:
@@ -29,7 +29,7 @@ clean:
 
 .PHONY: clobber
 clobber: clean
-	@rm -rf vendor bin
+	@rm -rf vendor
 
 .PHONY: release
 release: release/supi.zip release/changelog.md release/ter_notes.md ## Create release artifact

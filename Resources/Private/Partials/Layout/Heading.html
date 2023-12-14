@@ -3,10 +3,10 @@
 
     <f:if condition="{element}">
         <f:then>
-            <h2 class="tx-supi__label">{f:translate(key: '{key}', default: '{key}') -> f:format.raw()}</h2>
+            <h2 class="tx-supi__label">{f:translate(key: '{key}', default: '{key}', extensionName: 'Supi') -> f:format.raw()}</h2>
         </f:then>
         <f:else>
-            <h1 class="h3" id="supi__label{suffix}">{f:translate(key: '{key}', default: '{key}') -> f:format.raw()}</h1>
+            <h1 class="h3" id="supi__label{suffix}">{f:translate(key: '{key}', default: '{key}', extensionName: 'Supi') -> f:format.raw()}</h1>
         </f:else>
     </f:if>
 

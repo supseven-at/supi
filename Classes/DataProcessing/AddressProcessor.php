@@ -15,11 +15,11 @@ use TYPO3\CMS\Frontend\ContentObject\DataProcessorInterface;
  */
 class AddressProcessor implements DataProcessorInterface
 {
-    public function process(ContentObjectRenderer $cObj, array $contentObjectConfiguration, array $processorConfiguration, array $processedData)
+    public function process(ContentObjectRenderer $cObj, array $contentObjectConfiguration, array $processorConfiguration, array $processedData): array
     {
         $address = $cObj->data[$processorConfiguration['field'] ?? 'bodytext'] ?? '';
 
-        if (strpos($address, ',') !== false) {
+        if (str_contains($address, ',')) {
             $address = GeneralUtility::trimExplode(",", $address, true);
         } else {
             $address = GeneralUtility::trimExplode("\n", $address, true);

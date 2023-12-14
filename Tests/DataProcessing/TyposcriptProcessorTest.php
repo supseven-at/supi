@@ -6,6 +6,7 @@ namespace Supseven\Supi\Tests\DataProcessing;
 
 use PHPUnit\Framework\TestCase;
 use Supseven\Supi\DataProcessing\TyposcriptProcessor;
+use TYPO3\CMS\Core\TypoScript\TypoScriptService;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
 /**
@@ -47,7 +48,7 @@ class TyposcriptProcessorTest extends TestCase
         $config = ['as' => $as, 'path' => $path];
         $cObj = $this->createMock(ContentObjectRenderer::class);
 
-        $subject = new TyposcriptProcessor();
+        $subject = new TyposcriptProcessor(new TypoScriptService());
         $actual = $subject->process($cObj, [], $config, []);
 
         static::assertEquals($expected, $actual);

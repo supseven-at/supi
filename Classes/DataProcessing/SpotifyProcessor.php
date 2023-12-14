@@ -12,7 +12,7 @@ use TYPO3\CMS\Frontend\ContentObject\DataProcessorInterface;
  */
 class SpotifyProcessor implements DataProcessorInterface
 {
-    public function process(ContentObjectRenderer $cObj, array $contentObjectConfiguration, array $processorConfiguration, array $processedData)
+    public function process(ContentObjectRenderer $cObj, array $contentObjectConfiguration, array $processorConfiguration, array $processedData): array
     {
         $id = $cObj->data['bodytext'];
         $as = $processorConfiguration['as'] ?? 'spotifyAttr';

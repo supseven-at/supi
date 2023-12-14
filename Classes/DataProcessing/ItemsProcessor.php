@@ -13,7 +13,7 @@ use TYPO3\CMS\Frontend\ContentObject\DataProcessorInterface;
  */
 class ItemsProcessor implements DataProcessorInterface
 {
-    public function process(ContentObjectRenderer $cObj, array $contentObjectConfiguration, array $processorConfiguration, array $processedData)
+    public function process(ContentObjectRenderer $cObj, array $contentObjectConfiguration, array $processorConfiguration, array $processedData): array
     {
         // Generate URLs for policy pages
         foreach ($processedData['settings']['elements'] ?? [] as $i => $element) {

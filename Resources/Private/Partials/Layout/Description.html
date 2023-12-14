@@ -5,8 +5,8 @@
     <div id="supi__description">
         <f:render partial="Layout/Heading" arguments="{ key : settings.content.headline }" />
 
-        <f:alias map="{ arguments : { 0 : '{f:uri.typolink(parameter: \'{settings.gdpr.uid}\')}', 1 : '{f:translate(key: \'{settings.gdpr.name}\')}' } }">
-            {f:translate(key: '{settings.content.text}', arguments: '{arguments}', default: '{settings.content.text}') -> f:format.raw()}
+        <f:alias map="{ arguments : { 0 : '{f:uri.typolink(parameter: \'{settings.gdpr.uid}\')}', 1 : '{f:translate(key: \'{settings.gdpr.name}\', extensionName: \'Supi\')}' } }">
+            {f:translate(key: '{settings.content.text}', arguments: '{arguments}', default: '{settings.content.text}', extensionName: 'Supi') -> f:format.raw()}
         </f:alias>
     </div>
 

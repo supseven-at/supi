@@ -16,7 +16,7 @@ class ArrayUtil
         foreach ($arr as $i => $el) {
             if (is_array($el)) {
                 $el = self::removeValue($el, $value);
-            } elseif (!empty($el) && is_string($el) && strpos($el, $value) !== false) {
+            } elseif (!empty($el) && is_string($el) && str_contains($el, $value)) {
                 $el = str_replace($value, '', $el);
                 $el = preg_replace('/,\\s*,/', ',', $el);
                 $el = trim($el, " \t\n\r\0\x0B,");

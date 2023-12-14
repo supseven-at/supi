@@ -7,8 +7,11 @@ namespace Supseven\Supi\Tests\DataProcessing;
 use org\bovigo\vfs\vfsStream;
 use Supseven\Supi\DataProcessing\YoutubeProcessor;
 use PHPUnit\Framework\TestCase;
+use TYPO3\CMS\Core\Core\ApplicationContext;
+use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Core\Resource\FileReference;
 use TYPO3\CMS\Core\Resource\FileRepository;
+use TYPO3\CMS\Core\Resource\StorageRepository;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
 /**
@@ -18,7 +21,7 @@ class YoutubeProcessorTest extends TestCase
 {
     public function testFileReferences()
     {
-        list($id, $root, $previewUrl, $storage, $fileadmin, $cObj, $embedUrl, $preview) = $this->createShared();
+        list($id, $root, $previewUrl, $storage, $cObj, $embedUrl, $preview) = $this->createShared();
 
         $fileRepo = $this->createMock(FileRepository::class);
         $ref = $this->createMock(FileReference::class);
@@ -27,7 +30,21 @@ class YoutubeProcessorTest extends TestCase
         $config['referencesField'] = $refencesField;
         $processedData = [$refencesField => [$ref]];
 
-        $subject = new YoutubeProcessor($fileadmin, $storage, $previewUrl, $embedUrl . '{id}', $fileRepo);
+        Environment::initialize(
+            new ApplicationContext('Testing'),
+            false,
+            true,
+            '/project',
+            $root->url(),
+            '/var',
+            '/config',
+            '/project/typo3',
+            'Linux'
+        );
+
+        $subject = new YoutubeProcessor($storage, $fileRepo);
+        $subject->downloadUrl = $previewUrl;
+        $subject->embedUrl = $embedUrl . '{id}';
         $actual = $subject->process($cObj, [], $config, $processedData);
 
         $expected = array_merge($processedData, [
@@ -47,7 +64,7 @@ class YoutubeProcessorTest extends TestCase
 
     public function testId()
     {
-        list($id, $root, $previewUrl, $storage, $fileadmin, $cObj, $embedUrl, $preview) = $this->createShared();
+        list($id, $root, $previewUrl, $storage, $cObj, $embedUrl, $preview) = $this->createShared();
 
         $fileRepo = $this->createMock(FileRepository::class);
         $ref = $this->createMock(FileReference::class);
@@ -56,7 +73,21 @@ class YoutubeProcessorTest extends TestCase
         $config['idsField'] = $idsField;
         $cObj->data[$idsField] = $id;
 
-        $subject = new YoutubeProcessor($fileadmin, $storage, $previewUrl, $embedUrl . '{id}', $fileRepo);
+        Environment::initialize(
+            new ApplicationContext('Testing'),
+            false,
+            true,
+            '/project',
+            $root->url(),
+            '/var',
+            '/config',
+            '/project/typo3',
+            'Linux'
+        );
+
+        $subject = new YoutubeProcessor($storage, $fileRepo);
+        $subject->downloadUrl = $previewUrl;
+        $subject->embedUrl = $embedUrl . '{id}';
         $actual = $subject->process($cObj, [], $config, []);
 
         $expected = [
@@ -76,7 +107,7 @@ class YoutubeProcessorTest extends TestCase
 
     public function testUrl()
     {
-        list($id, $root, $previewUrl, $storage, $fileadmin, $cObj, $embedUrl, $preview) = $this->createShared();
+        list($id, $root, $previewUrl, $storage, $cObj, $embedUrl, $preview) = $this->createShared();
 
         $fileRepo = $this->createMock(FileRepository::class);
         $ref = $this->createMock(FileReference::class);
@@ -85,7 +116,22 @@ class YoutubeProcessorTest extends TestCase
         $config['urlsField'] = $urlsField;
         $cObj->data[$urlsField] = 'https://www.youtube.com/embed/' . $id;
 
-        $subject = new YoutubeProcessor($fileadmin, $storage, $previewUrl, $embedUrl . '{id}', $fileRepo);
+        Environment::initialize(
+            new ApplicationContext('Testing'),
+            false,
+            true,
+            '/project',
+            $root->url(),
+            '/var',
+            '/config',
+            '/project/typo3',
+            'Linux'
+        );
+
+        $subject = new YoutubeProcessor($storage, $fileRepo);
+        $subject->downloadUrl = $previewUrl;
+        $subject->embedUrl = $embedUrl . '{id}';
+
         $actual = $subject->process($cObj, [], $config, []);
 
         $expected = [
@@ -108,10 +154,6 @@ class YoutubeProcessorTest extends TestCase
      */
     protected function createShared()
     {
-        if (!defined('TYPO3_OS')) {
-            define('TYPO3_OS', 'WIN');
-        }
-
         $id = '123456789ab';
         $root = vfsStream::setup('supi', null, [
             'fileadmin' => [
@@ -123,7 +165,6 @@ class YoutubeProcessorTest extends TestCase
         ]);
         $previewUrl = $root->getChild('youtube')->url() . '/preview_{id}_{file}';
         $storage = $this->createMock(\TYPO3\CMS\Core\Resource\ResourceStorage::class);
-        $fileadmin = $root->getChild('fileadmin')->url();
 
         $cObj = (new \ReflectionClass(ContentObjectRenderer::class))->newInstanceWithoutConstructor();
         $fileId = '/user_upload/youtube_' . md5($id) . '.jpg';
@@ -131,7 +172,10 @@ class YoutubeProcessorTest extends TestCase
 
         $preview = (new \ReflectionClass(FileReference::class))->newInstanceWithoutConstructor();
         $storage->expects(static::any())->method('getFile')->with(static::equalTo($fileId))->willReturn($preview);
-        $GLOBALS['TYPO3_CONF_VARS']['SYS']['curlUse'] = 0;
-        return array($id, $root, $previewUrl, $storage, $fileadmin, $cObj, $embedUrl, $preview);
+
+        $storageRepository = $this->createMock(StorageRepository::class);
+        $storageRepository->method('getDefaultStorage')->willReturn($storage);
+
+        return array($id, $root, $previewUrl, $storageRepository, $cObj, $embedUrl, $preview);
     }
 }

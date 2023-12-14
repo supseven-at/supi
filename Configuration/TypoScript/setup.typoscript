@@ -1,12 +1,11 @@
-plugin.tx_supi = USER
+plugin.tx_supi = FLUIDTEMPLATE
 plugin.tx_supi {
-    userFunc = Supseven\Supi\Rendering\BannerRenderer->userFunc
 
     dataProcessing {
+        5 = Supseven\Supi\DataProcessing\SettingsProcessor
         10 = Supseven\Supi\DataProcessing\ItemsProcessor
     }
 
-    extbase.controllerExtensionName = Supi
     templateName = Banner
     templateRootPaths.0 = EXT:supi/Resources/Private/Templates/
     partialRootPaths.0 = EXT:supi/Resources/Private/Partials/
@@ -465,38 +464,36 @@ tt_content.tx_supi_spotify {
 
 page.headerData.31337 = COA
 page.headerData.31337 {
-    10 = TEXT
-    10.value (
-        <script type="application/supi">
-            console.log("GREAT! SUPI WORKS!")
-        </script>
+    10 = SUPI_JS
+    10.content = TEXT
+    10.content.value (
+        console.log("GREAT! SUPI WORKS!")
     )
 
-    20 = TEXT
-    20.value (
-        <script type="application/supi" data-supi-cookies="_ga,_gid">
-            console.log("SUPI GA Snippet active")
-        </script>
+    20 = JS_SUPI
+    20.content = TEXT
+    20.content (
+        console.log("SUPI GA Snippet active")
     )
 
-    30 = TEXT
-    30.value (
-        <script type="application/supi" data-supi-cookies="_fbp">
-            console.log("SUPI FB Snippet active")
-        </script>
+    30 = JS_SUPI
+    30.content = TEXT
+    30.content (
+        console.log("SUPI FB Snippet active")
     )
 
-    40 = COA
+    40 = JS_SUPI
     40 {
-        stdWrap.wrap = <script type="application/supi" data-supi-cookies="_pk_id.*,_pk_ref.*,_pk_ses.*,_pk_cvar.*,_pk_hsr.*">|</script>
+        cookies = _pk_id.*,_pk_ref.*,_pk_ses.*,_pk_cvar.*,_pk_hsr.*
         stdWrap.if.value = {$plugin.tx_supi.matomo.domain}{$plugin.tx_supi.matomoId}
 
-        10 = TEXT
-        10.if {
+        content = COA
+        content.10 = TEXT
+        content.10.if {
             value.data = getenv : TYPO3_CONTEXT
             equals = Production/Live
         }
-        10.value (
+        content.10.value (
 var _paq = window._paq = window._paq || [];
 _paq.push(['trackPageView']);
 _paq.push(['enableLinkTracking']);
@@ -509,9 +506,9 @@ _paq.push(['enableLinkTracking']);
 })();
         )
 
-        20 < .10
-        20.if.negate = 1
-        20.value (
+        content.20 < .10
+        content.20.if.negate = 1
+        content.20.value (
 console.log("Would load Matomo tracker from {$plugin.tx_supi.matomo.domain} with ID {$plugin.tx_supi.matomoId} on Live");
         )
     }

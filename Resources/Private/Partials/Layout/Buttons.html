@@ -10,7 +10,7 @@
                                 switchFrom: '#supi__overview',
                                 switchTo: '#supi__detailview',
                                 id: 'supi__individualSwitchTo',
-                                text: '{f:translate(key: \'{settings.button.individual.text}\', default: \'{settings.button.individual.text}\')}'
+                                text: '{f:translate(key: \'{settings.button.individual.text}\', default: \'{settings.button.individual.text}\', extensionName: \'Supi\')}'
                             }"/>
             </li>
         </f:if>
@@ -24,8 +24,8 @@
                                 switchFrom: '#supi__overview',
                                 switchTo: '#supi__detailview',
                                 id: 'supi__switchTo',
-                                label: '{f:translate(key: \'{settings.button.switch.label}\', default: \'{settings.button.switch.label}\')}',
-                                text: '{f:translate(key: \'{settings.button.switch.text}\', default: \'{settings.button.switch.text}\')}'
+                                label: '{f:translate(key: \'{settings.button.switch.label}\', default: \'{settings.button.switch.label}\', extensionName: \'Supi\')}',
+                                text: '{f:translate(key: \'{settings.button.switch.text}\', default: \'{settings.button.switch.text}\', extensionName: \'Supi\')}'
                             }"/>
                     </li>
                 </f:else>
@@ -38,8 +38,8 @@
                     <f:render section="Button" arguments="{
                         toggle: 'dismiss',
                         id: 'supi__dismiss',
-                        label: '{f:translate(key: \'{settings.button.dismiss.label}\', default: \'{settings.button.dismiss.label}\')}',
-                        text: '{f:translate(key: \'{settings.button.dismiss.text}\', default: \'{settings.button.dismiss.text}\')}'
+                        label: '{f:translate(key: \'{settings.button.dismiss.label}\', default: \'{settings.button.dismiss.label}\', extensionName: \'Supi\')}',
+                        text: '{f:translate(key: \'{settings.button.dismiss.text}\', default: \'{settings.button.dismiss.text}\', extensionName: \'Supi\')}'
                     }"/>
                 </li>
             </f:else>
@@ -50,8 +50,8 @@
                 <f:render section="Button" arguments="{
                     toggle: 'save',
                     id: 'supi__save',
-                    label: '{f:translate(key: \'{settings.button.save.label}\', default: \'{settings.button.save.label}\')}',
-                    text: '{f:translate(key: \'{settings.button.save.text}\', default: \'{settings.button.save.text}\')}'
+                    label: '{f:translate(key: \'{settings.button.save.label}\', default: \'{settings.button.save.label}\', extensionName: \'Supi\')}',
+                    text: '{f:translate(key: \'{settings.button.save.text}\', default: \'{settings.button.save.text}\', extensionName: \'Supi\')}'
                 }"/>
             </li>
         </f:if>
@@ -61,8 +61,8 @@
                 toggle: 'allow',
                 class: 'tx-supi__allow',
                 id: 'supi__allow{f:if(condition: \'{hideAutoEssential}\', then: \'-detailedView\')}',
-                label: '{f:translate(key: \'{settings.button.allow.label}\', default: \'{settings.button.allow.label}\')}',
-                text: '{f:translate(key: \'{settings.button.allow.text}\', default: \'{settings.button.allow.text}\')}'
+                label: '{f:translate(key: \'{settings.button.allow.label}\', default: \'{settings.button.allow.label}\', extensionName: \'Supi\')}',
+                text: '{f:translate(key: \'{settings.button.allow.text}\', default: \'{settings.button.allow.text}\', extensionName: \'Supi\')}'
             }"/>
         </li>
     </ul>

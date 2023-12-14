@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Supseven\Supi\TCA;
 
 use TYPO3\CMS\Backend\Utility\BackendUtility;
+use TYPO3\CMS\Core\Localization\LanguageService;
+use TYPO3\CMS\Core\Localization\LanguageServiceFactory;
 use TYPO3\CMS\Core\TypoScript\TemplateService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\RootlineUtility;
@@ -12,43 +14,14 @@ use TYPO3\CMS\Core\Utility\RootlineUtility;
 class SelectOptions
 {
     /**
-     * @var \TYPO3\CMS\Core\Localization\LanguageService|\TYPO3\CMS\Lang\LanguageService
+     * @var LanguageService
      */
-    private $languageService;
+    private readonly LanguageService $languageService;
 
-    /**
-     * @param \TYPO3\CMS\Core\Localization\LanguageService|\TYPO3\CMS\Lang\LanguageService $languageService
-     */
-    public function __construct($languageService = null)
-    {
-        $this->languageService = $languageService ?? $GLOBALS['LANG'] ?? null;
-
-        if (!$this->languageService) {
-            if (class_exists(\TYPO3\CMS\Core\Localization\LanguageServiceFactory::class) && !empty($GLOBALS['TYPO3_REQUEST'])) {
-                $this->languageService = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Localization\LanguageServiceFactory::class)->createFromSiteLanguage($GLOBALS['TYPO3_REQUEST']->getAttribute('language'));
-            } else {
-                if (class_exists(\TYPO3\CMS\Lang\LanguageService::class)) {
-                    $this->languageService = GeneralUtility::makeInstance(\TYPO3\CMS\Lang\LanguageService::class);
-                } else {
-                    $this->languageService = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Localization\LanguageService::class);
-                }
-
-                if (method_exists($this->languageService, 'init')) {
-                    if (!empty($GLOBALS['TYPO3_REQUEST'])) {
-                        $this->languageService->init($GLOBALS['TYPO3_REQUEST']->getAttribute('language')->getTypo3Language());
-                    } elseif (!empty($GLOBALS['TSFE'])) {
-                        $this->languageService->init($GLOBALS['TSFE']->sys_language_isocode);
-                    } else {
-                        $this->languageService->init('default');
-                    }
-                }
-            }
-        }
-
-        // Needed by older TemplateService
-        if (empty($GLOBALS['TT']) && class_exists(\TYPO3\CMS\Core\TimeTracker\NullTimeTracker::class)) {
-            $GLOBALS['TT'] = new \TYPO3\CMS\Core\TimeTracker\NullTimeTracker();
-        }
+    public function __construct(
+        private readonly LanguageServiceFactory $languageServiceFactory
+    ) {
+        $this->languageService = $this->languageServiceFactory->createFromUserPreferences($GLOBALS['BE_USER']);
     }
 
     public function addServices(array &$configuration): void
