@@ -114,10 +114,12 @@ use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
         'showitem'         => implode(',', $showitem),
         'columnsOverrides' => [
             'assets' => [
-                'config' => ExtensionManagementUtility::getFileFieldTCAConfig('assets', [
-                        'minitems' => 1,
-                        'maxitems' => 1,
-                    ], 'youtube'),
+                'config' => [
+                    'type' => 'file',
+                    'allowed' => ['youtube'],
+                    'minitems' => 1,
+                    'maxitems' => 1,
+                ],
             ],
         ],
     ];
@@ -171,15 +173,18 @@ use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
                 'config'      => [
                     'rows'        => 5,
                     'placeholder' => "Max Muster\nMusterstraße 1\n1234 Musterstadt\nÖsterreich",
-                    'eval'        => 'required,trim',
+                    'eval'        => 'trim',
+                    'required'    => true,
                 ],
             ],
             'image' => [
                 'description' => $ll . $table .'.field.image.tx_supi_maps.description',
-                'config'      => ExtensionManagementUtility::getFileFieldTCAConfig('image', [
+                'config' => [
+                    'type' => 'file',
+                    'allowed' => ['jpeg', 'jpg', 'png'],
                     'minitems' => 1,
                     'maxitems' => 1,
-                ], 'jpeg,jpg,png'),
+                ],
             ],
         ],
     ];

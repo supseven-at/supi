@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-(function ($extKey, $table, $type) {
+(function ($extKey, $table) {
     $ll = 'LLL:EXT:supi/Resources/Private/Language/locallang_db.xlf:';
 
     /**
@@ -12,27 +12,11 @@ declare(strict_types=1);
         'tx_supi_video_cover' => [
             'label'   => $ll . $table . '.tx_supi_video_cover.label',
             'description'   => $ll . $table . '.tx_supi_video_cover.description',
-            'config'  => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig(
-                'tx_supi_video_cover',
-                [
-                    'appearance' => [
-                        'createNewRelationLinkTitle' => $ll . $table . '.tx_supi_video_cover.irre.new.label',
-                        'collapseAll'                => true,
-                    ],
-                    'overrideChildTca' => [
-                        'types' => [
-                            \TYPO3\CMS\Core\Resource\File::FILETYPE_IMAGE => [
-                                'showitem' => '
-                                    crop,
-                                    --palette--;;filePalette',
-                                'columnsOverrides' => [],
-                            ],
-                        ],
-                    ],
-                    'maxitems' => 1,
-                ],
-                'jpg,jpeg,png,svg'
-            ),
+            'config'  => [
+                'type' => 'file',
+                'maxitems' => 1,
+                'allowed' => ['jpg', 'jpeg', 'png', 'svg'],
+            ],
         ],
     ];
     \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTCAcolumns($table, $additionalColumns);
@@ -56,4 +40,4 @@ declare(strict_types=1);
             ->persistToTca();
     }
 
-})('supi', 'sys_file_reference', 'tx_supi_youtube');
+})('supi', 'sys_file_reference');
