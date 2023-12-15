@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Supseven\Supi\Tests\ContentObject;
 
-use Supseven\Supi\ContentObject\SupiJsContentObject;
 use PHPUnit\Framework\TestCase;
+use Supseven\Supi\ContentObject\SupiJsContentObject;
 use Supseven\Supi\CSP\SupiPolicyExtender;
 use TYPO3\CMS\Core\Http\ServerRequest;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
@@ -28,7 +28,7 @@ class SupiJsContentObjectTest extends TestCase
             'service'  => 'service_name',
             'stdWrap.' => [
                 'wrap' => 'Some | string',
-            ]
+            ],
         ];
 
         $cObj = $this->createMock(ContentObjectRenderer::class);

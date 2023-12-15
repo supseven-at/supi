@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-(function ($extKey, $table) {
+(function ($extKey, $table): void {
     $ll = 'LLL:EXT:supi/Resources/Private/Language/locallang_db.xlf:';
 
     /**
@@ -10,12 +10,12 @@ declare(strict_types=1);
      */
     $additionalColumns = [
         'tx_supi_video_cover' => [
-            'label'   => $ll . $table . '.tx_supi_video_cover.label',
-            'description'   => $ll . $table . '.tx_supi_video_cover.description',
-            'config'  => [
-                'type' => 'file',
+            'label'       => $ll . $table . '.tx_supi_video_cover.label',
+            'description' => $ll . $table . '.tx_supi_video_cover.description',
+            'config'      => [
+                'type'     => 'file',
                 'maxitems' => 1,
-                'allowed' => ['jpg', 'jpeg', 'png', 'svg'],
+                'allowed'  => ['jpg', 'jpeg', 'png', 'svg'],
             ],
         ],
     ];

@@ -20,7 +20,7 @@ class AddressProcessor implements DataProcessorInterface
         $address = $cObj->data[$processorConfiguration['field'] ?? 'bodytext'] ?? '';
 
         if (str_contains($address, ',')) {
-            $address = GeneralUtility::trimExplode(",", $address, true);
+            $address = GeneralUtility::trimExplode(',', $address, true);
         } else {
             $address = GeneralUtility::trimExplode("\n", $address, true);
         }

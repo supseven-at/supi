@@ -17,9 +17,8 @@ class ArrayUtilTest extends TestCase
      * @param $input
      * @param $value
      * @param $expected
-     * @return void
      */
-    public function testRemoveValue($input, $value, $expected)
+    public function testRemoveValue($input, $value, $expected): void
     {
         $actual = ArrayUtil::removeValue($input, $value);
         self::assertEquals($expected, $actual);

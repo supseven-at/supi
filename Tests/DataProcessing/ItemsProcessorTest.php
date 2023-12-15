@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Supseven\Supi\Tests\DataProcessing;
 
-use Supseven\Supi\DataProcessing\ItemsProcessor;
 use PHPUnit\Framework\TestCase;
+use Supseven\Supi\DataProcessing\ItemsProcessor;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
 /**
@@ -13,7 +13,7 @@ use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
  */
 class ItemsProcessorTest extends TestCase
 {
-    public function testProcess()
+    public function testProcess(): void
     {
         $policyUid = '12';
         $policyUrl = 'https://www.domain.tld/privacy/';
@@ -24,7 +24,7 @@ class ItemsProcessorTest extends TestCase
                         'items' => [
                             'session' => [
                                 'table' => [
-                                    'policy' => $policyUid
+                                    'policy' => $policyUid,
                                 ],
                             ],
                         ],
@@ -33,7 +33,7 @@ class ItemsProcessorTest extends TestCase
                         'items' => [
                             'googleMaps' => [
                                 'table' => [
-                                    'policy' => 'https://www.google.com/privacy/'
+                                    'policy' => 'https://www.google.com/privacy/',
                                 ],
                             ],
                         ],
@@ -49,7 +49,7 @@ class ItemsProcessorTest extends TestCase
                             'session' => [
                                 'table' => [
                                     'policyUrl' => $policyUrl,
-                                    'policy'    => $policyUid
+                                    'policy'    => $policyUid,
                                 ],
                             ],
                         ],
@@ -59,7 +59,7 @@ class ItemsProcessorTest extends TestCase
                             'googleMaps' => [
                                 'table' => [
                                     'policyUrl' => 'https://www.google.com/privacy/',
-                                    'policy'    => 'https://www.google.com/privacy/'
+                                    'policy'    => 'https://www.google.com/privacy/',
                                 ],
                             ],
                         ],

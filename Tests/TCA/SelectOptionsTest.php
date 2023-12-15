@@ -22,7 +22,7 @@ use TYPO3\CMS\Core\Utility\RootlineUtility;
  */
 class SelectOptionsTest extends TestCase
 {
-    public function testGetFromExistingRecords()
+    public function testGetFromExistingRecords(): void
     {
         $pid = 2;
         $rootLine = [['uid' => $pid], ['uid' => 1]];
@@ -82,14 +82,14 @@ class SelectOptionsTest extends TestCase
             'row' => [
                 'uid' => 3,
                 'pid' => $pid,
-            ]
+            ],
         ];
         $subject->addServices($actual);
 
         static::assertSame($expected, $actual);
     }
 
-    public function testGetFromNewRecords()
+    public function testGetFromNewRecords(): void
     {
         $pid = 2;
         $rootLine = [['uid' => $pid], ['uid' => 1]];
@@ -166,7 +166,7 @@ class SelectOptionsTest extends TestCase
             'row' => [
                 'uid' => 'NEW123',
                 'pid' => -$pid,
-            ]
+            ],
         ];
         $subject->addServices($actual);
 

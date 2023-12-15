@@ -20,6 +20,7 @@ class SpotifyProcessor implements DataProcessorInterface
         $url = ($processedData['settings']['spotify']['url'] ?? '') ?: 'https://open.spotify.com/embed/playlist/{id}';
         $vals['src'] = str_replace('{id}', $id, $url);
         $processedData[$as] = json_encode($vals, JSON_FORCE_OBJECT);
+
         return $processedData;
     }
 }

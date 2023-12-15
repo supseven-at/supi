@@ -13,7 +13,7 @@ use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
  */
 class ServicesProcessorTest extends TestCase
 {
-    public function testProcess()
+    public function testProcess(): void
     {
         $cObj = $this->createMock(ContentObjectRenderer::class);
 

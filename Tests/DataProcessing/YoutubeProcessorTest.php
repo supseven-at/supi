@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Supseven\Supi\Tests\DataProcessing;
 
 use org\bovigo\vfs\vfsStream;
-use Supseven\Supi\DataProcessing\YoutubeProcessor;
 use PHPUnit\Framework\TestCase;
+use Supseven\Supi\DataProcessing\YoutubeProcessor;
 use TYPO3\CMS\Core\Core\ApplicationContext;
 use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Core\Resource\FileReference;
@@ -19,9 +19,9 @@ use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
  */
 class YoutubeProcessorTest extends TestCase
 {
-    public function testFileReferences()
+    public function testFileReferences(): void
     {
-        list($id, $root, $previewUrl, $storage, $cObj, $embedUrl, $preview) = $this->createShared();
+        [$id, $root, $previewUrl, $storage, $cObj, $embedUrl, $preview] = $this->createShared();
 
         $fileRepo = $this->createMock(FileRepository::class);
         $ref = $this->createMock(FileReference::class);
@@ -54,7 +54,7 @@ class YoutubeProcessorTest extends TestCase
                     'preview'   => $preview,
                     'id'        => $id,
                     'url'       => $embedUrl . $id,
-                ]
+                ],
             ],
         ]);
 
@@ -62,9 +62,9 @@ class YoutubeProcessorTest extends TestCase
         static::assertEquals($expected, $actual);
     }
 
-    public function testId()
+    public function testId(): void
     {
-        list($id, $root, $previewUrl, $storage, $cObj, $embedUrl, $preview) = $this->createShared();
+        [$id, $root, $previewUrl, $storage, $cObj, $embedUrl, $preview] = $this->createShared();
 
         $fileRepo = $this->createMock(FileRepository::class);
         $ref = $this->createMock(FileReference::class);
@@ -105,9 +105,9 @@ class YoutubeProcessorTest extends TestCase
         static::assertEquals($expected, $actual);
     }
 
-    public function testUrl()
+    public function testUrl(): void
     {
-        list($id, $root, $previewUrl, $storage, $cObj, $embedUrl, $preview) = $this->createShared();
+        [$id, $root, $previewUrl, $storage, $cObj, $embedUrl, $preview] = $this->createShared();
 
         $fileRepo = $this->createMock(FileRepository::class);
         $ref = $this->createMock(FileReference::class);
@@ -176,6 +176,6 @@ class YoutubeProcessorTest extends TestCase
         $storageRepository = $this->createMock(StorageRepository::class);
         $storageRepository->method('getDefaultStorage')->willReturn($storage);
 
-        return array($id, $root, $previewUrl, $storageRepository, $cObj, $embedUrl, $preview);
+        return [$id, $root, $previewUrl, $storageRepository, $cObj, $embedUrl, $preview];
     }
 }

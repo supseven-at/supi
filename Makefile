@@ -11,7 +11,7 @@ frontend: Resources/Public/Css/Supi.css Resources/Public/JavaScript/Supi.js
 
 .PHONY: fix
 fix: vendor/autoload.php Build/node_modules/.yarn-integrity
-	PHP_CS_FIXER_IGNORE_ENV=1 vendor/bin/php-cs-fixer fix --config=.php-cs-fixer.php --diff
+	vendor/bin/php-cs-fixer fix --config=.php-cs-fixer.php --diff
 	cd Build && ./node_modules/.bin/prettier --write .
 
 .PHONY: lint

@@ -18,16 +18,16 @@ class SupiPolicyExtender implements SingletonInterface
 {
     private array $extensions = [];
 
-    public function addInlineScript(string $data): void
-    {
-        $hash = hash('sha256', $data);
-        $this->extensions[] = [Directive::ScriptSrc, new HashValue($hash)];
-    }
-
     public function __invoke(PolicyMutatedEvent $event): void
     {
         foreach ($this->extensions as $extension) {
             $event->getCurrentPolicy()->extend(...$extension);
         }
+    }
+
+    public function addInlineScript(string $data): void
+    {
+        $hash = hash('sha256', $data);
+        $this->extensions[] = [Directive::ScriptSrc, new HashValue($hash)];
     }
 }

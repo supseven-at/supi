@@ -1,10 +1,11 @@
 <?php
+
 declare(strict_types=1);
 
 use Supseven\Supi\TCA\ArrayUtil;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 
-(function ($extKey, $table, $type) {
+(function ($extKey, $table, $type): void {
 
     $ll = 'LLL:EXT:supi/Resources/Private/Language/locallang_db.xlf:';
 
@@ -13,9 +14,9 @@ use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
         $table,
         'CType',
         [
-            $ll . $table .'.button.title',
+            $ll . $table . '.button.title',
             $type,
-            'supi'
+            'supi',
         ]
     );
 
@@ -66,26 +67,26 @@ use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
         $table,
         'CType',
         [
-            $ll . $table .'.youtube.title',
+            $ll . $table . '.youtube.title',
             'tx_supi_youtube',
-            'supi'
+            'supi',
         ]
     );
 
     $GLOBALS['TCA'][$table]['columns']['tx_supi_youtube_ids'] = [
-        'label' => $ll . $table . '.field.tx_supi_youtube_ids.title',
+        'label'  => $ll . $table . '.field.tx_supi_youtube_ids.title',
         'config' => [
             'type' => 'input',
-            'max' => 255,
+            'max'  => 255,
             'eval' => 'trim',
         ],
     ];
 
     $GLOBALS['TCA'][$table]['columns']['tx_supi_youtube_urls'] = [
-        'label' => $ll . $table . '.field.tx_supi_youtube_urls.title',
+        'label'  => $ll . $table . '.field.tx_supi_youtube_urls.title',
         'config' => [
             'type' => 'input',
-            'max' => 255,
+            'max'  => 255,
             'eval' => 'trim',
         ],
     ];
@@ -115,8 +116,8 @@ use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
         'columnsOverrides' => [
             'assets' => [
                 'config' => [
-                    'type' => 'file',
-                    'allowed' => ['youtube'],
+                    'type'     => 'file',
+                    'allowed'  => ['youtube'],
                     'minitems' => 1,
                     'maxitems' => 1,
                 ],
@@ -128,6 +129,7 @@ use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
     // Remove youtube from default assets fields if configured
     if (!empty($GLOBALS['TYPO3_CONF_VARS']['EXTENSIONS']['supi']['supiYoutubeOnly'])) {
         $GLOBALS['TCA'][$table]['columns']['assets'] = ArrayUtil::removeValue($GLOBALS['TCA'][$table]['columns']['assets'], 'youtube');
+
         if (is_array($GLOBALS['TCA'][$table]['columns']['image'] ?? null)) {
             $GLOBALS['TCA'][$table]['columns']['image'] = ArrayUtil::removeValue($GLOBALS['TCA'][$table]['columns']['image'], 'youtube');
         }
@@ -138,9 +140,9 @@ use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
         $table,
         'CType',
         [
-            $ll . $table .'.maps.title',
+            $ll . $table . '.maps.title',
             'tx_supi_maps',
-            'supi'
+            'supi',
         ]
     );
 
@@ -148,8 +150,8 @@ use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
         '--div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:general',
         '--palette--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:palette.general;general',
         '--palette--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:palette.headers;headers',
-        'bodytext;'. $ll . $table .'.field.bodytext.tx_supi_maps.title',
-        'image;'. $ll . $table .'.field.image.tx_supi_maps.title',
+        'bodytext;' . $ll . $table . '.field.bodytext.tx_supi_maps.title',
+        'image;' . $ll . $table . '.field.image.tx_supi_maps.title',
         '--div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.appearance',
         '--palette--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:palette.frames;frames',
         '--palette--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:palette.appearanceLinks;appearanceLinks',
@@ -169,7 +171,7 @@ use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
         'showitem'         => implode(',', $showitem),
         'columnsOverrides' => [
             'bodytext' => [
-                'description' => $ll . $table .'.field.bodytext.tx_supi_maps.description',
+                'description' => $ll . $table . '.field.bodytext.tx_supi_maps.description',
                 'config'      => [
                     'rows'        => 5,
                     'placeholder' => "Max Muster\nMusterstraße 1\n1234 Musterstadt\nÖsterreich",
@@ -178,10 +180,10 @@ use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
                 ],
             ],
             'image' => [
-                'description' => $ll . $table .'.field.image.tx_supi_maps.description',
-                'config' => [
-                    'type' => 'file',
-                    'allowed' => ['jpeg', 'jpg', 'png'],
+                'description' => $ll . $table . '.field.image.tx_supi_maps.description',
+                'config'      => [
+                    'type'     => 'file',
+                    'allowed'  => ['jpeg', 'jpg', 'png'],
                     'minitems' => 1,
                     'maxitems' => 1,
                 ],
@@ -195,9 +197,9 @@ use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
         $table,
         'CType',
         [
-            $ll . $table .'.tx_supi_embed.title',
+            $ll . $table . '.tx_supi_embed.title',
             'tx_supi_embed',
-            'supi'
+            'supi',
         ]
     );
 
@@ -205,7 +207,7 @@ use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
         '--div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:general',
         '--palette--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:palette.general;general',
         '--palette--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:palette.headers;headers',
-        'bodytext;'. $ll . $table .'.field.bodytext.tx_supi_embed.title',
+        'bodytext;' . $ll . $table . '.field.bodytext.tx_supi_embed.title',
         '--div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.appearance',
         '--palette--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:palette.frames;frames',
         '--palette--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:palette.appearanceLinks;appearanceLinks',
@@ -225,7 +227,7 @@ use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
         'showitem'         => implode(',', $showitem),
         'columnsOverrides' => [
             'bodytext' => [
-                'description' => $ll . $table .'.field.bodytext.tx_supi_embed.description',
+                'description' => $ll . $table . '.field.bodytext.tx_supi_embed.description',
                 'config'      => [
                     'type'       => 'select',
                     'renderType' => 'selectSingle',
@@ -240,15 +242,14 @@ use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
     ];
     $GLOBALS['TCA'][$table]['ctrl']['typeicon_classes']['tx_supi_embed'] = 'supi';
 
-
     // Spotify Player CE
     ExtensionManagementUtility::addTcaSelectItem(
         $table,
         'CType',
         [
-            $ll . $table .'.tx_supi_spotify.title',
+            $ll . $table . '.tx_supi_spotify.title',
             'tx_supi_spotify',
-            'supi'
+            'supi',
         ]
     );
 
@@ -256,7 +257,7 @@ use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
         '--div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:general',
         '--palette--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:palette.general;general',
         '--palette--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:palette.headers;headers',
-        'bodytext;'. $ll . $table .'.field.bodytext.tx_supi_spotify.title',
+        'bodytext;' . $ll . $table . '.field.bodytext.tx_supi_spotify.title',
         '--div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.appearance',
         '--palette--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:palette.frames;frames',
         '--palette--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:palette.appearanceLinks;appearanceLinks',
@@ -276,7 +277,7 @@ use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
         'showitem'         => implode(',', $showitem),
         'columnsOverrides' => [
             'bodytext' => [
-                'description' => $ll . $table .'.field.bodytext.tx_supi_spotify.description',
+                'description' => $ll . $table . '.field.bodytext.tx_supi_spotify.description',
                 'config'      => [
                     'type' => 'input',
                     'eval' => 'required,trim',

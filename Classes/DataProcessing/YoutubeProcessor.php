@@ -59,7 +59,7 @@ class YoutubeProcessor implements DataProcessorInterface
         }
 
         foreach (GeneralUtility::trimExplode("\n", $cObj->data[$processorConfiguration['urlsField'] ?? 'tx_supi_youtube_urls'] ?? '', true) as $url) {
-            preg_match('%(?:youtube(?:-nocookie)?\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|.*[?&]v=)|youtu\.be/)([^"&?/ ]{11})%i', $url, $match);
+            preg_match('%(?:youtube(?:-nocookie)?\\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|.*[?&]v=)|youtu\\.be/)([^"&?/ ]{11})%i', $url, $match);
 
             if (is_array($match) && !empty($match[1])) {
                 $videoId = $match[1];
