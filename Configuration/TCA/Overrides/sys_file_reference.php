@@ -15,7 +15,7 @@ declare(strict_types=1);
             'config'      => [
                 'type'     => 'file',
                 'maxitems' => 1,
-                'allowed'  => ['jpg', 'jpeg', 'png', 'svg'],
+                'allowed'  => 'jpg,jpeg,png,svg',
             ],
         ],
     ];

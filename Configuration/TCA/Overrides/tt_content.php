@@ -117,7 +117,7 @@ use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
             'assets' => [
                 'config' => [
                     'type'     => 'file',
-                    'allowed'  => ['youtube'],
+                    'allowed'  => 'youtube',
                     'minitems' => 1,
                     'maxitems' => 1,
                 ],
@@ -183,7 +183,7 @@ use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
                 'description' => $ll . $table . '.field.image.tx_supi_maps.description',
                 'config'      => [
                     'type'     => 'file',
-                    'allowed'  => ['jpeg', 'jpg', 'png'],
+                    'allowed'  => 'jpeg,jpg,png',
                     'minitems' => 1,
                     'maxitems' => 1,
                 ],
