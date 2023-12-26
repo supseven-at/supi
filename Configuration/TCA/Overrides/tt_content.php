@@ -14,9 +14,9 @@ use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
         $table,
         'CType',
         [
-            $ll . $table . '.button.title',
-            $type,
-            'supi',
+            'label' => $ll . $table . '.button.title',
+            'value' => $type,
+            'icon'  => 'supi',
         ]
     );
 
@@ -67,9 +67,9 @@ use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
         $table,
         'CType',
         [
-            $ll . $table . '.youtube.title',
-            'tx_supi_youtube',
-            'supi',
+            'label' => $ll . $table . '.youtube.title',
+            'value' => 'tx_supi_youtube',
+            'icon'  => 'supi',
         ]
     );
 
@@ -140,9 +140,9 @@ use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
         $table,
         'CType',
         [
-            $ll . $table . '.maps.title',
-            'tx_supi_maps',
-            'supi',
+            'label' => $ll . $table . '.maps.title',
+            'value' => 'tx_supi_maps',
+            'icon'  => 'supi',
         ]
     );
 
@@ -197,9 +197,9 @@ use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
         $table,
         'CType',
         [
-            $ll . $table . '.tx_supi_embed.title',
-            'tx_supi_embed',
-            'supi',
+            'label' => $ll . $table . '.tx_supi_embed.title',
+            'value' => 'tx_supi_embed',
+            'icon'  => 'supi',
         ]
     );
 
@@ -247,9 +247,9 @@ use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
         $table,
         'CType',
         [
-            $ll . $table . '.tx_supi_spotify.title',
-            'tx_supi_spotify',
-            'supi',
+            'label' => $ll . $table . '.tx_supi_spotify.title',
+            'value' => 'tx_supi_spotify',
+            'icon'  => 'supi',
         ]
     );
 
