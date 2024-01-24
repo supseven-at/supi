@@ -21,11 +21,17 @@ class YoutubeProcessorTest extends TestCase
         list($id, $root, $previewUrl, $storage, $fileadmin, $cObj, $embedUrl, $preview) = $this->createShared();
 
         $fileRepo = $this->createMock(FileRepository::class);
-        $ref = $this->createMock(FileReference::class);
-        $ref->expects(static::any())->method('getContents')->willReturn($id);
+        $ref1 = $this->createMock(FileReference::class);
+        $ref1->expects(static::any())->method('getContents')->willReturn($id);
+        $ref1->expects(static::any())->method('getMimeType')->willReturn('video/youtube');
+
+        $ref2 = $this->createMock(FileReference::class);
+        $ref2->expects(static::never())->method('getContents');
+        $ref2->expects(static::any())->method('getMimeType')->willReturn('image/png');
+
         $refencesField = 'assets';
         $config['referencesField'] = $refencesField;
-        $processedData = [$refencesField => [$ref]];
+        $processedData = [$refencesField => [$ref1, $ref2]];
 
         $subject = new YoutubeProcessor($fileadmin, $storage, $previewUrl, $embedUrl . '{id}', $fileRepo);
         $actual = $subject->process($cObj, [], $config, $processedData);
@@ -33,7 +39,7 @@ class YoutubeProcessorTest extends TestCase
         $expected = array_merge($processedData, [
             'videos' => [
                 [
-                    'reference' => $ref,
+                    'reference' => $ref1,
                     'preview'   => $preview,
                     'id'        => $id,
                     'url'       => $embedUrl . $id,
