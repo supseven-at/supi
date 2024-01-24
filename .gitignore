@@ -3,7 +3,7 @@ Build/*.log
 
 Resources/Public/Css/*.map
 Resources/Public/JavaScript/*.map
-
+.DS_Store
 /bin
 /vendor
 /typo3_src

@@ -82,6 +82,7 @@ Table of Contents
    ContentElements/Index
    Styling/Index
    Extending/Index
+   Changelog/Index
 
 ----
 TODO
