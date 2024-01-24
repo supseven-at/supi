@@ -42,11 +42,13 @@ class YoutubeProcessor implements DataProcessorInterface
         $referencesField = $processorConfiguration['referencesField'] ?? 'files';
 
         foreach ($processedData[$referencesField] ?? [] as $reference) {
-            $videoId = $reference->getContents();
-            $video = $this->getVideo($videoId, $reference);
+            if ($reference->getMimeType() === 'video/youtube') {
+                $videoId = $reference->getContents();
+                $video = $this->getVideo($videoId, $reference);
 
-            if ($video) {
-                $videos[] = $video;
+                if ($video) {
+                    $videos[] = $video;
+                }
             }
         }
 

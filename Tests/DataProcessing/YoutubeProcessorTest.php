@@ -26,6 +26,7 @@ class YoutubeProcessorTest extends TestCase
         $fileRepo = $this->createMock(FileRepository::class);
         $ref = $this->createMock(FileReference::class);
         $ref->expects(static::any())->method('getContents')->willReturn($id);
+        $ref->expects(static::any())->method('getMimeType')->willReturn('video/youtube');
         $refencesField = 'assets';
         $config['referencesField'] = $refencesField;
         $processedData = [$refencesField => [$ref]];
