@@ -21,6 +21,8 @@ services:
   Supseven\Supi\CSP\SupiPolicyExtender:
     public: true
     shared: true
+    arguments:
+      $cache: '@cache.hash'
     tags:
       - name: event.listener
         identifier: 'supseven/supi/csp'
