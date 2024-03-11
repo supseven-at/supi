@@ -88,6 +88,19 @@ page.includeCSS.supi
 
     Remove the Default CSS/JS implementations and integrate it into Your frontend workflow/ pipeline. All SCSS/TypeScript Sources are available in the EXT:supi folder.
 
+SUPI_JS object
+~~~~~~~~~~~~~~
+
+.. container:: table-row
+
+Services like Matomo or Google Analytics might require to insert an inline script
+into the page's source code. To prevent the Content Security Policy from blocking
+these inline scripts, this extension adds hashes for each script on the fly.
+
+Have a look into the TypoScript setup in `setup.typoscript`, where the key
+`page.headerData.31337` defines two `SUPI_JS` objects, which can be overwritten
+in your own TypoScript.
+
 Settings
 ^^^^^^^^
 
