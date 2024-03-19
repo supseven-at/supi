@@ -3,13 +3,8 @@ services:
     autowire: true
     autoconfigure: true
 
-  Supseven\Supi\DataProcessing\SettingsProcessor:
-    public: true
-
-  Supseven\Supi\DataProcessing\TyposcriptProcessor:
-    public: true
-
-  Supseven\Supi\DataProcessing\YoutubeProcessor:
+  Supseven\Supi\DataProcessing\:
+    resource: '../Classes/DataProcessing/*'
     public: true
 
   Supseven\Supi\ContentObject\SupiJsContentObject:

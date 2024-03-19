@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Supseven\Supi\DataProcessing;
 
+use TYPO3\CMS\Core\Localization\LanguageServiceFactory;
 use TYPO3\CMS\Core\Utility\MathUtility;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 use TYPO3\CMS\Frontend\ContentObject\DataProcessorInterface;
@@ -13,15 +14,26 @@ use TYPO3\CMS\Frontend\ContentObject\DataProcessorInterface;
  */
 class ItemsProcessor implements DataProcessorInterface
 {
+    public function __construct(
+        private readonly LanguageServiceFactory $languageServiceFactory,
+    ) {
+    }
+
     public function process(ContentObjectRenderer $cObj, array $contentObjectConfiguration, array $processorConfiguration, array $processedData): array
     {
         // Generate URLs for policy pages
         foreach ($processedData['settings']['elements'] ?? [] as $i => $element) {
             foreach ($element['items'] ?? [] as $j => $item) {
-                $policy = $item['table']['policy'] ?? '';
+                $policy = (string)($item['table']['policy'] ?? '');
 
-                if ($policy && MathUtility::canBeInterpretedAsInteger($policy)) {
-                    $policy = $cObj->typoLink_URL(['parameter' => $policy, 'forceAbsoluteUrl' => true]);
+                if ($policy) {
+                    if (MathUtility::canBeInterpretedAsInteger($policy)) {
+                        $policy = $cObj->typoLink_URL(['parameter' => $policy, 'forceAbsoluteUrl' => true]);
+                    } elseif (str_starts_with($policy, 'LLL:')) {
+                        $siteLanguage = $cObj->getRequest()->getAttribute('language');
+                        $languageService = $this->languageServiceFactory->createFromSiteLanguage($siteLanguage);
+                        $policy = $languageService->sL($policy);
+                    }
                 }
 
                 $processedData['settings']['elements'][$i]['items'][$j]['table']['policyUrl'] = $policy;

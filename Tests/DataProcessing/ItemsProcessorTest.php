@@ -6,6 +6,7 @@ namespace Supseven\Supi\Tests\DataProcessing;
 
 use PHPUnit\Framework\TestCase;
 use Supseven\Supi\DataProcessing\ItemsProcessor;
+use TYPO3\CMS\Core\Localization\LanguageServiceFactory;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
 /**
@@ -75,8 +76,12 @@ class ItemsProcessorTest extends TestCase
 
         $cObj = $this->createMock(ContentObjectRenderer::class);
         $cObj->expects(static::once())->method('typoLink_URL')->with(static::equalTo($ts))->willReturn($policyUrl);
+        $cObj->expects(static::never())->method('getRequest');
 
-        $subject = new ItemsProcessor();
+        $languageServiceFactory = $this->createMock(LanguageServiceFactory::class);
+        $languageServiceFactory->expects($this->never())->method('create');
+
+        $subject = new ItemsProcessor($languageServiceFactory);
         $actual = $subject->process($cObj, [], [], $vars);
 
         static::assertEquals($expected, $actual);
