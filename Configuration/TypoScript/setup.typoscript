@@ -381,6 +381,7 @@ tt_content.tx_supi_button {
 tt_content.tx_supi_youtube = FLUIDTEMPLATE
 tt_content.tx_supi_youtube {
     extbase.controllerExtensionName = Supi
+    extbase.controllerActionName = youtube
     templateName = Youtube
     templateRootPaths.0 = EXT:supi/Resources/Private/Templates/
     partialRootPaths.0 = EXT:supi/Resources/Private/Partials/
@@ -409,6 +410,7 @@ tt_content.tx_supi_youtube {
 tt_content.tx_supi_maps = FLUIDTEMPLATE
 tt_content.tx_supi_maps {
     extbase.controllerExtensionName = Supi
+    extbase.controllerActionName = maps
     templateName = Maps
     templateRootPaths.0 = EXT:supi/Resources/Private/Templates/
     partialRootPaths.0 = EXT:supi/Resources/Private/Partials/
@@ -435,6 +437,7 @@ tt_content.tx_supi_maps {
 tt_content.tx_supi_embed = FLUIDTEMPLATE
 tt_content.tx_supi_embed {
     extbase.controllerExtensionName = Supi
+    extbase.controllerActionName = embed
     templateName = Embed
     templateRootPaths.0 = EXT:supi/Resources/Private/Templates/
     partialRootPaths.0 = EXT:supi/Resources/Private/Partials/
@@ -450,6 +453,7 @@ tt_content.tx_supi_embed {
 tt_content.tx_supi_spotify = FLUIDTEMPLATE
 tt_content.tx_supi_spotify {
     extbase.controllerExtensionName = Supi
+    extbase.controllerActionName = spotify
     templateName = Spotify
     templateRootPaths.0 = EXT:supi/Resources/Private/Templates/
     partialRootPaths.0 = EXT:supi/Resources/Private/Partials/
