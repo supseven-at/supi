@@ -25,7 +25,7 @@ class SupiPolicyExtenderTest extends TestCase
         $hash = hash('sha256', $data);
         $hashValue = new HashValue($hash);
         $newHash = 'abc';
-        $directive = Directive::ScriptSrc;
+        $directive = Directive::ScriptSrcElem;
 
         $policy = $this->createMock(Policy::class);
         $policy
