@@ -32,7 +32,7 @@ class SupiPolicyExtender implements SingletonInterface
         $hashes = $this->cache->get($this->getCacheKey()) ?: [];
 
         foreach ($hashes as $hash) {
-            $event->getCurrentPolicy()->extend(Directive::ScriptSrc, new HashValue($hash));
+            $event->getCurrentPolicy()->extend(Directive::ScriptSrcElem, new HashValue($hash));
         }
     }
 
