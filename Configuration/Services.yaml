@@ -21,3 +21,7 @@ services:
     tags:
       - name: event.listener
         identifier: 'supseven/supi/csp'
+
+  Supseven\Supi\TCA\SelectOptions:
+    public: true
+    shared: true
