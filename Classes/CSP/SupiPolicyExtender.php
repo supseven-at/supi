@@ -19,7 +19,7 @@ use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 class SupiPolicyExtender implements SingletonInterface
 {
     public function __construct(
-        private readonly FrontendInterface $cache,
+        protected readonly FrontendInterface $cache,
     ) {
     }
 
@@ -52,12 +52,12 @@ class SupiPolicyExtender implements SingletonInterface
         }
     }
 
-    private function getCacheKey(): string
+    protected function getCacheKey(): string
     {
         return 'supi_hashes_' . $this->getTSFE()->newHash;
     }
 
-    private function getTSFE(): TypoScriptFrontendController
+    protected function getTSFE(): TypoScriptFrontendController
     {
         return $GLOBALS['TSFE'];
     }

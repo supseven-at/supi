@@ -31,8 +31,8 @@ class YoutubeProcessor implements DataProcessorInterface
     public string $embedUrl = 'https://www.youtube-nocookie.com/embed/{id}';
 
     public function __construct(
-        private readonly StorageRepository $storageRepository,
-        private readonly FileRepository $fileRepository,
+        protected readonly StorageRepository $storageRepository,
+        protected readonly FileRepository $fileRepository,
     ) {
     }
 

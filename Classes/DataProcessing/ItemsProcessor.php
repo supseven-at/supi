@@ -15,7 +15,7 @@ use TYPO3\CMS\Frontend\ContentObject\DataProcessorInterface;
 class ItemsProcessor implements DataProcessorInterface
 {
     public function __construct(
-        private readonly LanguageServiceFactory $languageServiceFactory,
+        protected readonly LanguageServiceFactory $languageServiceFactory,
     ) {
     }
 

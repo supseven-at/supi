@@ -12,7 +12,7 @@ use TYPO3\CMS\Frontend\ContentObject\DataProcessorInterface;
 class TyposcriptProcessor implements DataProcessorInterface
 {
     public function __construct(
-        private readonly TypoScriptService $typoscriptService,
+        protected readonly TypoScriptService $typoscriptService,
     ) {
     }
 

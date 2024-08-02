@@ -15,11 +15,11 @@ use TYPO3\CMS\Frontend\ContentObject\DataProcessorInterface;
  */
 class SettingsProcessor implements DataProcessorInterface
 {
-    private LanguageService $languageService;
+    protected LanguageService $languageService;
 
     public function __construct(
-        private readonly TypoScriptService $typoScriptService,
-        private readonly LanguageServiceFactory $languageServiceFactory,
+        protected readonly TypoScriptService $typoScriptService,
+        protected readonly LanguageServiceFactory $languageServiceFactory,
     ) {
     }
 
@@ -36,7 +36,7 @@ class SettingsProcessor implements DataProcessorInterface
         return $processedData;
     }
 
-    private function compileClientConfig(array $elements, bool $isRoot): array
+    protected function compileClientConfig(array $elements, bool $isRoot): array
     {
         if ($isRoot) {
             unset(

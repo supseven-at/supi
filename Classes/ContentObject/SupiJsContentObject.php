@@ -15,7 +15,7 @@ use TYPO3\CMS\Frontend\ContentObject\AbstractContentObject;
 class SupiJsContentObject extends AbstractContentObject
 {
     public function __construct(
-        private readonly SupiPolicyExtender $supiPolicyExtender,
+        protected readonly SupiPolicyExtender $supiPolicyExtender,
     ) {
     }
 

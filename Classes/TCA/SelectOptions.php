@@ -13,11 +13,11 @@ class SelectOptions
     /**
      * @var LanguageService
      */
-    private readonly LanguageService $languageService;
+    protected readonly LanguageService $languageService;
 
     public function __construct(
-        private readonly LanguageServiceFactory $languageServiceFactory,
-        private readonly ConfigurationManagerInterface $configurationManager,
+        protected readonly LanguageServiceFactory $languageServiceFactory,
+        protected readonly ConfigurationManagerInterface $configurationManager,
     ) {
         $this->languageService = $this->languageServiceFactory->createFromUserPreferences($GLOBALS['BE_USER']);
     }
