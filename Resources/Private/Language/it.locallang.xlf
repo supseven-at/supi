@@ -263,7 +263,7 @@
 				<target>Marketing e analisi dati</target>
 			</trans-unit>
 			<trans-unit id="banner.cookie.marketing.text" resname="banner.cookie.marketing.text">
-				<source>User analytics and embeded social media functions.</source>
+				<source>User analytics and embedded social media functions.</source>
 				<target>Analisi degli utenti e funzioni di social media integrate.</target>
 			</trans-unit>
 			<trans-unit id="banner.cookie.media.label" resname="banner.cookie.media.label">
@@ -291,7 +291,7 @@
 				<target>Cookie die protezione dei dati</target>
 			</trans-unit>
 			<trans-unit id="banner.cookie.supi.purpose" resname="banner.cookie.supi.purpose">
-				<source>Selected settings for cookies and embeded services.</source>
+				<source>Selected settings for cookies and embedded services.</source>
 				<target>Impostazioni selezionate per i cookie e i servizi incorporati.</target>
 			</trans-unit>
 			<trans-unit id="banner.cookie.typo3.purpose" resname="banner.cookie.typo3.purpose">

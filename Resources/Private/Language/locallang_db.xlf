@@ -66,10 +66,10 @@
     <source>Page or service of an external website</source>
    </trans-unit>
    <trans-unit id="tt_content.tx_supi_embed.title" resname="tt_content.tx_supi_embed.title">
-    <source>Embeded Page</source>
+    <source>Embedded Page</source>
    </trans-unit>
    <trans-unit id="tt_content.tx_supi_spotify.description" resname="tt_content.tx_supi_spotify.description">
-    <source>Embeded Spotify playlist player</source>
+    <source>Embedded Spotify playlist player</source>
    </trans-unit>
    <trans-unit id="tt_content.tx_supi_spotify.title" resname="tt_content.tx_supi_spotify.title">
     <source>Spotify Playlist</source>

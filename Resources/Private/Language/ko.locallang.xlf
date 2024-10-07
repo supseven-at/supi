@@ -175,7 +175,7 @@
 				<target>데이터 보호 쿠키</target>
 			</trans-unit>
 			<trans-unit id="banner.cookie.supi.purpose" resname="banner.cookie.supi.purpose">
-				<source>Selected settings for cookies and embeded services.</source>
+				<source>Selected settings for cookies and embedded services.</source>
 				<target>쿠키 및 내장형 서비스에 대해 선택된 설정.</target>
 			</trans-unit>
 			<trans-unit id="banner.detail.text" resname="banner.detail.text">

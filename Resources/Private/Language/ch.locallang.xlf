@@ -175,7 +175,7 @@
 				<target>数据保护 Cookie</target>
 			</trans-unit>
 			<trans-unit id="banner.cookie.supi.purpose" resname="banner.cookie.supi.purpose">
-				<source>Selected settings for cookies and embeded services.</source>
+				<source>Selected settings for cookies and embedded services.</source>
 				<target>选择 Cookie 和嵌入式服务的设置。</target>
 			</trans-unit>
 			<trans-unit id="banner.detail.text" resname="banner.detail.text">
