@@ -1,0 +1,90 @@
+
+plugin.tx_supi.settings.elements.marketing {
+    names := addToList({$supseven.supi.ga.cookies})
+    items.ga {
+        label = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.marketing.ga.label
+        names = {$supseven.supi.ga.cookies}
+        table {
+            name = Google Analytics
+            company = Google Ireland Limited
+            policy = https://policies.google.com/privacy
+            rows {
+                _ga {
+                    purpose = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie._ga.purpose
+                    duration = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.duration.2years
+                }
+
+                _gid {
+                    purpose = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie._gid.purpose
+                    duration = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.duration.1day
+                }
+
+                _gat {
+                    purpose = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie._gat.purpose
+                    duration = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.duration.1minute
+                }
+
+                AMP_TOKEN {
+                    purpose = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.AMP_TOKEN.purpose
+                    duration = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.duration.AMP_TOKEN
+                }
+
+                _gac_XXX {
+                    purpose = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie._gac_XXX.purpose
+                    duration = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.duration.90days
+                }
+
+                _ga_XXX {
+                    purpose = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie._ga_XXX.purpose
+                    duration = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.duration.2years
+                }
+
+                _gac_gb_XXX {
+                    purpose = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie._gac_gb_XXX.purpose
+                    duration = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.duration.90days
+                }
+
+                _dc_gtm_XXX {
+                    purpose = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie._dc_gtm_XXX.purpose
+                    duration = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.duration.session
+                }
+            }
+        }
+    }
+}
+
+page.headerData.31337 = COA
+page.headerData.31337 {
+    20 = SUPI_JS
+    20 {
+        cookies = {$supseven.supi.ga.cookies}
+        content = COA
+        content.10 = TEXT
+        content.10 {
+            if.value.data = getenv : TYPO3_CONTEXT
+            if.equals = Production/Live
+            value (
+
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create', '{$supseven.supi.ga.id}', 'auto', {
+    anonymizeIp: true
+});
+ga('send', 'pageview');
+
+            )
+        }
+
+        content.20 < .content.10
+        content.20 {
+            if.negate = 1
+            value (
+
+console.log("Would load GA with ID {$supseven.supi.ga.id} on Production/Live");
+
+            )
+        }
+    }
+}

@@ -1,0 +1,19 @@
+categories:
+  Matomo:
+    label: Matomo tracker
+
+settings:
+  supseven.supi.matomo.cookies:
+    label: 'Cookies'
+    description: 'Names of cookies of the matomo tracker'
+    type: string
+    default: '_pk_id.*,_pk_ref.*,_pk_ses.*,_pk_cvar.*,_pk_hsr.*'
+  supseven.supi.matomo.domain:
+    label: 'Domain'
+    description: 'Matomo URL without slashes or scheme, like: "my-site.matomo.cloud"'
+    type: string
+  supseven.supi.matomo.id:
+    label: 'ID'
+    description: 'Matomo ID of the site'
+    type: int
+

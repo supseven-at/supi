@@ -1,0 +1,4 @@
+name: supseven/supi-matomo
+label: EXT:supi setup for matomo tracker
+dependencies:
+  - supseven/supi

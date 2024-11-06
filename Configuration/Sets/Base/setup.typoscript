@@ -1,0 +1,233 @@
+plugin.tx_supi = FLUIDTEMPLATE
+plugin.tx_supi {
+
+    dataProcessing {
+        5 = Supseven\Supi\DataProcessing\SettingsProcessor
+        10 = Supseven\Supi\DataProcessing\ItemsProcessor
+    }
+
+    templateName = Banner
+    templateRootPaths.0 = EXT:supi/Resources/Private/Templates/
+    partialRootPaths.0 = EXT:supi/Resources/Private/Partials/
+    layoutRootPaths.0 = EXT:supi/Resources/Private/Layouts/
+
+    settings {
+        # Quick enable - disable
+        enabled = 1
+
+        # hides the overlay if the cookie button CE is visible (mostly used on the dataprotection page)
+        hideOverlayOnButtonCe = 1
+
+        # Hide the "Functional Cookies only" button
+        hideAutoEssential = 0
+
+        # Enabled detailed view
+        detailed = 1
+
+        # Show per item/cookie details, not just blocks
+        perItemDetail = 1
+
+        # Enable select per item
+        perItemSelect = 1
+
+        # Enable big switch-to-detail in overview if detail is active
+        # works only with "hideAutoEssential"
+        showBigSwitch = 0
+
+        # Key of theme CSS selector
+        theme = default
+
+        # 0 = Bottom-Left, 1 = Center-Center
+        position = 1
+
+        # CSS class the body tag must contain to enable console logging
+        debugClass = be_user_login
+
+        # Use this domain for the supi-settings cookie
+        cookieDomain =
+
+        # Time to live of own cookies in days
+        cookieTTL {
+            # Allow all
+            all = 30
+            # Allow selected / essential
+            reduced = 7
+        }
+
+        content {
+            headline = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.content.headline
+            text = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.content.text
+        }
+
+        overview {
+            headline = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.overview.headline
+            text = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.overview.text
+        }
+
+        switch {
+            headline = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.switch.headline
+            text = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.switch.text
+        }
+
+        detail {
+            headline = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.detail.headline
+            text = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.detail.text
+        }
+
+        gdpr {
+            label = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.gdpr.label
+            uid = 1
+            name = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.gdpr.name
+        }
+
+        elements {
+            essential {
+                required = 1
+                showOnLoad = 1
+                label = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.essential.label
+                text = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.essential.text
+                names = fe_typo_user, be_typo_user, be_lastLoginProvider, PHPSESSID, supi
+
+                items {
+                    session {
+                        label = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.essential.session.label
+                        names = fe_typo_user, be_typo_user, be_lastLoginProvider, PHPSESSID
+                        table {
+                            name = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.session.name
+                            company = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.session.company
+                            policy = 1
+                            rows {
+                                fe_typo_user {
+                                    purpose = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.fe_typo_user.purpose
+                                    duration = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.duration.session
+                                }
+
+                                be_typo_user {
+                                    purpose = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.be_typo_user.purpose
+                                    duration = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.duration.session
+                                }
+
+                                be_lastLoginProvider {
+                                    purpose = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.be_lastLoginProvider.purpose
+                                    duration = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.duration.90days
+                                }
+
+                                PHPSESSID {
+                                    purpose = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.PHPSESSID.purpose
+                                    duration = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.duration.session
+                                }
+                            }
+                        }
+                    }
+
+                    status {
+                        label = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.essential.status.label
+                        names = supi
+                        table {
+                            name = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.supi.name
+                            company = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.session.company
+                            policy = 1
+                            rows.supi {
+                                purpose = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.supi.purpose
+                                duration = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.duration.supi
+                            }
+                        }
+                    }
+                }
+            }
+
+            media {
+                required = 0
+                showOnLoad = 1
+                label = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.media.label
+                text = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.media.text
+
+                items {
+                }
+            }
+
+            marketing {
+                required = 0
+                showOnLoad = 0
+                label = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.marketing.label
+                text = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.marketing.text
+                names =
+
+                items {
+                }
+            }
+        }
+
+        button {
+            individual {
+                text = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.button.individual.text
+            }
+            allow {
+                label = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.button.allow.label
+                text = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.button.allow.text
+            }
+
+            dismiss {
+                label = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.button.dismiss.label
+                text = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.button.dismiss.text
+                disable = 0
+            }
+
+            choose {
+                label = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:plugin.button.label
+                text = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:plugin.button.text
+            }
+
+            switch {
+                label = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.button.switch.label
+                text = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.button.switch.text
+            }
+
+            save {
+                label = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.button.save.label
+                text = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.button.save.text
+            }
+        }
+    }
+}
+
+page {
+    includeJS.supi = EXT:supi/Resources/Public/JavaScript/Supi.js
+    includeJS.supi {
+        async = 1
+        defer = 1
+        disableCompression = 1
+        excludeFromConcatenation = 1
+    }
+
+    includeCSS.supi = EXT:supi/Resources/Public/Css/Supi.css
+    includeCSS.supi {
+        disableCompression = 1
+        excludeFromConcatenation = 1
+        media = screen
+    }
+}
+
+lib.elements.supi =< plugin.tx_supi
+
+tt_content.tx_supi_button =< plugin.tx_supi
+tt_content.tx_supi_button {
+    templateName = Button
+}
+
+tt_content.tx_supi_embed = FLUIDTEMPLATE
+tt_content.tx_supi_embed {
+    extbase.controllerExtensionName = Supi
+    extbase.controllerActionName = embed
+    templateName = Embed
+    templateRootPaths.0 = EXT:supi/Resources/Private/Templates/
+    partialRootPaths.0 = EXT:supi/Resources/Private/Partials/
+    layoutRootPaths.0 = EXT:supi/Resources/Private/Layouts/
+
+    dataProcessing {
+        10 = Supseven\Supi\DataProcessing\TyposcriptProcessor
+        10.path = plugin.tx_supi.settings
+        20 = Supseven\Supi\DataProcessing\ServicesProcessor
+    }
+}
+

@@ -1,0 +1,21 @@
+mod.wizards.newContentElement.wizardItems.plugins {
+    elements.tx_supi_youtube {
+        iconIdentifier = supi
+        title = LLL:EXT:supi/Resources/Private/Language/locallang_db.xlf:tt_content.youtube.title
+        description = LLL:EXT:supi/Resources/Private/Language/locallang_db.xlf:tt_content.youtube.description
+        tt_content_defValues {
+            CType = tx_supi_youtube
+        }
+    }
+
+    show := addToList(tx_supi_youtube)
+}
+
+# Set to 1 to disable Youtube videos as file references
+# TCEFORM.tt_content.assets.types.tx_supi_youtube.disabled = 0
+
+# Set to 0 to enable Youtube ID input
+TCEFORM.tt_content.tx_supi_youtube_ids.types.tx_supi_youtube.disabled = 1
+
+# Set to 0 to enable Youtube ID embed URL input
+TCEFORM.tt_content.tx_supi_youtube_urls.types.tx_supi_youtube.disabled = 1

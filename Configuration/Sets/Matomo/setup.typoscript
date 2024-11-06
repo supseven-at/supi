@@ -1,0 +1,70 @@
+
+plugin.tx_supi.settings.elements.marketing {
+    names := addToList({$supseven.supi.matomo.cookies})
+
+    items.matomo {
+        label = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.marketing.matomo.label
+        names = {$supseven.supi.matomo.cookies}
+        table {
+            name = Matomo Cloud
+            company = InnoCraft Ltd.
+            policy = https://matomo.org/matomo-cloud-privacy-policy/
+            rows {
+                _pk_id {
+                    purpose = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie._pk_id.purpose
+                    duration = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.duration.6months
+                }
+                _pk_ref {
+                    purpose = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie._pk_ref.purpose
+                    duration = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.duration.13months
+                }
+                _pk_ses {
+                    purpose = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie._pk_ses.purpose
+                    duration = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.duration.session
+                }
+                _pk_cvar {
+                    purpose = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie._pk_ses.purpose
+                    duration = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.duration.session
+                }
+                _pk_hsr {
+                    purpose = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie._pk_ses.purpose
+                    duration = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.duration.session
+                }
+            }
+        }
+    }
+}
+
+page.headerData.31337 = COA
+page.headerData.31337 {
+    40 = SUPI_JS
+    40 {
+        cookies = {$supseven.supi.matomo.cookies}
+        stdWrap.if.value = {$supseven.supi.matomo.domain}{$supseven.supi.matomo.id}
+
+        content = COA
+        content.10 = TEXT
+        content.10.if {
+            value.data = getenv : TYPO3_CONTEXT
+            equals = Production/Live
+        }
+        content.10.value (
+var _paq = window._paq = window._paq || [];
+_paq.push(['trackPageView']);
+_paq.push(['enableLinkTracking']);
+(function() {
+    var u="//{$supseven.supi.matomo.domain}/";
+    _paq.push(['setTrackerUrl', u+'matomo.php']);
+    _paq.push(['setSiteId', {$supseven.supi.matomo.id}]);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+})();
+        )
+
+        content.20 < .content.10
+        content.20.if.negate = 1
+        content.20.value (
+console.log("Would load Matomo tracker from {$supseven.supi.matomo.domain} with ID {$supseven.supi.matomo.uid} on Live");
+        )
+    }
+}

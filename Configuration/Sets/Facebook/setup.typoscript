@@ -1,0 +1,18 @@
+plugin.tx_supi.settings.elements.marketing {
+    names := addToList(_fbp)
+    items.fb {
+        label = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.marketing.fb.label
+        names = _fbp
+        table {
+            name = Facebook
+            company = Facebook Technologies LLC; Facebook Technologies Ireland Ltd
+            policy = https://www.facebook.com/policy.php
+            rows {
+                _fbp {
+                    purpose = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie._fbp.purpose
+                    duration = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.duration.3months
+                }
+            }
+        }
+    }
+}

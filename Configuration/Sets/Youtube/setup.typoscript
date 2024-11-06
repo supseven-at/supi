@@ -1,0 +1,58 @@
+
+plugin.tx_supi.settings {
+    # Set to 1 to enable the load-once button for youtube elements
+    enableYoutubeOnce = 0
+
+    # Youtube is enabled by essential
+    essentialIncludesYoutube = 0
+
+    elements.media.items {
+        youtube {
+            label = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.media.youtube.label
+            service = youtube
+            table {
+                name = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.media.youtube.label
+                company = Google Ireland Limited
+                policy = https://policies.google.com/privacy
+            }
+        }
+    }
+
+    youtube {
+        breakpoints {
+            0 {
+                media = min-width
+                size = 320
+                maxWidth = 320
+                cropVariant = xs
+            }
+        }
+    }
+}
+
+tt_content.tx_supi_youtube = FLUIDTEMPLATE
+tt_content.tx_supi_youtube {
+    templateName = Youtube
+    templateRootPaths.0 = EXT:supi/Resources/Private/Templates/
+    partialRootPaths.0 = EXT:supi/Resources/Private/Partials/
+    layoutRootPaths.0 = EXT:supi/Resources/Private/Layouts/
+
+    dataProcessing {
+        10 = Supseven\Supi\DataProcessing\TyposcriptProcessor
+        10.path = plugin.tx_supi.settings
+
+        20 = TYPO3\CMS\Frontend\DataProcessing\FilesProcessor
+        20 {
+            references.fieldName = assets
+            as = files
+        }
+
+        30 = Supseven\Supi\DataProcessing\YoutubeProcessor
+        30 {
+            referencesField = files
+            idsField = tx_supi_youtube_id
+            urlsField = tx_supi_youtube_urls
+            as = videos
+        }
+    }
+}

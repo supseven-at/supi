@@ -1,0 +1,43 @@
+
+plugin.tx_supi.settings {
+    elements.media.items {
+        spotify {
+            label = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.media.spotify.label
+            service = spotify
+            table {
+                name = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.media.spotify.label
+                company = Spotify AB
+                policy = https://www.spotify.com/legal/cookies-policy/
+            }
+        }
+    }
+
+    spotify {
+        url = https://open.spotify.com/embed/playlist/{id}
+        playerAttr {
+            width = 100%
+            height = 380
+            allowfullscreen = allowfullscreen
+            allow = autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture
+            style = border-radius:12px
+        }
+        enableDescription = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:ce.spotify.enable.description
+        enableToggle = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:ce.spotify.enable.toggle
+    }
+}
+
+tt_content.tx_supi_spotify = FLUIDTEMPLATE
+tt_content.tx_supi_spotify {
+    extbase.controllerExtensionName = Supi
+    extbase.controllerActionName = spotify
+    templateName = Spotify
+    templateRootPaths.0 = EXT:supi/Resources/Private/Templates/
+    partialRootPaths.0 = EXT:supi/Resources/Private/Partials/
+    layoutRootPaths.0 = EXT:supi/Resources/Private/Layouts/
+
+    dataProcessing {
+        10 = Supseven\Supi\DataProcessing\TyposcriptProcessor
+        10.path = plugin.tx_supi.settings
+        20 = Supseven\Supi\DataProcessing\SpotifyProcessor
+    }
+}

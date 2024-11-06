@@ -1,0 +1,44 @@
+plugin.tx_supi.settings {
+    # Set to 1 to enable the load-once button for google maps elements
+    enableSimpleMapsOnce = 0
+
+    # Google maps is enabled by essential
+    essentialIncludesMaps = 0
+
+    elements.media.items.googleMaps {
+        label = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.media.googleMaps.label
+        service = googleMaps
+        table {
+            name = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.media.googleMaps.label
+            company = Google Ireland Limited
+            policy = https://policies.google.com/privacy
+        }
+    }
+}
+
+tt_content.tx_supi_maps = FLUIDTEMPLATE
+tt_content.tx_supi_maps {
+    extbase.controllerExtensionName = Supi
+    extbase.controllerActionName = maps
+    templateName = Maps
+    templateRootPaths.0 = EXT:supi/Resources/Private/Templates/
+    partialRootPaths.0 = EXT:supi/Resources/Private/Partials/
+    layoutRootPaths.0 = EXT:supi/Resources/Private/Layouts/
+
+    dataProcessing {
+        10 = Supseven\Supi\DataProcessing\TyposcriptProcessor
+        10.path = plugin.tx_supi.settings
+
+        20 = TYPO3\CMS\Frontend\DataProcessing\FilesProcessor
+        20 {
+            references.fieldName = image
+            as = preview
+        }
+
+        30 = Supseven\Supi\DataProcessing\AddressProcessor
+        30 {
+            field = bodytext
+            as = address
+        }
+    }
+}
