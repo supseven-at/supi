@@ -33,7 +33,7 @@ class AddressProcessorTest extends TestCase
         static::assertEquals($expected, $actual);
     }
 
-    public function processDataProvider()
+    public static function processDataProvider(): \Generator
     {
         yield 'Empty' => ['', ''];
         yield 'One Line' => ['Street 1', 'Street 1'];

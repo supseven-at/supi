@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Supseven\Supi\CSP;
 
+use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Core\Cache\Frontend\FrontendInterface;
 use TYPO3\CMS\Core\Security\ContentSecurityPolicy\Directive;
 use TYPO3\CMS\Core\Security\ContentSecurityPolicy\Event\PolicyMutatedEvent;
 use TYPO3\CMS\Core\Security\ContentSecurityPolicy\HashValue;
 use TYPO3\CMS\Core\SingletonInterface;
-use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 /**
  * Registry and event listener to extend the CSP config
@@ -25,7 +25,7 @@ class SupiPolicyExtender implements SingletonInterface
 
     public function __invoke(PolicyMutatedEvent $event): void
     {
-        if (empty($GLOBALS['TSFE'])) {
+        if (!$this->getRequest()?->getAttribute('frontend.controller')) {
             return;
         }
 
@@ -47,18 +47,18 @@ class SupiPolicyExtender implements SingletonInterface
 
         if (!in_array($hash, $hashes)) {
             $hashes[] = $hash;
-
-            $this->cache->set($this->getCacheKey(), $hashes, ['pageId_' . $this->getTSFE()->id], 31536000);
+            $pageId = $this->getRequest()->getAttribute('frontend.page.information')->getId();
+            $this->cache->set($this->getCacheKey(), $hashes, ['pageId_' . $pageId], 31536000);
         }
     }
 
     protected function getCacheKey(): string
     {
-        return 'supi_hashes_' . $this->getTSFE()->newHash;
+        return 'supi_hashes_' . $this->getRequest()->getAttribute('frontend.controller')->newHash;
     }
 
-    protected function getTSFE(): TypoScriptFrontendController
+    private function getRequest(): ?ServerRequestInterface
     {
-        return $GLOBALS['TSFE'];
+        return $GLOBALS['TYPO3_REQUEST'] ?? null;
     }
 }

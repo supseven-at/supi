@@ -24,7 +24,7 @@ class ArrayUtilTest extends TestCase
         self::assertEquals($expected, $actual);
     }
 
-    public function removeValueDataProvider()
+    public static function removeValueDataProvider(): \Generator
     {
         yield 'Simple, one element' => [['a' => 'b'], 'b', ['a' => '']];
         yield 'Deep, one element' => [['a' => ['z' => 'b']], 'b', ['a' => ['z' => '']]];

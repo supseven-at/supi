@@ -7,12 +7,14 @@ namespace Supseven\Supi\Tests\CSP;
 use PHPUnit\Framework\TestCase;
 use Supseven\Supi\CSP\SupiPolicyExtender;
 use TYPO3\CMS\Core\Cache\Frontend\FrontendInterface;
+use TYPO3\CMS\Core\Http\ServerRequest;
 use TYPO3\CMS\Core\Security\ContentSecurityPolicy\Directive;
 use TYPO3\CMS\Core\Security\ContentSecurityPolicy\Event\PolicyMutatedEvent;
 use TYPO3\CMS\Core\Security\ContentSecurityPolicy\HashValue;
 use TYPO3\CMS\Core\Security\ContentSecurityPolicy\Policy;
 use TYPO3\CMS\Core\Security\ContentSecurityPolicy\Scope;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
+use TYPO3\CMS\Frontend\Page\PageInformation;
 
 /**
  * @author Georg Großberger <g.grossberger@supseven.at>
@@ -27,6 +29,16 @@ class SupiPolicyExtenderTest extends TestCase
         $newHash = 'abc';
         $directive = Directive::ScriptSrcElem;
 
+        $tsfe = $this->createMock(TypoScriptFrontendController::class);
+        $tsfe->newHash = $newHash;
+
+        $pageInfo = new PageInformation();
+        $pageInfo->setId(123);
+
+        $request = (new ServerRequest())
+            ->withAttribute('frontend.controller', $tsfe)
+            ->withAttribute('frontend.page.information', $pageInfo);
+
         $policy = $this->createMock(Policy::class);
         $policy
             ->expects($this->once())
@@ -35,6 +47,7 @@ class SupiPolicyExtenderTest extends TestCase
 
         $event = new PolicyMutatedEvent(
             Scope::frontend(),
+            $request,
             $this->createMock(Policy::class),
             $policy
         );
@@ -46,10 +59,7 @@ class SupiPolicyExtenderTest extends TestCase
             ->with($this->equalTo('supi_hashes_' . $newHash))
             ->willReturn([$hash]);
 
-        $tsfe = $this->createMock(TypoScriptFrontendController::class);
-        $tsfe->id = 123;
-        $tsfe->newHash = $newHash;
-        $GLOBALS['TSFE'] = $tsfe;
+        $GLOBALS['TYPO3_REQUEST'] = $request;
 
         $subject = new SupiPolicyExtender($cache);
         $subject->addInlineScript($data);

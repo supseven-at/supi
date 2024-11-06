@@ -11,6 +11,7 @@ use TYPO3\CMS\Core\Core\ApplicationContext;
 use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Core\Resource\FileReference;
 use TYPO3\CMS\Core\Resource\FileRepository;
+use TYPO3\CMS\Core\Resource\ResourceStorage;
 use TYPO3\CMS\Core\Resource\StorageRepository;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
@@ -23,7 +24,11 @@ class YoutubeProcessorTest extends TestCase
     {
         [$id, $root, $previewUrl, $storage, $cObj, $embedUrl, $preview] = $this->createShared();
 
-        $fileRepo = $this->createMock(FileRepository::class);
+        $fileRepo = new readonly class () extends FileRepository {
+            public function __construct()
+            {
+            }
+        };
 
         $ref1 = $this->createMock(FileReference::class);
         $ref1->expects(static::any())->method('getContents')->willReturn($id);
@@ -73,7 +78,11 @@ class YoutubeProcessorTest extends TestCase
     {
         [$id, $root, $previewUrl, $storage, $cObj, $embedUrl, $preview] = $this->createShared();
 
-        $fileRepo = $this->createMock(FileRepository::class);
+        $fileRepo = new readonly class () extends FileRepository {
+            public function __construct()
+            {
+            }
+        };
         $ref = $this->createMock(FileReference::class);
         $ref->expects(static::any())->method('getContents')->willReturn($id);
         $idsField = 'yt_ids';
@@ -116,7 +125,11 @@ class YoutubeProcessorTest extends TestCase
     {
         [$id, $root, $previewUrl, $storage, $cObj, $embedUrl, $preview] = $this->createShared();
 
-        $fileRepo = $this->createMock(FileRepository::class);
+        $fileRepo = new readonly class () extends FileRepository {
+            public function __construct()
+            {
+            }
+        };
         $ref = $this->createMock(FileReference::class);
         $ref->expects(static::any())->method('getContents')->willReturn($id);
         $urlsField = 'yt_urls';
@@ -171,7 +184,7 @@ class YoutubeProcessorTest extends TestCase
             ],
         ]);
         $previewUrl = $root->getChild('youtube')->url() . '/preview_{id}_{file}';
-        $storage = $this->createMock(\TYPO3\CMS\Core\Resource\ResourceStorage::class);
+        $storage = $this->createMock(ResourceStorage::class);
 
         $cObj = (new \ReflectionClass(ContentObjectRenderer::class))->newInstanceWithoutConstructor();
         $fileId = '/user_upload/youtube_' . md5($id) . '.jpg';
