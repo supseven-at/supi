@@ -7,7 +7,7 @@ on:
 jobs:
   release-ter:
     name: Release
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -15,7 +15,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 8.1
+          php-version: 8.3
           extensions: intl, mbstring, json, zip, curl
           tools: composer:v2, typo3/tailor, clue/phar-composer
 

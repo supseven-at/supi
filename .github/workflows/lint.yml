@@ -5,7 +5,7 @@ on: [push, pull_request]
 jobs:
   lint-php:
     name: PHP Code Style
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
 
     steps:
       - name: Checkout repository
@@ -14,12 +14,14 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 8.1
+          php-version: 8.3
+          extensions: intl, mbstring, json, zip, curl
+          tools: composer:v2
 
       - name: Lint code
         run: |
-          composer install --no-scripts --no-plugins --ignore-platform-reqs --no-progress -n --ansi
-          vendor/bin/php-cs-fixer fix --config=.php-cs-fixer.php --diff --dry-run
+          composer install --no-scripts --no-plugins --no-progress -n --ansi
+          vendor/bin/php-cs-fixer check --config=.php-cs-fixer.php --diff
 
   lint-frontend:
     name: Frontend Code Style
@@ -30,9 +32,9 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Setup Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version-file: 'Build/.nvmrc'
 
       - name: Lint code
         run: |
