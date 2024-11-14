@@ -35,15 +35,12 @@ class SupiJsContentObject extends AbstractContentObject
 
         $script = '<script type="application/supi"';
 
-        $cookies = $this->cObj->stdWrapValue('cookies', $conf);
-        $service = $this->cObj->stdWrapValue('service', $conf);
+        foreach (['cookies', 'service'] as $attr) {
+            $value = $this->cObj->stdWrapValue($attr, $conf);
 
-        if ($cookies) {
-            $script .= ' data-supi-cookies="' . htmlspecialchars($cookies, ENT_QUOTES, 'UTF-8', false) . '"';
-        }
-
-        if ($service) {
-            $script .= ' data-supi-service="' . htmlspecialchars($service, ENT_QUOTES, 'UTF-8', false) . '"';
+            if ($value) {
+                $script .= ' data-supi-' . $attr . '="' . htmlspecialchars($value, ENT_QUOTES, 'UTF-8', false) . '"';
+            }
         }
 
         return $script . '>' . $jsSource . '</script>';
