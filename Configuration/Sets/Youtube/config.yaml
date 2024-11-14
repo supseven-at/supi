@@ -1,4 +1,4 @@
 name: supseven/supi-youtube
 label: EXT:supi setup for Youtube
 dependencies:
-  - supseven/supi
+  - supseven/supi-media

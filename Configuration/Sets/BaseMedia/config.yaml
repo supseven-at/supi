@@ -1,0 +1,5 @@
+name: supseven/supi-media
+label: EXT:supi marketing base setup
+dependencies:
+  - supseven/supi
+

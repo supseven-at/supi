@@ -1,0 +1,9 @@
+plugin.tx_supi.settings.elements {
+    marketing {
+        required = 0
+        showOnLoad = 0
+        label = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.marketing.label
+        text = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.marketing.text
+        names =
+    }
+}

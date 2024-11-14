@@ -1,4 +1,4 @@
 name: supseven/supi-gmaps
 label: EXT:supi setup for Google Maps
 dependencies:
-  - supseven/supi
+  - supseven/supi-media

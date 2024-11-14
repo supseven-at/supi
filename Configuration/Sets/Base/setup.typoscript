@@ -135,27 +135,6 @@ plugin.tx_supi {
                     }
                 }
             }
-
-            media {
-                required = 0
-                showOnLoad = 1
-                label = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.media.label
-                text = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.media.text
-
-                items {
-                }
-            }
-
-            marketing {
-                required = 0
-                showOnLoad = 0
-                label = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.marketing.label
-                text = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.marketing.text
-                names =
-
-                items {
-                }
-            }
         }
 
         button {

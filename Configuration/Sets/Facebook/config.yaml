@@ -1,4 +1,4 @@
 name: supseven/supi-fb
 label: EXT:supi setup for Facebook
 dependencies:
-  - supseven/supi
+  - supseven/supi-marketing

@@ -1,4 +1,4 @@
 name: supseven/supi-ga
 label: EXT:supi setup for Google Analytics
 dependencies:
-  - supseven/supi
+  - supseven/supi-marketing

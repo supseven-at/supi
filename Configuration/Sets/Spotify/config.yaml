@@ -1,4 +1,4 @@
 name: supseven/supi-spotify
 label: EXT:supi setup for Spotify player
 dependencies:
-  - supseven/supi
+  - supseven/supi-media
