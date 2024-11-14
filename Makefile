@@ -1,5 +1,4 @@
 
-PHP_CS_FIXER_IGNORE_ENV = 1
 RELEASE_VERSION ?= $(git tag -l | sort -V | tail -n 1)
 PREV_VERSION = $(shell php .github/helper/find-previous-version.php $(RELEASE_VERSION))
 
@@ -16,7 +15,7 @@ fix: vendor/autoload.php Build/node_modules/.yarn-integrity
 
 .PHONY: lint
 lint: vendor/autoload.php Build/node_modules/.yarn-integrity
-	PHP_CS_FIXER_IGNORE_ENV=1 vendor/bin/php-cs-fixer fix --config=.php-cs-fixer.php --diff --dry-run
+	vendor/bin/php-cs-fixer check --config=.php-cs-fixer.php --diff
 	cd Build && ./node_modules/.bin/prettier --check .
 
 .PHONY: test
