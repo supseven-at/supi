@@ -25,9 +25,9 @@ class SettingsProcessor implements DataProcessorInterface
 
     public function process(ContentObjectRenderer $cObj, array $contentObjectConfiguration, array $processorConfiguration, array $processedData): array
     {
-        $this->languageService = $this->languageServiceFactory->createFromSiteLanguage($cObj->getTypoScriptFrontendController()->getLanguage());
+        $this->languageService = $this->languageServiceFactory->createFromSiteLanguage($cObj->getRequest()->getAttribute('language'));
 
-        $settings = $cObj->getTypoScriptFrontendController()->tmpl->setup['plugin.']['tx_supi.']['settings.'];
+        $settings = $cObj->getRequest()->getAttribute('frontend.typoscript')->getSetupArray()['plugin.']['tx_supi.']['settings.'];
         $settings = $this->typoScriptService->convertTypoScriptArrayToPlainArray($settings);
 
         $processedData['settings'] = $settings;
