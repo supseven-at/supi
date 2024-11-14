@@ -1,0 +1,17 @@
+categories:
+  supi.fb:
+    label: Facebook
+
+settings:
+  supseven.supi.fb.cookies:
+    label: 'Cookies'
+    description: 'Names of cookies of Facebook'
+    type: string
+    category: supi.fb
+    default: '_fb'
+  supseven.supi.fb.id:
+    label: 'ID'
+    description: 'Facebook Pixel ID'
+    type: string
+    category: supi.fb
+    default: ''
