@@ -76,7 +76,7 @@ plugin.tx_supi {
 
         gdpr {
             label = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.gdpr.label
-            uid = 1
+            uid = {$supseven.supi.gdpr.uid}
             name = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.gdpr.name
         }
 

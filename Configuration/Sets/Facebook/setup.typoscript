@@ -16,3 +16,47 @@ plugin.tx_supi.settings.elements.marketing {
         }
     }
 }
+
+page.headerData.31337 {
+    80 = COA
+    80 {
+        10 = SUPI_JS
+        10 {
+            cookies = {$supseven.supi.fb.cookies}
+            content = COA
+            content.10 = TEXT
+            content.10 {
+                if.value.data = getenv : TYPO3_CONTEXT
+                if.equals = Production/Live
+                value (
+
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window,document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+
+                )
+            }
+
+            content.20 < .content.10
+            content.20 {
+                if.negate = 1
+                value (
+
+window.fbq = () => {
+    console.log("Would call fbq on Production/Live with params %o", arguments);
+};
+
+                )
+            }
+
+            content.30 = TEXT
+            content.30.value = {$supseven.supi.fb.id}
+            content.30.wrap = fbq('init', '|'); fbq('track', 'PageView');
+        }
+    }
+}

@@ -1,0 +1,18 @@
+categories:
+  supi.gtm:
+    label: Google Tag Manager tracker
+
+settings:
+  supseven.supi.gtm.cookies:
+    label: 'Cookies'
+    description: 'Names of cookies of Google Tag Manager'
+    type: string
+    category: supi.gtm
+    default: '_ga'
+  supseven.supi.gtm.id:
+    label: 'ID'
+    description: 'Google Tag Manager ID'
+    type: string
+    category: supi.gtm
+    default: ''
+

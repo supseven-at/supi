@@ -1,5 +1,5 @@
 categories:
-  Matomo:
+  supi.ga:
     label: Google Analytics tracker
 
 settings:
@@ -7,9 +7,11 @@ settings:
     label: 'Cookies'
     description: 'Names of cookies of Google Analytics'
     type: string
+    category: supi.ga
     default: '_ga, _gid, _gat, AMP_TOKEN, _ga_XXX, _gac_XXX, _gac_gb_XXX'
   supseven.supi.ga.id:
-    label: 'Domain'
+    label: 'ID'
     description: 'Google Analytics ID'
     type: string
-
+    category: supi.ga
+    default: ''

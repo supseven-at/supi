@@ -1,0 +1,12 @@
+categories:
+  supi:
+    label: Supi Settings
+
+settings:
+  supseven.supi.gdpr.uid:
+    label: 'Legal page'
+    description: 'Page UID of the privacy policy'
+    type: int
+    category: supi
+    default: 1
+

@@ -1,0 +1,4 @@
+name: supseven/supi-gtm
+label: EXT:supi setup for Google Tag Manager
+dependencies:
+  - supseven/supi

@@ -1,0 +1,52 @@
+
+plugin.tx_supi.settings.elements.marketing {
+    names := addToList({$supseven.supi.gtm.cookies})
+    items.gtm {
+        label = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.marketing.ga.label
+        names = {$supseven.supi.gtm.cookies}
+        table {
+            name = Google Tag Manager
+            company = Google Ireland Limited
+            policy = https://policies.google.com/privacy
+            rows {
+                _ga {
+                    purpose = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie._ga.purpose
+                    duration = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.duration.2years
+                }
+            }
+        }
+    }
+}
+
+page.headerData.31337 = COA
+page.headerData.31337 {
+    60 = SUPI_JS
+    60 {
+        cookies = {$supseven.supi.gtm.cookies}
+        content = COA
+        content.10 = TEXT
+        content.10 {
+            if.value.data = getenv : TYPO3_CONTEXT
+            if.equals = Production/Live
+            value (
+
+(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','{$supseven.supi.gtm.id}');
+
+            )
+        }
+
+        content.20 < .content.10
+        content.20 {
+            if.negate = 1
+            value (
+
+console.log("Would load GTM with ID {$supseven.supi.gtm.id} on Production/Live");
+
+            )
+        }
+    }
+}

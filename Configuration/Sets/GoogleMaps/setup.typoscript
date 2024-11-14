@@ -18,8 +18,6 @@ plugin.tx_supi.settings {
 
 tt_content.tx_supi_maps = FLUIDTEMPLATE
 tt_content.tx_supi_maps {
-    extbase.controllerExtensionName = Supi
-    extbase.controllerActionName = maps
     templateName = Maps
     templateRootPaths.0 = EXT:supi/Resources/Private/Templates/
     partialRootPaths.0 = EXT:supi/Resources/Private/Partials/
