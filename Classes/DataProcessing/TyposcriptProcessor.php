@@ -21,10 +21,11 @@ class TyposcriptProcessor implements DataProcessorInterface
         $path = $processorConfiguration['path'] ?? '';
 
         if ($path) {
-            $path = str_replace('.', './', $path) . '.';
+            $path = explode('/', str_replace('.', './', $path) . '.');
+            $setup = $cObj->getRequest()->getAttribute('frontend.typoscript')->getSetupArray();
 
-            if (ArrayUtility::isValidPath($GLOBALS['TSFE']->tmpl->setup, $path)) {
-                $data = ArrayUtility::getValueByPath($GLOBALS['TSFE']->tmpl->setup, $path);
+            if (ArrayUtility::isValidPath($setup, $path)) {
+                $data = ArrayUtility::getValueByPath($setup, $path);
 
                 if ($data) {
                     if (is_array($data)) {
