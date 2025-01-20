@@ -577,6 +577,11 @@ export class Supi {
             let template = <HTMLScriptElement>document.createElement('script');
             template.type = 'application/supi';
             template.dataset.supiCookies = script.dataset.supiCookies;
+
+            if (script.hasAttribute('type')) {
+                template.dataset.type = script.getAttribute('type');
+            }
+
             template.innerHTML = script.innerHTML;
 
             script.parentNode?.replaceChild(template, script);
