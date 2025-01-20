@@ -493,6 +493,11 @@ export class Supi {
             .forEach((template) => {
                 const script = <HTMLScriptElement>document.createElement('script');
                 script.className = 'supi-scripts';
+
+                if (template.dataset.type) {
+                    script.type = template.dataset.type;
+                }
+
                 script.dataset.supiCookies = template.dataset.supiCookies;
                 script.innerHTML = template.innerHTML;
 
