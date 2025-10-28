@@ -834,6 +834,7 @@ export class Supi {
         iframe.width = size?.width + '';
         iframe.height = size?.height + '';
         iframe.setAttribute('autoplay', 'true');
+        iframe.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
         el.parentNode?.replaceChild(iframe, el);
 
         // add custom event to react to (e.g. to handle classnames)
