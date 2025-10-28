@@ -57,6 +57,6 @@ release/ter_notes.md:
 
 release/supi.zip:
 	mkdir -p release/supi
-	cp -a Classes Configuration Documentation Resources composer.json ext_emconf.php ext_localconf.php LICENSE README.rst release/supi
+	cp -a Classes Configuration Documentation Resources composer.json ext_emconf.php LICENSE README.rst release/supi
 	php .github/helper/set-version.php $(RELEASE_VERSION) release/supi
 	cd release && zip -r supi.zip supi
