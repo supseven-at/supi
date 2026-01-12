@@ -46,6 +46,7 @@ class SettingsProcessor implements DataProcessorInterface
                 $elements['detail'],
                 $elements['gdpr'],
                 $elements['spotify'],
+                $elements['meta'],
                 $elements['youtube'],
                 $elements['button']
             );

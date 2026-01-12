@@ -48,6 +48,7 @@ This Extension provides a few Content-Elements which are ready to go:
 * Google Maps Youtube Element
 * Embeded Page/Service (Iframe Element)
 * Spotify Playlist Element
+* Meta (Instagram) Element
 * Cookie Button Element (to reopen the Cookie Banner)
 
 There are also JavaScript Events where you can add Listeners to interact with
