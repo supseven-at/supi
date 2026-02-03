@@ -1,0 +1,22 @@
+<html data-namespace-typo3-fluid="true"
+      xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:p="http://typo3.org/ns/Supseven/ThemeProject/ViewHelpers">
+
+<f:layout name="Default" />
+
+<f:section name="Main">
+    <div class="d-flex">
+        <f:for each="{metaAttr.posts}" as="post">
+            <blockquote class="instagram-media"
+                        data-instgrm-captioned
+                        data-instgrm-permalink="{post}"
+                        data-instgrm-version="14">
+            </blockquote>
+        </f:for>
+    </div>
+
+    <div class="supi-service" data-supi-service-container="meta" data-supi-service-type="script" data-supi-service-attr="{metaAttr -> f:format.json() -> f:format.htmlspecialchars()}">
+        <p><f:translate key="{settings.meta.enableDescription}" extensionName="Supi">To load and display this player, an external resource must be loaded, which will transmit data to Meta.</f:translate></p>
+        <button type="button" data-toggle="supiServiceContainer"><f:translate key="{settings.meta.enableToggle}" extensionName="Supi">Enable Meta</f:translate></button>
+    </div>
+</f:section>

@@ -1,0 +1,4 @@
+name: supseven/supi-meta
+label: EXT:supi setup for Meta Instagram
+dependencies:
+  - supseven/supi-marketing

@@ -1,0 +1,13 @@
+mod.wizards.newContentElement.wizardItems.plugins {
+    elements.tx_supi_meta {
+        iconIdentifier = supi
+        title = LLL:EXT:supi/Resources/Private/Language/locallang_db.xlf:tt_content.tx_supi_meta.title
+        description = LLL:EXT:supi/Resources/Private/Language/locallang_db.xlf:tt_content.tx_supi_meta.description
+        tt_content_defValues {
+            CType = tx_supi_meta
+
+        }
+    }
+
+    show := addToList(tx_supi_meta)
+}

@@ -1,0 +1,38 @@
+
+plugin.tx_supi.settings {
+    elements.media {
+
+        items.meta {
+            label = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.media.meta.label
+            service = meta
+            table {
+                name = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:banner.cookie.media.meta.label
+                company = Meta Platforms Ireland Limited
+                policy = https://www.meta.com/at/legal/privacy-policy/
+            }
+        }
+    }
+
+    meta {
+        // make this a selectfield - for now its harccoded because only instagram is needed
+        src = https://www.instagram.com/embed.js
+        enableDescription = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:ce.meta.enable.description
+        enableToggle = LLL:EXT:supi/Resources/Private/Language/locallang.xlf:ce.meta.enable.toggle
+    }
+}
+
+tt_content.tx_supi_meta = FLUIDTEMPLATE
+tt_content.tx_supi_meta {
+    extbase.controllerExtensionName = Supi
+    extbase.controllerActionName = meta
+    templateName = Meta
+    templateRootPaths.0 = EXT:supi/Resources/Private/Templates/
+    partialRootPaths.0 = EXT:supi/Resources/Private/Partials/
+    layoutRootPaths.0 = EXT:supi/Resources/Private/Layouts/
+
+    dataProcessing {
+        10 = Supseven\Supi\DataProcessing\TyposcriptProcessor
+        10.path = plugin.tx_supi.settings
+        20 = Supseven\Supi\DataProcessing\MetaProcessor
+    }
+}
