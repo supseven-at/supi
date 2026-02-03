@@ -22,7 +22,7 @@ use TYPO3\CMS\Core\SingletonInterface;
 class SupiPolicyExtender implements SingletonInterface
 {
     public function __construct(
-        #[Autowire(service: '@cache.hash')]
+        #[Autowire(service: 'cache.hash')]
         protected readonly FrontendInterface $cache,
     ) {
     }
