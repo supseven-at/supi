@@ -12,6 +12,7 @@ Resources/Public/JavaScript/*.map
 /.php-cs-fixer.cache
 /composer.list
 /.phpunit.result.cache
+/.phpunit.cache
 /auth.json
 /release
 

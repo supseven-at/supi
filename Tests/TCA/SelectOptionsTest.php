@@ -47,9 +47,9 @@ class SelectOptionsTest extends TestCase
             ->willReturn($setup);
 
         $languageService = $this->createMock(\TYPO3\CMS\Core\Localization\LanguageService::class);
-        $languageService->expects(static::any())->method('sL')->with(static::equalTo('LLL:sec'))->willReturn('Second');
+        $languageService->expects(self::once())->method('sL')->with(static::equalTo('LLL:sec'))->willReturn('Second');
 
-        $GLOBALS['BE_USER'] = $this->createMock(BackendUserAuthentication::class);
+        $GLOBALS['BE_USER'] = $this->createStub(BackendUserAuthentication::class);
         $languageServiceFactory = $this->createMock(LanguageServiceFactory::class);
         $languageServiceFactory
             ->expects(static::once())
@@ -109,9 +109,9 @@ class SelectOptionsTest extends TestCase
             ->willReturn($setup);
 
         $languageService = $this->createMock(\TYPO3\CMS\Core\Localization\LanguageService::class);
-        $languageService->expects(static::any())->method('sL')->with(static::equalTo('LLL:sec'))->willReturn('Second');
+        $languageService->expects(static::once())->method('sL')->with(static::equalTo('LLL:sec'))->willReturn('Second');
 
-        $GLOBALS['BE_USER'] = $this->createMock(BackendUserAuthentication::class);
+        $GLOBALS['BE_USER'] = $this->createStub(BackendUserAuthentication::class);
         $languageServiceFactory = $this->createMock(LanguageServiceFactory::class);
         $languageServiceFactory
             ->expects(static::once())

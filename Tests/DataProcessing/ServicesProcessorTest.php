@@ -15,7 +15,7 @@ class ServicesProcessorTest extends TestCase
 {
     public function testProcess(): void
     {
-        $cObj = $this->createMock(ContentObjectRenderer::class);
+        $cObj = $this->createStub(ContentObjectRenderer::class);
 
         $attr = [
             'src'    => 'https://www.service.com/embed',

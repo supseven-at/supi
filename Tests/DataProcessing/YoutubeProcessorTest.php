@@ -9,6 +9,7 @@ use PHPUnit\Framework\TestCase;
 use Supseven\Supi\DataProcessing\YoutubeProcessor;
 use TYPO3\CMS\Core\Core\ApplicationContext;
 use TYPO3\CMS\Core\Core\Environment;
+use TYPO3\CMS\Core\Resource\File;
 use TYPO3\CMS\Core\Resource\FileReference;
 use TYPO3\CMS\Core\Resource\FileRepository;
 use TYPO3\CMS\Core\Resource\ResourceStorage;
@@ -24,19 +25,14 @@ class YoutubeProcessorTest extends TestCase
     {
         [$id, $root, $previewUrl, $storage, $cObj, $embedUrl, $preview] = $this->createShared();
 
-        $fileRepo = new readonly class () extends FileRepository {
-            public function __construct()
-            {
-            }
-        };
-
-        $ref1 = $this->createMock(FileReference::class);
-        $ref1->expects(static::any())->method('getContents')->willReturn($id);
-        $ref1->expects(static::any())->method('getMimeType')->willReturn('video/youtube');
+        $fileRepo = self::createStub(FileRepository::class);
+        $ref1 = $this->createStub(FileReference::class);
+        $ref1->method('getContents')->willReturn($id);
+        $ref1->method('getMimeType')->willReturn('video/youtube');
 
         $ref2 = $this->createMock(FileReference::class);
         $ref2->expects(static::never())->method('getContents');
-        $ref2->expects(static::any())->method('getMimeType')->willReturn('image/png');
+        $ref2->method('getMimeType')->willReturn('image/png');
 
         $refencesField = 'assets';
         $config['referencesField'] = $refencesField;
@@ -78,13 +74,9 @@ class YoutubeProcessorTest extends TestCase
     {
         [$id, $root, $previewUrl, $storage, $cObj, $embedUrl, $preview] = $this->createShared();
 
-        $fileRepo = new readonly class () extends FileRepository {
-            public function __construct()
-            {
-            }
-        };
-        $ref = $this->createMock(FileReference::class);
-        $ref->expects(static::any())->method('getContents')->willReturn($id);
+        $fileRepo = self::createStub(FileRepository::class);
+        $ref = $this->createStub(FileReference::class);
+        $ref->method('getContents')->willReturn($id);
         $idsField = 'yt_ids';
         $config['idsField'] = $idsField;
         $cObj->data[$idsField] = $id;
@@ -125,13 +117,9 @@ class YoutubeProcessorTest extends TestCase
     {
         [$id, $root, $previewUrl, $storage, $cObj, $embedUrl, $preview] = $this->createShared();
 
-        $fileRepo = new readonly class () extends FileRepository {
-            public function __construct()
-            {
-            }
-        };
-        $ref = $this->createMock(FileReference::class);
-        $ref->expects(static::any())->method('getContents')->willReturn($id);
+        $fileRepo = self::createStub(FileRepository::class);
+        $ref = $this->createStub(FileReference::class);
+        $ref->method('getContents')->willReturn($id);
         $urlsField = 'yt_urls';
         $config['urlsField'] = $urlsField;
         $cObj->data[$urlsField] = 'https://www.youtube.com/embed/' . $id;
@@ -184,16 +172,16 @@ class YoutubeProcessorTest extends TestCase
             ],
         ]);
         $previewUrl = $root->getChild('youtube')->url() . '/preview_{id}_{file}';
-        $storage = $this->createMock(ResourceStorage::class);
+        $storage = $this->createStub(ResourceStorage::class);
 
-        $cObj = (new \ReflectionClass(ContentObjectRenderer::class))->newInstanceWithoutConstructor();
+        $cObj = self::createStub(ContentObjectRenderer::class);
         $fileId = '/user_upload/youtube_' . md5($id) . '.jpg';
         $embedUrl = 'youtube.com/';
 
-        $preview = (new \ReflectionClass(FileReference::class))->newInstanceWithoutConstructor();
-        $storage->expects(static::any())->method('getFile')->with(static::equalTo($fileId))->willReturn($preview);
+        $preview = self::createStub(File::class);
+        $storage->method('getFile')->with(static::equalTo($fileId))->willReturn($preview);
 
-        $storageRepository = $this->createMock(StorageRepository::class);
+        $storageRepository = $this->createStub(StorageRepository::class);
         $storageRepository->method('getDefaultStorage')->willReturn($storage);
 
         return [$id, $root, $previewUrl, $storageRepository, $cObj, $embedUrl, $preview];

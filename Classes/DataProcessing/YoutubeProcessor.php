@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Supseven\Supi\DataProcessing;
 
+use Symfony\Component\DependencyInjection\Attribute\AutoconfigureTag;
 use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Core\Resource\FileReference;
 use TYPO3\CMS\Core\Resource\FileRepository;
@@ -18,6 +19,7 @@ use TYPO3\CMS\Frontend\ContentObject\DataProcessorInterface;
  *
  * @author Georg Großberger <g.grossberger@supseven.at>
  */
+#[AutoconfigureTag('data.processor', ['identifier' => 'supi-youtube'])]
 class YoutubeProcessor implements DataProcessorInterface
 {
     /**

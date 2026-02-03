@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace Supseven\Supi\DataProcessing;
 
+use Symfony\Component\DependencyInjection\Attribute\AutoconfigureTag;
 use TYPO3\CMS\Core\TypoScript\TypoScriptService;
 use TYPO3\CMS\Core\Utility\ArrayUtility;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 use TYPO3\CMS\Frontend\ContentObject\DataProcessorInterface;
 
+#[AutoconfigureTag('data.processor', ['identifier' => 'supi-typoscript'])]
 class TyposcriptProcessor implements DataProcessorInterface
 {
     public function __construct(

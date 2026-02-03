@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Supseven\Supi\DataProcessing;
 
+use Symfony\Component\DependencyInjection\Attribute\AutoconfigureTag;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 use TYPO3\CMS\Frontend\ContentObject\DataProcessorInterface;
@@ -13,6 +14,7 @@ use TYPO3\CMS\Frontend\ContentObject\DataProcessorInterface;
  *
  * @author Georg Großberger <g.grossberger@supseven.at>
  */
+#[AutoconfigureTag('data.processor', ['identifier' => 'supi-address'])]
 class AddressProcessor implements DataProcessorInterface
 {
     public function process(ContentObjectRenderer $cObj, array $contentObjectConfiguration, array $processorConfiguration, array $processedData): array

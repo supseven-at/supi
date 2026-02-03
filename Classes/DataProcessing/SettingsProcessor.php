@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Supseven\Supi\DataProcessing;
 
+use Symfony\Component\DependencyInjection\Attribute\AutoconfigureTag;
 use TYPO3\CMS\Core\Localization\LanguageService;
 use TYPO3\CMS\Core\Localization\LanguageServiceFactory;
 use TYPO3\CMS\Core\TypoScript\TypoScriptService;
@@ -13,6 +14,7 @@ use TYPO3\CMS\Frontend\ContentObject\DataProcessorInterface;
 /**
  * @author Georg Großberger <g.grossberger@supseven.at>
  */
+#[AutoconfigureTag('data.processor', ['identifier' => 'supi-settings'])]
 class SettingsProcessor implements DataProcessorInterface
 {
     protected LanguageService $languageService;

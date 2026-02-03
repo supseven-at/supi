@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Supseven\Supi\DataProcessing;
 
+use Symfony\Component\DependencyInjection\Attribute\AutoconfigureTag;
+use TYPO3\CMS\Core\Localization\LanguageService;
 use TYPO3\CMS\Core\Localization\LanguageServiceFactory;
 use TYPO3\CMS\Core\Utility\MathUtility;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
@@ -12,8 +14,11 @@ use TYPO3\CMS\Frontend\ContentObject\DataProcessorInterface;
 /**
  * @author Georg Großberger <g.grossberger@supseven.at>
  */
+#[AutoconfigureTag('data.processor', ['identifier' => 'supi-items'])]
 class ItemsProcessor implements DataProcessorInterface
 {
+    public ?LanguageService $languageService = null;
+
     public function __construct(
         protected readonly LanguageServiceFactory $languageServiceFactory,
     ) {
@@ -30,9 +35,12 @@ class ItemsProcessor implements DataProcessorInterface
                     if (MathUtility::canBeInterpretedAsInteger($policy)) {
                         $policy = $cObj->typoLink_URL(['parameter' => $policy, 'forceAbsoluteUrl' => true]);
                     } elseif (str_starts_with($policy, 'LLL:')) {
-                        $siteLanguage = $cObj->getRequest()->getAttribute('language');
-                        $languageService = $this->languageServiceFactory->createFromSiteLanguage($siteLanguage);
-                        $policy = $languageService->sL($policy);
+                        if (!$this->languageService) {
+                            $siteLanguage = $cObj->getRequest()->getAttribute('language');
+                            $this->languageService = $this->languageServiceFactory->createFromSiteLanguage($siteLanguage);
+                        }
+
+                        $policy = $this->languageService->sL($policy);
                     }
                 }
 

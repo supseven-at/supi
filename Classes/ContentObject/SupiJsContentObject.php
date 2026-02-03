@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Supseven\Supi\ContentObject;
 
 use Supseven\Supi\CSP\SupiPolicyExtender;
+use Symfony\Component\DependencyInjection\Attribute\Autoconfigure;
+use Symfony\Component\DependencyInjection\Attribute\AutoconfigureTag;
 use TYPO3\CMS\Frontend\ContentObject\AbstractContentObject;
 
 /**
@@ -12,6 +14,8 @@ use TYPO3\CMS\Frontend\ContentObject\AbstractContentObject;
  *
  * @author Georg Großberger <g.grossberger@supseven.at>
  */
+#[Autoconfigure(public: true)]
+#[AutoconfigureTag('frontend.contentobject', ['identifier' => 'SUPI_JS'])]
 class SupiJsContentObject extends AbstractContentObject
 {
     public function __construct(

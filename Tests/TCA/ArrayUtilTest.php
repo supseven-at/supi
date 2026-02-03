@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Supseven\Supi\Tests\TCA;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Supseven\Supi\TCA\ArrayUtil;
 
@@ -13,11 +14,11 @@ use Supseven\Supi\TCA\ArrayUtil;
 class ArrayUtilTest extends TestCase
 {
     /**
-     * @dataProvider removeValueDataProvider
      * @param $input
      * @param $value
      * @param $expected
      */
+    #[DataProvider('removeValueDataProvider')]
     public function testRemoveValue($input, $value, $expected): void
     {
         $actual = ArrayUtil::removeValue($input, $value);

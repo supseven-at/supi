@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Supseven\Supi\Tests\DataProcessing;
 
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Supseven\Supi\DataProcessing\AddressProcessor;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
@@ -14,11 +16,11 @@ use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 class AddressProcessorTest extends TestCase
 {
     /**
-     * @dataProvider processDataProvider
      * @param $in
      * @param $expected
-     * @throws \ReflectionException
      */
+    #[Test]
+    #[DataProvider('processDataProvider')]
     public function testProcess($in, $expected): void
     {
         $subject = new AddressProcessor();

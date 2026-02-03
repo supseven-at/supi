@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Supseven\Supi\CSP;
 
 use Psr\Http\Message\ServerRequestInterface;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
+use TYPO3\CMS\Core\Attribute\AsEventListener;
 use TYPO3\CMS\Core\Cache\Frontend\FrontendInterface;
 use TYPO3\CMS\Core\Security\ContentSecurityPolicy\Directive;
 use TYPO3\CMS\Core\Security\ContentSecurityPolicy\Event\PolicyMutatedEvent;
@@ -16,16 +18,18 @@ use TYPO3\CMS\Core\SingletonInterface;
  *
  * @author Georg Großberger <g.grossberger@supseven.at>
  */
+#[AsEventListener('supseven/supi/csp')]
 class SupiPolicyExtender implements SingletonInterface
 {
     public function __construct(
+        #[Autowire(service: '@cache.hash')]
         protected readonly FrontendInterface $cache,
     ) {
     }
 
     public function __invoke(PolicyMutatedEvent $event): void
     {
-        if (!$this->getRequest()?->getAttribute('frontend.controller')) {
+        if (!$this->getRequest()?->getAttribute('frontend.cache.collector')) {
             return;
         }
 
@@ -54,7 +58,7 @@ class SupiPolicyExtender implements SingletonInterface
 
     protected function getCacheKey(): string
     {
-        return 'supi_hashes_' . $this->getRequest()->getAttribute('frontend.controller')->newHash;
+        return 'supi_hashes_' . $this->getRequest()->getAttribute('frontend.cache.collector')->getPageCacheIdentifier();
     }
 
     private function getRequest(): ?ServerRequestInterface

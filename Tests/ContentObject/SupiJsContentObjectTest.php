@@ -41,8 +41,7 @@ class SupiJsContentObjectTest extends TestCase
             ->with($this->equalTo($jsSourceCobj), $this->equalTo($conf['stdWrap.']))
             ->willReturn($jsSourceStdWrap);
 
-        $cObj->expects($this->any())
-            ->method('stdWrapValue')
+        $cObj->method('stdWrapValue')
             ->willReturnCallback(fn (string $key, array $config) => match (true) {
                 $key === 'cookies' && $config === $conf => $conf['cookies'],
                 $key === 'service' && $config === $conf => $conf['service'],

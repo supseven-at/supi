@@ -51,7 +51,7 @@ class TyposcriptProcessorTest extends TestCase
         ];
 
         $config = ['as' => $as, 'path' => $path];
-        $cObj = $this->createMock(ContentObjectRenderer::class);
+        $cObj = $this->createStub(ContentObjectRenderer::class);
         $cObj->method('getRequest')->willReturn($request);
 
         $subject = new TyposcriptProcessor(new TypoScriptService());

@@ -20,15 +20,15 @@ lint: vendor/autoload.php Build/node_modules/.yarn-integrity
 
 .PHONY: test
 test: vendor/autoload.php
-	vendor/bin/phpunit --bootstrap vendor/autoload.php Tests/
+	vendor/bin/phpunit --configuration phpunit.xml
 
 .PHONY: clean
 clean:
-	@rm -f vendor/autoload.php .php_cs.cache Resources/Public/Css/Supi.css Resources/Public/JavaScript/Supi.js
+	@rm -rf vendor/autoload.php .php-cs-fixer.cache .phpunit.result.cache .phpunit.cache Resources/Public/Css/Supi.css Resources/Public/JavaScript/Supi.js
 
 .PHONY: clobber
 clobber: clean
-	@rm -rf vendor
+	@rm -rf vendor bin release
 
 .PHONY: release
 release: release/supi.zip release/changelog.md release/ter_notes.md ## Create release artifact

@@ -40,7 +40,7 @@ class SpotifyProcessorTest extends TestCase
         $expected = $data;
         $expected[$as] = json_encode($res);
 
-        $cObj = $this->createMock(ContentObjectRenderer::class);
+        $cObj = $this->createStub(ContentObjectRenderer::class);
         $cObj->data['bodytext'] = $id;
 
         $subject = new SpotifyProcessor();
