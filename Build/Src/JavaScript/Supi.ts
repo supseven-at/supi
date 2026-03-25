@@ -21,16 +21,7 @@ export class Supi {
     private choose: SupiElement = null;
 
     // the main cookie banner
-    private banner: SupiElement = null;
-
-    // the dialog modal
-    private modal: SupiElement = null;
-
-    private readonly focusTrapEventHandler: (event: KeyboardEvent) => void = (): void => {};
-
-    private focusTrapElements?: SupiElement[];
-
-    private preFocusTrapActiveElement?: SupiElement;
+    private banner: HTMLDialogElement | null = null;
 
     // the cookie name which will be set as a status cookie
     private readonly cookieNameStatus: string = 'status';
@@ -39,15 +30,6 @@ export class Supi {
 
     private readonly cookieNameYoutube: string = 'yt';
     private readonly cookieNameGoogleMaps: string = 'gmaps';
-
-    // cookie banner is placed in an overlay
-    private overlay: boolean = false;
-
-    // the body element
-    private body: SupiElement = null;
-
-    // the html element
-    private html: SupiElement = null;
 
     // the typoscript config
     private config: SupiOptions = <SupiOptions>{};
@@ -83,12 +65,7 @@ export class Supi {
 
         this.dismiss = findOne('[data-toggle=dismiss]', this.root);
         this.choose = findOne('#supi__choose');
-        this.banner = findOne('#supi__overlay') ?? findOne('#supi__banner');
-        this.modal = findOne('#supi__banner');
-        this.focusTrapEventHandler = this.focusTrapNavigator.bind(this);
-        this.overlay = !!findOne('#supi__overlay');
-        this.html = findOne('html');
-        this.body = <HTMLBodyElement>document.body;
+        this.banner = findOne('#supi__banner') as HTMLDialogElement;
         this.save = findOne('[data-toggle=save]', this.root);
 
         const configSrc = this.root.getAttribute('data-supi-config');
@@ -98,7 +75,7 @@ export class Supi {
             this.config = <SupiOptions>{};
         }
 
-        if (this.body.classList.contains(this.config?.debugClass ?? 'develop')) {
+        if (document.body.classList.contains(this.config?.debugClass ?? 'develop')) {
             this.logger = new ConsoleLogger();
         } else {
             this.logger = new NullLogger();
@@ -136,7 +113,7 @@ export class Supi {
             });
         });
 
-        this.trigger('supiInitStart', this.body, {});
+        this.trigger('supiInitStart', document.body, {});
 
         this.logger.info('Collected services %o', this.services);
 
@@ -188,7 +165,7 @@ export class Supi {
         this.toggleAllServices();
 
         setTimeout(() => {
-            this.trigger('supiInitEnd', this.body as HTMLElement, {});
+            this.trigger('supiInitEnd', document.body, {});
         }, 180);
     }
 
@@ -330,31 +307,6 @@ export class Supi {
                 });
             });
 
-        // Simple hide/show toggle, like tabs
-        findAll('[data-toggle=visibility]')
-            .filter((el: SupiElement) => {
-                return !!findOne(el?.dataset.target ?? '');
-            })
-            .forEach((el: SupiElement) => {
-                el?.addEventListener('click', (e: Event) => {
-                    el?.classList.toggle('tx-supi__pane-active');
-                    let expanded = el.getAttribute('aria-expanded');
-                    if (expanded === 'false') {
-                        el?.setAttribute('aria-expanded', 'true');
-                        this.focusTrapElements = this.getFocusTrapElements();
-                    } else {
-                        el?.setAttribute('aria-expanded', 'false');
-                    }
-                    let target = findOne(el?.dataset.target ?? '');
-                    target?.classList.toggle('tx-supi__pane-hidden');
-                    if (!target?.classList.contains('tx-supi__pane-hidden')) {
-                        this.focusTrapElements = this.getFocusTrapElements();
-                    }
-                    target?.toggleAttribute('hidden');
-                    e.preventDefault();
-                });
-            });
-
         // Checkbox groups toggling
         findAll('input[data-supi-block]')
             .filter((el: SupiElement) => !(el as HTMLInputElement).disabled)
@@ -444,29 +396,6 @@ export class Supi {
                 });
             }
         });
-
-        // Details accordion in banner overlay
-        findAll('[data-toggle=supiDetails]').forEach((el: SupiElement) => {
-            el?.addEventListener('click', (ev: Event) => {
-                const target = findOne(el?.dataset.target ?? '');
-
-                if (target) {
-                    const exp = el?.getAttribute('aria-expanded') ?? '';
-                    this.logger.info('aria-expanded before: ' + exp);
-                    this.logger.info('hidden before: ' + target?.hasAttribute('hidden'));
-                    exp === 'false'
-                        ? el.setAttribute('aria-expanded', 'true')
-                        : el.setAttribute('aria-expanded', 'false');
-                    target.hasAttribute('hidden')
-                        ? target.removeAttribute('hidden')
-                        : target.setAttribute('hidden', '');
-                    this.logger.info('aria-expanded after: ' + el?.getAttribute('aria-expanded') ?? '');
-                    this.logger.info('hidden after: ' + target.hasAttribute('hidden'));
-                }
-
-                ev.preventDefault();
-            });
-        });
     }
 
     /**
@@ -513,22 +442,21 @@ export class Supi {
      * simply toggles the banner class
      */
     toggleBanner(): void {
-        if (this.overlay == true) {
-            this.body?.classList.toggle('tx-supi__overlay');
-            this.html?.classList.toggle('tx-supi__overlay');
+        if (!this.banner || typeof this.banner.showModal !== 'function') {
+            this.logger.error('Banner element not found or browser does not support dialog element.');
+            return;
         }
 
-        this.banner?.classList.toggle('hide');
-
-        if (this.banner?.classList.contains('hide')) {
+        if (this.banner.open) {
+            this.banner.close();
             this.trigger('bannerHide', this.banner as HTMLElement, null);
-            this.disableFocusTrap();
         } else {
-            this.trigger('bannerShow', this.banner as HTMLElement, null);
-            requestAnimationFrame(() => {
-                this.modal?.focus();
-            });
-            this.enableFocusTrap();
+            try {
+                this.banner.showModal();
+                this.trigger('bannerShow', this.banner as HTMLElement, null);
+            } catch (e) {
+                this.logger.error('Failed to show banner modal: %o', e);
+            }
         }
 
         let allowAllServices = true;
@@ -677,49 +605,6 @@ export class Supi {
         cookie.set(this.cookieNameAllowed, this.allowed);
 
         return this.allowed.sort().join() === old;
-    }
-
-    private enableFocusTrap(): void {
-        this.preFocusTrapActiveElement = undefined;
-        if (document.activeElement instanceof HTMLElement) {
-            this.preFocusTrapActiveElement = document.activeElement;
-            document.activeElement.blur();
-        }
-        document.addEventListener('keydown', this.focusTrapEventHandler);
-    }
-
-    private disableFocusTrap(): void {
-        document.removeEventListener('keydown', this.focusTrapEventHandler);
-        if (this.preFocusTrapActiveElement instanceof HTMLElement) {
-            this.preFocusTrapActiveElement.focus();
-        }
-    }
-
-    private focusTrapNavigator(event: KeyboardEvent) {
-        if (event.key !== 'Tab') {
-            return;
-        }
-        event.preventDefault();
-        this.focusTrapElements = this.getFocusTrapElements();
-        const currentlyFocusedElementIndex = this.focusTrapElements.indexOf(document.activeElement as HTMLElement);
-        let nextFocusElementIndex = currentlyFocusedElementIndex + (event.shiftKey ? -1 : 1);
-        if (nextFocusElementIndex < 0) {
-            nextFocusElementIndex = this.focusTrapElements.length - 1;
-        } else if (nextFocusElementIndex >= this.focusTrapElements.length) {
-            nextFocusElementIndex = 0;
-        }
-        this.focusTrapElements[nextFocusElementIndex]?.focus();
-    }
-
-    private getFocusTrapElements(): SupiElement[] {
-        return findAll('a, button, *[tabindex], input[type=checkbox]:not([disabled])', this.banner).filter(
-            (element) => {
-                return (
-                    element != null &&
-                    (element.offsetWidth > 0 || element.offsetHeight > 0 || element.getClientRects().length > 0)
-                );
-            },
-        );
     }
 
     private removeNotAllowedCookies(): void {

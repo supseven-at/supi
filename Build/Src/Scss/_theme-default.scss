@@ -44,11 +44,18 @@
 }
 
 .tx-supi {
-  display: flex;
-  max-height: 100%;
+  display: none;
+  max-height: 100vh;
+  border: none;
+  padding: 0;
+  background: transparent;
 
-  &__overlay {
-    overflow: hidden;
+  &[open] {
+    display: flex;
+  }
+
+  &::backdrop {
+    background: rgba(#fff, 0.9);
   }
 
   &__button {
@@ -69,10 +76,6 @@
 
   &.position {
     flex-direction: column;
-    position: fixed;
-    z-index: 999999;
-    background-color: #fff;
-    transition: all 0.2s ease-in-out;
 
     font-size: $supi-font-base-size;
     font-size: var(--supi-font-base-size);
@@ -110,17 +113,19 @@
           max-width: var(--supi-position-width);
         }
       }
-    }
 
-    &.hide {
-      transform: translateY(100%);
-      transform: translateY(var(--supi-transform-value));
-    }
+      &-center-center {
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 90%;
+        max-width: 800px;
+        margin: 0;
 
-    &.hide .hide,
-    & .hide {
-      transform: none;
-      display: none;
+        @include supi-media-breakpoint-up(md) {
+          width: 70%;
+        }
+      }
     }
   }
 
@@ -164,12 +169,8 @@
         padding: var(--supi-padding);
       }
 
-      h3,
-      .tx-supi__link-button {
-        color: inherit;
-      }
-
       h3 {
+        color: inherit;
         font-size: #{$supi-font-size-head};
         font-size: var(--supi-font-size-head);
 
@@ -181,8 +182,7 @@
         margin: 0;
       }
 
-      a,
-      .tx-supi__link-button {
+      a {
         background: transparent;
         padding: 0;
         display: inline-block;
@@ -191,23 +191,35 @@
         text-decoration: underline;
         vertical-align: bottom;
         text-align: left;
+      }
 
-        &:after {
+      .tx-supi__summary {
+        cursor: pointer;
+        font-weight: bold;
+        list-style: none;
+        display: flex;
+        align-items: center;
+        text-decoration: underline;
+
+        &::-webkit-details-marker {
           display: none;
         }
-      }
 
-      .tx-supi__link-button[aria-expanded] {
-        text-decoration: none;
-      }
-
-      .supi {
-        &-element {
-          &__label {
-            display: block;
-            font-weight: bold;
-          }
+        &:before {
+          content: '';
+          width: 8px;
+          height: 8px;
+          border-left: 2px solid var(--supi-color-primary);
+          border-top: 2px solid var(--supi-color-primary);
+          margin-right: 10px;
+          transform: rotate(135deg);
+          transition: transform 0.2s ease-in-out;
+          display: inline-block;
         }
+      }
+
+      details[open] .tx-supi__summary:before {
+        transform: rotate(225deg);
       }
 
       .tx-supi__buttongroup {
@@ -254,6 +266,7 @@
     font-family: inherit;
     font-weight: normal;
     padding: $supi-grid-gutter-width * 0.5;
+    cursor: pointer;
 
     &:after,
     &:before {
@@ -304,27 +317,6 @@
     }
   }
 
-  &-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(#fff, 0.9);
-    display: flex;
-    justify-content: center;
-    z-index: 999999;
-    align-items: flex-end;
-
-    @include supi-media-breakpoint-up(md) {
-      align-items: center;
-    }
-
-    &.hide {
-      display: none;
-    }
-  }
-
   &__block {
     overflow-x: hidden;
 
@@ -332,32 +324,6 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-
-      & > .tx-supi__link-button {
-        font-weight: bold;
-        position: relative;
-        padding-left: 15px;
-        text-decoration: none;
-
-        &:before {
-          content: '';
-          width: 7px;
-          height: 7px;
-          border-left: 2px solid map-get($supi-colors, primary);
-          border-top: 2px solid map-get($supi-colors, primary);
-          position: absolute;
-          top: 10px;
-          left: 0;
-          transform: rotate(135deg);
-          transition: transform 0.2s ease-in-out;
-          display: block;
-        }
-
-        &.tx-supi__pane-active:before {
-          top: 9px;
-          transform: rotate(225deg);
-        }
-      }
     }
 
     ul {
@@ -382,40 +348,20 @@
         flex-direction: column;
         width: 100%;
         padding-left: $supi-grid-gutter-width * 0.5;
-
-        &-toggle {
-          position: relative;
-
-          &:before {
-            content: '';
-            width: 7px;
-            height: 7px;
-            border-left: 2px solid map-get($supi-colors, primary);
-            border-top: 2px solid map-get($supi-colors, primary);
-            position: absolute;
-            top: 7px;
-            left: -13px;
-            transform: rotate(135deg);
-            transition: transform 0.2s ease-in-out;
-            display: block;
-          }
-
-          &.open:before {
-            transform: rotate(225deg);
-          }
-        }
       }
 
       &__header {
         display: flex;
         justify-content: space-between;
+        width: 100%;
+
+        details {
+          width: 100%;
+        }
       }
 
       &__table {
         width: 100%;
-        height: 0;
-        overflow: hidden;
-        transition: transform 0.2s ease-in-out;
         padding-top: $supi-grid-gutter-width * 0.5;
 
         & > * {
@@ -445,11 +391,6 @@
 
         & > * + * {
           margin-top: $supi-grid-gutter-width * 0.5;
-        }
-
-        &:not([hidden]) {
-          height: auto;
-          overflow: visible;
         }
 
         &-overview {
@@ -607,8 +548,7 @@ input[id^='supi'] {
 
 .tx-supi {
   a,
-  button,
-  &__link-button {
+  button {
     &:focus-visible {
       box-shadow: none;
       outline-offset: 0;
@@ -616,42 +556,6 @@ input[id^='supi'] {
       outline: #{map-get($supi-colors, primary)} solid 3px;
       outline: var(--supi-color-primary) solid 3px;
       transition: none;
-    }
-    // Duplicated because some legacy browser suppressing the rule completely
-    &.focus-visible {
-      box-shadow: none;
-      outline-offset: 0;
-      overflow: hidden;
-      outline: #{map-get($supi-colors, primary)} solid 3px;
-      outline: var(--supi-color-primary) solid 3px;
-      transition: none;
-    }
-  }
-
-  &__link-button {
-    &[aria-expanded] {
-      position: relative;
-      font-size: 16px;
-
-      &:before {
-        content: '';
-        width: 8px;
-        height: 8px;
-        border-left: 2px solid map-get($supi-colors, primary);
-        border-top: 2px solid map-get($supi-colors, primary);
-        position: absolute;
-        top: 6px;
-        left: -17px;
-        transform: rotate(135deg);
-        transition: transform 0.2s ease-in-out;
-        display: block;
-      }
-    }
-
-    &[aria-expanded='true'] {
-      &:before {
-        transform: rotate(225deg);
-      }
     }
   }
 
@@ -665,39 +569,14 @@ input[id^='supi'] {
     }
   }
 
-  input[id^='supi'] {
-    &.focus-visible + label {
-      outline-offset: 3px;
-      overflow: hidden;
-      outline: #{map-get($supi-colors, primary)} solid 3px;
-      outline: var(--supi-color-primary) solid 3px;
-      transition: none;
-    }
-  }
-
   button {
     &:focus-visible {
       outline-offset: -3px;
-    }
-    &.focus-visible {
-      outline-offset: -3px;
-    }
-  }
-
-  button.tx-supi__link-button {
-    &:focus-visible {
-      outline-offset: 0;
-    }
-    &.focus-visible {
-      outline-offset: 0;
     }
   }
 
   #supi__choose {
     &:focus-visible {
-      outline-offset: 3px;
-    }
-    &.focus-visible {
       outline-offset: 3px;
     }
   }
