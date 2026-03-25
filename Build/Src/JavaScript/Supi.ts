@@ -170,7 +170,7 @@ export class Supi {
         this.logger.info(
             'Youtube cookie is "%o" resulting in %o',
             cookie.get(this.cookieNameYoutube),
-            this.allowYoutube
+            this.allowYoutube,
         );
         this.enableYoutubeVideos();
 
@@ -362,7 +362,7 @@ export class Supi {
                 el?.addEventListener('click', (e: Event) => {
                     if (el?.dataset.supiParent) {
                         findAll('[data-supi-block=' + el.dataset.supiBlock + ']').forEach(function (
-                            child: SupiElement
+                            child: SupiElement,
                         ) {
                             if (!child?.dataset.supiParent) {
                                 (child as HTMLInputElement).checked = (el as HTMLInputElement).checked;
@@ -373,7 +373,7 @@ export class Supi {
                             findOne('[data-supi-parent=' + el.dataset.supiBlock + ']')
                         );
                         const children = findAll('[data-supi-block=' + el.dataset.supiBlock + ']').filter(function (
-                            el: SupiElement
+                            el: SupiElement,
                         ) {
                             return !!el?.dataset.supiItem;
                         }) as Array<HTMLInputElement>;
@@ -641,7 +641,7 @@ export class Supi {
                 findAll('input[type=checkbox]', this.root)
                     .filter(
                         (el: SupiElement) =>
-                            (el as HTMLInputElement).checked || (parseInt(el?.dataset.supiRequired ?? '0') || 0) > 0
+                            (el as HTMLInputElement).checked || (parseInt(el?.dataset.supiRequired ?? '0') || 0) > 0,
                     )
                     .forEach((el: SupiElement) => {
                         if (el != null && el.dataset.supiService) {
@@ -718,7 +718,7 @@ export class Supi {
                     element != null &&
                     (element.offsetWidth > 0 || element.offsetHeight > 0 || element.getClientRects().length > 0)
                 );
-            }
+            },
         );
     }
 
@@ -728,7 +728,7 @@ export class Supi {
             'Comparing currently set cookies %o with allowed %o, allow all is %o',
             cookie.getCookieNames(),
             this.allowed,
-            this.allowAll
+            this.allowAll,
         );
 
         cookie.getCookieNames().forEach((cookieName: string) => {

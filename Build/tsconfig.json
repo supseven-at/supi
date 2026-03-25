@@ -1,12 +1,23 @@
 {
   "compilerOptions": {
-    "target": "ES3",
+    "target": "ESNext",
+    "useDefineForClassFields": true,
+    "module": "ESNext",
+    "lib": ["ESNext", "DOM"],
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
     "esModuleInterop": true,
     "sourceMap": true,
     "allowJs": true,
-    "downlevelIteration": true,
-    "lib": ["ES5", "ES6", "dom"],
-    "rootDir": ".",
-    "moduleResolution": "node"
-  }
+    "rootDir": "Src"
+  },
+  "include": ["Src/**/*.ts", "Src/**/*.d.ts", "Src/**/*.tsx"],
+  "exclude": ["node_modules"]
 }

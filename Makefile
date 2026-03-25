@@ -9,14 +9,14 @@ build: vendor/autoload.php Build/node_modules/.yarn-integrity
 frontend: Resources/Public/Css/Supi.css Resources/Public/JavaScript/Supi.js
 
 .PHONY: fix
-fix: vendor/autoload.php Build/node_modules/.yarn-integrity
+fix: vendor/autoload.php Build/node_modules
 	vendor/bin/php-cs-fixer fix --config=.php-cs-fixer.php --diff
-	cd Build && ./node_modules/.bin/prettier --write .
+	cd Build && yarn format
 
 .PHONY: lint
-lint: vendor/autoload.php Build/node_modules/.yarn-integrity
+lint: vendor/autoload.php Build/node_modules
 	vendor/bin/php-cs-fixer check --config=.php-cs-fixer.php --diff
-	cd Build && ./node_modules/.bin/prettier --check .
+	cd Build && yarn lint
 
 .PHONY: test
 test: vendor/autoload.php
@@ -24,28 +24,23 @@ test: vendor/autoload.php
 
 .PHONY: clean
 clean:
-	@rm -rf vendor/autoload.php .php-cs-fixer.cache .phpunit.result.cache .phpunit.cache Resources/Public/Css/Supi.css Resources/Public/JavaScript/Supi.js
+	@rm -rf vendor/autoload.php .php-cs-fixer.cache .phpunit.result.cache .phpunit.cache Resources/Public/Css/Supi.css Resources/Public/Css/Supi.css.map Resources/Public/Css/Supi.js Resources/Public/JavaScript/Supi.js Resources/Public/JavaScript/Supi.js.map
 
 .PHONY: clobber
 clobber: clean
-	@rm -rf vendor bin release
+	@rm -rf vendor bin release Build/node_modules
 
 .PHONY: release
 release: release/supi.zip release/changelog.md release/ter_notes.md ## Create release artifact
 
-Resources/Public/JavaScript/Supi.js: Build/node_modules/.yarn-integrity $(wildcard Build/Src/**/*.ts)
-	rm -f Resources/Public/JavaScript/Supi.js
-	cd Build && ./node_modules/.bin/gulp Frontend:JS
-
-Resources/Public/Css/Supi.css: Build/node_modules/.yarn-integrity $(wildcard Build/Src/**/*.scss)
-	rm -f Resources/Public/Css/Supi.css
-	cd Build && ./node_modules/.bin/gulp Frontend:SCSS
+Resources/Public/JavaScript/Supi.js Resources/Public/Css/Supi.css: Build/node_modules $(shell find Build/Src -type f)
+	cd Build && yarn build
 
 vendor/autoload.php:
 	composer install --ignore-platform-reqs --no-plugins --no-scripts && touch vendor/autoload.php
 
-Build/node_modules/.yarn-integrity: Build/package.json Build/yarn.lock
-	cd Build && yarn install --frozen-lockfile --prefer-offline && touch node_modules/.yarn-integrity
+Build/node_modules: Build/package.json Build/yarn.lock
+	cd Build && yarn install && touch node_modules
 
 release/changelog.md:
 	mkdir -p release
