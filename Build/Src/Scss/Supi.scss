@@ -1,4 +1,2 @@
-@import 'variables';
-@import 'mixins';
-@import 'helpers';
-@import 'theme-default';
+@use 'utilities' as *;
+@use 'theme-default' as *;

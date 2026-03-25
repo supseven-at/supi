@@ -1,55 +1,70 @@
-$supi-position: () !default;
-$supi-position: map-merge(
-  (
-    bottom: 15px,
-    left: 15px,
-  ),
-  $supi-position
-);
+// Breakpoints (SCSS variables for Media Queries)
+$supi-breakpoint-tablet: 768px !default;
+$supi-breakpoint-desktop: 1024px !default;
+$supi-grid-gutter-width: 32px !default;
 
-$supi-colors: () !default;
-$supi-colors: map-merge(
-  (
-    background: #fff,
-    primary: #000,
-    secondary: #ccc,
-    button-bar: #efefef,
-    success: #198754,
-    warning: red,
-    notice: #000,
-    underline: #6c757d,
+:root {
+  // Breakpoints for reference in JS or elsewhere
+  --supi-breakpoint-tablet: #{$supi-breakpoint-tablet};
+  --supi-breakpoint-desktop: #{$supi-breakpoint-desktop};
 
-    button-wrap-bgcolor: #efefef,
-    cookie-table-bgcolor: #f8f9fa,
-  ),
-  $supi-colors
-);
+  // Gutter & Spacing
+  --supi-grid-gutter-width: #{$supi-grid-gutter-width};
+  --supi-spacer-hg: calc(var(--supi-grid-gutter-width) * 0.5);
+  --supi-spacer-fg: var(--supi-grid-gutter-width);
 
-$supi-grid-gutter-width: 30px !default;
-$supi-breakpoint: 800px !default;
-$supi-border: true !default;
-$supi-box-shadow: true !default;
-$supi-font-base-size: 16px !default;
-$supi-font-size: 1em !default;
-$supi-font-size-head: 1.5em !default;
+  --supi-padding: var(--supi-spacer-hg);
+  --supi-margin: var(--supi-spacer-hg);
+  --supi-button-wrap-padding: var(--supi-spacer-hg);
 
-$supi-banner-box-padding: $supi-grid-gutter-width * 0.5 !default;
-$supi-banner-box-margin: $supi-grid-gutter-width * 0.5 !default;
-$supi-banner-box-border: 1px solid map-get($supi-colors, primary) !default;
-$supi-banner-box-shadow: 0 0 10px rgba(map-get($supi-colors, primary), 0.8) !default;
+  // Colors
+  --supi-color-background: #ffffff;
+  --supi-color-primary: #000000;
+  --supi-color-secondary: #cccccc;
+  --supi-color-button-bar: #efefef;
+  --supi-color-success: #198754;
+  --supi-color-warning: #ff0000;
+  --supi-color-notice: #000000;
+  --supi-color-underline: #6c757d;
+  --supi-color-button-wrap-bgcolor: #efefef;
+  --supi-color-cookie-table-bgcolor: #f8f9fa;
+  --supi-color-keyhole: var(--supi-color-success);
 
-$supi-button-wrap-padding: $supi-grid-gutter-width * 0.5 !default;
+  // Button specific colors
+  --supi-color-individual: var(--supi-color-success);
+  --supi-color-individual-background: var(--supi-color-background);
+  --supi-color-allow: var(--supi-color-background);
+  --supi-color-allow-background: var(--supi-color-success);
+  --supi-color-dismiss: var(--supi-color-primary);
+  --supi-color-dismiss-background: var(--supi-color-warning);
+  --supi-color-choose: var(--supi-color-notice);
+  --supi-color-choose-invert: var(--supi-color-secondary);
+  --supi-color-button-color: var(--supi-color-background);
 
-$supi-breakpoints: (
-  xs: 0,
-  md: $supi-breakpoint,
-) !default;
+  // Typography
+  --supi-font-base-size: 16px;
+  --supi-font-size: 1em;
+  --supi-font-size-head: 1.5em;
+  --supi-banner-line-height: 1.5;
 
-$supi-spacers: () !default;
-$supi-spacers: map-merge(
-  (
-    hg: $supi-grid-gutter-width * 0.5,
-    fg: $supi-grid-gutter-width,
-  ),
-  $supi-spacers
-);
+  // Layout & Banner (Logical Properties)
+  --supi-banner-width: 90dvw;
+  --supi-banner-max-width: 800px;
+  --supi-position-inset-block-end: 0;
+  --supi-position-inset-inline-start: 0;
+  --supi-banner-box-shadow: 0 0 10px oklch(from var(--supi-color-primary) l c h / 0.8);
+  --supi-transform-value: calc(100% + var(--supi-grid-gutter-width));
+  --supi-backdrop: oklch(from var(--supi-color-background) l c h / 0.8);
+  --supi-banner-border-radius: calc(var(--supi-grid-gutter-width) * 0.25);
+
+  // Responsive Breakpoints
+  @media (min-width: var(--supi-breakpoint-tablet)) {
+    --supi-position-inset-block-end: calc(var(--supi-grid-gutter-width) * 0.375);
+    --supi-position-inset-inline-start: calc(var(--supi-grid-gutter-width) * 0.375);
+    --supi-banner-width: 70dvw;
+    --supi-banner-border: 1px solid var(--supi-color-primary);
+  }
+
+  @media (min-width: var(--supi-breakpoint-desktop)) {
+  }
+}

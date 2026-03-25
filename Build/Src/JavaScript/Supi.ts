@@ -301,8 +301,6 @@ export class Supi {
                         });
                     }
 
-                    this.focusTrapElements = this.getFocusTrapElements();
-
                     e.preventDefault();
                 });
             });
@@ -507,7 +505,7 @@ export class Supi {
             template.dataset.supiCookies = script.dataset.supiCookies;
 
             if (script.hasAttribute('type')) {
-                template.dataset.type = script.getAttribute('type');
+                template.dataset.type = script.getAttribute('type') ?? '';
             }
 
             template.innerHTML = script.innerHTML;

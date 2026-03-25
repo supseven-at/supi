@@ -9,6 +9,9 @@ export default defineConfig({
         outDir: path.resolve(__dirname, '../Resources/Public'),
         emptyOutDir: false,
         sourcemap: true,
+        watch: {
+            include: ['Src/JavaScript/**', 'Src/Scss/**'],
+        },
         rollupOptions: {
             input: {
                 'JavaScript/Supi': path.resolve(__dirname, 'Src/JavaScript/main.ts'),

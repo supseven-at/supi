@@ -1,0 +1,81 @@
+.supi {
+  &-p {
+    &-hg {
+      padding-block: var(--supi-spacer-hg) !important;
+      padding-inline: var(--supi-spacer-hg) !important;
+    }
+    &-fg {
+      padding-block: var(--supi-spacer-fg) !important;
+      padding-inline: var(--supi-spacer-fg) !important;
+    }
+  }
+  &-px {
+    &-hg {
+      padding-inline: var(--supi-spacer-hg) !important;
+    }
+    &-fg {
+      padding-inline: var(--supi-spacer-fg) !important;
+    }
+  }
+  &-py {
+    &-hg {
+      padding-block: var(--supi-spacer-hg) !important;
+    }
+    &-fg {
+      padding-block: var(--supi-spacer-fg) !important;
+    }
+  }
+
+  &-m {
+    &-hg {
+      margin-block: var(--supi-spacer-hg) !important;
+    }
+    &-fg {
+      margin-block: var(--supi-spacer-fg) !important;
+    }
+  }
+  &-mx {
+    &-hg {
+      margin-inline: var(--supi-spacer-hg) !important;
+    }
+    &-fg {
+      margin-inline: var(--supi-spacer-fg) !important;
+    }
+  }
+  &-my {
+    &-hg {
+      margin-block: var(--supi-spacer-hg) !important;
+    }
+    &-fg {
+      margin-block: var(--supi-spacer-fg) !important;
+    }
+  }
+  &-mb {
+    &-hg {
+      margin-block-end: var(--supi-spacer-hg) !important;
+    }
+    &-fg {
+      margin-block-end: var(--supi-spacer-fg) !important;
+    }
+  }
+  &-mt {
+    &-hg {
+      margin-block-start: var(--supi-spacer-hg) !important;
+    }
+    &-fg {
+      margin-block-start: var(--supi-spacer-fg) !important;
+    }
+  }
+
+  &-visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+}
