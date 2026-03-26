@@ -4,10 +4,6 @@ $supi-breakpoint-desktop: 1024px !default;
 $supi-grid-gutter-width: 32px !default;
 
 :root {
-  // Breakpoints for reference in JS or elsewhere
-  --supi-breakpoint-tablet: #{$supi-breakpoint-tablet};
-  --supi-breakpoint-desktop: #{$supi-breakpoint-desktop};
-
   // Gutter & Spacing
   --supi-grid-gutter-width: #{$supi-grid-gutter-width};
   --supi-spacer-hg: calc(var(--supi-grid-gutter-width) * 0.5);
@@ -19,15 +15,15 @@ $supi-grid-gutter-width: 32px !default;
 
   // Colors
   --supi-color-background: #ffffff;
-  --supi-color-primary: #000000;
-  --supi-color-secondary: #cccccc;
-  --supi-color-button-bar: #efefef;
-  --supi-color-success: #198754;
-  --supi-color-warning: #ff0000;
-  --supi-color-notice: #000000;
-  --supi-color-underline: #6c757d;
-  --supi-color-button-wrap-bgcolor: #efefef;
-  --supi-color-cookie-table-bgcolor: #f8f9fa;
+  --supi-color-primary: #334155;
+  --supi-color-secondary: #94a3b8;
+  --supi-color-button-bar: #f8fafc;
+  --supi-color-success: #0369a1;
+  --supi-color-warning: #64748b;
+  --supi-color-notice: #475569;
+  --supi-color-underline: #cbd5e1;
+  --supi-color-button-wrap-bgcolor: #f1f5f9;
+  --supi-color-cookie-table-bgcolor: #f8fafc;
   --supi-color-keyhole: var(--supi-color-success);
 
   // Button specific colors
@@ -35,10 +31,10 @@ $supi-grid-gutter-width: 32px !default;
   --supi-color-individual-background: var(--supi-color-background);
   --supi-color-allow: var(--supi-color-background);
   --supi-color-allow-background: var(--supi-color-success);
-  --supi-color-dismiss: var(--supi-color-primary);
+  --supi-color-dismiss: oklch(from var(--supi-color-primary) calc(l + 20) c h);
   --supi-color-dismiss-background: var(--supi-color-warning);
   --supi-color-choose: var(--supi-color-notice);
-  --supi-color-choose-invert: var(--supi-color-secondary);
+  --supi-color-choose-invert: oklch(from var(--supi-color-secondary) calc(l + 20) c h);
   --supi-color-button-color: var(--supi-color-background);
 
   // Typography
@@ -48,23 +44,23 @@ $supi-grid-gutter-width: 32px !default;
   --supi-banner-line-height: 1.5;
 
   // Layout & Banner (Logical Properties)
-  --supi-banner-width: 90dvw;
+  --supi-banner-width: 100dvw;
   --supi-banner-max-width: 800px;
-  --supi-position-inset-block-end: 0;
-  --supi-position-inset-inline-start: 0;
   --supi-banner-box-shadow: 0 0 10px oklch(from var(--supi-color-primary) l c h / 0.8);
   --supi-transform-value: calc(100% + var(--supi-grid-gutter-width));
   --supi-backdrop: oklch(from var(--supi-color-background) l c h / 0.8);
-  --supi-banner-border-radius: calc(var(--supi-grid-gutter-width) * 0.25);
+  --supi-banner-border-radius: calc(var(--supi-grid-gutter-width) * 0.25) calc(var(--supi-grid-gutter-width) * 0.25) 0 0;
 
   // Responsive Breakpoints
-  @media (min-width: var(--supi-breakpoint-tablet)) {
-    --supi-position-inset-block-end: calc(var(--supi-grid-gutter-width) * 0.375);
-    --supi-position-inset-inline-start: calc(var(--supi-grid-gutter-width) * 0.375);
-    --supi-banner-width: 70dvw;
-    --supi-banner-border: 1px solid var(--supi-color-primary);
+  @media (min-width: #{$supi-breakpoint-tablet}) {
+    --supi-banner-width: 90dvw;
+    --supi-banner-border: 1px solid oklch(from var(--supi-color-primary) l c h / 0.5);
+    --supi-position-inset-block-start: 0;
+    --supi-buttongroup-direction: row;
+    --supi-banner-border-radius: calc(var(--supi-grid-gutter-width) * 0.25);
   }
 
-  @media (min-width: var(--supi-breakpoint-desktop)) {
+  @media (min-width: #{$supi-breakpoint-desktop}) {
+    --supi-banner-width: 70dvw;
   }
 }

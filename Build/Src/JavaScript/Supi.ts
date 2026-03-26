@@ -159,6 +159,7 @@ export class Supi {
         this.enableMaps();
 
         // add all click handlers to the buttons
+        this.preventClosingDialogOnEscape();
         this.addClickHandler();
         this.setDetailDefaults();
 
@@ -175,6 +176,20 @@ export class Supi {
 
     updateCookieTTL(): void {
         cookie.setLifetime(this.allowAll ? this.ttlAll : this.ttlReduced);
+    }
+
+    preventClosingDialogOnEscape(): void {
+        if (this.banner) {
+            this.banner.addEventListener('cancel', (e: Event) => {
+                e.preventDefault();
+            });
+
+            this.banner.addEventListener('keydown', (e: KeyboardEvent) => {
+                if (e.key === 'Escape') {
+                    e.preventDefault();
+                }
+            });
+        }
     }
 
     /**

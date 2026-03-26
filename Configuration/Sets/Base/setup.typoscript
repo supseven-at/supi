@@ -19,25 +19,31 @@ plugin.tx_supi {
         hideOverlayOnButtonCe = 1
 
         # Hide the "Functional Cookies only" button
+        # @deprecated
         hideAutoEssential = 0
 
         # Enabled detailed view
+        # @deprecated
         detailed = 1
 
         # Show per item/cookie details, not just blocks
         perItemDetail = 1
 
         # Enable select per item
+        # @deprecated
         perItemSelect = 1
 
         # Enable big switch-to-detail in overview if detail is active
         # works only with "hideAutoEssential"
+        # @deprecated
         showBigSwitch = 0
 
         # Key of theme CSS selector
+        # @deprecated
         theme = default
 
         # 0 = Bottom-Left, 1 = Center-Center
+        # @deprecated
         position = 1
 
         # CSS class the body tag must contain to enable console logging

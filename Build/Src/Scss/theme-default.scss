@@ -1,157 +1,143 @@
+@use 'sass:math';
 @use 'variables' as *;
 
-.tx-supi {
-  display: var(--supi-banner-display, none);
-  max-height: 100vh;
-  padding: 0;
-  flex-direction: column;
-  font-size: var(--supi-font-base-size);
-  background-color: var(--supi-color-background);
-  color: var(--supi-color-primary);
-  border-block-start: var(--supi-banner-border);
-  max-width: var(--supi-banner-max-width);
-  width: var(--supi-banner-width);
-  overflow-y: auto;
-  border: var(--supi-banner-border);
-  box-shadow: var(--supi-banner-box-shadow);
-  line-height: var(--supi-banner-line-height);
-  border-radius: var(--supi-banner-border-radius);
+@layer bootstrap, project, supi;
 
-  &[open] {
-    --supi-banner-display: flex;
+@layer supi {
+  body:has(.tx-supi[open]) {
+    overflow: hidden;
   }
 
-  &[hidden] {
-    --supi-pane-display: none;
-  }
-
-  &::backdrop {
-    background: var(--supi-backdrop);
-  }
-
-  &__detail {
-    display: var(--supi-pane-display);
+  .tx-supi {
+    overscroll-behavior: contain;
+    display: var(--supi-banner-display, none);
+    max-height: 90dvh;
+    padding: 0;
     flex-direction: column;
-    gap: var(--supi-detail-gap, var(--supi-spacer-hg));
-  }
+    font-size: var(--supi-font-base-size);
+    background-color: var(--supi-color-background);
+    color: var(--supi-color-primary);
+    max-width: var(--supi-banner-max-width);
+    width: var(--supi-banner-width);
+    overflow-y: auto;
+    border: var(--supi-banner-border);
+    box-shadow: var(--supi-banner-box-shadow);
+    line-height: var(--supi-banner-line-height);
+    border-radius: var(--supi-banner-border-radius);
+    inset: var(--supi-position-inset-block-start, auto) var(--supi-position-inset-inline-start, 0)
+      var(--supi-position-inset-block-end, 0) var(--supi-position-inset-inline-end, 0);
 
-  // component styles - outsourcen in einzelne dateien.
-  &__button {
-    flex-direction: column;
-
-    &-wrap {
-      background: var(--supi-color-button-wrap-bgcolor);
-      padding-block: var(--supi-button-wrap-padding);
-      padding-inline: var(--supi-button-wrap-padding);
-    }
-  }
-  &__summary {
-    cursor: pointer;
-    font-weight: bold;
-    list-style: none;
-    display: flex;
-    align-items: center;
-    text-decoration: underline;
-
-    &::-webkit-details-marker {
-      display: none;
+    &[open] {
+      --supi-banner-display: flex;
     }
 
-    &:before {
-      content: '';
-      width: 8px;
-      height: 8px;
-      border-inline-start: 2px solid var(--supi-color-primary);
-      border-block-start: 2px solid var(--supi-color-primary);
-      margin-inline-end: 10px;
-      transform: rotate(135deg);
-      transition: transform 0.2s ease-in-out;
-      display: inline-block;
+    &[hidden] {
+      --supi-pane-display: none;
     }
-  }
-  &__buttongroup {
-    display: flex;
-    justify-content: space-between;
 
-    ul {
-      display: flex;
+    &::backdrop {
+      background: var(--supi-backdrop);
+    }
+
+    h1,
+    h2,
+    h3 {
+      margin-block: var(--supi-heading-margin, 0 var(--supi-spacer-hg));
+      font-size: var(--supi-heading-font-size);
+    }
+
+    h1 {
+      --supi-heading-font-size: 2em;
+    }
+
+    h2 {
+      --supi-heading-font-size: 1.5em;
+    }
+
+    h3 {
+      --supi-heading-font-size: 1.25em;
+      --supi-heading-margin: 0;
+    }
+
+    p {
+      font-size: var(--supi-font-base-size);
+      line-height: var(--supi-banner-line-height);
+
+      &:last-child {
+        margin-block-end: 0;
+      }
+    }
+
+    &__detail {
+      display: var(--supi-pane-display, flex);
       flex-direction: column;
-      list-style: none;
-      padding: 0;
-      margin: 0;
+      gap: var(--supi-detail-gap, var(--supi-spacer-hg));
+    }
 
-      @media (min-width: $supi-breakpoint-tablet) {
-        flex-direction: row;
-        justify-content: space-between;
+    &__summary {
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      &::-webkit-details-marker {
+        display: none;
       }
 
-      li {
+      span {
         display: flex;
-        justify-content: center;
+        align-items: center;
+        gap: calc(var(--supi-grid-gutter-width) * 0.25);
+        flex: 1 0 auto;
 
-        & + li {
-          margin-block-start: calc(var(--supi-grid-gutter-width) * 0.5);
+        svg {
+          flex: 0 12px;
+          transform: rotate(-90deg);
+          transform-origin: center;
 
-          @media (min-width: $supi-breakpoint-tablet) {
-            margin-block-start: 0;
+          details[open] & {
+            transform: rotate(0deg);
           }
         }
-
-        button {
-          flex: auto;
-          text-decoration: none;
-        }
       }
     }
-  }
-  &__block {
-    overflow-x: hidden;
 
-    & &-header {
+    &__buttongroup {
       display: flex;
       justify-content: space-between;
-      align-items: center;
+      gap: var(--supi-buttongroup-gap, calc(var(--supi-grid-gutter-width) * 0.25));
+      flex-direction: var(--supi-buttongroup-direction, column);
+      position: sticky;
+      bottom: 0;
+      background: var(--supi-color-background);
     }
 
-    ul {
-      list-style: none;
-      padding: 0;
-      margin-block-end: var(--supi-grid-gutter-width);
-    }
+    &__block {
+      overflow-x: hidden;
 
-    &-item {
-      & > div {
+      &-header {
         display: flex;
         justify-content: space-between;
-        align-items: flex-start;
-
-        small {
-          opacity: 0.7;
-        }
+        align-items: center;
+        padding-block-end: var(--supi-block-header-padding-block-end, calc(var(--supi-grid-gutter-width) * 0.25));
+        margin-block-end: var(--supi-block-header-padding-block-end, calc(var(--supi-grid-gutter-width) * 0.25));
+        border-block-end: 1px solid var(--supi-block-header-border-color, var(--supi-color-primary));
       }
 
-      &__text {
+      &-body {
         display: flex;
         flex-direction: column;
-        width: 100%;
-        padding-inline-start: calc(var(--supi-grid-gutter-width) * 0.5);
+        gap: var(--supi-bock-body-gap, calc(var(--supi-grid-gutter-width) * 0.25));
       }
 
-      &__header {
-        display: flex;
-        justify-content: space-between;
-        width: 100%;
+      &-item {
+        &__table {
+          padding-block: calc(var(--supi-grid-gutter-width) * 0.5);
+          padding-inline: calc(var(--supi-grid-gutter-width) * 0.125);
+          display: flex;
+          flex-direction: column;
+          gap: calc(var(--supi-grid-gutter-width) * 0.25);
 
-        details {
-          width: 100%;
-        }
-      }
-
-      &__table {
-        width: 100%;
-        padding-block-start: calc(var(--supi-grid-gutter-width) * 0.5);
-
-        & > * {
           tr {
             display: flex;
             flex-wrap: wrap;
@@ -176,238 +162,187 @@
             padding-block: 4px;
             padding-inline: 0 8px;
           }
-        }
 
-        & > * + * {
-          margin-block-start: calc(var(--supi-grid-gutter-width) * 0.5);
-        }
+          &-cookie {
+            background: var(--supi-color-cookie-table-bgcolor);
+            box-shadow: 0 0 2px oklch(from var(--supi-color-primary) l c h / 0.5);
 
-        &-overview {
-          width: 100%;
-        }
+            th {
+              flex: 0 0 100%;
 
-        &-cookie {
-          width: 100%;
-          background: var(--supi-color-cookie-table-bgcolor);
-          box-shadow: 0 0 2px #00000040;
-
-          th {
-            flex: 0 0 100%;
-
-            @media (min-width: $supi-breakpoint-tablet) {
-              flex: 0 0 130px;
+              @media (min-width: $supi-breakpoint-tablet) {
+                flex: 0 0 130px;
+              }
             }
-          }
 
-          th,
-          td {
-            padding-block: 4px;
-            padding-inline: 8px;
+            th,
+            td {
+              padding-block: calc(var(--supi-grid-gutter-width) * 0.125);
+              padding-inline: calc(var(--supi-grid-gutter-width) * 0.25);
+            }
           }
         }
       }
     }
-  }
-  &__label {
-    font-weight: 700;
-    font-size: 20px;
-    line-height: 1.3;
-    margin-block-end: calc(var(--supi-grid-gutter-width) * 0.5);
-  }
-  &__underline {
-    border-block-end: 1px solid var(--supi-color-underline);
-  }
 
-  // html elemente - auslagern
-  h3 {
-    color: inherit;
-    font-size: var(--supi-font-size-head);
-    line-height: inherit;
-    margin-block: 0 0.5em;
-    margin-inline: 0;
-  }
-
-  p {
-    margin: 0;
-  }
-
-  a {
-    background: transparent;
-    padding: 0;
-    display: inline-block;
-    color: var(--supi-color-primary);
-    text-decoration: underline;
-    vertical-align: bottom;
-    text-align: start;
-  }
-
-  button {
-    border: none;
-    line-height: 1.3;
-    color: var(--supi-color-button-color);
-    text-decoration: none;
-    text-align: center;
-    font-family: inherit;
-    font-weight: normal;
-    padding-block: calc(var(--supi-grid-gutter-width) * 0.5);
-    padding-inline: calc(var(--supi-grid-gutter-width) * 0.5);
-    cursor: pointer;
-
-    &:after,
-    &:before {
-      display: none;
-    }
-
-    &#supi__individualSwitchTo {
-      border: 2px solid var(--supi-color-individual);
-      background: var(--supi-color-individual-background);
-      color: var(--supi-color-primary);
-    }
-
-    &.tx-supi__allow {
-      background: var(--supi-color-allow-background);
-      color: var(--supi-color-allow);
-    }
-
-    &#supi__dismiss {
-      background: var(--supi-color-dismiss-background);
-      color: var(--supi-color-dismiss);
-    }
-
-    &#supi__choose,
-    &#supi__save {
-      background: var(--supi-color-choose);
-      color: var(--supi-color-choose-invert);
+    a {
+      background: transparent;
+      padding: 0;
       display: inline-block;
-      padding-inline: var(--supi-padding);
+      color: var(--supi-link-color, var(--supi-color-primary));
+      text-decoration: underline;
+      text-underline-offset: 4px;
+
+      &:hover {
+        --supi-link-color: oklch(from var(--supi-color-primary) calc(l - 10) c h);
+      }
     }
-  }
 
+    button {
+      border: none;
+      line-height: 1.3;
+      color: var(--supi-color-button-color);
+      text-decoration: none;
+      text-align: center;
+      font-family: inherit;
+      font-weight: normal;
+      padding-block: calc(var(--supi-grid-gutter-width) * 0.5);
+      padding-inline: calc(var(--supi-grid-gutter-width) * 0.5);
+      cursor: pointer;
 
-  // details component. auslagern
-  details[open] .tx-supi__summary:before {
-    transform: rotate(225deg);
-  }
+      &:after,
+      &:before {
+        display: none;
+      }
 
-  // checkbox - auslagern
-  .supi-checkbox {
-    order: 1;
-    display: flex;
-    align-items: center;
+      &#supi__individualSwitchTo {
+        border: 2px solid var(--supi-color-individual);
+        background: var(--supi-color-individual-background);
+        color: var(--supi-color-primary);
+      }
 
-    input {
-      appearance: none;
-      position: absolute;
+      &.tx-supi__allow {
+        background: var(--supi-color-allow-background);
+        color: var(--supi-color-allow);
+      }
 
-      &:checked {
-        & + label {
-          background: var(--supi-color-success);
-          box-shadow:
-            inset 0 0 0 0 rgba(0, 0, 0, 0.2),
-            0 0 0 2px var(--supi-color-success);
+      &#supi__dismiss {
+        background: var(--supi-color-dismiss-background);
+        color: var(--supi-color-dismiss);
+      }
 
-          &:before {
-            transform: translateX(20px);
+      &#supi__choose,
+      &#supi__save {
+        background: var(--supi-color-choose);
+        color: var(--supi-color-choose-invert);
+        display: inline-block;
+        padding-inline: var(--supi-padding);
+      }
+    }
+
+    .supi-checkbox {
+      order: 1;
+      display: flex;
+      align-items: center;
+      margin-inline-end: calc(var(--supi-grid-gutter-width) * 0.125);
+
+      input {
+        appearance: none;
+        position: absolute;
+
+        &:checked {
+          & + label {
+            background: var(--supi-color-success);
             box-shadow:
-              1px 1px rgba(0, 0, 0, 0.2),
+              inset 0 0 0 0 rgba(0, 0, 0, 0.2),
               0 0 0 2px var(--supi-color-success);
+
+            &:before {
+              transform: translateX(20px);
+              box-shadow:
+                1px 1px rgba(0, 0, 0, 0.2),
+                0 0 0 2px var(--supi-color-success);
+            }
+          }
+
+          & + label svg {
+            transform: translate(-50%, -50%);
+            transition: 0.1s ease-in-out;
           }
         }
 
-        & + label svg {
-          transform: translate(-50%, -50%);
+        &:disabled {
+          & + label {
+            opacity: 0.6;
+          }
+
+          & + label svg {
+            opacity: 1;
+          }
+        }
+      }
+
+      label {
+        display: inline-block;
+        position: relative;
+        cursor: pointer;
+        width: 40px;
+        height: 20px;
+        border-radius: 20px;
+        background: #f8f8f8;
+        box-shadow:
+          inset 0 0 0 0 rgba(0, 0, 0, 0.2),
+          0 0 0 2px #ddd;
+        transition: 0.1s ease-in-out;
+        margin: 0;
+        color: var(--supi-color-keyhole);
+
+        &:before {
+          content: '';
+          position: absolute;
+          width: 20px;
+          height: 20px;
+          border-radius: 100%;
+          background: #fff;
+          box-shadow:
+            1px 1px rgba(0, 0, 0, 0.2),
+            0 0 0 2px #ddd;
           transition: 0.1s ease-in-out;
         }
       }
 
-      &:disabled {
-        & + label {
-          opacity: 0.6;
-        }
-        & + label svg {
-          opacity: 1;
-        }
-      }
-    }
-
-    label {
-      display: inline-block;
-      position: relative;
-      cursor: pointer;
-      width: 40px;
-      height: 20px;
-      border-radius: 20px;
-      background: #f8f8f8;
-      box-shadow:
-        inset 0 0 0 0 rgba(0, 0, 0, 0.2),
-        0 0 0 2px #ddd;
-      transition: 0.1s ease-in-out;
-      margin: 0;
-      color: var(--supi-color-keyhole);
-
-      &:before {
-        content: '';
+      svg {
         position: absolute;
-        width: 20px;
-        height: 20px;
-        border-radius: 100%;
-        background: #fff;
-        box-shadow:
-          1px 1px rgba(0, 0, 0, 0.2),
-          0 0 0 2px #ddd;
+        display: block;
+        opacity: 0;
+        top: 50%;
+        inset-inline-end: 4px;
+        transform: translate(-400%, -50%);
         transition: 0.1s ease-in-out;
       }
     }
 
-    svg {
-      position: absolute;
-      display: block;
-      opacity: 0;
-      top: 50%;
-      inset-inline-end: 4px;
-      transform: translate(-400%, -50%);
-      transition: 0.1s ease-in-out;
+    *:focus-visible {
+      outline: 1px dashed var(--supi-color-primary);
+      outline-offset: 2px;
     }
-  }
-
-  // zusammenfassen
-  [data-toggle] {
-    cursor: pointer;
-  }
-
-  // Fokus Styles - auslagern
-  a,
-  button {
-    &:focus-visible {
-      box-shadow: none;
-      outline-offset: 0;
-      overflow: hidden;
-      outline: var(--supi-color-primary) solid 3px;
-      transition: none;
-    }
-  }
-
-  input[id^='supi'] {
-    &:focus-visible + label {
-      outline-offset: 3px;
-      overflow: hidden;
-      outline: var(--supi-color-primary) solid 3px;
-      transition: none;
-    }
-  }
-
-  button:focus-visible {
-    outline-offset: -3px;
-  }
-
-  #supi__choose:focus-visible {
-    outline-offset: 3px;
   }
 }
 
 // Youtube & Maps - auslagern und komplett neu bauen bzw von bestehendem projekt nehmen
+.tx-supi__button {
+  & > div {
+    width: var(--supi-button-width, #{percentage(math.div(6,12))});
+    margin-inline: auto;
+    padding: var(--supi-button-padding, var(--supi-spacer-hg));
+    background: oklch(from var(--supi-color-secondary) l c h / 0.2);
+    border-radius: var(--supi-button-border-radius, calc(var(--supi-grid-gutter-width) * 0.25));
+  }
+}
+
 .tx-supi__youtube {
   position: relative;
+
   &-text {
     position: absolute;
     inset-block-start: 30%;
@@ -425,9 +360,11 @@
   &-content {
     display: none;
   }
+
   .active &-content {
     display: block;
   }
+
   .active &-text {
     display: none;
   }
