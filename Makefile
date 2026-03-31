@@ -26,6 +26,14 @@ test: vendor/autoload.php
 clean:
 	@rm -rf vendor/autoload.php .php-cs-fixer.cache .phpunit.result.cache .phpunit.cache Resources/Public/Css/Supi.css Resources/Public/Css/Supi.css.map Resources/Public/Css/Supi.js Resources/Public/JavaScript/Supi.js Resources/Public/JavaScript/Supi.js.map
 
+.PHONY: docs
+docs: ## Render documentation as static HTML
+	docker run --rm --pull always -v $(CURDIR):/project -it ghcr.io/typo3-documentation/render-guides:latest run /project/Documentation --output=/project/Documentation-GENERATED-temp
+
+.PHONY: docs-watch
+docs-watch: ## Render documentation and start live-reload server on http://0.0.0.0:8080
+	docker run --rm --pull always -v $(CURDIR):/project -p 8080:8080 -it ghcr.io/typo3-documentation/render-guides:latest run /project/Documentation --watch --host=0.0.0.0 --port=8080
+
 .PHONY: clobber
 clobber: clean
 	@rm -rf vendor bin release Build/node_modules

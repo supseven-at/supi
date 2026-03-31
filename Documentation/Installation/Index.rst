@@ -1,33 +1,47 @@
-.. include:: /Includes.rst.txt
+..  include:: /Includes.rst.txt
 
+..  _installation:
+
+============
 Installation
-==================
+============
 
-In a :ref:`composer-based TYPO3 installation <t3start:install>` you can install
-the extension EXT:supi via composer:
+Requirements
+============
 
-.. code-block:: bash
+-   TYPO3 v14.1 or higher
+-   PHP 8.5 or higher
 
-   composer require supseven/supi
+Installation via Composer
+=========================
 
-In TYPO3 installations above version 11.5 the extension will be automatically
-installed. You do not have to activate it manually.
+Run the following command in your TYPO3 project root:
 
-Update the database scheme
---------------------------
+..  code-block:: bash
 
-Open your TYPO3 backend with :ref:`system maintainer <t3start:system-maintainer>`
-permissions.
+    composer require supseven/supi
 
-In the module menu to the left navigate to :guilabel:`Admin Tools > Maintanance`,
-then click on :guilabel:`Analyze database` and create all.
+Activation
+==========
 
-.. include:: /Images/AnalyzeDatabase.rst.txt
+In TYPO3 v14, extensions are automatically active. To use the functionality of
+EXT:supi, you need to include its Site Sets in your site configuration.
 
-Clear all caches
-----------------
+1.  Open the **Site Management > Sites** module.
+2.  Select your site and go to the **Sets** tab.
+3.  Add the **EXT:supi base setup** set.
+4.  (Optional) Add additional sets for specific services (e.g., YouTube,
+    Google Maps).
 
-In the same module :guilabel:`Admin Tools > Maintanance` you can also
-conveniently clear all caches by clicking the button :guilabel:`Flush cache`.
+..  note::
+    Including the base setup set will automatically load the required
+    TypoScript and Page TSconfig.
 
-.. include:: /Images/FlushCache.rst.txt
+Update the database schema
+==========================
+
+After installing the extension, ensure your database schema is up to date:
+
+1.  Navigate to **Admin Tools > Maintenance**.
+2.  Click on **Analyze database**.
+3.  Apply all suggested changes.

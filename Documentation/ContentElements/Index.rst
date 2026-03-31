@@ -1,107 +1,64 @@
-.. include:: /Includes.rst.txt
+..  include:: /Includes.rst.txt
 
+..  _content-elements:
+
+================
 Content Elements
-====
+================
 
-There are five Content Elements at this moment. All Content Elements have JavaScript events where you can add listeners to to interact with the HTML markup for more specific stuff.
+EXT:supi provides several content elements that are designed to respect the
+user's consent. These elements display a placeholder or a preview image and load
+the actual content only after the user has accepted the corresponding service.
 
-The ContentElements get its information through dataprocessing.
+YouTube
+=======
 
-.. container:: row m-0 p-0
+The YouTube element allows you to embed videos by providing a YouTube ID. It
+automatically fetches a local preview image to avoid external requests before
+consent.
 
-   .. container:: col-xs-12 pl-0 pr-3 py-3 m-0
+**Configuration:**
+You can configure the behavior (e.g., enable load-once button) via Site Settings.
 
-      .. container:: card px-0 h-100
+Google Maps
+===========
 
-         .. rst-class:: card-header h3
+Displays an interactive Google Map based on an address. A preview image can be
+assigned to the content element to be shown as a placeholder.
 
-            .. rubric:: Youtube
+**Types:**
+-   **Custom Map**: Uses a callback function for specialized implementations.
+-   **Simple Map**: Uses a standard iframe embed.
 
-         .. container:: card-body
+Spotify
+=======
 
-            The Youtube Element gives You the ability to add .youtube File relations into the Element. See the Template-File for integration requirements.
+Embed playlists or tracks from Spotify. The extension ensures that the player
+is only loaded after consent.
 
-            The Youtube CE delivers the Youtube Poster-Image as a local File. See `tt_content.tx_supi_youtube` for more detailed configurations.
+Embed Page
+==========
 
-   .. container:: col-xs-12 pl-0 pr-3 py-3 m-0
+A generic content element to embed any external page or service via an iframe.
+You can register custom services in the banner configuration and use them with
+this element.
 
-      .. container:: card px-0 h-100
+Cookie Button
+=============
 
-         .. rst-class:: card-header h3
+A simple button that opens the Cookie Consent Banner. This is useful for
+placing a "Privacy Settings" button in the footer or on the data protection
+page.
 
-            .. rubric:: Google Maps
+JavaScript Events
+=================
 
-         .. container:: card-body
+All content elements trigger custom JavaScript events when they are loaded or
+initialized. You can listen to these events to add custom logic:
 
-            The Google Maps Element displays a Google Map based on a given Address in the Content Element. You can add a Preview Image which can be displayed before the user accepts the cookie.
-
-            See `tt_content.tx_supi_maps` for more detailed configurations.
-
-   .. container:: col-xs-12 pl-0 pr-3 py-3 m-0
-
-      .. container:: card px-0 h-100
-
-         .. rst-class:: card-header h3
-
-            .. rubric:: Spotify
-
-         .. container:: card-body
-
-            The Spotify element helps you, to add spotify playlists or tracks into your webpage.
-
-            See `tt_content.tx_supi_spotify` for more detailed configurations.
-
-   .. container:: col-xs-12 pl-0 pr-3 py-3 m-0
-
-      .. container:: card px-0 h-100
-
-         .. rst-class:: card-header h3
-
-            .. rubric:: Embed Page
-
-         .. container:: card-body
-
-            The Embed Page element helps you, to add iframes or other external related stuff into your webpage.
-
-            **@TODO: explain the services. there are different types, eg. iframe, callback and possibly more**
-
-            Example:
-
-            register the service into the settings.elements array. see :ref:`elements <elements>` for a detailed description
-
-            .. code-block:: typoscript
-
-               plugin.tx_supi.settings.elements.media.items.test {
-                  label = test
-                  service = test
-               }
-
-            afterwards configure your `service`
-
-            .. code-block:: typoscript
-
-               plugin.tx_supi.settings.services {
-                   test {
-                       label = My Test IFRAME
-                       service = test
-                       type = iframe
-                       attr {
-                           src = https://www.supseven.at
-                           height = 1200
-                           style = width:100%
-                           class = supi-iframe
-                       }
-                   }
-               }
-
-   .. container:: col-xs-12 pl-0 pr-3 py-3 m-0
-
-      .. container:: card px-0 h-100
-
-         .. rst-class:: card-header h3
-
-            .. rubric:: Cookie Button
-
-         .. container:: card-body
-
-            The Cookie Button re-opens the Cookie Banner to let the user choose again what cookies or services he accepts. usually this button is located in the data-privacy page or maybe added to the html layout as a sticky element.
+-   ``injectScript``
+-   ``youTubeAllowed``
+-   ``customMapAllowed``
+-   ``simpleMapAllowed``
+-   ``serviceEmbeded``
+-   ``serviceCallback``

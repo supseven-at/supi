@@ -1,111 +1,57 @@
-.. include:: /Includes.rst.txt
-.. _start:
+..  include:: /Includes.rst.txt
 
-====
-EXT:Supi
-====
+..  _start:
 
-:Language:
-     en
+====================================
+Supseven User Privacy Interface
+====================================
+
+:Extension key:
+    supi
+
+:Package name:
+    supseven/supi
 
 :Version:
-   |release|
+    |release|
 
-:Description:
-     Full documentation to install, integrate and style EXT:supi
-
-:Keywords:
-     cookie, banner, consent, gdpr
+:Language:
+    en
 
 :Author:
-     Volker Kemeter
-
-:Email:
-     v.kemeter@supseven.at
+    Volker Kemeter
 
 :License:
-   This document is published under the Open Content License
-   available from http://www.opencontent.org/opl.shtml
+    This document is published under the
+    `Creative Commons BY 4.0 <https://creativecommons.org/licenses/by/4.0/>`__
+    license.
 
 :Rendered:
-   |today|
+    |today|
 
 ----
-Introduction
-----
 
-The EXT:Supi Extension provides a Cookie Consent Banner for almost every needs.
-
-You can add:
-
-* External Scripts
-* External Sources in Iframes
-* External Sources via APIs
-
-This Extension provides a few Content-Elements which are ready to go:
-
-* Youtube Content Element
-* Google Maps Youtube Element
-* Embeded Page/Service (Iframe Element)
-* Spotify Playlist Element
-* Meta (Instagram) Element
-* Cookie Button Element (to reopen the Cookie Banner)
-
-There are also JavaScript Events where you can add Listeners to interact with
-the corresponding User-Settings.
+EXT:supi provides a powerful and easy-to-use Cookie Consent Banner for TYPO3.
+It supports external scripts, iframes (YouTube, Google Maps, Spotify), and
+custom service integrations via a robust JavaScript API.
 
 ----
-Compatibility
-----
 
-.. list-table:: EXT:Supi Versions available for TYPO3 Versions
-   :widths: 33 33 33
-   :header-rows: 1
+**Table of Contents**
 
-   * - EXT:Supi Version
-     - TYPO3
-     - PHP
-   * - 6
-     - 7 - 11
-     - 7.4 - 8.1
+..  toctree::
+    :maxdepth: 2
+    :titlesonly:
 
-----
-Table of Contents
-----
+    Introduction/Index
+    Installation/Index
+    Integration/Index
+    ContentElements/Index
+    Styling/Index
+    Developer/Index
+    Changelog/Index
 
-.. toctree::
-   :maxdepth: 2
-   :titlesonly:
+..  toctree::
+    :hidden:
 
-   About/Index
-   Installation/Index
-   Integration/Index
-   ContentElements/Index
-   Styling/Index
-   Extending/Index
-   Changelog/Index
-
-----
-TODO
-----
-
-#.  Refactor Templates/ Styles which can be better used
-
-    #.  Add more CSS-Grid to Youtube, Maps and other Elements
-    #.  Add more Bootstrap Classes in HTML Templates (btn classes e.g.)
-
-#.  Remove some not needed TS-Settings
-#.  Improve Youtube CE (add preview image field and some options)
-#.  Improve Maps CE (styling, translation/labels)
-#.  Add as much as possible translations
-#.  Refactor Language behaviour
-
-    #.  move to xlf files only, remove typoscript settings
-    #.  make xlf files configurable/overrideable
-    #.  https://docs.typo3.org/m/typo3/reference-coreapi/11.5/en-us/ApiOverview/Internationalization/ManagingTranslations.html
-
---------------------
-Render Documentation
---------------------
-
-`docker-compose run --rm t3docmake`
+    Sitemap
