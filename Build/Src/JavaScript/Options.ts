@@ -1,36 +1,46 @@
-import { Position } from './Types';
-
+/**
+ * Configuration for the cookie lifetime per consent state.
+ */
 interface CookieLifetime {
-    all: number;
-    reduced: number;
+    all: number;     // TTL in days when all cookies are accepted.
+    reduced: number; // TTL in days when only essential or selected cookies are accepted.
 }
 
+/**
+ * A single service item configuration.
+ */
 interface Item {
-    names: string;
-    label: string | null;
-    service: string | null;
+    names: string;         // Internal cookie names.
+    label: string | null;  // User-facing label.
+    service: string | null; // Associated service identifier.
 }
 
+/**
+ * Configuration for a block of services (e.g., 'Marketing', 'Essential').
+ */
 interface Element {
-    required: boolean;
-    showOnLoad: boolean;
-    names: string | null;
-    label: string | null;
+    required: boolean;      // If true, the user cannot deselect this block.
+    showOnLoad: boolean;    // If the block should be expanded initially.
+    names: string | null;   // Comma-separated list of cookie names.
+    label: string | null;   // User-facing category label.
     items: {
         [name: string]: Item;
     };
 }
 
+/**
+ * Root configuration for the Supi Consent Banner.
+ * Usually provided via a data-attribute on the #supi root element.
+ */
 export interface SupiOptions {
-    position: Position;
-    theme: string;
-    detailed: boolean;
-    cookieTTL: CookieLifetime;
-    cookieDomain: string;
+    theme: string;           // Theme identifier for styling.
+    detailed: boolean;       // If the detail view is enabled.
+    cookieTTL: CookieLifetime; // TTL settings for cookies.
+    cookieDomain: string;    // Domain for cookie storage.
     elements: {
-        [name: string]: Element;
+        [name: string]: Element; // Categories of cookies/services.
     };
-    essentialIncludesYoutube: boolean;
-    essentialIncludesMaps: boolean;
-    debugClass: string | null;
+    essentialIncludesYoutube: boolean; // If YouTube is considered essential (legal shortcut).
+    essentialIncludesMaps: boolean;    // If Google Maps is considered essential.
+    debugClass: string | null;         // CSS class on body to enable debug logging.
 }

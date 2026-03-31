@@ -6,43 +6,60 @@ import { ConsoleLogger, Logger, NullLogger } from './Logger';
 
 /**
  * Supseven User Privacy Interface Class
- * for GDPR Issues
+ *
+ * Main controller for the GDPR-compliant consent banner.
+ * Handles configuration parsing, service initialization, script injection,
+ * and user interactions within the banner UI.
  */
 export class Supi {
     private logger: Logger = new NullLogger();
 
-    // Main wrapper around everything
+    /** Main wrapper element (#supi) */
     private root: SupiElement = null;
 
-    // the dismiss button
+    /** Button to dismiss the banner with essential settings only */
     private dismiss: SupiElement = null;
 
-    // the choose button provied by the plugin
+    /** Button to open the banner manually (e.g. from footer) */
     private choose: SupiElement = null;
 
-    // the main cookie banner
+    /** The native HTML <dialog> element for the banner */
     private banner: HTMLDialogElement | null = null;
 
-    // the cookie names
+    /** Internal cookie keys */
     private readonly cookieNameStatus = 'status';
     private readonly cookieNameAllowed = 'allowed';
     private readonly cookieNameYoutube = 'yt';
     private readonly cookieNameGoogleMaps = 'gmaps';
 
-    // the configuration
+    /** Current configuration object */
     private config: SupiOptions = {} as SupiOptions;
+
+    /** List of currently allowed/accepted service identifiers */
     private allowed: string[] = [];
+
+    /** Button to save custom selections in detail view */
     private save: SupiElement = null;
 
-    // Cookie lifetime settings
+    /** Default cookie lifetimes in days */
     private ttlAll = 30;
     private ttlReduced = 7;
 
+    /** State flags for global consent */
     private allowAll = false;
     private allowYoutube = false;
     private allowMaps = false;
+
+    /** List of all available service names found in config */
     private services: string[] = [];
 
+    /**
+     * Constructor initializes the banner by:
+     * 1. Finding required DOM elements
+     * 2. Parsing JSON configuration from data-attributes
+     * 3. Initializing the logger and services
+     * 4. Restoring consent state from cookies
+     */
     constructor() {
         this.root = findOne('#supi');
 
@@ -62,11 +79,15 @@ export class Supi {
 
         this.toggleAllServices();
 
+        // Delay initial event to allow other scripts to register listeners
         setTimeout(() => {
             this.trigger('supiInitEnd', document.body, {});
         }, 180);
     }
 
+    /**
+     * Maps internal UI variables to their respective DOM elements.
+     */
     private initElements(): void {
         this.dismiss = findOne('[data-toggle=dismiss]', this.root);
         this.choose = findOne('#supi__choose');
@@ -74,6 +95,10 @@ export class Supi {
         this.save = findOne('[data-toggle=save]', this.root);
     }
 
+    /**
+     * Parses the JSON configuration provided by the TYPO3 backend.
+     * Sets TTL values and cookie domains accordingly.
+     */
     private initOptions(): void {
         const configSrc = this.root?.getAttribute('data-supi-config');
         if (configSrc) {
@@ -93,6 +118,10 @@ export class Supi {
         }
     }
 
+    /**
+     * Initializes the logger. Enables ConsoleLogger if a specific debug class
+     * is found on the body element.
+     */
     private initLogger(): void {
         this.logger = document.body.classList.contains(this.config?.debugClass ?? 'develop')
             ? new ConsoleLogger()
@@ -101,6 +130,10 @@ export class Supi {
         this.logger.info('Loaded config %o', this.config);
     }
 
+    /**
+     * Collects all services defined in the configuration and
+     * automatically adds 'essential' services to the allowed list.
+     */
     private initServices(): void {
         const data = cookie.get<string[]>(this.cookieNameAllowed);
 
@@ -129,6 +162,10 @@ export class Supi {
         this.logger.info('Collected services %o', this.services);
     }
 
+    /**
+     * Restores the consent status from previous sessions.
+     * If no status is set, it might show the banner overlay.
+     */
     private initConsentStatus(): void {
         const status = cookie.get<Status>(this.cookieNameStatus);
 
@@ -150,6 +187,9 @@ export class Supi {
         this.initExternalServicesStatus(status);
     }
 
+    /**
+     * Handles specialized status for major external services like YouTube and Google Maps.
+     */
     private initExternalServicesStatus(status: Status | null): void {
         this.allowYoutube =
             cookie.get<string>(this.cookieNameYoutube) === 'y' ||
@@ -168,12 +208,18 @@ export class Supi {
         this.enableMaps();
     }
 
+    /**
+     * Master handler for all UI interactions.
+     */
     private addHandlers(): void {
         this.addBannerActionHandlers();
         this.addToggleHandlers();
         this.addExternalServiceHandlers();
     }
 
+    /**
+     * Registers click events for primary banner buttons (Allow All, Dismiss, Save).
+     */
     private addBannerActionHandlers(): void {
         findAll('[data-toggle=allow]', this.root).forEach((el) => {
             el.addEventListener('click', (e) => {
@@ -260,6 +306,9 @@ export class Supi {
         });
     }
 
+    /**
+     * Handles view switching (overview vs detail) and checkbox group logic (select all in category).
+     */
     private addToggleHandlers(): void {
         // Switch between overview and detail view
         findAll('[data-toggle=switch]').forEach((el) => {
@@ -310,6 +359,10 @@ export class Supi {
         });
     }
 
+    /**
+     * Registers click handlers for 'Enable once' and 'Enable always' on
+     * specific content blocks (YouTube previews, Map placeholders).
+     */
     private addExternalServiceHandlers(): void {
         // YouTube
         findAll('.tx-supi__youtube').forEach((el) => {
@@ -356,6 +409,12 @@ export class Supi {
         });
     }
 
+    /**
+     * Finds <script type="application/supi"> templates and replaces them with
+     * real <script> tags if the required consent has been given.
+     *
+     * @returns Always true to indicate processing finished.
+     */
     public injectJavaScripts(): boolean {
         findAll<HTMLScriptElement>('script')
             .filter((el) => el.type === 'application/supi')
@@ -377,6 +436,10 @@ export class Supi {
         return true;
     }
 
+    /**
+     * Toggles the visibility of the native banner dialog.
+     * Also updates all toggle switches within the banner to match the current state.
+     */
     public toggleBanner(): void {
         if (!this.banner || typeof this.banner.showModal !== 'function') {
             this.logger.error('Banner element not found or browser support missing.');
@@ -398,6 +461,10 @@ export class Supi {
         this.updateTogglesInBanner();
     }
 
+    /**
+     * Synchronizes the checked state of all checkboxes in the banner with the
+     * internal consent flags (YouTube, Maps, custom services).
+     */
     private updateTogglesInBanner(): void {
         let allowAllServices = true;
 
@@ -427,6 +494,12 @@ export class Supi {
         }
     }
 
+    /**
+     * Reverts all previously injected scripts back to templates.
+     * Useful when the user changes consent mid-session.
+     *
+     * @returns Always true.
+     */
     public removeScripts(): boolean {
         findAll<HTMLScriptElement>('.supi-scripts').forEach((script) => {
             const template = document.createElement('script');
@@ -443,6 +516,12 @@ export class Supi {
         return true;
     }
 
+    /**
+     * Calculates the list of allowed cookie names based on the selected mode.
+     *
+     * @param mode All, Essential, or Selected.
+     * @returns True if the selection is identical to the previous one.
+     */
     private collectAllowed(mode: Mode = Mode.Essential): boolean {
         const old = this.allowed.sort().join();
         this.allowed = [];
@@ -508,6 +587,9 @@ export class Supi {
         return this.allowed.sort().join() === old;
     }
 
+    /**
+     * Helper to set consent flags for major external services.
+     */
     private setExternalConsent(allowed: boolean): void {
         const val = allowed ? 'y' : 'n';
         cookie.set(this.cookieNameGoogleMaps, val);
@@ -517,6 +599,9 @@ export class Supi {
         this.services.forEach((s) => cookie.set(s, val));
     }
 
+    /**
+     * Removes all cookies from the browser that are not in the 'allowed' list.
+     */
     private removeNotAllowedCookies(): void {
         this.logger.info('Purging not allowed cookies. Allowed: %o', this.allowed);
         cookie.getCookieNames().forEach((name) => {
@@ -529,6 +614,9 @@ export class Supi {
         cookie.set(this.cookieNameAllowed, this.allowed);
     }
 
+    /**
+     * Initializes the checkbox states in the detail view based on current consent.
+     */
     private setDetailDefaults(): void {
         findAll<HTMLInputElement>('input[data-supi-parent]').forEach((parent) => {
             const blockId = parent.dataset.supiParent;
@@ -554,6 +642,9 @@ export class Supi {
         });
     }
 
+    /**
+     * Finds all YouTube preview elements and replaces them with iframes if allowed.
+     */
     private enableYoutubeVideos(): void {
         if (this.allowYoutube) {
             this.trigger('youTubeAllowedGlobal', document.documentElement, {});
@@ -561,6 +652,9 @@ export class Supi {
         }
     }
 
+    /**
+     * Specialized toggler for YouTube. Supports 'once' mode which doesn't persist the choice.
+     */
     private toggleYoutubeVideos(autoplayEl: HTMLElement, once = false): void {
         this.allowYoutube = true;
         this.addVideo(autoplayEl, '&autoplay=1&mute=1');
@@ -573,6 +667,9 @@ export class Supi {
         }
     }
 
+    /**
+     * Replaces a preview element with a YouTube iframe.
+     */
     private addVideo(el: HTMLElement, params: string): void {
         if (!this.allowYoutube) return;
 
@@ -594,6 +691,10 @@ export class Supi {
         this.trigger('youTubeAllowed', iframe, { iframe, dataset: el.dataset });
     }
 
+    /**
+     * Initializes Google Maps placeholders. Supports custom callback functions
+     * for specialized map implementations (e.g. Leaflet, OpenLayers).
+     */
     private enableMaps(): void {
         if (!this.allowMaps) return;
 
@@ -609,12 +710,18 @@ export class Supi {
         this.enableSimpleMaps();
     }
 
+    /**
+     * Finds all simple iframe map placeholders and replaces them.
+     */
     private enableSimpleMaps(): void {
         if (this.allowMaps) {
             findAll('.tx-supi__simpleMaps').forEach((el) => this.addSimpleMap(el));
         }
     }
 
+    /**
+     * Specialized toggler for Google Maps.
+     */
     private toggleSimpleMaps(el: HTMLElement, once = false): void {
         this.allowMaps = true;
         this.addSimpleMap(el);
@@ -627,6 +734,9 @@ export class Supi {
         }
     }
 
+    /**
+     * Replaces a map placeholder with a Google Maps iframe.
+     */
     private addSimpleMap(el: HTMLElement): void {
         if (!this.allowMaps) return;
 
@@ -643,6 +753,10 @@ export class Supi {
         this.trigger('simpleMapAllowed', iframe, { iframe, data: el.dataset });
     }
 
+    /**
+     * Generic toggler for custom services defined via data-supi-service-container.
+     * Supports 'callback', 'script', 'img', and 'iframe' types.
+     */
     private toggleService(name: string): void {
         if (cookie.get(name) !== 'y' && !this.allowAll) return;
 
@@ -695,14 +809,24 @@ export class Supi {
         });
     }
 
+    /**
+     * Triggers all active service containers.
+     */
     private toggleAllServices(): void {
         this.services.forEach((s) => this.toggleService(s));
     }
 
+    /**
+     * Updates the TTL of the 'supi' cookie based on the user's choices.
+     */
     private updateCookieTTL(): void {
         cookie.setLifetime(this.allowAll ? this.ttlAll : this.ttlReduced);
     }
 
+    /**
+     * Prevents the banner from being closed by the Escape key or Backdrop clicks
+     * to ensure the user makes an explicit choice.
+     */
     private preventClosingDialogOnEscape(): void {
         if (this.banner) {
             this.banner.addEventListener('cancel', (e) => e.preventDefault());
@@ -712,6 +836,10 @@ export class Supi {
         }
     }
 
+    /**
+     * Helper to dispatch custom events.
+     * Enriches every event with current consent state details.
+     */
     private trigger(name: string, el: HTMLElement, detail: Record<string, unknown> | null): void {
         el.dispatchEvent(
             new CustomEvent(name, {
@@ -722,6 +850,9 @@ export class Supi {
         );
     }
 
+    /**
+     * Collects current consent state flags to be included in event payloads.
+     */
     private addDetailsForEvents(detail: Record<string, unknown> | null): Record<string, unknown> {
         const result = { ...(detail ?? {}) };
         findAll('[data-supi-service-container]').forEach((e) => {
