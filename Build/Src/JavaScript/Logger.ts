@@ -1,20 +1,20 @@
 export interface Logger {
-    info(...data: any): void;
-    error(...data: any): void;
+    info(...data: unknown[]): void;
+    error(...data: unknown[]): void;
 }
 
 export class ConsoleLogger implements Logger {
-    error(...data: any): void {
+    error(...data: unknown[]): void {
         console.error(...data);
     }
 
-    info(...data: any): void {
+    info(...data: unknown[]): void {
         console.log(...data);
     }
 }
 
 export class NullLogger implements Logger {
-    error(..._data: any) {}
+    error(..._data: unknown[]): void {}
 
-    info(..._data: any) {}
+    info(..._data: unknown[]): void {}
 }

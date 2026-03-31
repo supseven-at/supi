@@ -23,39 +23,26 @@ export class Supi {
     // the main cookie banner
     private banner: HTMLDialogElement | null = null;
 
-    // the cookie name which will be set as a status cookie
-    private readonly cookieNameStatus: string = 'status';
+    // the cookie names
+    private readonly cookieNameStatus = 'status';
+    private readonly cookieNameAllowed = 'allowed';
+    private readonly cookieNameYoutube = 'yt';
+    private readonly cookieNameGoogleMaps = 'gmaps';
 
-    private readonly cookieNameAllowed: string = 'allowed';
-
-    private readonly cookieNameYoutube: string = 'yt';
-    private readonly cookieNameGoogleMaps: string = 'gmaps';
-
-    // the typoscript config
-    private config: SupiOptions = <SupiOptions>{};
-
-    // the typoscript config
-    private allowed: Array<string> = [];
-
+    // the configuration
+    private config: SupiOptions = {} as SupiOptions;
+    private allowed: string[] = [];
     private save: SupiElement = null;
 
-    // Cookie lifetime in days for allow all
-    private ttlAll: number = 30;
+    // Cookie lifetime settings
+    private ttlAll = 30;
+    private ttlReduced = 7;
 
-    // Cookie lifetime in days for selected and dismiss
-    private ttlReduced: number = 7;
+    private allowAll = false;
+    private allowYoutube = false;
+    private allowMaps = false;
+    private services: string[] = [];
 
-    private allowAll: boolean = false;
-
-    private allowYoutube: boolean = false;
-
-    private allowMaps: boolean = false;
-
-    private services: Array<string> = [];
-
-    /**
-     * the constructor
-     */
     constructor() {
         this.root = findOne('#supi');
 
@@ -63,104 +50,14 @@ export class Supi {
             return;
         }
 
-        this.dismiss = findOne('[data-toggle=dismiss]', this.root);
-        this.choose = findOne('#supi__choose');
-        this.banner = findOne('#supi__banner') as HTMLDialogElement;
-        this.save = findOne('[data-toggle=save]', this.root);
+        this.initElements();
+        this.initOptions();
+        this.initLogger();
+        this.initServices();
+        this.initConsentStatus();
 
-        const configSrc = this.root.getAttribute('data-supi-config');
-        if (configSrc) {
-            this.config = <SupiOptions>JSON.parse(configSrc);
-        } else {
-            this.config = <SupiOptions>{};
-        }
-
-        if (document.body.classList.contains(this.config?.debugClass ?? 'develop')) {
-            this.logger = new ConsoleLogger();
-        } else {
-            this.logger = new NullLogger();
-        }
-
-        this.logger.info('Loaded config %o', this.config);
-
-        this.ttlReduced = this.config?.cookieTTL?.reduced ?? this.ttlReduced;
-        this.ttlAll = this.config?.cookieTTL?.all ?? this.ttlAll;
-
-        if (this.config.cookieDomain) {
-            cookie.useDomain(this.config.cookieDomain);
-        }
-
-        const data = cookie.get(this.cookieNameAllowed);
-
-        if (Array.isArray(data) && data.length) {
-            this.allowed = data;
-        }
-
-        this.config?.elements?.essential?.names?.split(',').forEach((name: string) => {
-            name = (name + '').trim();
-
-            if (name !== '' && this.allowed.indexOf(name) === -1) {
-                this.allowed.push(name);
-            }
-        });
-
-        Object.keys(this.config.elements).forEach((element: string) => {
-            Object.keys(this.config.elements[element].items).forEach((item: string) => {
-                const serviceName = this.config?.elements[element]?.items[item]?.service ?? '';
-                if (serviceName) {
-                    this.services.push(serviceName);
-                }
-            });
-        });
-
-        this.trigger('supiInitStart', document.body, {});
-
-        this.logger.info('Collected services %o', this.services);
-
-        const status = cookie.get(this.cookieNameStatus) as Status;
-
-        // check, if status cookie is set and check the status it self and react on that
-        if (status == Status.All) {
-            this.allowAll = true;
-            this.injectJavaScripts();
-            this.updateCookieTTL();
-            this.removeNotAllowedCookies();
-        } else if (status == Status.Selected) {
-            this.injectJavaScripts();
-            this.updateCookieTTL();
-            this.removeNotAllowedCookies();
-        } else if (!cookie.get(this.cookieNameStatus)) {
-            cookie.remove(this.cookieNameStatus);
-
-            if (findOne('[data-hide-overlay="1"]')) {
-                this.logger.info('Hides the Banner-Overlay due to the given Setting "hideOverlayOnButtonCe"', '', '');
-            } else {
-                this.toggleBanner();
-            }
-        }
-
-        this.logger.info('Checking for yt cookie');
-        this.allowYoutube =
-            (cookie.get(this.cookieNameYoutube) as string) === 'y' ||
-            this.allowAll ||
-            (status == Status.Selected && this.config?.essentialIncludesYoutube);
-        this.logger.info(
-            'Youtube cookie is "%o" resulting in %o',
-            cookie.get(this.cookieNameYoutube),
-            this.allowYoutube,
-        );
-        this.enableYoutubeVideos();
-
-        this.allowMaps =
-            cookie.get(this.cookieNameGoogleMaps) === 'y' ||
-            this.allowAll ||
-            (status == Status.Selected && this.config?.essentialIncludesMaps);
-        this.logger.info('Maps cookie is "%o" resulting in %o', cookie.get(this.cookieNameGoogleMaps), this.allowMaps);
-        this.enableMaps();
-
-        // add all click handlers to the buttons
         this.preventClosingDialogOnEscape();
-        this.addClickHandler();
+        this.addHandlers();
         this.setDetailDefaults();
 
         this.toggleAllServices();
@@ -170,38 +67,117 @@ export class Supi {
         }, 180);
     }
 
-    private toggleAllServices(): void {
-        this.services.forEach((service: string) => this.toggleService(service));
+    private initElements(): void {
+        this.dismiss = findOne('[data-toggle=dismiss]', this.root);
+        this.choose = findOne('#supi__choose');
+        this.banner = findOne('#supi__banner') as HTMLDialogElement;
+        this.save = findOne('[data-toggle=save]', this.root);
     }
 
-    updateCookieTTL(): void {
-        cookie.setLifetime(this.allowAll ? this.ttlAll : this.ttlReduced);
-    }
+    private initOptions(): void {
+        const configSrc = this.root?.getAttribute('data-supi-config');
+        if (configSrc) {
+            try {
+                this.config = JSON.parse(configSrc) as SupiOptions;
+            } catch (e) {
+                console.error('Supi: Failed to parse config', e);
+                this.config = {} as SupiOptions;
+            }
+        }
 
-    preventClosingDialogOnEscape(): void {
-        if (this.banner) {
-            this.banner.addEventListener('cancel', (e: Event) => {
-                e.preventDefault();
-            });
+        this.ttlReduced = this.config?.cookieTTL?.reduced ?? this.ttlReduced;
+        this.ttlAll = this.config?.cookieTTL?.all ?? this.ttlAll;
 
-            this.banner.addEventListener('keydown', (e: KeyboardEvent) => {
-                if (e.key === 'Escape') {
-                    e.preventDefault();
-                }
-            });
+        if (this.config.cookieDomain) {
+            cookie.useDomain(this.config.cookieDomain);
         }
     }
 
-    /**
-     * adds the clickhandler to the buttons
-     */
-    addClickHandler(): void {
-        // on click removes first all scripts and readds then
-        // the scripts, after that the banner will be toggled
-        findAll('[data-toggle=allow]', this.root).forEach((el: SupiElement) => {
-            this.logger.info('Allow all on click on %o', el);
-            el?.addEventListener('click', (e: Event) => {
-                this.logger.info('Allow all was clicked, processing');
+    private initLogger(): void {
+        this.logger = document.body.classList.contains(this.config?.debugClass ?? 'develop')
+            ? new ConsoleLogger()
+            : new NullLogger();
+
+        this.logger.info('Loaded config %o', this.config);
+    }
+
+    private initServices(): void {
+        const data = cookie.get<string[]>(this.cookieNameAllowed);
+
+        if (Array.isArray(data) && data.length) {
+            this.allowed = data;
+        }
+
+        const essentialNames = this.config?.elements?.essential?.names?.split(',') ?? [];
+        essentialNames.forEach((name) => {
+            const trimmed = name.trim();
+            if (trimmed && !this.allowed.includes(trimmed)) {
+                this.allowed.push(trimmed);
+            }
+        });
+
+        for (const element of Object.values(this.config.elements || {})) {
+            for (const item of Object.values(element.items || {})) {
+                const serviceName = item?.service;
+                if (serviceName) {
+                    this.services.push(serviceName);
+                }
+            }
+        }
+
+        this.trigger('supiInitStart', document.body, {});
+        this.logger.info('Collected services %o', this.services);
+    }
+
+    private initConsentStatus(): void {
+        const status = cookie.get<Status>(this.cookieNameStatus);
+
+        if (status === Status.All || status === Status.Selected) {
+            this.allowAll = status === Status.All;
+            this.injectJavaScripts();
+            this.updateCookieTTL();
+            this.removeNotAllowedCookies();
+        } else if (!cookie.has(this.cookieNameStatus)) {
+            cookie.remove(this.cookieNameStatus);
+
+            if (findOne('[data-hide-overlay="1"]')) {
+                this.logger.info('Hides the Banner-Overlay due to the given Setting "hideOverlayOnButtonCe"');
+            } else {
+                this.toggleBanner();
+            }
+        }
+
+        this.initExternalServicesStatus(status);
+    }
+
+    private initExternalServicesStatus(status: Status | null): void {
+        this.allowYoutube =
+            cookie.get<string>(this.cookieNameYoutube) === 'y' ||
+            this.allowAll ||
+            (status === Status.Selected && !!this.config?.essentialIncludesYoutube);
+
+        this.logger.info('Checking YouTube status: %o', this.allowYoutube);
+        this.enableYoutubeVideos();
+
+        this.allowMaps =
+            cookie.get<string>(this.cookieNameGoogleMaps) === 'y' ||
+            this.allowAll ||
+            (status === Status.Selected && !!this.config?.essentialIncludesMaps);
+
+        this.logger.info('Checking Google Maps status: %o', this.allowMaps);
+        this.enableMaps();
+    }
+
+    private addHandlers(): void {
+        this.addBannerActionHandlers();
+        this.addToggleHandlers();
+        this.addExternalServiceHandlers();
+    }
+
+    private addBannerActionHandlers(): void {
+        findAll('[data-toggle=allow]', this.root).forEach((el) => {
+            el.addEventListener('click', (e) => {
+                this.logger.info('Allow all clicked');
                 this.allowAll = true;
                 this.allowMaps = true;
                 this.allowYoutube = true;
@@ -209,7 +185,7 @@ export class Supi {
                 this.collectAllowed(Mode.All);
                 this.removeScripts();
 
-                if (this.injectJavaScripts() === true) {
+                if (this.injectJavaScripts()) {
                     this.toggleBanner();
                     cookie.set(this.cookieNameStatus, Status.All);
                     cookie.set(this.cookieNameYoutube, 'y');
@@ -225,185 +201,154 @@ export class Supi {
             });
         });
 
-        // on click removes all javascripts and toggles the
-        // banner
-        if (this.dismiss) {
-            this.dismiss.addEventListener('click', (e: Event) => {
-                e.preventDefault();
-                this.allowAll = false;
-
-                if (this.collectAllowed(Mode.Essential)) {
-                    this.removeScripts();
-                }
-
-                if (this.config?.essentialIncludesYoutube) {
-                    this.allowYoutube = true;
-                    cookie.set(this.cookieNameYoutube, 'y');
-                    this.enableYoutubeVideos();
-                }
-
-                if (this.config?.essentialIncludesMaps) {
-                    this.allowMaps = true;
-                    cookie.set(this.cookieNameGoogleMaps, 'y');
-                    this.enableMaps();
-                }
-
-                if (this.removeScripts() === true) {
-                    this.toggleBanner();
-                    cookie.set(this.cookieNameStatus, Status.Selected);
-                }
-
-                this.toggleAllServices();
-                this.setDetailDefaults();
-                this.removeNotAllowedCookies();
-            });
-        }
-
-        if (this.save) {
-            this.save.addEventListener('click', (e: Event) => {
-                e.preventDefault();
-                this.allowAll = false;
-                this.collectAllowed(Mode.Selected);
+        this.dismiss?.addEventListener('click', (e) => {
+            this.logger.info('Dismiss clicked');
+            this.allowAll = false;
+            if (this.collectAllowed(Mode.Essential)) {
                 this.removeScripts();
+            }
 
-                if (this.injectJavaScripts()) {
-                    this.toggleBanner();
-                    cookie.set(this.cookieNameStatus, Status.Selected);
-                }
+            if (this.config?.essentialIncludesYoutube) {
+                this.allowYoutube = true;
+                cookie.set(this.cookieNameYoutube, 'y');
+                this.enableYoutubeVideos();
+            }
 
-                this.toggleAllServices();
-                this.removeNotAllowedCookies();
-            });
-        }
+            if (this.config?.essentialIncludesMaps) {
+                this.allowMaps = true;
+                cookie.set(this.cookieNameGoogleMaps, 'y');
+                this.enableMaps();
+            }
 
-        // this click event simply opens the banner for
-        // further interaction
-        if (this.choose) {
-            this.logger.info('Add main choose toggle to %o', this.choose);
-            this.choose.addEventListener('click', (e: Event) => {
+            if (this.removeScripts()) {
+                this.toggleBanner();
+                cookie.set(this.cookieNameStatus, Status.Selected);
+            }
+
+            this.toggleAllServices();
+            this.setDetailDefaults();
+            this.removeNotAllowedCookies();
+            e.preventDefault();
+        });
+
+        this.save?.addEventListener('click', (e) => {
+            this.logger.info('Save selection clicked');
+            this.allowAll = false;
+            this.collectAllowed(Mode.Selected);
+            this.removeScripts();
+
+            if (this.injectJavaScripts()) {
+                this.toggleBanner();
+                cookie.set(this.cookieNameStatus, Status.Selected);
+            }
+
+            this.toggleAllServices();
+            this.removeNotAllowedCookies();
+            e.preventDefault();
+        });
+
+        this.choose?.addEventListener('click', (e) => {
+            e.preventDefault();
+            this.toggleBanner();
+        });
+
+        findAll('a[href="#supi-choose"], button[href="#supi-choose"]').forEach((el) => {
+            el.addEventListener('click', (e) => {
                 e.preventDefault();
                 this.toggleBanner();
             });
-        }
+        });
+    }
 
-        findAll('a, button')
-            .filter((el: SupiElement) => el?.getAttribute('href') == '#supi-choose')
-            .forEach((el: SupiElement) => {
-                this.logger.info('Add choose toggle to %o', el);
+    private addToggleHandlers(): void {
+        // Switch between overview and detail view
+        findAll('[data-toggle=switch]').forEach((el) => {
+            const from = findOne(el.dataset.switchFrom ?? '');
+            const to = findOne(el.dataset.switchTo ?? '');
 
-                el?.addEventListener('click', (e: Event) => {
-                    e.preventDefault();
-                    this.toggleBanner();
-                });
-            });
-
-        // Add click handler for switching between overview and detailview
-        findAll('[data-toggle=switch]')
-            .filter((el: SupiElement) => {
-                return findOne(el?.dataset.switchFrom ?? '') && findOne(el?.dataset.switchTo ?? '');
-            })
-            .forEach((el: SupiElement) => {
-                el?.addEventListener('click', (e: Event) => {
-                    findOne(el?.dataset.switchFrom ?? '')?.classList.add('tx-supi__pane-hidden');
-                    findOne(el?.dataset.switchFrom ?? '')?.setAttribute('hidden', '');
-                    findOne(el?.dataset.switchTo ?? '')?.classList.remove('tx-supi__pane-hidden');
-                    findOne(el?.dataset.switchTo ?? '')?.removeAttribute('hidden');
+            if (from && to) {
+                el.addEventListener('click', (e) => {
+                    from.classList.add('tx-supi__pane-hidden');
+                    from.setAttribute('hidden', '');
+                    to.classList.remove('tx-supi__pane-hidden');
+                    to.removeAttribute('hidden');
 
                     if (el.dataset.inputs === 'disable' && this.allowed.length < 1) {
-                        findAll('input[type=checkbox]').forEach((e: SupiElement) => {
-                            const el = e as HTMLInputElement;
-                            el.checked = el.disabled || !!el.dataset.required;
+                        findAll<HTMLInputElement>('input[type=checkbox]').forEach((cb) => {
+                            cb.checked = cb.disabled || !!cb.dataset.required;
                         });
                     }
-
                     e.preventDefault();
                 });
-            });
+            }
+        });
 
-        // Checkbox groups toggling
-        findAll('input[data-supi-block]')
-            .filter((el: SupiElement) => !(el as HTMLInputElement).disabled)
-            .forEach((el: SupiElement) => {
-                el?.addEventListener('click', (e: Event) => {
-                    if (el?.dataset.supiParent) {
-                        findAll('[data-supi-block=' + el.dataset.supiBlock + ']').forEach(function (
-                            child: SupiElement,
-                        ) {
-                            if (!child?.dataset.supiParent) {
-                                (child as HTMLInputElement).checked = (el as HTMLInputElement).checked;
-                            }
-                        });
-                    } else {
-                        const parent: HTMLInputElement = <HTMLInputElement>(
-                            findOne('[data-supi-parent=' + el.dataset.supiBlock + ']')
-                        );
-                        const children = findAll('[data-supi-block=' + el.dataset.supiBlock + ']').filter(function (
-                            el: SupiElement,
-                        ) {
-                            return !!el?.dataset.supiItem;
-                        }) as Array<HTMLInputElement>;
+        // Checkbox group logic
+        findAll<HTMLInputElement>('input[data-supi-block]').forEach((el) => {
+            if (el.disabled) return;
 
-                        if (parent && children.length) {
-                            parent.checked = children.reduce(function (prev: boolean, el: HTMLInputElement) {
-                                return prev && el.checked;
-                            }, true);
+            el.addEventListener('click', (e) => {
+                const blockId = el.dataset.supiBlock;
+                if (el.dataset.supiParent) {
+                    findAll<HTMLInputElement>(`[data-supi-block="${blockId}"]`).forEach((child) => {
+                        if (!child.dataset.supiParent) {
+                            child.checked = el.checked;
                         }
+                    });
+                } else {
+                    const parent = findOne(`[data-supi-parent="${blockId}"]`) as HTMLInputElement;
+                    const children = findAll<HTMLInputElement>(`[data-supi-block="${blockId}"]`).filter(
+                        (c) => !!c.dataset.supiItem,
+                    );
+
+                    if (parent && children.length) {
+                        parent.checked = children.every((c) => c.checked);
                     }
-
-                    e.stopPropagation();
-                });
+                }
+                e.stopPropagation();
             });
+        });
+    }
 
-        // Enabling youtube videos on click
-        findAll('.tx-supi__youtube').forEach((el: SupiElement) => {
-            this.logger.info('Add listener to child of %o', el);
-
-            el?.querySelector('[data-toggle=youtube]')?.addEventListener('click', () => {
-                this.logger.info('Enabling all youtube elements');
+    private addExternalServiceHandlers(): void {
+        // YouTube
+        findAll('.tx-supi__youtube').forEach((el) => {
+            el.querySelector('[data-toggle=youtube]')?.addEventListener('click', () => {
                 cookie.set(this.cookieNameYoutube, 'y');
                 this.toggleYoutubeVideos(el);
             });
 
-            el?.querySelector('[data-toggle=youtube-once]')?.addEventListener('click', () => {
-                this.logger.info('Enabling one youtube element: %o', el);
+            el.querySelector('[data-toggle=youtube-once]')?.addEventListener('click', () => {
                 this.toggleYoutubeVideos(el, true);
             });
         });
 
-        // Enabling maps on click
-        findAll('.tx_supi__map').forEach((wrapper: SupiElement) => {
-            const toggle = wrapper?.querySelector('[data-toggle=map]') as SupiElement;
-            this.logger.info('Add listener to toggle %o for map %o', toggle, wrapper);
-            toggle?.addEventListener('click', () => {
+        // Google Maps
+        findAll('.tx_supi__map').forEach((wrapper) => {
+            wrapper.querySelector('[data-toggle=map]')?.addEventListener('click', () => {
                 this.allowMaps = true;
                 cookie.set(this.cookieNameGoogleMaps, 'y');
                 this.enableMaps();
             });
         });
 
-        // Enabling simpleMaps on click
-        findAll('.tx-supi__simpleMaps').forEach((el: SupiElement) => {
-            this.logger.info('Add listener to for simpleMap %o', el);
-
-            el?.querySelector('[data-toggle=simpleMaps]')?.addEventListener('click', () => {
-                this.logger.info('Enabling all simple google maps elements');
+        // Simple Maps
+        findAll('.tx-supi__simpleMaps').forEach((el) => {
+            el.querySelector('[data-toggle=simpleMaps]')?.addEventListener('click', () => {
                 cookie.set(this.cookieNameGoogleMaps, 'y');
                 this.toggleSimpleMaps(el);
             });
 
-            el?.querySelector('[data-toggle=simpleMaps-once]')?.addEventListener('click', () => {
-                this.logger.info('Enabling onr simple google maps elements');
+            el.querySelector('[data-toggle=simpleMaps-once]')?.addEventListener('click', () => {
                 this.toggleSimpleMaps(el, true);
             });
         });
 
-        // Enable services
-        findAll('[data-supi-service-container]').forEach((el: SupiElement) => {
-            let serviceName = el?.dataset.supiServiceContainer || '';
-
+        // Custom Service Containers
+        findAll('[data-supi-service-container]').forEach((el) => {
+            const serviceName = el.dataset.supiServiceContainer;
             if (serviceName) {
-                el?.querySelector('[data-toggle=supiServiceContainer]')?.addEventListener('click', () => {
-                    this.logger.info('Enabling service ' + serviceName);
+                el.querySelector('[data-toggle=supiServiceContainer]')?.addEventListener('click', () => {
                     cookie.set(serviceName, 'y');
                     this.toggleService(serviceName);
                 });
@@ -411,121 +356,88 @@ export class Supi {
         });
     }
 
-    /**
-     * injects the javascripts
-     * always use <script type="application/supi"></script>
-     * to load the correct scripts
-     */
-    injectJavaScripts(): boolean {
-        let elements = findAll('script') as Array<HTMLScriptElement>;
-
-        elements
-            .filter((el) => el.type == 'application/supi')
+    public injectJavaScripts(): boolean {
+        findAll<HTMLScriptElement>('script')
+            .filter((el) => el.type === 'application/supi')
             .filter((el) => {
-                let ok: boolean = this.allowAll || !!el.dataset.supiRequired;
-
-                if (!ok && el.dataset.supiCookies) {
-                    ok = el.dataset.supiCookies.split(',').reduce((prev: boolean, current: string) => {
-                        return prev || this.allowed.indexOf(current) > -1;
-                    }, false);
-                }
-
-                return ok;
+                const cookies = el.dataset.supiCookies?.split(',') ?? [];
+                return this.allowAll || !!el.dataset.supiRequired || cookies.some((c) => this.allowed.includes(c));
             })
             .forEach((template) => {
-                const script = <HTMLScriptElement>document.createElement('script');
+                const script = document.createElement('script');
                 script.className = 'supi-scripts';
-
-                if (template.dataset.type) {
-                    script.type = template.dataset.type;
-                }
-
+                if (template.dataset.type) script.type = template.dataset.type;
                 script.dataset.supiCookies = template.dataset.supiCookies;
                 script.innerHTML = template.innerHTML;
 
-                template.parentNode?.replaceChild(script, template);
-
-                this.trigger('injectScript', script as HTMLElement, null);
+                template.replaceWith(script);
+                this.trigger('injectScript', script, null);
             });
 
         return true;
     }
 
-    /**
-     * simply toggles the banner class
-     */
-    toggleBanner(): void {
+    public toggleBanner(): void {
         if (!this.banner || typeof this.banner.showModal !== 'function') {
-            this.logger.error('Banner element not found or browser does not support dialog element.');
+            this.logger.error('Banner element not found or browser support missing.');
             return;
         }
 
         if (this.banner.open) {
             this.banner.close();
-            this.trigger('bannerHide', this.banner as HTMLElement, null);
+            this.trigger('bannerHide', this.banner, null);
         } else {
             try {
                 this.banner.showModal();
-                this.trigger('bannerShow', this.banner as HTMLElement, null);
+                this.trigger('bannerShow', this.banner, null);
             } catch (e) {
-                this.logger.error('Failed to show banner modal: %o', e);
+                this.logger.error('Failed to show banner: %o', e);
             }
         }
 
+        this.updateTogglesInBanner();
+    }
+
+    private updateTogglesInBanner(): void {
         let allowAllServices = true;
-        let mapsToggle = findOne('[data-supi-service=googleMaps]', this.root);
 
+        const mapsToggle = findOne('[data-supi-service=googleMaps]', this.root) as HTMLInputElement;
         if (mapsToggle) {
-            allowAllServices = this.allowMaps && allowAllServices;
-            (mapsToggle as HTMLInputElement).checked = this.allowMaps;
+            mapsToggle.checked = this.allowMaps;
+            allowAllServices &&= this.allowMaps;
         }
 
-        let youtubeToggle = findOne('[data-supi-service=youtube]', this.root);
-
+        const youtubeToggle = findOne('[data-supi-service=youtube]', this.root) as HTMLInputElement;
         if (youtubeToggle) {
-            allowAllServices = this.allowYoutube && allowAllServices;
-            (youtubeToggle as HTMLInputElement).checked = this.allowYoutube;
+            youtubeToggle.checked = this.allowYoutube;
+            allowAllServices &&= this.allowYoutube;
         }
 
-        findAll('[data-supi-service]', this.root).forEach((el: SupiElement) => {
-            if (
-                !el?.dataset.supiParent &&
-                el?.dataset.supiService != 'youtube' &&
-                el?.dataset.supiService != 'googleMaps'
-            ) {
-                let allowed = this.allowAll || cookie.get(el?.dataset.supiService ?? '') == 'y';
-                (el as HTMLInputElement).checked = allowed;
-                allowAllServices = allowed && allowAllServices;
+        findAll<HTMLInputElement>('[data-supi-service]', this.root).forEach((el) => {
+            if (!el.dataset.supiParent && !['youtube', 'googleMaps'].includes(el.dataset.supiService ?? '')) {
+                const allowed = this.allowAll || cookie.get(el.dataset.supiService ?? '') === 'y';
+                el.checked = allowed;
+                allowAllServices &&= allowed;
             }
         });
 
-        let mediaToggle = findOne('[data-supi-parent=media]', this.root);
-
+        const mediaToggle = findOne('[data-supi-parent=media]', this.root) as HTMLInputElement;
         if (mediaToggle) {
-            (mediaToggle as HTMLInputElement).checked = allowAllServices;
+            mediaToggle.checked = allowAllServices;
         }
     }
 
-    /**
-     * removes all script tags added by supi
-     * and removes all cookies we have access to and which are not
-     * whitelisted by the config
-     */
-    removeScripts(): boolean {
-        let elements: Array<HTMLScriptElement> = findAll('.supi-scripts') as Array<HTMLScriptElement>;
-
-        elements.forEach((script) => {
-            let template = <HTMLScriptElement>document.createElement('script');
+    public removeScripts(): boolean {
+        findAll<HTMLScriptElement>('.supi-scripts').forEach((script) => {
+            const template = document.createElement('script');
             template.type = 'application/supi';
             template.dataset.supiCookies = script.dataset.supiCookies;
-
             if (script.hasAttribute('type')) {
                 template.dataset.type = script.getAttribute('type') ?? '';
             }
-
             template.innerHTML = script.innerHTML;
 
-            script.parentNode?.replaceChild(template, script);
+            script.replaceWith(template);
         });
 
         return true;
@@ -538,55 +450,36 @@ export class Supi {
         switch (mode) {
             case Mode.All:
                 this.trigger('allowAll', document.body, null);
-                Object.keys(this.config.elements).forEach((k: string) => {
-                    this.config.elements[k]?.names?.split(',').forEach((name: string) => {
-                        name = (name + '').trim();
-
-                        if (name !== '' && this.allowed.indexOf(name) === -1) {
-                            this.allowed.push(name);
-                        }
+                for (const element of Object.values(this.config.elements)) {
+                    element.names?.split(',').forEach((name) => {
+                        const trimmed = name.trim();
+                        if (trimmed && !this.allowed.includes(trimmed)) this.allowed.push(trimmed);
                     });
-                });
+                }
                 break;
 
             case Mode.Essential:
                 this.trigger('allowEssential', document.body, null);
-                cookie.set(this.cookieNameGoogleMaps, 'n');
-                this.allowMaps = false;
-                cookie.set(this.cookieNameYoutube, 'n');
-                this.allowYoutube = false;
-                this.services.forEach((serviceName: string) => cookie.set(serviceName, 'n'));
-
-                Object.keys(this.config.elements || {})
-                    .filter((k: string) => !!this.config?.elements[k]?.required)
-                    .forEach((k: string) => {
-                        this.config.elements[k]?.names?.split(',').forEach((name: string) => {
-                            name = (name + '').trim();
-
-                            if (name !== '' && this.allowed.indexOf(name) === -1) {
-                                this.allowed.push(name);
-                            }
+                this.setExternalConsent(false);
+                for (const element of Object.values(this.config.elements || {})) {
+                    if (element.required) {
+                        element.names?.split(',').forEach((name) => {
+                            const trimmed = name.trim();
+                            if (trimmed && !this.allowed.includes(trimmed)) this.allowed.push(trimmed);
                         });
-                    });
+                    }
+                }
                 break;
 
             case Mode.Selected:
                 this.trigger('allowSelected', document.body, null);
-                cookie.set(this.cookieNameGoogleMaps, 'n');
-                this.allowMaps = false;
-                cookie.set(this.cookieNameYoutube, 'n');
-                this.allowYoutube = false;
-
-                this.services.forEach((serviceName: string) => cookie.set(serviceName, 'n'));
-
-                findAll('input[type=checkbox]', this.root)
-                    .filter(
-                        (el: SupiElement) =>
-                            (el as HTMLInputElement).checked || (parseInt(el?.dataset.supiRequired ?? '0') || 0) > 0,
-                    )
-                    .forEach((el: SupiElement) => {
-                        if (el != null && el.dataset.supiService) {
-                            switch (el.dataset.supiService) {
+                this.setExternalConsent(false);
+                findAll<HTMLInputElement>('input[type=checkbox]', this.root)
+                    .filter((el) => el.checked || !!parseInt(el.dataset.supiRequired ?? '0'))
+                    .forEach((el) => {
+                        const serviceName = el.dataset.supiService;
+                        if (serviceName) {
+                            switch (serviceName) {
                                 case 'googleMaps':
                                     cookie.set(this.cookieNameGoogleMaps, 'y');
                                     this.allowMaps = true;
@@ -598,93 +491,65 @@ export class Supi {
                                     this.enableYoutubeVideos();
                                     break;
                                 default:
-                                    cookie.set(el.dataset.supiService, 'y');
+                                    cookie.set(serviceName, 'y');
                                     this.toggleAllServices();
                             }
                         } else {
-                            (el as HTMLInputElement).value
-                                .split(',')
-                                .map((e: string) => e.trim())
-                                .forEach((el: string) => {
-                                    if (el !== '' && this.allowed.indexOf(el) === -1) {
-                                        this.allowed.push(el);
-                                    }
-                                });
+                            el.value.split(',').forEach((val) => {
+                                const trimmed = val.trim();
+                                if (trimmed && !this.allowed.includes(trimmed)) this.allowed.push(trimmed);
+                            });
                         }
                     });
                 break;
         }
 
         cookie.set(this.cookieNameAllowed, this.allowed);
-
         return this.allowed.sort().join() === old;
     }
 
-    private removeNotAllowedCookies(): void {
-        // Remove previously set cookies
-        this.logger.info(
-            'Comparing currently set cookies %o with allowed %o, allow all is %o',
-            cookie.getCookieNames(),
-            this.allowed,
-            this.allowAll,
-        );
+    private setExternalConsent(allowed: boolean): void {
+        const val = allowed ? 'y' : 'n';
+        cookie.set(this.cookieNameGoogleMaps, val);
+        cookie.set(this.cookieNameYoutube, val);
+        this.allowMaps = allowed;
+        this.allowYoutube = allowed;
+        this.services.forEach((s) => cookie.set(s, val));
+    }
 
-        cookie.getCookieNames().forEach((cookieName: string) => {
-            if (!this.allowAll && this.allowed.indexOf(cookieName) === -1) {
-                this.logger.info('Removing cookie ' + cookieName);
-                cookie.purgeCookie(cookieName);
-                this.trigger('cookieDeleted', document.body, {
-                    name: cookieName,
-                });
+    private removeNotAllowedCookies(): void {
+        this.logger.info('Purging not allowed cookies. Allowed: %o', this.allowed);
+        cookie.getCookieNames().forEach((name) => {
+            if (!this.allowAll && !this.allowed.includes(name)) {
+                this.logger.info('Removing cookie: %s', name);
+                cookie.purgeCookie(name);
+                this.trigger('cookieDeleted', document.body, { name });
             }
         });
-
         cookie.set(this.cookieNameAllowed, this.allowed);
     }
 
     private setDetailDefaults(): void {
-        findAll('input[data-supi-parent]').forEach((p: SupiElement): void => {
-            const parent = p as HTMLInputElement;
-            const singleItems = findAll('input[data-supi-block=' + parent.dataset.supiParent + '][data-supi-item]');
+        findAll<HTMLInputElement>('input[data-supi-parent]').forEach((parent) => {
+            const blockId = parent.dataset.supiParent;
+            const items = findAll<HTMLInputElement>(`input[data-supi-block="${blockId}"][data-supi-item]`);
 
-            if (singleItems.length) {
-                parent.checked = true;
-                singleItems.forEach((e: SupiElement) => {
-                    const el = e as HTMLInputElement;
-                    el.checked =
-                        el.disabled ||
+            if (items.length) {
+                items.forEach((item) => {
+                    item.checked =
+                        item.disabled ||
                         this.allowAll ||
-                        el.value.split(',').reduce((prev: boolean, val: string): boolean => {
-                            return prev && this.allowed.indexOf(val) > -1;
-                        }, true);
+                        item.value.split(',').every((val) => this.allowed.includes(val.trim()));
                 });
-
-                singleItems.forEach((e: SupiElement) => {
-                    if (!(e as HTMLInputElement).checked) {
-                        parent.checked = false;
-                    }
-                });
-                this.logger.info('Set parent %o to %o', parent, parent.checked);
+                parent.checked = items.every((item) => item.checked);
             } else {
-                this.logger.info('Check if all of parent values %s', parent.value, this.allowed);
                 parent.checked =
                     parent.disabled ||
                     this.allowAll ||
-                    parent.value.split(',').reduce((prev: boolean, val: string) => {
-                        this.logger.info('Checking value %s with prev of %o', val, prev);
-
-                        if (prev) {
-                            val = val.replace(/\s+/g, '');
-                            this.logger.info('Prev still true, checking if value %s is in %o', val, this.allowed);
-
-                            if (val !== '' && this.allowed.indexOf(val) === -1) {
-                                this.logger.info('Value %s is not in %o, setting to false', val, this.allowed);
-                                prev = false;
-                            }
-                        }
-
-                        return prev;
-                    }, true);
+                    parent.value.split(',').every((val) => {
+                        const trimmed = val.trim();
+                        return !trimmed || this.allowed.includes(trimmed);
+                    });
             }
         });
     }
@@ -692,97 +557,70 @@ export class Supi {
     private enableYoutubeVideos(): void {
         if (this.allowYoutube) {
             this.trigger('youTubeAllowedGlobal', document.documentElement, {});
-            this.logger.info('Enabling all videos, non autostart');
-            findAll('.tx-supi__youtube').forEach((el: SupiElement) => {
-                this.logger.info('Enabling %o', el);
-                this.addVideo(el as HTMLElement, '');
-            });
+            findAll('.tx-supi__youtube').forEach((el) => this.addVideo(el, ''));
         }
     }
 
-    private toggleYoutubeVideos(autoplayEl: SupiElement, once: boolean = false): void {
-        this.logger.info('Enabling youtube');
+    private toggleYoutubeVideos(autoplayEl: HTMLElement, once = false): void {
         this.allowYoutube = true;
-        this.logger.info('Start video for %o', autoplayEl);
-        this.addVideo(autoplayEl as HTMLElement, '&autoplay=1&mute=1');
+        this.addVideo(autoplayEl, '&autoplay=1&mute=1');
 
         if (!once) {
             cookie.set(this.cookieNameYoutube, 'y');
-            this.logger.info('Enabling other videos');
             this.enableYoutubeVideos();
         } else {
             this.allowYoutube = false;
         }
     }
 
-    private addVideo(el: HTMLElement, additionalParams: string): void {
-        if (!this.allowYoutube) {
-            this.logger.info('Youtube not enabled');
-            return;
-        }
+    private addVideo(el: HTMLElement, params: string): void {
+        if (!this.allowYoutube) return;
 
         const size = el.querySelector('.tx-supi__youtube-preview-image')?.getBoundingClientRect();
         const youtubeId = el.dataset.youtubeId;
-        const youtubeUrl =
-            'https://www.youtube-nocookie.com/embed/' + youtubeId + '?rel=0&modestbranding=1' + additionalParams;
-        const iframe: HTMLIFrameElement = document.createElement('iframe');
-        iframe.src = youtubeUrl;
+        const iframe = document.createElement('iframe');
+
+        iframe.src = `https://www.youtube-nocookie.com/embed/${youtubeId}?rel=0&modestbranding=1${params}`;
         iframe.frameBorder = '0';
         iframe.style.border = '0';
-        iframe.width = size?.width + '';
-        iframe.height = size?.height + '';
+        if (size) {
+            iframe.width = `${size.width}`;
+            iframe.height = `${size.height}`;
+        }
         iframe.setAttribute('autoplay', 'true');
         iframe.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
-        el.parentNode?.replaceChild(iframe, el);
 
-        // add custom event to react to (e.g. to handle classnames)
-        this.trigger('youTubeAllowed', iframe, {
-            iframe: iframe,
-            datset: el.dataset,
-        });
+        el.replaceWith(iframe);
+        this.trigger('youTubeAllowed', iframe, { iframe, dataset: el.dataset });
     }
 
-    private enableMaps() {
+    private enableMaps(): void {
+        if (!this.allowMaps) return;
+
+        findAll('.tx_supi__map').forEach((wrapper) => {
+            const toggle = wrapper.querySelector('[data-toggle=map]') as HTMLElement;
+            if (toggle?.dataset.callback) {
+                wrapper.classList.add('active');
+                // @ts-ignore
+                window[toggle.dataset.callback]();
+                this.trigger('customMapAllowed', wrapper, { wrapper, callback: toggle.dataset.callback });
+            }
+        });
+        this.enableSimpleMaps();
+    }
+
+    private enableSimpleMaps(): void {
         if (this.allowMaps) {
-            findAll('.tx_supi__map').forEach((w: SupiElement) => {
-                const wrapper = w as HTMLElement;
-                const toggle: HTMLElement = wrapper?.querySelector('[data-toggle=map]') as HTMLElement;
-
-                if (toggle != null) {
-                    const cbName = toggle.dataset.callback;
-                    wrapper.classList.add('active');
-                    // @ts-ignore
-                    window[cbName]();
-
-                    this.trigger('customMapAllowed', wrapper, {
-                        wrapper: wrapper,
-                        callback: cbName,
-                    });
-                }
-            });
-
-            this.enableSimpleMaps();
+            findAll('.tx-supi__simpleMaps').forEach((el) => this.addSimpleMap(el));
         }
     }
 
-    // simple iframe maps implementation
-    private enableSimpleMaps() {
-        this.logger.info('Enabling all simple maps implementations');
-        findAll('.tx-supi__simpleMaps').forEach((e: SupiElement) => {
-            const el = e as HTMLElement;
-            this.logger.info('Enabling %o', el);
-            this.addSimpleMap(el);
-        });
-    }
-
-    private toggleSimpleMaps(el: SupiElement, once: boolean = false): void {
-        this.logger.info('Enabling Simple Maps');
+    private toggleSimpleMaps(el: HTMLElement, once = false): void {
         this.allowMaps = true;
-        this.addSimpleMap(el as HTMLElement);
+        this.addSimpleMap(el);
 
         if (!once) {
             cookie.set(this.cookieNameGoogleMaps, 'y');
-            this.logger.info('Enabling all maps');
             this.enableSimpleMaps();
         } else {
             this.allowMaps = false;
@@ -790,142 +628,109 @@ export class Supi {
     }
 
     private addSimpleMap(el: HTMLElement): void {
-        if (!this.allowMaps) {
-            this.logger.info('Google Maps not enabled');
-            return;
-        }
+        if (!this.allowMaps) return;
 
-        const address = el.dataset.mapAddress;
-        const zoom = el.dataset?.mapZoom ? el.dataset?.mapZoom : 15;
-        const simpleMapsUrl =
-            'https://maps.google.com/maps?q=' + address + '&t=&z=' + zoom + '&ie=UTF8&iwloc=&output=embed';
-        const iframe: HTMLIFrameElement = document.createElement('iframe');
-        iframe.src = simpleMapsUrl;
+        const { mapAddress: address, mapZoom: zoom = '15' } = el.dataset;
+        const iframe = document.createElement('iframe');
+
+        iframe.src = `https://maps.google.com/maps?q=${address}&t=&z=${zoom}&ie=UTF8&iwloc=&output=embed`;
         iframe.frameBorder = '0';
         iframe.style.border = '0';
         iframe.width = '800';
         iframe.height = '600';
-        el.parentNode?.replaceChild(iframe, el);
 
-        // add custom event to react to (e.g. to handle classnames)
-        this.trigger('simpleMapAllowed', iframe, {
-            iframe: iframe,
-            data: el.dataset,
+        el.replaceWith(iframe);
+        this.trigger('simpleMapAllowed', iframe, { iframe, data: el.dataset });
+    }
+
+    private toggleService(name: string): void {
+        if (cookie.get(name) !== 'y' && !this.allowAll) return;
+
+        findAll(`[data-supi-service-container="${name}"]`).forEach((el) => {
+            const parent = el.parentElement as HTMLElement;
+            if (el.dataset.supiServiceType === 'callback') {
+                const func = el.dataset.supiServiceCallback;
+                if (!func) return;
+                setTimeout(() => {
+                    try {
+                        // @ts-ignore
+                        window[func](el);
+                        this.trigger('serviceCallback', parent, { service: name });
+                    } catch (e) {
+                        this.logger.error('Callback error: %o', e);
+                    }
+                }, 10);
+                return;
+            }
+
+            let newEl: HTMLElement;
+            switch (el.dataset.supiServiceType) {
+                case 'script':
+                    newEl = document.createElement('script');
+                    (newEl as HTMLScriptElement).async = true;
+                    (newEl as HTMLScriptElement).defer = true;
+                    break;
+                case 'img':
+                    newEl = document.createElement('img');
+                    (newEl as HTMLImageElement).alt = '';
+                    break;
+                default:
+                    newEl = document.createElement('iframe');
+                    (newEl as HTMLIFrameElement).frameBorder = '0';
+                    (newEl as HTMLIFrameElement).referrerPolicy = 'no-referrer';
+            }
+
+            if (el.dataset.supiServiceAttr) {
+                try {
+                    Object.entries(JSON.parse(el.dataset.supiServiceAttr)).forEach(([k, v]) => {
+                        newEl.setAttribute(k, String(v));
+                    });
+                } catch (e) {
+                    this.logger.error('Attr parse error: %o', e);
+                }
+            }
+
+            el.replaceWith(newEl);
+            this.trigger('serviceEmbeded', parent, { newEl, service: name });
         });
     }
 
-    private toggleService(serviceName: string): void {
-        if (cookie.get(serviceName) == 'y' || this.allowAll) {
-            this.logger.info('Enabling service %o', serviceName);
+    private toggleAllServices(): void {
+        this.services.forEach((s) => this.toggleService(s));
+    }
 
-            findAll('[data-supi-service-container=' + serviceName + ']').forEach((e: SupiElement): void => {
-                const el = e as HTMLElement;
-                const parent = el.parentNode;
-                let newEl: HTMLElement;
-                const attr = el.dataset.supiServiceAttr;
+    private updateCookieTTL(): void {
+        cookie.setLifetime(this.allowAll ? this.ttlAll : this.ttlReduced);
+    }
 
-                if (el.dataset.supiServiceType === 'callback') {
-                    this.logger.info('Executing service %s callback %s', serviceName, el.dataset.supiServiceCallback);
-                    setTimeout(() => {
-                        try {
-                            const func = el.dataset.supiServiceCallback;
-                            // @ts-ignore
-                            window[func](el);
-                            this.trigger('serviceCallback', parent as HTMLElement, {
-                                newEl: newEl,
-                                service: serviceName,
-                            });
-                        } catch (e) {
-                            this.logger.info('Cannot call service callback %s: %s', el.dataset.supiServiceCallback, e);
-                            this.trigger('serviceCallbackError', parent as HTMLElement, {
-                                newEl: newEl,
-                                service: serviceName,
-                                func: el.dataset.supiServiceCallback,
-                                error: e,
-                            });
-                        }
-                    }, 10);
-
-                    return;
-                }
-
-                this.logger.info('Enable element %o of service %o', el, serviceName);
-
-                switch (el.dataset.supiServiceType) {
-                    case 'script':
-                        newEl = document.createElement('script');
-                        (newEl as HTMLScriptElement).async = true;
-                        (newEl as HTMLScriptElement).defer = true;
-                        break;
-
-                    case 'img':
-                        newEl = document.createElement('img');
-                        (newEl as HTMLImageElement).alt = '';
-                        (newEl as HTMLImageElement).border = '0';
-                        break;
-
-                    default:
-                        newEl = document.createElement('iframe');
-                        (newEl as HTMLIFrameElement).frameBorder = '0';
-                        (newEl as HTMLIFrameElement).referrerPolicy = 'no-referrer';
-                        newEl.style.border = '0';
-                }
-
-                if (attr) {
-                    try {
-                        for (const [name, value] of Object.entries(JSON.parse(attr))) {
-                            newEl.setAttribute(name, value + '');
-                            this.logger.info('Setting property %s to %s', name, value);
-                        }
-                    } catch (e) {
-                        this.logger.error(e);
-                    }
-                }
-
-                this.logger.info('Replacing %o with %o', el, newEl);
-
-                parent?.replaceChild(newEl, el);
-
-                this.trigger('serviceEmbeded', parent as HTMLElement, {
-                    newEl: newEl,
-                    service: serviceName,
-                });
+    private preventClosingDialogOnEscape(): void {
+        if (this.banner) {
+            this.banner.addEventListener('cancel', (e) => e.preventDefault());
+            this.banner.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') e.preventDefault();
             });
         }
     }
 
-    private trigger(name: string, el: HTMLElement, detail: Object | null): void {
-        this.logger.info('Trigger event %s on element %o', name, el);
-        let event = new CustomEvent(name, {
-            bubbles: true,
-            cancelable: true,
-            detail: this.addDetailsForEvents(detail),
-        });
-        el.dispatchEvent(event);
+    private trigger(name: string, el: HTMLElement, detail: Record<string, unknown> | null): void {
+        el.dispatchEvent(
+            new CustomEvent(name, {
+                bubbles: true,
+                cancelable: true,
+                detail: this.addDetailsForEvents(detail),
+            }),
+        );
     }
 
-    private addDetailsForEvents(detail: Object | null): Object {
-        if (!detail) {
-            detail = {};
-        }
-
-        findAll('[data-supi-service-container]').forEach((e: SupiElement): void => {
-            const serviceName = e?.dataset.supiServiceContainer || null;
-            const cookieValue = cookie.get(serviceName || '') || null;
-
-            if (serviceName && cookieValue) {
-                // @ts-ignore
-                detail[serviceName] = this.allowAll ? 'y' : cookieValue;
+    private addDetailsForEvents(detail: Record<string, unknown> | null): Record<string, unknown> {
+        const result = { ...(detail ?? {}) };
+        findAll('[data-supi-service-container]').forEach((e) => {
+            const serviceName = e.dataset.supiServiceContainer;
+            if (serviceName) {
+                const val = cookie.get(serviceName);
+                if (val) result[serviceName] = this.allowAll ? 'y' : val;
             }
-
-            // @ts-ignore
-            detail['allowAll'] = this.allowAll;
-            // @ts-ignore
-            detail['allowMaps'] = this.allowMaps;
-            // @ts-ignore
-            detail['allowYoutube'] = this.allowYoutube;
         });
-
-        return detail;
+        return { ...result, allowAll: this.allowAll, allowMaps: this.allowMaps, allowYoutube: this.allowYoutube };
     }
 }
