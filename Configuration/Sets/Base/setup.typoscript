@@ -181,14 +181,10 @@ page {
     includeJS.supi {
         async = 1
         defer = 1
-        disableCompression = 1
-        excludeFromConcatenation = 1
     }
 
     includeCSS.supi = EXT:supi/Resources/Public/Css/Supi.css
     includeCSS.supi {
-        disableCompression = 1
-        excludeFromConcatenation = 1
         media = screen
     }
 }

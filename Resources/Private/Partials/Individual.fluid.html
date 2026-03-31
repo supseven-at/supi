@@ -18,15 +18,15 @@
                 <f:for each="{element.items}" as="item" key="itemName">
                     <details id="supiDetails[{itemName}]">
                         <summary class="tx-supi__summary">
-                                <span>
-                                    <svg viewBox="0 0 14 14" aria-hidden="true">
-                                        <path
-                                            d="M6.99954 10.3903C6.74767 10.3903 6.49569 10.2941 6.30374 10.1019L1.38213 5.18027C0.997625 4.79577 0.997625 4.17288 1.38213 3.78838C1.76663 3.40387 2.38952 3.40387 2.77402 3.78838L6.99954 8.01558L11.226 3.78914C11.6105 3.40464 12.2334 3.40464 12.6179 3.78914C13.0024 4.17365 13.0024 4.79654 12.6179 5.18104L7.69625 10.1027C7.504 10.2949 7.25177 10.3903 6.99954 10.3903Z"
-                                            fill="currentColor"/>
-                                    </svg>
-                                    {f:translate(key:'{item.label}', default: '{item.label}', extensionName: 'Supi') -> f:format.raw()}
-                                </span>
-                            <f:alias map="{perItemSelect: 1}">
+                            <span>
+                                <svg viewBox="0 0 14 14" aria-hidden="true">
+                                    <path
+                                        d="M6.99954 10.3903C6.74767 10.3903 6.49569 10.2941 6.30374 10.1019L1.38213 5.18027C0.997625 4.79577 0.997625 4.17288 1.38213 3.78838C1.76663 3.40387 2.38952 3.40387 2.77402 3.78838L6.99954 8.01558L11.226 3.78914C11.6105 3.40464 12.2334 3.40464 12.6179 3.78914C13.0024 4.17365 13.0024 4.79654 12.6179 5.18104L7.69625 10.1027C7.504 10.2949 7.25177 10.3903 6.99954 10.3903Z"
+                                        fill="currentColor"/>
+                                </svg>
+                                {f:translate(key:'{item.label}', default: '{item.label}', extensionName: 'Supi') -> f:format.raw()}
+                            </span>
+                            <f:alias map="{perItemSelect: 1, htmlElement: 'span'}">
                                 <f:render partial="Form/Checkbox" arguments="{_all}"/>
                             </f:alias>
                         </summary>

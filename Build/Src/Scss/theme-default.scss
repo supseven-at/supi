@@ -84,7 +84,7 @@
         display: none;
       }
 
-      span {
+      span:not(.supi-checkbox) {
         display: flex;
         align-items: center;
         gap: calc(var(--supi-grid-gutter-width) * 0.25);
@@ -332,7 +332,7 @@
 // Youtube & Maps - auslagern und komplett neu bauen bzw von bestehendem projekt nehmen
 .tx-supi__button {
   & > div {
-    width: var(--supi-button-width, #{percentage(math.div(6,12))});
+    width: var(--supi-button-width, #{math.percentage(math.div(6, 12))});
     margin-inline: auto;
     padding: var(--supi-button-padding, var(--supi-spacer-hg));
     background: oklch(from var(--supi-color-secondary) l c h / 0.2);
