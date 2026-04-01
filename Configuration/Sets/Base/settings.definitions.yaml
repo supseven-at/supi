@@ -10,3 +10,10 @@ settings:
     category: supi
     default: 1
 
+  supseven.supi.google_consent_mode_v2:
+    label: 'Enable Google Consent Mode v2'
+    description: 'Enables default consent flags for Google services'
+    type: bool
+    category: supi
+    default: 1
+

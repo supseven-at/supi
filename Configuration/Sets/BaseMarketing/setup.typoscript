@@ -7,3 +7,26 @@ plugin.tx_supi.settings.elements {
         names =
     }
 }
+
+page.headerData.31336 = SUPI_JS
+page.headerData.31336 {
+    as-consent-mode = 1
+    content = COA
+    content {
+        10 = TEXT
+        10 {
+            if.isTrue = {$supseven.supi.google_consent_mode_v2}
+            value (
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('consent', 'default', {
+  'ad_storage': 'denied',
+  'ad_user_data': 'denied',
+  'ad_personalization': 'denied',
+  'analytics_storage': 'denied',
+  'wait_for_update': 500
+});
+            )
+        }
+    }
+}
