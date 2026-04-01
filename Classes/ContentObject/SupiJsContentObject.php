@@ -38,8 +38,13 @@ class SupiJsContentObject extends AbstractContentObject
         $this->supiPolicyExtender->addInlineScript($jsSource);
 
         $type = !empty($conf['type']) ? ' data-type="module"' : '';
+        $asConsentMode = !empty($conf['as-consent-mode']) || !empty($conf['as-consent-mode.']);
 
-        $script = '<script type="application/supi"' . $type;
+        if ($asConsentMode) {
+            $script = '<script' . $type;
+        } else {
+            $script = '<script type="application/supi"' . $type;
+        }
 
         foreach (['cookies', 'service'] as $attr) {
             $value = $this->cObj->stdWrapValue($attr, $conf);

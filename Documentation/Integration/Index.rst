@@ -58,3 +58,50 @@ If you want to integrate the styles and scripts into your own build pipeline,
 you can find the source files in the ``Build/`` directory of the extension.
 To disable the automatic inclusion of default assets, you can adjust the
 TypoScript settings or your Site configuration.
+
+Google Consent Mode v2
+======================
+
+EXT:supi supports Google Consent Mode v2 (GCM v2) to synchronize the user's
+consent with Google services like Google Tag Manager and Google Analytics.
+
+Activation
+----------
+
+GCM v2 is enabled by default. You can control this via the **Site Configuration**
+module:
+
+..  code-block:: yaml
+
+    settings:
+      supseven:
+        supi:
+          google_consent_mode_v2: true
+
+Default Behavior
+----------------
+
+When enabled, a default consent state is set before any Google scripts are
+loaded. By default, all flags (``ad_storage``, ``ad_user_data``,
+``ad_personalization``, ``analytics_storage``) are set to ``denied``.
+
+This initialization script is injected into ``page.headerData`` using the
+``SUPI_JS`` content object with the ``as-consent-mode = 1`` option. This
+ensures that the script runs immediately and its hash is registered for the
+**Content Security Policy (CSP)**.
+
+Consent Synchronization
+-----------------------
+
+Once the user interacts with the banner (Allow All, Dismiss, or Save), the
+GCM v2 state is updated automatically via ``gtag('consent', 'update', ...)``.
+
+-   If the **Marketing** category is allowed, all GCM v2 flags are set to ``granted``.
+-   If **Analytics** or **Statistics** categories are allowed, the ``analytics_storage`` flag is set to ``granted``.
+
+Implementation Detail
+---------------------
+
+For developers creating custom Google integrations: Use the ``SUPI_JS`` content
+object with ``as-consent-mode = 1`` to inject scripts that should run
+immediately (like the GCM default state) while still being compatible with CSP.

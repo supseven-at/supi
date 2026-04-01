@@ -185,6 +185,46 @@ export class Supi {
         }
 
         this.initExternalServicesStatus(status);
+        this.updateGoogleConsentMode();
+    }
+
+    /**
+     * Updates Google Consent Mode v2 flags based on the current consent state.
+     * Maps the 'marketing' category to Google's consent flags.
+     */
+    private updateGoogleConsentMode(): void {
+        // @ts-ignore
+        if (typeof window.gtag !== 'function') {
+            return;
+        }
+
+        const isMarketingAllowed = this.allowAll || this.isCategoryAllowed('marketing');
+        const isAnalyticsAllowed =
+            isMarketingAllowed || this.isCategoryAllowed('analytics') || this.isCategoryAllowed('statistics');
+
+        const consent = {
+            ad_storage: isMarketingAllowed ? 'granted' : 'denied',
+            ad_user_data: isMarketingAllowed ? 'granted' : 'denied',
+            ad_personalization: isMarketingAllowed ? 'granted' : 'denied',
+            analytics_storage: isAnalyticsAllowed ? 'granted' : 'denied',
+        };
+
+        this.logger.info('Updating Google Consent Mode: %o', consent);
+        // @ts-ignore
+        window.gtag('consent', 'update', consent);
+    }
+
+    /**
+     * Helper to check if a specific category (e.g. 'marketing') is currently allowed.
+     */
+    private isCategoryAllowed(category: string): boolean {
+        const element = this.config.elements[category];
+        if (!element) {
+            return false;
+        }
+
+        const names = element.names?.split(',') ?? [];
+        return names.every((name) => this.allowed.includes(name.trim()));
     }
 
     /**
@@ -584,6 +624,7 @@ export class Supi {
         }
 
         cookie.set(this.cookieNameAllowed, this.allowed);
+        this.updateGoogleConsentMode();
         return this.allowed.sort().join() === old;
     }
 
