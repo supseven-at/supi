@@ -2,8 +2,8 @@
  * The status indicates how the user interacted with the banner.
  */
 export enum Status {
-    None,     // Initial state, no choice made yet.
-    All,      // User accepted all cookies and services.
+    None, // Initial state, no choice made yet.
+    All, // User accepted all cookies and services.
     Selected, // User made a custom selection of services.
 }
 
@@ -11,9 +11,9 @@ export enum Status {
  * Consent modes for internal logic and event handling.
  */
 export enum Mode {
-    All,       // Everything is allowed.
+    All, // Everything is allowed.
     Essential, // Only technically required services are allowed.
-    Selected,  // Custom selection from the detail view.
+    Selected, // Custom selection from the detail view.
 }
 
 /**
