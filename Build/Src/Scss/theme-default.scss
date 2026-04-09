@@ -39,24 +39,24 @@
       background: var(--supi-backdrop);
     }
 
-    h1,
-    h2,
-    h3 {
+    &__heading {
+      display: var(--supi-heading-display, block);
       margin-block: var(--supi-heading-margin, 0 var(--supi-spacer-hg));
       font-size: var(--supi-heading-font-size);
-    }
+      font-weight: var(--supi-heading-font-weight, 600);
 
-    h1 {
-      --supi-heading-font-size: 2em;
-    }
+      .tx-supi__overview & {
+        --supi-heading-font-size: 2em;
+      }
 
-    h2 {
-      --supi-heading-font-size: 1.5em;
-    }
+      .tx-supi__individual & {
+        --supi-heading-font-size: 1.5em;
+      }
 
-    h3 {
-      --supi-heading-font-size: 1.25em;
-      --supi-heading-margin: 0;
+      .tx-supi__block-header & {
+        --supi-heading-font-size: 1.25em;
+        --supi-heading-margin: 0;
+      }
     }
 
     p {
@@ -110,6 +110,7 @@
       position: sticky;
       bottom: 0;
       background: var(--supi-color-background);
+      padding-block: var(--supi-buttongroup-padding-block, calc(var(--supi-grid-gutter-width) * 0.5));
     }
 
     &__block {

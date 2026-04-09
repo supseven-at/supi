@@ -9,6 +9,14 @@
       padding-inline: var(--supi-spacer-fg) !important;
     }
   }
+  &-pt {
+    &-hg {
+      padding-block-start: var(--supi-spacer-hg) !important;
+    }
+    &-fg {
+      padding-block-start: var(--supi-spacer-fg) !important;
+    }
+  }
   &-px {
     &-hg {
       padding-inline: var(--supi-spacer-hg) !important;

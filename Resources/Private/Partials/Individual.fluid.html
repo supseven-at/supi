@@ -1,16 +1,16 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       data-namespace-typo3-fluid="true">
 
-<div id="supi__detailview" class="tx-supi__detail" hidden>
+<div id="supi__detailview" class="tx-supi__individual tx-supi__detail" hidden>
     <div class="supi__description">
-        <h2>{f:translate(key: '{settings.detail.headline}')}</h2>
+        <span class="tx-supi__heading">{f:translate(key: '{settings.detail.headline}')}</span>
         <p>{f:translate(key:'{settings.detail.text}')}</p>
     </div>
 
     <f:for each="{settings.elements}" as="element" key="blockName">
         <div class="tx-supi__block">
             <div class="tx-supi__block-header">
-                <h3>{f:translate(key: '{element.label}')}</h3>
+                <span class="tx-supi__heading">{f:translate(key: '{element.label}')}</span>
                 <f:render partial="Form/Checkbox" arguments="{_all}"/>
             </div>
 
